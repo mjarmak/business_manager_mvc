@@ -17,9 +17,9 @@ namespace business_manager_api
             Database.SetInitializer(new DropCreateDatabaseIfModelChanges<DefaultContext>());
         }
 
-        public DbSet<BusinessData> businessData { get; set; }
-        public DbSet<BusinessImage> businessImage { get; set; }
-        public DbSet<UserAccount> userAccount { get; set; }
+        public DbSet<BusinessData> BusinessData { get; set; }
+        public DbSet<BusinessImage> BusinessImage { get; set; }
+        public DbSet<UserAccount> UserAccount { get; set; }
 
     }
 }

@@ -6,13 +6,16 @@ using System.Text.RegularExpressions;
 
 namespace business_manager_api
 {
+    [Table(name: "user_account")]
     public class UserAccount
     {
+        [Index(IsUnique = true)]
+        private long id { get; set; }
+
         public string Name { get; set; }
 
         public string Surname { get; set; }
 
-        [Index(IsUnique=true)]
         public string Email { get; set; }
 
         public string Phone { get; set; }
@@ -34,7 +37,7 @@ namespace business_manager_api
     public class UserAccountValidator : AbstractValidator<UserAccount>
     {
         private readonly Regex regex = new Regex(@"[^A-Za-z0-9@-_]");
-        private readonly string matchError = "Email cannot contain any special characters";
+        private readonly string matchError = "Cannot contain any special characters";
         public UserAccountValidator()
         {
             RuleFor(x => x.Name).Length(0, 50).NotNull().Matches(regex).WithMessage(matchError);

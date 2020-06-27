@@ -30,6 +30,8 @@ namespace business_manager_api
             services.AddControllers();
             services.AddMvc().AddFluentValidation();
             services.AddTransient<IValidator<UserAccount>, UserAccountValidator>();
+            services.AddTransient<IValidator<BusinessData>, BusinessDataValidator>();
+            services.AddTransient<IValidator<BusinessImage>, BusinessImageValidator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

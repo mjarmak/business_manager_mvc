@@ -7,14 +7,14 @@ using System.Text.RegularExpressions;
 namespace business_manager_api
 {
     [Table(name: "business_data")]
-    public class BusinessData
+    public class BusinessDataModel
     {
         [Index(IsUnique = true)]
         public long Id { get; set; }
         public IdentificationData IdentificationData { get; set; }
         public BusinessInfo BusinessInfo { get; set; }
         public string WorkHours { get; set; }
-        public List<BusinessImage> Images { get; set; }
+        public List<BusinessImageModel> Images { get; set; }
 
 
     }
@@ -49,19 +49,4 @@ namespace business_manager_api
 
     }
 
-    public class BusinessDataValidator : AbstractValidator<BusinessData>
-    {
-        private readonly Regex regex = new Regex(@"[^A-Za-z0-9@-_]");
-        private readonly string matchError = "Cannot contain any special characters";
-        public BusinessDataValidator()
-        {
-            //RuleFor(x => x.Name).Length(0, 50).NotNull().Matches(regex).WithMessage(matchError);
-            //RuleFor(x => x.Surname).Length(0, 50).NotNull().Matches(regex).WithMessage(matchError);
-            //RuleFor(x => x.Email).Length(0, 255).NotNull().EmailAddress().Matches(regex).WithMessage(matchError);
-            //RuleFor(x => x.Phone).Length(0, 25);
-            //RuleFor(x => x.Gender).NotNull();
-            //RuleFor(x => x.BirthDate).NotNull();
-            RuleFor(x => x.IdentificationData.Name).NotNull();
-        }
-    }
 }

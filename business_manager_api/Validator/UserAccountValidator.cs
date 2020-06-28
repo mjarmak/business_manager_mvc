@@ -1,40 +1,13 @@
-using FluentValidation;
+﻿using FluentValidation;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
-namespace business_manager_api
+namespace business_manager_api.Validator
 {
-    [Table(name: "user_account")]
-    public class UserAccount
-    {
-        [Index(IsUnique = true)]
-        private long id { get; set; }
-
-        public string Name { get; set; }
-
-        public string Surname { get; set; }
-
-        public string Email { get; set; }
-
-        public string Phone { get; set; }
-
-        public GenderEnum Gender { get; set; }
-
-        public DateTime BirthDate { get; set; }
-
-        public bool Profession { get; set; }
-
-    }
-    public enum GenderEnum
-    {
-        Male,
-        Female,
-        Other
-    }
-
-    public class UserAccountValidator : AbstractValidator<UserAccount>
+    public class UserAccountValidator : AbstractValidator<UserAccountModel>
     {
         private readonly Regex regex = new Regex(@"[^A-Za-z0-9@-_]");
         private readonly string matchError = "Cannot contain any special characters";

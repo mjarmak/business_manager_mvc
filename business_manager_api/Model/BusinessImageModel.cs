@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 namespace business_manager_api
 {
     [Table(name:"business_image")]
-    public class BusinessImage
+    public class BusinessImageModel
     {
         [Index(IsUnique = true)]
         private long Id { get; set; }
@@ -16,7 +16,7 @@ namespace business_manager_api
 
         public string ImageData { get; set; }
     }
-    public class BusinessImageValidator : AbstractValidator<BusinessImage>
+    public class BusinessImageValidator : AbstractValidator<BusinessImageModel>
     {
         private readonly int sizeLimit = 3;
         public BusinessImageValidator()

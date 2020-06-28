@@ -9,8 +9,7 @@ namespace business_manager_api.Validator
         private readonly string matchError = "Cannot contain any special characters";
         public BusinessDataValidator()
         {
-            RuleFor(x => x.IdentificationData.Name)
-                .NotNull().WithMessage("The field ") ;
+            RuleFor(x => x.IdentificationData.Name).NotNull();
         }
     }
 }

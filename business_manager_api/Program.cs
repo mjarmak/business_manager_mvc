@@ -13,10 +13,9 @@ namespace business_manager_api
     {
         public static void Main(string[] args)
         {
-
             CreateHostBuilder(args).Build().Run();
-            using (var dbContext = new DefaultContext())
-            {
+
+            using (var dbContext = new DefaultContext()) {
                 dbContext.Database.Initialize(true);
             }
         }

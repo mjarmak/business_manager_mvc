@@ -1,15 +1,16 @@
 using FluentValidation;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.RegularExpressions;
 
 namespace business_manager_api
 {
-    [Table(name:"business_image")]
+    [Table(name: "BusinessImage")]
     public class BusinessImageModel
     {
-        [Index(IsUnique = true)]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         private long Id { get; set; }
 
         public long BusinessId { get; set; }

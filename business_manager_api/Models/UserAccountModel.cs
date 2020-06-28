@@ -1,21 +1,23 @@
 using FluentValidation;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.RegularExpressions;
 
 namespace business_manager_api
 {
-    [Table(name: "user_account")]
-    public class UserAccount
+    [Table(name: "UserAccount")]
+    public class UserAccountModel
     {
-        [Index(IsUnique = true)]
-        private long id { get; set; }
+        [Key]
+        private long Id { get; set; }
 
         public string Name { get; set; }
 
         public string Surname { get; set; }
 
+        [Index(IsUnique = true)]
         public string Email { get; set; }
 
         public string Phone { get; set; }
@@ -34,7 +36,7 @@ namespace business_manager_api
         Other
     }
 
-    public class UserAccountValidator : AbstractValidator<UserAccount>
+    public class UserAccountValidator : AbstractValidator<UserAccountModel>
     {
         private readonly Regex regex = new Regex(@"[^A-Za-z0-9@-_]");
         private readonly string matchError = "Cannot contain any special characters";

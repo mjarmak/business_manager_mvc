@@ -1,20 +1,21 @@
 using FluentValidation;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.RegularExpressions;
 
 namespace business_manager_api
 {
-    [Table(name: "business_data")]
-    public class BusinessData
+    [Table(name: "BusinessData")]
+    public class BusinessDataModel
     {
-        [Index(IsUnique = true)]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
         public IdentificationData IdentificationData { get; set; }
         public BusinessInfo BusinessInfo { get; set; }
         public string WorkHours { get; set; }
-        public List<BusinessImage> Images { get; set; }
+        public List<BusinessImageModel> Images { get; set; }
 
 
     }
@@ -49,7 +50,7 @@ namespace business_manager_api
 
     }
 
-    public class BusinessDataValidator : AbstractValidator<BusinessData>
+    public class BusinessDataValidator : AbstractValidator<BusinessDataModel>
     {
         private readonly Regex regex = new Regex(@"[^A-Za-z0-9@-_]");
         private readonly string matchError = "Cannot contain any special characters";

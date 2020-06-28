@@ -1,22 +1,23 @@
 using FluentValidation;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.RegularExpressions;
 
 namespace business_manager_api
 {
-    [Table(name:"business_image")]
-    public class BusinessImage
+    [Table(name: "BusinessImage")]
+    public class BusinessImageModel
     {
-        [Index(IsUnique = true)]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         private long Id { get; set; }
 
         public long BusinessId { get; set; }
 
         public string ImageData { get; set; }
     }
-    public class BusinessImageValidator : AbstractValidator<BusinessImage>
+    public class BusinessImageValidator : AbstractValidator<BusinessImageModel>
     {
         private readonly int sizeLimit = 3;
         public BusinessImageValidator()

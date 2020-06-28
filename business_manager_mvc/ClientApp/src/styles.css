@@ -14,3 +14,23 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+.section-small {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.card-input {
+  margin-top: 1rem;
+  padding: 1rem;
+  outline: solid thin;
+  outline-color: lightgrey;
+  border-radius: 2rem;
+  display: grid;
+}
+.card-input > label {
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+.card-input > input {
+}
+

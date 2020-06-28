@@ -28,6 +28,8 @@ namespace business_manager_api
 
         public bool Profession { get; set; }
 
+        public string Password { get; set; }
+
     }
     public enum GenderEnum
     {

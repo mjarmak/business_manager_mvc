@@ -7,23 +7,15 @@ import { UserAccountModel } from '../../Model/user';
     selector: 'app-user-account-create',
     templateUrl: './user-account-create.component.html'
 })
-export class FetchDataComponent {
-    public forecasts: WeatherForecast[];
+export class UserAccountCreateComponent {
 
-    public name: UserAccountModel;
+    public userAccount: UserAccountModel;
 
     constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
         let url = environment.business_manager_api_url + 'user-account';
+        this.userAccount = new UserAccountModel;
         console.log('CALL TO ' + url)
-        http.get<WeatherForecast[]>(url).subscribe(result => {
-        this.forecasts = result;
-    }, error => console.error(error));
-  }
-}
+        console.log('user is ' + this.userAccount)
+    }
 
-interface WeatherForecast {
-    date: string;
-    temperatureC: number;
-    temperatureF: number;
-    summary: string;
 }

@@ -10,7 +10,7 @@ namespace business_manager_api
     public class UserAccountModel
     {
         [Index(IsUnique = true)]
-        private long id { get; set; }
+        private long Id { get; set; }
 
         public string Name { get; set; }
 

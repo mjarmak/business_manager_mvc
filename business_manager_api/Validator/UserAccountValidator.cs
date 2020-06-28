@@ -22,8 +22,8 @@ namespace business_manager_api.Validator
                 .Matches(regex).WithMessage(matchError);
 
             RuleFor(x => x.Email)
-                .Length(0, 255).NotNull()
-                .EmailAddress()
+                .Length(0, 255).NotNull().WithMessage("Email address is required")
+                .EmailAddress().WithMessage("A valid email is required")
                 .Matches(regex).WithMessage(matchError);
 
             RuleFor(x => x.Phone)

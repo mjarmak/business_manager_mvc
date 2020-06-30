@@ -60,8 +60,6 @@ namespace business_manager_api
 
             app.UseCors(MyAllowSpecificOrigins);
 
-            app.UseIdentityServer();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

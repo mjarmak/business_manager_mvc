@@ -24,7 +24,6 @@ code {
   padding: 1rem;
   outline: solid thin;
   outline-color: lightgrey;
-  border-radius: 2rem;
   display: grid;
 }
 .card-input > label {

@@ -40,6 +40,7 @@ namespace business_manager_api
 
             services.AddControllers();
             services.AddMvc().AddFluentValidation();
+
             services.AddTransient<IValidator<UserAccountModel>, UserAccountValidator>();
             services.AddTransient<IValidator<BusinessDataModel>, BusinessDataValidator>();
             services.AddTransient<IValidator<BusinessImageModel>, BusinessImageValidator>();
@@ -58,6 +59,8 @@ namespace business_manager_api
             app.UseRouting();
 
             app.UseCors(MyAllowSpecificOrigins);
+
+            app.UseIdentityServer();
 
             app.UseAuthorization();
 

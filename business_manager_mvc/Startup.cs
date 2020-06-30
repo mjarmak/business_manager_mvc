@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace business_manager_mvc
 {
@@ -66,6 +67,7 @@ namespace business_manager_mvc
 
                 if (env.IsDevelopment())
                 {
+                    spa.Options.StartupTimeout = new TimeSpan(0, 2, 80);
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });

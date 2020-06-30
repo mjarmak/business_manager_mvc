@@ -1,23 +1,15 @@
-using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
-using System.Text.RegularExpressions;
+using Microsoft.EntityFrameworkCore;
+using DbContext = Microsoft.EntityFrameworkCore.DbContext;
 
 namespace business_manager_api
 {
     public class DefaultContext : DbContext
     {
-
-        public DefaultContext() : base("Business_DEV")
+        public DefaultContext(DbContextOptions<DefaultContext> options) : base(options)
         {
-            //Database.SetInitializer(new DropCreateDatabaseAlways<DefaultContext>());
-            //Database.SetInitializer(new CreateDatabaseIfNotExists<DefaultContext>());
-            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<DefaultContext>());
         }
 
-        public DbSet<BusinessDataModel> BusinessData { get; set; }
+        public DbSet<BusinessDataModel> BusinessDataModel { get; set; }
         public DbSet<BusinessImageModel> BusinessImage { get; set; }
         public DbSet<UserAccountModel> UserAccount { get; set; }
 

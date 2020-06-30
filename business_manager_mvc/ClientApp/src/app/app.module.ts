@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { UserAccountCreateComponent } from './user-account-create/user-account-create.component';
+import { BusinessCreateComponent } from './business-create/business-create.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { UserAccountCreateComponent } from './user-account-create/user-account-c
         HomeComponent,
         CounterComponent,
         FetchDataComponent,
-        UserAccountCreateComponent
+        UserAccountCreateComponent,
+        BusinessCreateComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -29,6 +31,7 @@ import { UserAccountCreateComponent } from './user-account-create/user-account-c
         { path: 'counter', component: CounterComponent },
         { path: 'fetch-data', component: FetchDataComponent },
         { path: 'user-account-create', component: UserAccountCreateComponent },
+        { path: 'business-create', component: BusinessCreateComponent },
     ])
   ],
   providers: [],

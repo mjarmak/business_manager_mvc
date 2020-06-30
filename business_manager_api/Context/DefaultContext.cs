@@ -18,7 +18,7 @@ namespace business_manager_api
         }
 
         public DbSet<BusinessDataModel> BusinessData { get; set; }
-        public DbSet<BusinessImageModel> BusinessImage { get; set; }
+        public DbSet<BusinessImageValidator> BusinessImage { get; set; }
         public DbSet<UserAccountModel> UserAccount { get; set; }
 
     }

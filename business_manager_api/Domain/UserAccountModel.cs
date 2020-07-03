@@ -17,7 +17,7 @@ namespace business_manager_api
         [Index(IsUnique = true)]
         public string Email { get; set; }
         
-        public PhoneNumberCheckView Phone { get; set; }
+        public string Phone { get; set; }
         public GenderEnum Gender { get; set; }
         public DateTime BirthDate { get; set; }
         public bool Profession { get; set; }
@@ -49,8 +49,12 @@ namespace business_manager_api
                 .EmailAddress().WithMessage("A valid email is required")
                 .Matches(regex).WithMessage(matchError);
 
-            //RuleFor(x => x.Phone)
-            //    .Length(0, 25);
+            RuleFor(x => x.Phone)
+                .Length(0, 25);
+
+            RuleFor(x => PhoneNumberCheckView.IsValidPhoneNumber(x.Phone)).Equal(true).WithMessage("Phone number is invalid.");
+
+            RuleFor(x => PhoneNumberCheckView.IsMobileNumber(x.Phone)).Equal(true).WithMessage("Phone number must be a mobile.");
 
             RuleFor(x => x.Gender)
                 .NotNull().WithMessage("Need to select a gender type.");

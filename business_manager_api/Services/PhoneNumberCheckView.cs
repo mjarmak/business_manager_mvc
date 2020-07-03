@@ -6,7 +6,7 @@ namespace business_manager_api.Services
     public class PhoneNumberCheckView
     {
         //FORMAT VALIDATION
-        public static bool IsValidPhoneNumber(string phoneNumber, string defaultRegion = "")
+        public static bool IsValidPhoneNumber(string phoneNumber)
         {
             try
             {
@@ -29,7 +29,7 @@ namespace business_manager_api.Services
                 }
                 else
                 {
-                    number = util.Parse(phoneNumber, defaultRegion);
+                    number = util.Parse(phoneNumber, "BE");
                     // Validation du numéro sans indication mais avec le region code
                     return util.IsValidNumber(number);
                 }
@@ -41,19 +41,17 @@ namespace business_manager_api.Services
             }
         }
 
-        //FORMAT INTERNATIONAL
+        //Check if it is a mobile number
 
-        public static string FormatInternational(string phoneNumber, string regionCode)
+        public static bool IsMobileNumber(string phoneNumber)
         {
-            if (string.IsNullOrEmpty(phoneNumber)) return string.Empty;
-
-            PhoneNumber number = null;
-            var util = PhoneNumberUtil.GetInstance();
-            number = util.Parse(phoneNumber, regionCode);
-            return util.Format(number, PhoneNumberFormat.INTERNATIONAL);
+            try {
+                var util = PhoneNumberUtil.GetInstance();
+                PhoneNumber number = util.Parse(phoneNumber, "BE");
+                return util.GetNumberType(number) == PhoneNumberType.MOBILE;
+            } catch (NumberParseException) {
+                return false;
+            }
         }
-
-
-        //
     }
 }

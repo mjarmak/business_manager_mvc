@@ -1,3 +1,4 @@
+using business_manager_api.Services;
 using FluentValidation;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -15,7 +16,8 @@ namespace business_manager_api
         public string Surname { get; set; }
         [Index(IsUnique = true)]
         public string Email { get; set; }
-        public string Phone { get; set; }
+        
+        public PhoneNumberCheckView Phone { get; set; }
         public GenderEnum Gender { get; set; }
         public DateTime BirthDate { get; set; }
         public bool Profession { get; set; }
@@ -47,8 +49,8 @@ namespace business_manager_api
                 .EmailAddress().WithMessage("A valid email is required")
                 .Matches(regex).WithMessage(matchError);
 
-            RuleFor(x => x.Phone)
-                .Length(0, 25);
+            //RuleFor(x => x.Phone)
+            //    .Length(0, 25);
 
             RuleFor(x => x.Gender)
                 .NotNull().WithMessage("Need to select a gender type.");

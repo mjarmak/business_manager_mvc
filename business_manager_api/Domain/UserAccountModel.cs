@@ -1,3 +1,4 @@
+using business_manager_api.Services;
 using FluentValidation;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -15,6 +16,7 @@ namespace business_manager_api
         public string Surname { get; set; }
         [Index(IsUnique = true)]
         public string Email { get; set; }
+        
         public string Phone { get; set; }
         public GenderEnum Gender { get; set; }
         public DateTime BirthDate { get; set; }
@@ -49,6 +51,10 @@ namespace business_manager_api
 
             RuleFor(x => x.Phone)
                 .Length(0, 25);
+
+            RuleFor(x => PhoneNumberCheckView.IsValidPhoneNumber(x.Phone)).Equal(true).WithMessage("Phone number is invalid.");
+
+            RuleFor(x => PhoneNumberCheckView.IsMobileNumber(x.Phone)).Equal(true).WithMessage("Phone number must be a mobile.");
 
             RuleFor(x => x.Gender)
                 .NotNull().WithMessage("Need to select a gender type.");

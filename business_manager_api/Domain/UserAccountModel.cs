@@ -25,7 +25,7 @@ namespace business_manager_api
     {
         Male,
         Female,
-        Other
+        Unknown
     }
     
     public class UserAccountValidator : AbstractValidator<UserAccountModel>
@@ -35,15 +35,15 @@ namespace business_manager_api
         public UserAccountValidator()
         {
             RuleFor(x => x.Name)
-                .Length(0, 50).NotNull()
+                .Length(1, 50).NotNull().WithMessage("The Name field is empty.")
                 .Matches(regex).WithMessage(matchError);
 
             RuleFor(x => x.Surname)
-                .Length(0, 50).NotNull()
+                .Length(0, 50).NotNull().WithMessage("The Surname field is empty.")
                 .Matches(regex).WithMessage(matchError);
 
             RuleFor(x => x.Email)
-                .Length(0, 255).NotNull().WithMessage("Email address is required")
+                .Length(0, 255).NotNull().WithMessage("The Email field is empty.")
                 .EmailAddress().WithMessage("A valid email is required")
                 .Matches(regex).WithMessage(matchError);
 

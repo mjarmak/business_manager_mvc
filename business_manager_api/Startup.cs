@@ -58,8 +58,8 @@ namespace business_manager_api
 
             app.UseRouting();
 
-            app.UseCors(MyAllowSpecificOrigins);
 
+            app.UseCors(MyAllowSpecificOrigins);
             app.UseIdentityServer();
 
             app.UseAuthorization();

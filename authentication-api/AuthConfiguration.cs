@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace business_manager_api
 {
-    public static class DefaultConfiguration
+    public static class AuthConfiguration
     {
         public static IEnumerable<ApiResource> GetApis() =>
             new List<ApiResource> {
-                new ApiResource("business_manager_api")
+                new ApiResource("business_manager_api"),
+                new ApiResource("business_manager_orchestrator")
             };
         public static IEnumerable<Client> GetClients() =>
             new List<Client> {

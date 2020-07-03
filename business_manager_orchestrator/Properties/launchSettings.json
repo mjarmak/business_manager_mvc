@@ -3,15 +3,14 @@
     "windowsAuthentication": false, 
     "anonymousAuthentication": true, 
     "iisExpress": {
-      "applicationUrl": "http://localhost:56164",
-      "sslPort": 44321
+      "applicationUrl": "http://localhost:52397",
+      "sslPort": 44387
     }
   },
   "profiles": {
     "local": {
       "commandName": "IISExpress",
       "launchBrowser": false,
-      "launchUrl": ".well-known/openid-configuration",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

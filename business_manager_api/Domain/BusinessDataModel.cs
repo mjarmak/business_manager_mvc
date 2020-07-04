@@ -1,7 +1,10 @@
-﻿using FluentValidation;
+﻿using business_manager_api.Services;
+using FluentValidation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data;
 using System.Text.RegularExpressions;
 
 namespace business_manager_api
@@ -61,7 +64,6 @@ namespace business_manager_api
         public string BoxNumber { get; set; }
     }
 
-
     // Fluent Validation for my BusinessDataModel
     public class BusinessDataValidator : AbstractValidator<BusinessDataModel>
     {
@@ -71,6 +73,35 @@ namespace business_manager_api
         {
             RuleFor(x => x.IdentificationData.Name).NotNull();
         }
+        
+
+    }
+
+
+    //Fluent Validation for Business Info
+    public class BusinessInfoValidator : AbstractValidator<BusinessInfo>
+    {
+        private readonly Regex regex = new Regex(@"[^A-Za-z0-9@-_]");
+        //private readonly string matchError = "Cannot contain any special characters";
+        public BusinessInfoValidator()
+        {
+            RuleFor(s => s.EmailBusiness).NotEmpty().WithMessage("Email address is required.")
+                     .EmailAddress().WithMessage("A valid email is required.");
+
+            RuleFor(x => x.Phone)
+                .Length(0, 25);
+
+            RuleFor(x => PhoneNumberCheckView.IsValidPhoneNumber(x.Phone)).Equal(true).WithMessage("Phone number is invalid");
+            RuleFor(x => PhoneNumberCheckView.IsMobileNumber(x.Phone)).Equal(true).WithMessage("Phone number must be a mobile.");
+
+            RuleFor(x => Uri.IsWellFormedUriString(x.UrlSite, UriKind.RelativeOrAbsolute)).Equal(true).WithMessage("Url not formatted correctly");
+            RuleFor(x => Uri.IsWellFormedUriString(x.UrlInstagram, UriKind.RelativeOrAbsolute)).Equal(true).WithMessage("Url Instagram not formatted correctly");
+            RuleFor(x => Uri.IsWellFormedUriString(x.UrlFaceBook, UriKind.RelativeOrAbsolute)).Equal(true).WithMessage("Url Facebook not formatted correctly");
+            RuleFor(x => Uri.IsWellFormedUriString(x.UrlLinkedIn, UriKind.RelativeOrAbsolute)).Equal(true).WithMessage("Url LinkedIn not formatted correctly");
+
+        }
+
+
     }
 
 

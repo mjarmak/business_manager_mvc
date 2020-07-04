@@ -12,8 +12,7 @@ namespace business_manager_api
         public static IEnumerable<ApiResource> GetApis()
         {
             return new List<ApiResource> {
-                new ApiResource("business_manager_api"),
-                new ApiResource("business_manager_orchestrator")
+                new ApiResource("business_manager_api")
             };
         }
 
@@ -25,16 +24,16 @@ namespace business_manager_api
                     ClientId = "client_id",
                     ClientSecrets = { new Secret("client_secret".ToSha256()) },
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
-                    AllowedScopes = { "business_manager" }
+                    AllowedScopes = { "business_manager_api" }
                 }
             };
         }
 
-        public static IEnumerable<ApiScope> GetScopes()
-        {
-            return new List<ApiScope> {
-                new ApiScope("business_manager", "Business Manager")
-            };
-        }
+        //public static IEnumerable<ApiScope> GetScopes()
+        //{
+        //    return new List<ApiScope> {
+        //        new ApiScope("business_manager", "Business Manager")
+        //    };
+        //}
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Logging;
 
 namespace business_manager_orchestrator
 {
@@ -15,6 +16,9 @@ namespace business_manager_orchestrator
 
         public void ConfigureServices(IServiceCollection services)
         {
+            Console.WriteLine("STARTING ORCH");
+            IdentityModelEventSource.ShowPII = true;
+
             services.AddAuthentication("Bearer")
                 .AddJwtBearer("Bearer", config =>
                 {

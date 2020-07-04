@@ -13,7 +13,7 @@ namespace business_manager_orchestrator.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        [Route("test")]
+        [Route("/test")]
         public async Task<IActionResult> Index()
         {
             //retrieve access token
@@ -25,7 +25,8 @@ namespace business_manager_orchestrator.Controllers
                     Address = discoveryDocument.TokenEndpoint,
                     ClientId = "client_id",
                     ClientSecret = "client_secret",
-                    Scope = "business_manager"
+                    Scope = "business_manager_api",
+                    GrantType = "client_credentials"
                 });
 
             //retrieve secret data

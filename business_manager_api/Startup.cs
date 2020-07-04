@@ -51,6 +51,12 @@ namespace business_manager_api
             services.AddControllers();
             services.AddMvc().AddFluentValidation();
 
+
+
+            //services.AddTransient<IValidator<UserAccountModel>, UserAccountValidator>();
+            services.AddTransient<IValidator<BusinessDataModel>, BusinessDataValidator>();
+            services.AddTransient<IValidator<BusinessImageModel>, BusinessImageValidator>();
+
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("V1", new OpenApiInfo
                 {
@@ -71,11 +77,6 @@ namespace business_manager_api
                     }
                 });
             });
-
-
-            //services.AddTransient<IValidator<UserAccountModel>, UserAccountValidator>();
-            services.AddTransient<IValidator<BusinessDataModel>, BusinessDataValidator>();
-            services.AddTransient<IValidator<BusinessImageModel>, BusinessImageValidator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

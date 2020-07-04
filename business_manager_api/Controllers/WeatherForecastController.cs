@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 namespace business_manager_api.Controllers
 {
     [ApiController]
-    [Route("business_manager_api/weatherforecast")]
+    [Route("weatherforecast")]
     public class WeatherForecastController : Controller
     {
         private static readonly string[] Summaries = new[]
@@ -23,7 +23,7 @@ namespace business_manager_api.Controllers
             _logger = logger;
         }
 
-        // GET: /all
+        [HttpGet]
         [Route("all")]
         [Authorize]
         public IEnumerable<WeatherForecast> Get()

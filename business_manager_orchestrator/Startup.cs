@@ -13,8 +13,6 @@ namespace business_manager_orchestrator
     public class Startup
     {
 
-        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAuthentication("Bearer")
@@ -24,14 +22,13 @@ namespace business_manager_orchestrator
                     config.Audience = "business_manager_orchestrator";
                 });
 
-            services.AddCors(options =>
-            {
-                options.AddPolicy(name: MyAllowSpecificOrigins,
-                                  builder =>
-                                  {
-                                      builder.WithOrigins("https://localhost:44383");
-                                  });
-            });
+            services.AddCors(confg =>
+                confg.AddPolicy("AllowAll",
+                    p => p.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader())
+                );
+
             services.AddHttpClient();
             services.AddControllers();
         }
@@ -44,11 +41,9 @@ namespace business_manager_orchestrator
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            app.UseCors("AllowAll");
 
             app.UseRouting();
-
-            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseAuthentication();
 

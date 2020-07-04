@@ -29,6 +29,7 @@ namespace business_manager_api
                 {
                     config.Authority = "https://localhost:44321/";
                     config.Audience = "business_manager_api";
+                    //config.RequireHttpsMetadata = false;
                 });
 
             services.AddDbContext<DefaultContext>(
@@ -69,8 +70,6 @@ namespace business_manager_api
             //app.UseCors(MyAllowSpecificOrigins);
 
             app.UseAuthentication();
-
-            app.UseIdentityServer();
 
             app.UseAuthorization();
 

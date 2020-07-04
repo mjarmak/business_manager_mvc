@@ -18,32 +18,31 @@ namespace authentication_api
             Console.WriteLine("STARTING AUTH");
             IdentityModelEventSource.ShowPII = true;
 
-            // AddIdentity registers the services
-            //services.AddIdentity<IdentityUser, IdentityRole>(config =>
-            //{
-            //    config.Password.RequiredLength = 4;
-            //    config.Password.RequireDigit = false;
-            //    config.Password.RequireNonAlphanumeric = false;
-            //    config.Password.RequireUppercase = false;
-            //})
-            //    .AddEntityFrameworkStores<AppDbContext>()
-            //    .AddDefaultTokenProviders();
+            //AddIdentity registers the services
+            services.AddIdentity<IdentityUser, IdentityRole>(config =>
+            {
+                config.Password.RequiredLength = 4;
+                config.Password.RequireDigit = false;
+                config.Password.RequireNonAlphanumeric = false;
+                config.Password.RequireUppercase = false;
+            })
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
 
-            //services.ConfigureApplicationCookie(config =>
-            //{
-            //    config.Cookie.Name = "IdentityServer.Cookie";
-            //    config.LoginPath = "/Auth/Login";
-            //    config.LogoutPath = "/Auth/Logout";
-            //});
+            services.ConfigureApplicationCookie(config =>
+            {
+                config.Cookie.Name = "IdentityServer.Cookie";
+                config.LoginPath = "/Auth/Login";
+                config.LogoutPath = "/Auth/Logout";
+            });
 
-            //var assembly = typeof(Startup).Assembly.GetName().Name;
+            var assembly = typeof(Startup).Assembly.GetName().Name;
 
             services.AddIdentityServer()
-                //.AddAspNetIdentity<IdentityUser>()
+                .AddAspNetIdentity<IdentityUser>()
                 .AddInMemoryApiResources(AuthConfiguration.GetApis())
                 .AddInMemoryClients(AuthConfiguration.GetClients())
-                //.AddInMemoryApiScopes(AuthConfiguration.GetScopes())
-                //.AddInMemoryIdentityResources(AuthConfiguration.GetIdentityResources())
+                .AddInMemoryIdentityResources(AuthConfiguration.GetIdentityResources())
                 .AddDeveloperSigningCredential();
 
             services.AddControllersWithViews();

@@ -1,11 +1,11 @@
 ﻿using IdentityServer4.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace authentication_api.Controllers
 {
+    [Route("Auth")]
     public class AuthController : Controller
     {
         private readonly SignInManager<IdentityUser> _signInManager;

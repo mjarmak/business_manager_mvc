@@ -15,15 +15,17 @@ namespace authentication_api
     {
         public static void Main(string[] args)
         {
-            //var host = CreateHostBuilder(args).Build();
-            //using (var scope = host.Services.CreateScope())
-            //{
-            //    var userManager = scope.ServiceProvider
-            //        .GetRequiredService<UserManager<IdentityUser>>();
+            //CreateHostBuilder(args).Build().Run();
 
-            //    var user = new IdentityUser("bob");
-            //    userManager.CreateAsync(user, "password").GetAwaiter().GetResult();
-            //}
+            var host = CreateHostBuilder(args).Build();
+            using (var scope = host.Services.CreateScope())
+            {
+                var userManager = scope.ServiceProvider
+                    .GetRequiredService<UserManager<IdentityUser>>();
+
+                var user = new IdentityUser("bob");
+                userManager.CreateAsync(user, "password").GetAwaiter().GetResult();
+            }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

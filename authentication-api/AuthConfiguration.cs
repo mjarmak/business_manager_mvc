@@ -10,11 +10,12 @@ namespace business_manager_api
 {
     public static class AuthConfiguration
     {
-        //public static IEnumerable<IdentityResource> GetIdentityResources() =>
-        //    new List<IdentityResource>
-        //    {
-        //        new IdentityResources.OpenId()
-        //    };
+        public static IEnumerable<IdentityResource> GetIdentityResources() =>
+            new List<IdentityResource>
+            {
+                new IdentityResources.OpenId(),
+                //new IdentityResources.Profile()
+            };
 
         public static IEnumerable<ApiResource> GetApis()
         {
@@ -33,33 +34,26 @@ namespace business_manager_api
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
                     AllowedScopes = { "business_manager_api" }
                 },
-                //new Client {
-                //    ClientId = "client_id_mvc",
-                //    ClientSecrets = { new Secret("client_secret_mvc".ToSha256()) },
+                new Client {
+                    ClientId = "client_id_mvc",
+                    ClientSecrets = { new Secret("client_secret_mvc".ToSha256()) },
 
-                //    AllowedGrantTypes = GrantTypes.Code,
-                //    RequirePkce = true,
+                    AllowedGrantTypes = GrantTypes.Code,
+                    RequirePkce = true,
 
-                //    RedirectUris = { "https://localhost:44322/signin-oidc" }, //angular login page
-                //    PostLogoutRedirectUris = { "https://localhost:44322/Home/Index" }, //angular home page
+                    RedirectUris = { "https://localhost:44322/signin-oidc" }, //angular login page
+                    PostLogoutRedirectUris = { "https://localhost:44322/Home/Index" }, //angular home page
 
-                //    AllowedScopes = {
-                //        "ApiOne",
-                //        "ApiTwo",
-                //        IdentityServerConstants.StandardScopes.OpenId,
-                //        "rc.scope",
-                //    },
-                //    AllowOfflineAccess = true,
-                //    RequireConsent = false,
-                //},
+                    AllowedScopes = {
+                        "business_manager_api",
+                        "business_manager_orchestrator",
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        "rc.scope",
+                    },
+                    AllowOfflineAccess = true,
+                    RequireConsent = false,
+                },
             };
         }
-
-        //public static IEnumerable<ApiScope> GetScopes()
-        //{
-        //    return new List<ApiScope> {
-        //        new ApiScope("business_manager", "Business Manager")
-        //    };
-        //}
     }
 }

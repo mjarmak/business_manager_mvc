@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
+using System;
 
 namespace business_manager_api
 {
@@ -48,7 +50,29 @@ namespace business_manager_api
             services.AddControllers();
             services.AddMvc().AddFluentValidation();
 
-            services.AddTransient<IValidator<UserAccountModel>, UserAccountValidator>();
+            services.AddSwaggerGen(c => {
+                c.SwaggerDoc("V1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "API EPHEC",
+                    Description = "Projet WEB",
+                    TermsOfService = new Uri("https://example.com/terms"),
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Francesco Bigi",
+                        Email = string.Empty,
+                        Url = new Uri("https://be.linkedin.com/in/bigif"),
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "Use under LICX",
+                        Url = new Uri("https://example.com/license"),
+                    }
+                });
+            });
+
+
+            //services.AddTransient<IValidator<UserAccountModel>, UserAccountValidator>();
             services.AddTransient<IValidator<BusinessDataModel>, BusinessDataValidator>();
             services.AddTransient<IValidator<BusinessImageModel>, BusinessImageValidator>();
         }
@@ -60,6 +84,10 @@ namespace business_manager_api
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseSwagger(c =>
+            {
+                c.SerializeAsV2 = true;
+            });
 
             app.UseHttpsRedirection();
 
@@ -73,6 +101,12 @@ namespace business_manager_api
             app.UseIdentityServer();
 
             app.UseAuthorization();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/V1/swagger.json", "My API V1");
+                c.RoutePrefix = string.Empty;
+            });
 
             app.UseEndpoints(endpoints =>
             {

@@ -48,6 +48,7 @@ namespace business_manager_api
                         "business_manager_api",
                         "business_manager_orchestrator",
                         IdentityServerConstants.StandardScopes.OpenId,
+                        //IdentityServerConstants.StandardScopes.Profile,
                         "rc.scope",
                     },
                     AllowOfflineAccess = true,

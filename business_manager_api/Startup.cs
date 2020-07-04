@@ -31,6 +31,7 @@ namespace business_manager_api
                 {
                     config.Authority = "https://localhost:44321/";
                     config.Audience = "business_manager_api";
+                    //config.RequireHttpsMetadata = false;
                 });
 
             services.AddDbContext<DefaultContext>(
@@ -38,14 +39,14 @@ namespace business_manager_api
                 Configuration.GetConnectionString("DefaultConnection"),
                 b => b.MigrationsAssembly(typeof(DefaultContext).Assembly.FullName)));
 
-            services.AddCors(options =>
-            {
-                options.AddPolicy(name: MyAllowSpecificOrigins,
-                                  builder =>
-                                  {
-                                      builder.WithOrigins("https://localhost:44383");
-                                  });
-            });
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy(name: MyAllowSpecificOrigins,
+            //                      builder =>
+            //                      {
+            //                          builder.WithOrigins("https://localhost:44383");
+            //                      });
+            //});
 
             services.AddControllers();
             services.AddMvc().AddFluentValidation();
@@ -94,11 +95,9 @@ namespace business_manager_api
             app.UseRouting();
 
 
-            app.UseCors(MyAllowSpecificOrigins);
+            //app.UseCors(MyAllowSpecificOrigins);
 
             app.UseAuthentication();
-
-            app.UseIdentityServer();
 
             app.UseAuthorization();
 

@@ -10,12 +10,17 @@ import { UserAccountModel } from '../../Model/user';
 export class UserAccountCreateComponent {
 
     public userAccount: UserAccountModel;
+    private url: string;
 
-    constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-        let url = environment.business_manager_api_url + 'user-account';
+    constructor(private http: HttpClient) {
+        this.url = environment.business_manager_orc_url + '/user';
         this.userAccount = new UserAccountModel;
-        console.log('CALL TO ' + url)
-        console.log('user is ' + this.userAccount)
     }
-
+    public onClickSave() {
+        console.log('CALL TO ' + this.url)
+        console.log('user is ' + this.userAccount)
+        this.http.post<UserAccountModel>(this.url, this.userAccount).subscribe(result => {
+            this.userAccount = result;
+        });
+    }
 }

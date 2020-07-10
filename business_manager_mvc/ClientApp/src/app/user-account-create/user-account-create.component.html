@@ -7,29 +7,31 @@
 <div class="card-input">
 
   <label for="email">Email Address:</label>
-  <input bis-input id="email" type="email" [(ngModel)]="this.userAccount.email">
+  <input id="email" type="email" [(ngModel)]="this.userAccount.email">
 
   <label for="password">Password:</label>
-  <input bis-input id="password" type="password" [(ngModel)]="this.userAccount.password">
+  <input id="password" type="password" [(ngModel)]="this.userAccount.password">
 
   <hr />
 
   <label for="name">Name:</label>
-  <input bis-input id="name" type="text" [(ngModel)]="this.userAccount.name">
+  <input id="name" type="text" [(ngModel)]="this.userAccount.name">
 
   <label for="surname">Surname:</label>
-  <input bis-input id="surname" type="text" [(ngModel)]="this.userAccount.surname">
+  <input id="surname" type="text" [(ngModel)]="this.userAccount.surname">
 
   <label for="phone">Phone Number:</label>
-  <input bis-input id="phone" type="text" [(ngModel)]="this.userAccount.phone">
+  <input id="phone" type="text" [(ngModel)]="this.userAccount.phone">
 
   <label for="gender">Gender:</label>
-  <input bis-input id="gender" type="text" [(ngModel)]="this.userAccount.gender">
+  <input id="gender" type="text" [(ngModel)]="this.userAccount.gender">
 
   <label for="birthday">Birthday:</label>
-  <input bis-input id="birthday" type="date" [(ngModel)]="this.userAccount.birthday">
+  <input id="birthday" type="date" [(ngModel)]="this.userAccount.birthday">
 
   <label for="professional">Professional:</label>
-  <input bis-input id="professional" type="checkbox" [(ngModel)]="this.userAccount.professional">
+  <input id="professional" type="checkbox" [(ngModel)]="this.userAccount.professional">
+
+  <button class="btn-save" id="btnSave" (click)="onClickSave()">Save</button>
 
 </div>

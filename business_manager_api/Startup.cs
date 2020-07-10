@@ -1,4 +1,3 @@
-using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -51,11 +50,9 @@ namespace business_manager_api
             services.AddControllers();
             services.AddMvc().AddFluentValidation();
 
-
-
             //services.AddTransient<IValidator<UserAccountModel>, UserAccountValidator>();
-            services.AddTransient<IValidator<BusinessDataModel>, BusinessDataValidator>();
-            services.AddTransient<IValidator<BusinessImageModel>, BusinessImageValidator>();
+            //services.AddTransient<IValidator<BusinessDataModel>, BusinessDataValidator>();
+            //services.AddTransient<IValidator<BusinessImageModel>, BusinessImageValidator>();
 
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("V1", new OpenApiInfo

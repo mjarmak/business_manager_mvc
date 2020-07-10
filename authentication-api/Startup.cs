@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Logging;
 using System;
 
 namespace authentication_api
@@ -11,10 +12,13 @@ namespace authentication_api
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            Console.WriteLine("STARTING AUTH");
+            IdentityModelEventSource.ShowPII = true;
+
             services.AddIdentityServer()
                 .AddInMemoryApiResources(AuthConfiguration.GetApis())
                 .AddInMemoryClients(AuthConfiguration.GetClients())
-                .AddInMemoryApiScopes(AuthConfiguration.GetScopes())
+                //.AddInMemoryApiScopes(AuthConfiguration.GetScopes())
                 .AddDeveloperSigningCredential();
 
             services.AddControllersWithViews();

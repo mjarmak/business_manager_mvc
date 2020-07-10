@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using business_manager_api;
+using Microsoft.AspNetCore.Authorization;
 
 namespace business_manager_api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("business")]
     [ApiController]
+    [Authorize]
     public class BusinessDataController : Controller
     {
         private readonly DefaultContext _context;

@@ -13,7 +13,9 @@
       "launchBrowser": true,
       "launchUrl": "test",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "authUrl": "https://localhost:44321",
+        "apiUrl": "https://localhost:44345"
       }
     },
     "business_manager_orchestrator": {

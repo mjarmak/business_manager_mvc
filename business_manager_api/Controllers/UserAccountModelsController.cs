@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using business_manager_api;
+using Microsoft.AspNetCore.Authorization;
 
 namespace business_manager_api.Controllers
 {
-    [Route("users")]
+    [Route("user")]
     [ApiController]
+    [Authorize]
     public class UserAccountModelsController : ControllerBase
     {
         private readonly DefaultContext _context;

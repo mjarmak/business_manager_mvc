@@ -10,12 +10,17 @@ import { BusinessDataModel } from '../../Model/business';
 export class BusinessCreateComponent {
 
     public business: BusinessDataModel;
+    private url: string;
 
-    constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-        let url = environment.business_manager_api_url + 'business';
+    constructor(private http: HttpClient) {
+        this.url = environment.business_manager_orc_url + '/business';
         this.business = new BusinessDataModel;
-        console.log('CALL TO ' + url)
-        console.log('user is ' + this.business)
     }
-
+    public onClickSave() {
+        console.log('CALL TO ' + this.url)
+        console.log('user is ' + this.business)
+        this.http.post<BusinessDataModel>(this.url, this.business).subscribe(result => {
+            this.business = result;
+        });
+    }
 }

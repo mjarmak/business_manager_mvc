@@ -25,10 +25,21 @@ code {
   outline: solid thin;
   outline-color: lightgrey;
   display: grid;
+  width: 50%;
+  min-width: 512px;
 }
 .card-input > label {
   margin-top: 1rem;
   margin-bottom: 0;
+}
+.card-input > button {
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+.btn-save {
+  color: black;
+  border: solid 1px lightgreen;
+  background-color: #ccffcc
 }
 .card-input > input {
 }

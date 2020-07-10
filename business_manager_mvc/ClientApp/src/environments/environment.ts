@@ -4,7 +4,8 @@
 
 export const environment = {
     production: false,
-    business_manager_api_url: "https://localhost:44345/business_manager_api/"
+    business_manager_api_url: "https://localhost:44345",
+    business_manager_orc_url: "https://localhost:44387"
 };
 
 /*

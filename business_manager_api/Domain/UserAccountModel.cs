@@ -1,12 +1,14 @@
 using business_manager_api.Services;
 using FluentValidation;
 using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.RegularExpressions;
 
 namespace business_manager_api
 {
+    [Display(Name = "User Account")]
     [Table(name: "UserAccount")]
     public class UserAccountModel
     {

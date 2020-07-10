@@ -7,6 +7,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
+using System.ComponentModel;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 
 namespace business_manager_api
 {
@@ -49,11 +53,7 @@ namespace business_manager_api
 
             services.AddControllers();
             services.AddMvc().AddFluentValidation();
-
-            //services.AddTransient<IValidator<UserAccountModel>, UserAccountValidator>();
-            //services.AddTransient<IValidator<BusinessDataModel>, BusinessDataValidator>();
-            //services.AddTransient<IValidator<BusinessImageModel>, BusinessImageValidator>();
-
+            // adding swagger generator to the service collection
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("V1", new OpenApiInfo
                 {
@@ -72,7 +72,12 @@ namespace business_manager_api
                         Name = "Use under LICX",
                         Url = new Uri("https://example.com/license"),
                     }
-                });
+                }
+                );
+                
+
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
             });
         }
 
@@ -83,6 +88,7 @@ namespace business_manager_api
             {
                 app.UseDeveloperExceptionPage();
             }
+            //using swagger
             app.UseSwagger(c =>
             {
                 c.SerializeAsV2 = true;

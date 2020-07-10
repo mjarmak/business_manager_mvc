@@ -2,6 +2,7 @@
 using FluentValidation;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
@@ -9,6 +10,7 @@ using System.Text.RegularExpressions;
 
 namespace business_manager_api
 {
+    [DisplayName("Business Data")]
     [Table(name: "BusinessData")]
     public class BusinessDataModel
     {
@@ -19,6 +21,8 @@ namespace business_manager_api
         public string WorkHours { get; set; }
         public List<BusinessImageModel> Images { get; set; }
     }
+
+    [DisplayName("Business Info")]
     [Table(name: "BusinessInfo")]
     public class BusinessInfo
     {
@@ -39,7 +43,8 @@ namespace business_manager_api
         Concert,
         StudentCircle
     }
-    
+
+    [DisplayName("Identification")]
     [Table(name: "IdentificationData")]
     public class IdentificationData
     {
@@ -52,6 +57,7 @@ namespace business_manager_api
         public string Description { get; set; }
         public string Logo { get; set; }
     }
+    [DisplayName("Address")]
     [Table(name: "AddressData")]
     public class AddressData
     {

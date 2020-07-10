@@ -1,9 +1,11 @@
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using FluentValidation;
 
 namespace business_manager_api
 {
+    [DisplayName("Business Image")]
     [Table(name: "BusinessImage")]
     public class BusinessImageModel
     {

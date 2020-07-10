@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using business_manager_api;
+using System.Net.Mime;
 
 namespace business_manager_api.Controllers
 {
@@ -19,7 +20,10 @@ namespace business_manager_api.Controllers
         {
             _context = context;
         }
-
+        /// <summary>
+        /// Get the the list of all bar, disco, etc...
+        /// </summary>
+        /// <returns>the list of building</returns>
         // GET: api/BusinessData
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BusinessDataModel>>> GetBusinessDataModel()
@@ -27,6 +31,11 @@ namespace business_manager_api.Controllers
             return await _context.BusinessDataModel.ToListAsync();
         }
 
+        /// <summary>
+        /// Find the details of a building
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>informations</returns>
         // GET: api/BusinessData/5
         [HttpGet("{id}")]
         public async Task<ActionResult<BusinessDataModel>> GetBusinessDataModel(long id)
@@ -40,10 +49,13 @@ namespace business_manager_api.Controllers
 
             return businessDataModel;
         }
-
+        /// <summary>
+        /// Update informations of a building
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="businessDataModel"></param>
+        /// <returns></returns>
         // PUT: api/BusinessData/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
         public async Task<IActionResult> PutBusinessDataModel(long id, BusinessDataModel businessDataModel)
         {
@@ -73,10 +85,16 @@ namespace business_manager_api.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Creation of a building
+        /// </summary>
+        /// <param name="businessDataModel"></param>
+        /// <returns></returns>
         // POST: api/BusinessData
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<BusinessDataModel>> PostBusinessDataModel(BusinessDataModel businessDataModel)
         {
             _context.BusinessDataModel.Add(businessDataModel);
@@ -85,6 +103,11 @@ namespace business_manager_api.Controllers
             return CreatedAtAction("GetBusinessDataModel", new { id = businessDataModel.Id }, businessDataModel);
         }
 
+        /// <summary>
+        /// Delete the building
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // DELETE: api/BusinessData/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<BusinessDataModel>> DeleteBusinessDataModel(long id)

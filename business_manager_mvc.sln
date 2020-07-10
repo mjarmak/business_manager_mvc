@@ -9,7 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "business_manager_api", "bus
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "authentication-api", "authentication-api\authentication-api.csproj", "{6AFE3F74-8C1C-4D47-8A00-CA59BE3ED434}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "business_manager_orchestrator", "business_manager_orchestrator\business_manager_orchestrator.csproj", "{5FECC433-BC01-4DA9-8213-76FAC15EAA9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "business_manager_orchestrator", "business_manager_orchestrator\business_manager_orchestrator.csproj", "{5FECC433-BC01-4DA9-8213-76FAC15EAA9F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{ED151BBA-4E5C-4002-8029-2BECAF638629}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

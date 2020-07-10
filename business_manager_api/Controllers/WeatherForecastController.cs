@@ -17,7 +17,7 @@ namespace business_manager_api.Controllers
 
         // GET: /all
         [Route("all")]
-        [Authorize]
+        //[Authorize]
         public IEnumerable<WeatherForecast> Get()
         {
             var claims = User.Claims.ToList();

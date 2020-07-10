@@ -7,7 +7,8 @@ using Microsoft.Extensions.Logging;
 
 namespace business_manager_api.Controllers
 {
-    [Route("business_manager_api/weatherforecast")]
+    [ApiController]
+    [Route("weatherforecast")]
     public class WeatherForecastController : Controller
     {
         private static readonly string[] Summaries = new[]
@@ -15,13 +16,18 @@ namespace business_manager_api.Controllers
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        // GET: /all
+        private readonly ILogger<WeatherForecastController> _logger;
+
+        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        {
+            _logger = logger;
+        }
+
+        [HttpGet]
         [Route("all")]
         [Authorize]
         public IEnumerable<WeatherForecast> Get()
         {
-            var claims = User.Claims.ToList();
-
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {

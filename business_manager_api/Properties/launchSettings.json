@@ -11,7 +11,7 @@
     "local": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "business_manager_api/weatherforecast/all",
+      "launchUrl": "weatherforecast/all",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

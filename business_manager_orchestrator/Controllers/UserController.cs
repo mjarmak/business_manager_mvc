@@ -6,6 +6,7 @@ using business_manager_api;
 using System.Text.Json;
 using System;
 using business_manager_orchestrator.Clients;
+using System.Text;
 
 namespace business_manager_orchestrator.Controllers
 {
@@ -34,7 +35,10 @@ namespace business_manager_orchestrator.Controllers
             
             var apiClient = _httpClientFactory.CreateClient();
             apiClient.SetBearerToken(tokenResponse.AccessToken);
-            var response = await apiClient.PostAsync(apiUrl + "/user", new StringContent(jsonString));
+
+            StringContent stringContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+            var response = await apiClient.PostAsync(apiUrl + "/user", stringContent);
             var content = await response.Content.ReadAsStringAsync();
 
             return Ok(new

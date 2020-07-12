@@ -12,6 +12,14 @@
   <label for="email">Email:</label>
   <input bis-input id="email" type="email" [(ngModel)]="this.business.email">
 
+  <label class="image-upload-container btn btn-bwm">
+    <span>Select Image</span>
+    <input #imageInput
+           type="file"
+           accept="image/*"
+           (change)="processFile(imageInput)">
+  </label>
+
   <button class="btn-save" id="btnSave" (click)="onClickSave()">Save</button>
 
 </div>

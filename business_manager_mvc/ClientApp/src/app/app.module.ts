@@ -11,6 +11,7 @@ import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { UserAccountCreateComponent } from './user-account-create/user-account-create.component';
 import { BusinessCreateComponent } from './business-create/business-create.component';
+import { BusinessManagerService } from './services/business-manager-svc';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { BusinessCreateComponent } from './business-create/business-create.compo
         { path: 'business-create', component: BusinessCreateComponent },
     ])
   ],
-  providers: [],
+    providers: [
+        BusinessManagerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

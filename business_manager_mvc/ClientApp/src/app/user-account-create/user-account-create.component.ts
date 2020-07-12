@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { UserAccountModel } from '../../Model/user';
+import { BusinessManagerService } from '../services/business-manager-svc';
 
 @Component({
     selector: 'app-user-account-create',
@@ -9,18 +10,15 @@ import { UserAccountModel } from '../../Model/user';
 })
 export class UserAccountCreateComponent {
 
-    public userAccount: UserAccountModel;
-    private url: string;
+    public user: UserAccountModel;
 
-    constructor(private http: HttpClient) {
-        this.url = environment.business_manager_orc_url + '/user';
-        this.userAccount = new UserAccountModel;
+    constructor(private businessManagerService: BusinessManagerService) {
+        this.user = new UserAccountModel;
     }
     public onClickSave() {
-        console.log('CALL TO ' + this.url)
-        console.log('user is ' + this.userAccount)
-        this.http.post<UserAccountModel>(this.url, this.userAccount).subscribe(result => {
-            this.userAccount = result;
+        console.log('user is ' + this.user)
+        this.businessManagerService.saveUser(this.user).subscribe(result => {
+            this.user = result;
         });
     }
 }

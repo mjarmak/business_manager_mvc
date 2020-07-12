@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~ngx-toastr/toastr.css';  
 
 /* Provide sufficient contrast against white background */
 a {
@@ -42,5 +43,19 @@ code {
   background-color: #ccffcc
 }
 .card-input > input {
+}
+.toast-container {
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+}
+.toast-container > .ngx-toastr {
+  right: 0;
+  bottom: 0;
+  /*position: absolute;*/
+  margin-top: 1rem;
+  margin-left: 1rem;
 }
 

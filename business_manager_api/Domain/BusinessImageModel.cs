@@ -11,6 +11,12 @@ namespace business_manager_api
         public long Id { get; set; }
         public long BusinessId { get; set; }
         public string ImageData { get; set; }
+
+        public BusinessImageModel(long BusinessId, string ImageData)
+        {
+            this.BusinessId = BusinessId;
+            this.ImageData = ImageData;
+        }
     }
     public class BusinessImageValidator : AbstractValidator<BusinessImageModel>
     {

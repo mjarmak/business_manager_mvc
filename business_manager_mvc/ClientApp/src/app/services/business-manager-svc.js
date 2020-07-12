@@ -14,10 +14,10 @@ var BusinessManagerService = /** @class */ (function () {
         console.log('CALL TO ' + this.url + '/user');
         return this.http.post(this.url + '/user', user);
     };
-    BusinessManagerService.prototype.uploadImage = function (image) {
+    BusinessManagerService.prototype.uploadImage = function (image, businessId) {
         var formData = new FormData();
         formData.append('image', image);
-        console.log('CALL TO ' + this.url + '/image');
+        console.log('CALL TO ' + this.url + '/image/business/' + businessId);
         return this.http.post(this.url + '/image', formData);
     };
     return BusinessManagerService;

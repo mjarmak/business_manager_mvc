@@ -12,6 +12,9 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { UserAccountCreateComponent } from './user-account-create/user-account-create.component';
 import { BusinessCreateComponent } from './business-create/business-create.component';
 import { BusinessManagerService } from './services/business-manager-svc';
+import { ToastrModule } from 'ngx-toastr';  
+import { AlertService } from './services/alert-service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -33,10 +36,17 @@ import { BusinessManagerService } from './services/business-manager-svc';
         { path: 'fetch-data', component: FetchDataComponent },
         { path: 'user-account-create', component: UserAccountCreateComponent },
         { path: 'business-create', component: BusinessCreateComponent },
-    ])
+    ]),
+    ToastrModule.forRoot({
+        positionClass: 'bottom-right',
+        closeButton: true
+    }),
+    BrowserAnimationsModule
   ],
     providers: [
-        BusinessManagerService],
+        BusinessManagerService,
+        AlertService
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

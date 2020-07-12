@@ -7,9 +7,11 @@ using System;
 using business_manager_orchestrator.Clients;
 using System.Text;
 using business_manager_common_library;
+using Microsoft.AspNetCore.Authorization;
 
 namespace business_manager_orchestrator.Controllers
 {
+    [Authorize]
     [Route("user")]
     [ApiController]
     public class UserController : Controller

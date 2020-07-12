@@ -28,22 +28,22 @@ export class BusinessCreateComponent implements OnInit {
         this.businessManagerService.saveBusiness(this.business).subscribe(result => {
             this.business = result;
 
-            //this.businessManagerService.uploadImage(this.logo, this.business.id).subscribe(
-            //    result => {
-            //    },
-            //    error => {
-            //        this.alertSerice.error("Error adding logo", error.message);
-            //    })
-            //this.images.forEach(
-            //    (image: File) => {
-            //        this.businessManagerService.uploadImage(image, this.business.id).subscribe(
-            //            result => {
-            //            },
-            //            error => {
-            //                this.alertSerice.error("Error adding image", error.message);
-            //            })
-            //    }
-            //)
+            this.businessManagerService.uploadImage(this.logo, this.business.id).subscribe(
+                result => {
+                },
+                error => {
+                    this.alertSerice.error("Error adding logo", error.message);
+                })
+            this.images.forEach(
+                (image: File) => {
+                    this.businessManagerService.uploadImage(image, this.business.id).subscribe(
+                        result => {
+                        },
+                        error => {
+                            this.alertSerice.error("Error adding image", error.message);
+                        })
+                }
+            )
 
         }, error => {
                 this.alertSerice.error("Error creating business", error.message);

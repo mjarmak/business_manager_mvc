@@ -1,5 +1,5 @@
 export class BusinessDataModel {
-  id: string;
+  id: number;
   bdentificationData: IdentificationData;
   businessInfo: BusinessInfo;
   worlHours: string;
@@ -16,16 +16,9 @@ export class BusinessInfo {
   urlLinkedIn : string;
 }
 
-export enum BusinessTypeEnum {
-  bar,
-  club,
-  concert,
-  studentCircle
-}
-
 export class IdentificationData {
-  id: string;
-  type: BusinessTypeEnum ;
+  id: number;
+  type: string;
   tva: string;
   emailPro: string;
   description: string;
@@ -33,7 +26,7 @@ export class IdentificationData {
 
 }
 export class AddressData {
-  id: string;
+  id: number;
   postalCode: string;
   country: string;
   street: string;

@@ -23,7 +23,7 @@ namespace business_manager_api
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
-        public IdentificationData Address { get; set; }
+        public AddressData Address { get; set; }
         public string Phone { get; set; }
         public string EmailBusiness { get; set; }
         public string UrlSite { get; set; }

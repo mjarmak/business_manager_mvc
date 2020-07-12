@@ -17,7 +17,6 @@ namespace business_manager_api
         public IdentificationData IdentificationData { get; set; }
         public BusinessInfo BusinessInfo { get; set; }
         public string WorkHours { get; set; }
-        public List<BusinessImageModel> Images { get; set; }
     }
     [Table(name: "BusinessInfo")]
     public class BusinessInfo

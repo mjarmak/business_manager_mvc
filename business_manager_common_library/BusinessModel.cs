@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 
-namespace business_manager_api
+namespace business_manager_common_library
 {
-    public class BusinessDataModel
+    public class BusinessModel
     {
         public long Id { get; set; }
         public IdentificationData IdentificationData { get; set; }
         public BusinessInfo BusinessInfo { get; set; }
         public string WorkHours { get; set; }
-        public List<BusinessImageModel> Images { get; set; }
+        public string Image { get; set; }
     }
     public class BusinessInfo
     {

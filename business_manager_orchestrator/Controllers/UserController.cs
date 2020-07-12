@@ -7,6 +7,7 @@ using System.Text.Json;
 using System;
 using business_manager_orchestrator.Clients;
 using System.Text;
+using business_manager_common_library;
 
 namespace business_manager_orchestrator.Controllers
 {
@@ -26,7 +27,7 @@ namespace business_manager_orchestrator.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostUser(UserAccountModel userAccountModel)
+        public async Task<IActionResult> PostUser(UserModel userAccountModel)
         {
             //retrieve access token
             var tokenResponse = await authClient.GetToken();

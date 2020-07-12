@@ -12,13 +12,13 @@ namespace business_manager_orchestrator.Controllers
 {
     [Route("business")]
     [ApiController]
-    public class BusinessDataController : Controller
+    public class ImageController : Controller
     {
         private readonly string apiUrl;
         private readonly AuthClient authClient;
 
         private readonly IHttpClientFactory _httpClientFactory;
-        public BusinessDataController(IHttpClientFactory httpClientFactory)
+        public ImageController(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
             authClient = new AuthClient();
@@ -26,19 +26,19 @@ namespace business_manager_orchestrator.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostUser(BusinessModel businessDataModel)
+        public async Task<IActionResult> PostImage(ImageModel imageModel)
         {
             //retrieve access token
             var tokenResponse = await authClient.GetToken();
 
-            string jsonString = JsonSerializer.Serialize(businessDataModel);
+            string jsonString = JsonSerializer.Serialize(imageModel);
             
             var apiClient = _httpClientFactory.CreateClient();
             apiClient.SetBearerToken(tokenResponse.AccessToken);
 
             StringContent stringContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
 
-            var response = await apiClient.PostAsync(apiUrl + "/business", stringContent);
+            var response = await apiClient.PostAsync(apiUrl + "/image", stringContent);
             var content = await response.Content.ReadAsStringAsync();
 
             return Ok(new
@@ -53,15 +53,16 @@ namespace business_manager_orchestrator.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUser(int id)
+        public async Task<IActionResult> GetImage(int id)
         {
             //retrieve access token
             var tokenResponse = await authClient.GetToken();
 
             var apiClient = _httpClientFactory.CreateClient();
             apiClient.SetBearerToken(tokenResponse.AccessToken);
-            var response = await apiClient.GetAsync(apiUrl + "/business/" + id);
+            var response = await apiClient.GetAsync(apiUrl + "/image/" + id);
             var content = await response.Content.ReadAsStringAsync();
+            //UserAccountModel user = JsonSerializer.Deserialize<UserAccountModel>(content);
 
             return Ok(new
             {

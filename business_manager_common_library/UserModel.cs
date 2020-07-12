@@ -1,8 +1,8 @@
 using System;
 
-namespace business_manager_api
+namespace business_manager_common_library
 {
-    public class UserAccountModel
+    public class UserModel
     {
         public long Id { get; set; }
         public string Name { get; set; }

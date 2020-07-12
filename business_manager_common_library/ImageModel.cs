@@ -1,6 +1,6 @@
-namespace business_manager_api
+namespace business_manager_common_library
 {
-    public class BusinessImageModel
+    public class ImageModel
     {
         public long Id { get; set; }
         public long BusinessId { get; set; }

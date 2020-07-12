@@ -8,7 +8,6 @@ namespace business_manager_common_library
         public IdentificationData IdentificationData { get; set; }
         public BusinessInfo BusinessInfo { get; set; }
         public string WorkHours { get; set; }
-        public string Image { get; set; }
     }
     public class BusinessInfo
     {

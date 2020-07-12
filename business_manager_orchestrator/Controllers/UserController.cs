@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using IdentityModel.Client;
-using business_manager_api;
 using System.Text.Json;
 using System;
 using business_manager_orchestrator.Clients;

@@ -9,6 +9,7 @@ namespace business_manager_api.Controllers
 {
     [ApiController]
     [Route("weatherforecast")]
+    [Authorize]
     public class WeatherForecastController : Controller
     {
         private static readonly string[] Summaries = new[]
@@ -25,7 +26,6 @@ namespace business_manager_api.Controllers
 
         [HttpGet]
         [Route("all")]
-        [Authorize]
         public IEnumerable<WeatherForecast> Get()
         {
             var rng = new Random();

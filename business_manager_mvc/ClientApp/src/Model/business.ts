@@ -1,8 +1,13 @@
+import { ImageModel } from "./image";
+
+
 export class BusinessDataModel {
     id: number;
     identificationData: IdentificationData;
     businessInfo: BusinessInfo;
     workHours: string;
+    logo: ImageModel;
+    images: ImageModel[];
 }
 
 export class BusinessInfo {

@@ -49,7 +49,6 @@ namespace business_manager_api
         public string TVA { get; set; }
         public string EmailPro { get; set; }
         public string Description { get; set; }
-        public string Logo { get; set; }
     }
     [Table(name: "AddressData")]
     public class AddressData

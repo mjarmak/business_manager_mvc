@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace business_manager_orchestrator.Controllers
 {
-    [Authorize]
     [Route("user")]
     [ApiController]
     public class UserController : Controller
@@ -45,12 +44,8 @@ namespace business_manager_orchestrator.Controllers
 
             return Ok(new
             {
-                access_token = tokenResponse.AccessToken,
-                error = tokenResponse.Error,
-                errorDescr = tokenResponse.ErrorDescription,
-                message = content,
-                status = response.StatusCode,
-                data = response.Content.ReadAsStringAsync()
+                //status = response.StatusCode,
+                data = content
             });
         }
 
@@ -68,11 +63,7 @@ namespace business_manager_orchestrator.Controllers
 
             return Ok(new
             {
-                access_token = tokenResponse.AccessToken,
-                error = tokenResponse.Error,
-                errorDescr = tokenResponse.ErrorDescription,
-                message = content,
-                status = response.StatusCode,
+                //status = response.StatusCode,
                 data = content
             });
         }

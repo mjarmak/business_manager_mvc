@@ -43,6 +43,18 @@ namespace business_manager_api.Controllers
             return businessDataModel;
         }
 
+        // GET: api/BusinessData/5
+        [Route("page")]
+        [HttpGet]
+        public async Task<IList<BusinessDataModel>> GetBusinessesByPage([FromQuery] int page, [FromQuery] int pageSize)
+        {
+            page = page < 1 ? 1 : page;
+            pageSize = pageSize == 0 ? 10 : pageSize;
+            var skip = (page - 1) * pageSize;
+            var savedSearches = _context.BusinessDataModel.Skip(skip).Take(pageSize).Include(x => x);
+            return await savedSearches.ToArrayAsync();
+        }
+
         // PUT: api/BusinessData/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.

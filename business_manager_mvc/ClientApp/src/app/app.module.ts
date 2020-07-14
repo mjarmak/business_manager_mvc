@@ -15,6 +15,10 @@ import { BusinessManagerService } from './services/business-manager-svc';
 import { ToastrModule } from 'ngx-toastr';  
 import { AlertService } from './services/alert-service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BusinessListComponent } from './business-list/business-list.component';
+import { BusinessOverviewComponent } from './business-overview/business-overview.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -25,6 +29,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         FetchDataComponent,
         UserAccountCreateComponent,
         BusinessCreateComponent,
+        BusinessListComponent,
+        BusinessOverviewComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -36,12 +42,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         { path: 'fetch-data', component: FetchDataComponent },
         { path: 'user-account-create', component: UserAccountCreateComponent },
         { path: 'business-create', component: BusinessCreateComponent },
+        { path: 'business-overview', component: BusinessOverviewComponent },
     ]),
     ToastrModule.forRoot({
         positionClass: 'bottom-right',
         closeButton: true
     }),
-    BrowserAnimationsModule
+      BrowserAnimationsModule,
+      MatTableModule,
+      MatPaginatorModule
   ],
     providers: [
         BusinessManagerService,

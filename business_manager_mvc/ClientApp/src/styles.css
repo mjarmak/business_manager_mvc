@@ -59,3 +59,21 @@ code {
   margin-left: 1rem;
 }
 
+.card {
+  margin-top: 1rem;
+  padding: 1rem;
+  outline: solid thin;
+  outline-color: lightgrey;
+  display: grid;
+  width: 50%;
+  min-width: 512px;
+}
+.card-table {
+  margin-top: 1rem;
+  padding: 1rem;
+  outline: solid thin;
+  outline-color: lightgrey;
+  display: grid;
+  width: 100%;
+  min-width: 512px;
+}

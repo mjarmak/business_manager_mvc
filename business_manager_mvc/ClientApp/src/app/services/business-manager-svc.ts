@@ -17,6 +17,10 @@ export class BusinessManagerService {
         console.log('CALL TO ' + this.url + '/business')
         return this.http.post<BusinessDataModel>(this.url + '/business', businessModel)
     }
+    public searchBusinesses(): Observable<BusinessDataModel[]> {
+        console.log('CALL TO ' + this.url + '/business')
+        return this.http.get<BusinessDataModel[]>(this.url + '/business')
+    }
 
     public saveUser(user: UserAccountModel): Observable<UserAccountModel> {
         console.log('CALL TO ' + this.url + '/user')

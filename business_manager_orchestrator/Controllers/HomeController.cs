@@ -16,6 +16,7 @@ namespace business_manager_orchestrator.Controllers
             authClient = new AuthClient();
         }
 
+        [HttpGet]
         [Route("/test")]
         public async Task<IActionResult> Index()
         {

@@ -54,7 +54,8 @@ namespace business_manager_api
             //services.AddTransient<IValidator<BusinessDataModel>, BusinessDataValidator>();
             //services.AddTransient<IValidator<BusinessImageModel>, BusinessImageValidator>();
             //services.AddTransient<IValidator<LogoModel>, LogoValidator>();
-
+            
+            //swagger
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("V1", new OpenApiInfo
                 {

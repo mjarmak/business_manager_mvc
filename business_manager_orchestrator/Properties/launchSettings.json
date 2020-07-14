@@ -10,12 +10,12 @@
   "profiles": {
     "local": {
       "commandName": "IISExpress",
-      "launchBrowser": false,
-      "launchUrl": "test",
+      "launchBrowser": true,
+      "launchUrl": "index.html",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "authUrl": "https://localhost:44321",
-        "apiUrl": "https://localhost:44345"
+        "apiUrl": "https://localhost:44387"
       }
     },
     "business_manager_orchestrator": {

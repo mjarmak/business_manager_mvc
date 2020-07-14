@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Logging;
+using Microsoft.OpenApi.Models;
 
 namespace business_manager_orchestrator
 {
@@ -22,7 +23,7 @@ namespace business_manager_orchestrator
             services.AddAuthentication("Bearer")
                 .AddJwtBearer("Bearer", config =>
                 {
-                    config.Authority = "https://localhost:44321/";
+                    config.Authority = "https://localhost:44387/";
                     config.Audience = "business_manager_orchestrator";
                 });
 
@@ -35,6 +36,17 @@ namespace business_manager_orchestrator
 
             services.AddHttpClient();
             services.AddControllers();
+
+            //swagger
+            services.AddSwaggerGen(c => {
+                c.SwaggerDoc("V1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "API EPHEC",
+                    Description = "Orchestrator"
+                                     
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +57,8 @@ namespace business_manager_orchestrator
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseSwagger();
+
             app.UseCors("AllowAll");
 
             app.UseRouting();
@@ -52,6 +66,12 @@ namespace business_manager_orchestrator
             app.UseAuthentication();
 
             app.UseAuthorization();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/V1/swagger.json", "My API V1");
+                c.RoutePrefix = string.Empty;
+            });
 
             app.UseEndpoints(endpoints =>
             {

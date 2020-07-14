@@ -9,7 +9,7 @@ namespace business_manager_api.Controllers
 {
     [ApiController]
     [Route("weatherforecast")]
-    [Authorize]
+    //[Authorize]
     public class WeatherForecastController : Controller
     {
         private static readonly string[] Summaries = new[]
@@ -26,16 +26,20 @@ namespace business_manager_api.Controllers
 
         [HttpGet]
         [Route("all")]
-        public IEnumerable<WeatherForecast> Get()
+        public ActionResult Get()
         {
             var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            return Ok(new
             {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+                //status = response.StatusCode,
+                data = Enumerable.Range(1, 5).Select(index => new WeatherForecast
+                {
+                    Date = DateTime.Now.AddDays(index),
+                    TemperatureC = rng.Next(-20, 55),
+                    Summary = Summaries[rng.Next(Summaries.Length)]
+                })
+            .ToArray()
+        });
         }
     }
 }

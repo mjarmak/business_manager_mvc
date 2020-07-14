@@ -27,7 +27,7 @@ namespace business_manager_orchestrator.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostImage(ImageModel imageModel)
+        public async Task<String> PostImage(ImageModel imageModel)
         {
             //retrieve access token
             var tokenResponse = await authClient.GetToken();
@@ -42,16 +42,12 @@ namespace business_manager_orchestrator.Controllers
             var response = await apiClient.PostAsync(apiUrl + "/image", stringContent);
             var content = await response.Content.ReadAsStringAsync();
 
-            return Ok(new
-            {
-                //status = response.StatusCode,
-                data = content
-            });
+            return content;
         }
 
         [HttpPost("business/{id}")]
         [Consumes("multipart/form-data")]
-        public async Task<ActionResult> PostBusinessImage(long id, IFormFile image)
+        public async Task<String> PostBusinessImage(long id, IFormFile image)
         {
             //retrieve access token
             var tokenResponse = await authClient.GetToken();
@@ -65,15 +61,11 @@ namespace business_manager_orchestrator.Controllers
             var response = await apiClient.PostAsync(apiUrl + "/image", formData);
             var content = await response.Content.ReadAsStringAsync();
 
-            return Ok(new
-            {
-                //status = response.StatusCode,
-                data = content
-            });
+            return content;
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetImage(int id)
+        public async Task<String> GetImage(int id)
         {
             //retrieve access token
             var tokenResponse = await authClient.GetToken();
@@ -84,11 +76,7 @@ namespace business_manager_orchestrator.Controllers
             var content = await response.Content.ReadAsStringAsync();
             //UserAccountModel user = JsonSerializer.Deserialize<UserAccountModel>(content);
 
-            return Ok(new
-            {
-                //status = response.StatusCode,
-                data = content
-            });
+            return content;
         }
     }
 }

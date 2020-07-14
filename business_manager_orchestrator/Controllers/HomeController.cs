@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using IdentityModel.Client;
 using business_manager_orchestrator.Clients;
+using System;
 
 namespace business_manager_orchestrator.Controllers
 {
@@ -18,7 +19,7 @@ namespace business_manager_orchestrator.Controllers
 
         [HttpGet]
         [Route("/test")]
-        public async Task<IActionResult> Index()
+        public async Task<String> Index()
         {
             //retrieve access token
             var tokenResponse = await authClient.GetToken();
@@ -29,11 +30,7 @@ namespace business_manager_orchestrator.Controllers
             var response = await apiClient.GetAsync("https://localhost:44345/weatherforecast/all");
             var content = await response.Content.ReadAsStringAsync();
 
-            return Ok(new
-            {
-                //status = response.StatusCode,
-                data = content
-            });
+            return content;
         }
     }
 }

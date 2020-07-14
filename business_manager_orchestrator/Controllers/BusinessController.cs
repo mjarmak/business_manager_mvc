@@ -26,7 +26,7 @@ namespace business_manager_orchestrator.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostUser(BusinessModel businessDataModel)
+        public async Task<String> PostUser(BusinessModel businessDataModel)
         {
             //retrieve access token
             var tokenResponse = await authClient.GetToken();
@@ -41,15 +41,11 @@ namespace business_manager_orchestrator.Controllers
             var response = await apiClient.PostAsync(apiUrl + "/business", stringContent);
             var content = await response.Content.ReadAsStringAsync();
 
-            return Ok(new
-            {
-                //status = response.StatusCode,
-                data = content
-            });
+            return content;
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUser(int id)
+        public async Task<String> GetUser(int id)
         {
             //retrieve access token
             var tokenResponse = await authClient.GetToken();
@@ -59,11 +55,7 @@ namespace business_manager_orchestrator.Controllers
             var response = await apiClient.GetAsync(apiUrl + "/business/" + id);
             var content = await response.Content.ReadAsStringAsync();
 
-            return Ok(new
-            {
-                //status = response.StatusCode,
-                data = content
-            });
+            return content;
         }
     }
 }

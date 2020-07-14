@@ -30,4 +30,8 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\business_manager_common_library\business_manager_common_library.csproj" />
+  </ItemGroup>
+
 </Project>

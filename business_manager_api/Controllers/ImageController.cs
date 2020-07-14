@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using business_manager_api;
 using Microsoft.AspNetCore.Authorization;
 using System.IO;
+using business_manager_common_library;
 
 namespace business_manager_api.Controllers
 {
@@ -30,7 +31,7 @@ namespace business_manager_api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<BusinessImageModel>> GetBusinessImageModel(long id)
+        public async Task<ActionResult> GetBusinessImageModel(long id)
         {
             var businessImageModel = await _context.BusinessImage.FindAsync(id);
 
@@ -39,7 +40,56 @@ namespace business_manager_api.Controllers
                 return NotFound();
             }
 
-            return businessImageModel;
+            return Ok(new
+            {
+                //status = response.StatusCode,
+                data = businessImageModel
+            });
+        }
+
+        [HttpGet("{id}/image")]
+        public async Task<ActionResult> GetBusinessImage(long id)
+        {
+            var businessImageModel = await _context.BusinessImage.FindAsync(id);
+
+            if (businessImageModel == null)
+            {
+                return NotFound();
+            }
+
+            string imageStringBase64 = System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(businessImageModel.ImageData));
+            return Ok(new
+            {
+                //status = response.StatusCode,
+                data = imageStringBase64
+            });
+        }
+
+        [HttpGet("bussiness/{id}/image")]
+        public ActionResult GetBusinessImages(long id)
+        {
+            List<BusinessImageModel> businessImageModel = _context.BusinessImage.Where(i => i.BusinessId == id).ToList();
+
+            if (businessImageModel == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(new
+            {
+                //status = response.StatusCode,
+                data = EnvelopeOfImages(businessImageModel)
+            });
+        }
+
+        private List<ImageModel> EnvelopeOfImages(List<BusinessImageModel> BussinessImages)
+        {
+            List<ImageModel> Images = new List<ImageModel>();
+            foreach (BusinessImageModel bi in BussinessImages)
+            {
+                Images.Add(new ImageModel(bi.Id, bi.BusinessId, System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(bi.ImageData))));
+            }
+            return Images;
         }
 
         [HttpPut("{id}")]
@@ -97,7 +147,8 @@ namespace business_manager_api.Controllers
             Stream stream = image.OpenReadStream();
             StreamReader reader = new StreamReader(stream);
             string imageString = reader.ReadToEnd();
-            _context.BusinessImage.Add(new BusinessImageModel(id, imageString));
+            string imageStringBase64 = System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(imageString));
+            _context.BusinessImage.Add(new BusinessImageModel(id, imageStringBase64));
             await _context.SaveChangesAsync();
 
             return NoContent();

@@ -12,7 +12,7 @@ namespace business_manager_api.Controllers
 {
     [Route("user")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class UserAccountModelsController : Controller
     {
         private readonly DefaultContext _context;
@@ -26,7 +26,11 @@ namespace business_manager_api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserAccountModel>>> GetUserAccount()
         {
-            return await _context.UserAccount.ToListAsync();
+            return Ok(new
+            {
+                //status = response.StatusCode,
+                data = await _context.UserAccount.ToListAsync()
+            });
         }
 
         // GET: api/UserAccountModels/5
@@ -40,7 +44,11 @@ namespace business_manager_api.Controllers
                 return NotFound();
             }
 
-            return userAccountModel;
+            return Ok(new
+            {
+                //status = response.StatusCode,
+                data = userAccountModel
+            });
         }
 
         // PUT: api/UserAccountModels/5
@@ -84,7 +92,11 @@ namespace business_manager_api.Controllers
             _context.UserAccount.Add(userAccountModel);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUserAccountModel", new { id = userAccountModel.Id }, userAccountModel);
+            return Ok(new
+            {
+                //status = response.StatusCode,
+                data = CreatedAtAction("GetUserAccountModel", new { id = userAccountModel.Id }, userAccountModel)
+            });
         }
 
         // DELETE: api/UserAccountModels/5
@@ -100,7 +112,11 @@ namespace business_manager_api.Controllers
             _context.UserAccount.Remove(userAccountModel);
             await _context.SaveChangesAsync();
 
-            return userAccountModel;
+            return Ok(new
+            {
+                //status = response.StatusCode,
+                data = userAccountModel
+            });
         }
 
         private bool UserAccountModelExists(long id)

@@ -12,7 +12,7 @@ namespace business_manager_api.Controllers
 {
     [Route("business")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class BusinessDataController : Controller
     {
         private readonly DefaultContext _context;
@@ -26,12 +26,16 @@ namespace business_manager_api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BusinessDataModel>>> GetBusinessDataModel()
         {
-            return await _context.BusinessDataModel.ToListAsync();
+            return Ok(new
+            {
+                //status = response.StatusCode,
+                data = await _context.BusinessDataModel.ToListAsync()
+            });
         }
 
         // GET: api/BusinessData/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<BusinessDataModel>> GetBusinessDataModel(long id)
+        public async Task<ActionResult> GetBusinessDataModel(long id)
         {
             var businessDataModel = await _context.BusinessDataModel.FindAsync(id);
 
@@ -40,19 +44,27 @@ namespace business_manager_api.Controllers
                 return NotFound();
             }
 
-            return businessDataModel;
+            return Ok(new
+            {
+                //status = response.StatusCode,
+                data = businessDataModel
+            });
         }
 
         // GET: api/BusinessData/5
         [Route("page")]
         [HttpGet]
-        public async Task<IList<BusinessDataModel>> GetBusinessesByPage([FromQuery] int page, [FromQuery] int pageSize)
+        public async Task<ActionResult> GetBusinessesByPage([FromQuery] int page, [FromQuery] int pageSize)
         {
             page = page < 1 ? 1 : page;
             pageSize = pageSize == 0 ? 10 : pageSize;
             var skip = (page - 1) * pageSize;
             var savedSearches = _context.BusinessDataModel.Skip(skip).Take(pageSize).Include(x => x);
-            return await savedSearches.ToArrayAsync();
+            return Ok(new
+            {
+                //status = response.StatusCode,
+                data = await savedSearches.ToArrayAsync()
+            });
         }
 
         // PUT: api/BusinessData/5
@@ -96,12 +108,16 @@ namespace business_manager_api.Controllers
             _context.BusinessDataModel.Add(businessDataModel);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetBusinessDataModel", new { id = businessDataModel.Id }, businessDataModel);
+            return Ok(new
+            {
+                //status = response.StatusCode,
+                data = CreatedAtAction("GetBusinessDataModel", new { id = businessDataModel.Id }, businessDataModel)
+            });
         }
 
         // DELETE: api/BusinessData/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<BusinessDataModel>> DeleteBusinessDataModel(long id)
+        public async Task<ActionResult> DeleteBusinessDataModel(long id)
         {
             var businessDataModel = await _context.BusinessDataModel.FindAsync(id);
             if (businessDataModel == null)
@@ -112,7 +128,11 @@ namespace business_manager_api.Controllers
             _context.BusinessDataModel.Remove(businessDataModel);
             await _context.SaveChangesAsync();
 
-            return businessDataModel;
+            return Ok(new
+            {
+                //status = response.StatusCode,
+                data = businessDataModel
+            });
         }
 
         private bool BusinessDataModelExists(long id)

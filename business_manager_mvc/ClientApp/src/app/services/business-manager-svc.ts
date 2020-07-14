@@ -38,11 +38,7 @@ export class BusinessManagerService {
     }
 
     public getBusinessImages(businessId: number): Observable<ResponseEnvelope> {
-        const formData = new FormData();
 
-        formData.append('image', image);
-
-        console.log('CALL TO ' + this.url + '/image/business/' + businessId)
-        return this.http.post<ResponseEnvelope>(this.url + '/image', formData);
+        return this.http.get<ResponseEnvelope>(this.url + 'business/' + businessId + '/image');
     }
 }

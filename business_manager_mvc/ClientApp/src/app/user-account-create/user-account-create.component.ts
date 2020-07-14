@@ -21,7 +21,7 @@ export class UserAccountCreateComponent implements OnInit {
     public onClickSave() {
         console.log('user is ' + this.user.email)
         this.businessManagerService.saveUser(this.user).subscribe(result => {
-            this.user = result;
+            this.user = result.data;
         }, error => {
                 this.alertSerice.error("Error adding image", error.message);
         });

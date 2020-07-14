@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { ImageModel } from '../../Model/image';
 import { UserAccountModel } from '../../Model/user';
+import { ResponseEnvelope } from '../../Model/respoonseEnvelope';
 
 export class BusinessManagerService {
 
@@ -13,26 +14,26 @@ export class BusinessManagerService {
         this.url = environment.business_manager_orc_url;
     }
 
-    public saveBusiness(businessModel: BusinessDataModel): Observable<BusinessDataModel> {
+    public saveBusiness(businessModel: BusinessDataModel): Observable<ResponseEnvelope> {
         console.log('CALL TO ' + this.url + '/business')
-        return this.http.post<BusinessDataModel>(this.url + '/business', businessModel)
+        return this.http.post<ResponseEnvelope>(this.url + '/business', businessModel)
     }
-    public searchBusinesses(): Observable<BusinessDataModel[]> {
+    public searchBusinesses(): Observable<ResponseEnvelope> {
         console.log('CALL TO ' + this.url + '/business')
-        return this.http.get<BusinessDataModel[]>(this.url + '/business')
+        return this.http.get<ResponseEnvelope>(this.url + '/business')
     }
 
-    public saveUser(user: UserAccountModel): Observable<UserAccountModel> {
+    public saveUser(user: UserAccountModel): Observable<ResponseEnvelope> {
         console.log('CALL TO ' + this.url + '/user')
-        return this.http.post<UserAccountModel>(this.url + '/user', user)
+        return this.http.post<ResponseEnvelope>(this.url + '/user', user)
     }
 
-    public uploadImage(image: File, businessId: number): Observable<ImageModel> {
+    public uploadImage(image: File, businessId: number): Observable<ResponseEnvelope> {
         const formData = new FormData();
 
         formData.append('image', image);
 
         console.log('CALL TO ' + this.url + '/image/business/' + businessId)
-        return this.http.post<ImageModel>(this.url + '/image', formData);
+        return this.http.post<ResponseEnvelope>(this.url + '/image', formData);
     }
 }

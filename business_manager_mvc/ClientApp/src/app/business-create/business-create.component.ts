@@ -26,7 +26,7 @@ export class BusinessCreateComponent implements OnInit {
     public onClickSave() {
         console.log('business is ' + this.business)
         this.businessManagerService.saveBusiness(this.business).subscribe(result => {
-            this.business = result;
+            this.business = result.data;
 
             this.businessManagerService.uploadImage(this.logo, this.business.id).subscribe(
                 result => {

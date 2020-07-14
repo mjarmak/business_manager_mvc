@@ -22,7 +22,7 @@ export class BusinessListComponent implements OnInit {
 
     ngOnInit() {
         this.businessManagerService.searchBusinesses().subscribe(result => {
-            this.businesses = result;
+            this.businesses = result.data;
             //this.dataSource.paginator = this.paginator;
             //this.dataSource = new MatTableDataSource<BusinessDataModel>(result);
         }, error => {

@@ -28,7 +28,7 @@ export class BusinessCreateComponent implements OnInit {
         this.businessManagerService.saveBusiness(this.business).subscribe(result => {
             this.business = result.data;
 
-            this.businessManagerService.uploadImage(this.logo, this.business.id).subscribe(
+            this.businessManagerService.uploadLogo(this.logo, this.business.id).subscribe(
                 result => {
                 },
                 error => {

@@ -82,14 +82,35 @@ namespace business_manager_api.Controllers
             });
         }
 
+        [HttpGet("bussiness/{id}/logo")]
+        public ActionResult GetBusinessLogo(long id)
+        {
+            LogoModel logoModel = _context.LogoModel.Where(i => i.EntityId == id).ToList()[0];
+
+            if (logoModel == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(new
+            {
+                //status = response.StatusCode,
+                data = EnvelopeOfLogo(logoModel)
+            });
+        }
+
         private List<ImageModel> EnvelopeOfImages(List<BusinessImageModel> BussinessImages)
         {
             List<ImageModel> Images = new List<ImageModel>();
             foreach (BusinessImageModel bi in BussinessImages)
             {
-                Images.Add(new ImageModel(bi.Id, bi.BusinessId, System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(bi.ImageData))));
+                Images.Add(new ImageModel(bi.Id, bi.BusinessId, System.Text.Encoding.UTF8.GetString(System.Convert.FromBase64String(bi.ImageData))));
             }
             return Images;
+        }
+        private ImageModel EnvelopeOfLogo(LogoModel image)
+        {
+            return new ImageModel(image.Id, image.EntityId, System.Text.Encoding.UTF8.GetString(System.Convert.FromBase64String(image.ImageData)));
         }
 
         [HttpPut("{id}")]
@@ -132,7 +153,7 @@ namespace business_manager_api.Controllers
             return CreatedAtAction("GetBusinessImageModel", new { id = businessImageModel.Id }, businessImageModel);
         }
 
-        [HttpPost("business/{id}")]
+        [HttpPost("business/{id}/image")]
         [Consumes("multipart/form-data")]
         public async Task<ActionResult> PostBusinessImage(long id, IFormFile image)
         {
@@ -149,6 +170,28 @@ namespace business_manager_api.Controllers
             string imageString = reader.ReadToEnd();
             string imageStringBase64 = System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(imageString));
             _context.BusinessImage.Add(new BusinessImageModel(id, imageStringBase64));
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+        
+        [HttpPost("business/{id}/logo")]
+        [Consumes("multipart/form-data")]
+        public async Task<ActionResult> PostBusinessLogo(long id, IFormFile image)
+        {
+            if (!BusinessDataModelExists(id))
+            {
+                return NotFound("Business does not exist");
+            }
+            if (!image.ContentType.Contains("image") && !image.ContentType.Contains("jpeg") && !image.ContentType.Contains("jpg"))
+            {
+                return BadRequest("File must be an image");
+            }
+            Stream stream = image.OpenReadStream();
+            StreamReader reader = new StreamReader(stream);
+            string imageString = reader.ReadToEnd();
+            string imageStringBase64 = System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(imageString));
+            _context.LogoModel.Add(new LogoModel(id, imageStringBase64));
             await _context.SaveChangesAsync();
 
             return NoContent();

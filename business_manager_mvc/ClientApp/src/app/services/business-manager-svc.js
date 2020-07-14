@@ -21,8 +21,17 @@ var BusinessManagerService = /** @class */ (function () {
     BusinessManagerService.prototype.uploadImage = function (image, businessId) {
         var formData = new FormData();
         formData.append('image', image);
-        console.log('CALL TO ' + this.url + '/image/business/' + businessId);
+        console.log('CALL TO ' + this.url + '/business/' + businessId + '/image');
         return this.http.post(this.url + '/image', formData);
+    };
+    BusinessManagerService.prototype.uploadLogo = function (image, businessId) {
+        var formData = new FormData();
+        formData.append('image', image);
+        console.log('CALL TO ' + this.url + '/business/' + businessId + '/logo');
+        return this.http.post(this.url + '/logo', formData);
+    };
+    BusinessManagerService.prototype.getBusinessImages = function (businessId) {
+        return this.http.get(this.url + 'business/' + businessId + '/image');
     };
     return BusinessManagerService;
 }());

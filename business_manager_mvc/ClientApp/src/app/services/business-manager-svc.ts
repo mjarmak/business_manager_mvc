@@ -33,8 +33,17 @@ export class BusinessManagerService {
 
         formData.append('image', image);
 
-        console.log('CALL TO ' + this.url + '/image/business/' + businessId)
+        console.log('CALL TO ' + this.url + '/business/' + businessId + '/image')
         return this.http.post<ResponseEnvelope>(this.url + '/image', formData);
+    }
+
+    public uploadLogo(image: File, businessId: number): Observable<ResponseEnvelope> {
+        const formData = new FormData();
+
+        formData.append('image', image);
+
+        console.log('CALL TO ' + this.url + '/business/' + businessId + '/logo')
+        return this.http.post<ResponseEnvelope>(this.url + '/logo', formData);
     }
 
     public getBusinessImages(businessId: number): Observable<ResponseEnvelope> {

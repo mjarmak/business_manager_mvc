@@ -18,11 +18,31 @@ var BusinessManagerService = /** @class */ (function () {
         console.log('CALL TO ' + this.url + '/user');
         return this.http.post(this.url + '/user', user);
     };
+    BusinessManagerService.prototype.uploadLogo = function (logo, businessId) {
+        if (logo === undefined) {
+            return null;
+        }
+        var formData = new FormData();
+        formData.append('logo', logo);
+        console.log('CALL TO ' + this.url + '/logo/business/' + businessId);
+        return this.http.post(this.url + '/logo/business/' + businessId, formData);
+    };
     BusinessManagerService.prototype.uploadImage = function (image, businessId) {
+        if (image === undefined) {
+            return null;
+        }
         var formData = new FormData();
         formData.append('image', image);
         console.log('CALL TO ' + this.url + '/image/business/' + businessId);
-        return this.http.post(this.url + '/image', formData);
+        return this.http.post(this.url + '/image/business/' + businessId, formData);
+    };
+    BusinessManagerService.prototype.getBusinessImages = function (businessId) {
+        console.log('CALL TO ' + this.url + '/image/business/');
+        return this.http.get(this.url + '/image/business/' + businessId);
+    };
+    BusinessManagerService.prototype.getBusinessLogo = function (businessId) {
+        console.log('CALL TO ' + this.url + '/logo/business/' + businessId);
+        return this.http.get(this.url + '/logo/business/' + businessId);
     };
     return BusinessManagerService;
 }());

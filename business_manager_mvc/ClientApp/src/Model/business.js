@@ -24,7 +24,4 @@ var AddressData = /** @class */ (function () {
     return AddressData;
 }());
 exports.AddressData = AddressData;
-/*
-
-*/
 //# sourceMappingURL=business.js.map

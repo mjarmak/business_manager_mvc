@@ -15,7 +15,7 @@ export class AlertService {
     info(title: string, message: string) {
         this.toastr.info(message, title);
     }
-    waring(title: string, message: string) {
+    warning(title: string, message: string) {
         this.toastr.warning(message, title);
     } 
 

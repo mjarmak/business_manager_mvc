@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace business_manager_api
 {
-    [Table(name: "LogoModel")]
+    [Table(name: "Logo")]
     public class LogoModel
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]

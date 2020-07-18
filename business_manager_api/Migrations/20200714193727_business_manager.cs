@@ -1,11 +1,43 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace business_manager_api.Migrations
 {
-    public partial class business_manager_mvc : Migration
+    public partial class business_manager : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "AddressData",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PostalCode = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: true),
+                    Country = table.Column<string>(nullable: true),
+                    Street = table.Column<string>(nullable: true),
+                    BoxNumber = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AddressData", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BusinessImage",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BusinessId = table.Column<long>(nullable: false),
+                    ImageData = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BusinessImage", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "IdentificationData",
                 columns: table => new
@@ -16,12 +48,45 @@ namespace business_manager_api.Migrations
                     Name = table.Column<string>(nullable: true),
                     TVA = table.Column<string>(nullable: true),
                     EmailPro = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    Logo = table.Column<string>(nullable: true)
+                    Description = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_IdentificationData", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Logo",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EntityId = table.Column<long>(nullable: false),
+                    ImageData = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Logo", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserAccount",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true),
+                    Surname = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    Phone = table.Column<string>(nullable: true),
+                    Gender = table.Column<int>(nullable: false),
+                    BirthDate = table.Column<DateTime>(nullable: false),
+                    Profession = table.Column<bool>(nullable: false),
+                    Password = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserAccount", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -42,9 +107,9 @@ namespace business_manager_api.Migrations
                 {
                     table.PrimaryKey("PK_BusinessInfo", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_BusinessInfo_IdentificationData_AddressId",
+                        name: "FK_BusinessInfo_AddressData_AddressId",
                         column: x => x.AddressId,
-                        principalTable: "IdentificationData",
+                        principalTable: "AddressData",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -76,27 +141,6 @@ namespace business_manager_api.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "BusinessImage",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    BusinessId = table.Column<long>(nullable: false),
-                    ImageData = table.Column<string>(nullable: true),
-                    BusinessDataModelId = table.Column<long>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BusinessImage", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_BusinessImage_BusinessData_BusinessDataModelId",
-                        column: x => x.BusinessDataModelId,
-                        principalTable: "BusinessData",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_BusinessData_BusinessInfoId",
                 table: "BusinessData",
@@ -108,11 +152,6 @@ namespace business_manager_api.Migrations
                 column: "IdentificationDataId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BusinessImage_BusinessDataModelId",
-                table: "BusinessImage",
-                column: "BusinessDataModelId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_BusinessInfo_AddressId",
                 table: "BusinessInfo",
                 column: "AddressId");
@@ -121,16 +160,25 @@ namespace business_manager_api.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "BusinessData");
+
+            migrationBuilder.DropTable(
                 name: "BusinessImage");
 
             migrationBuilder.DropTable(
-                name: "BusinessData");
+                name: "Logo");
+
+            migrationBuilder.DropTable(
+                name: "UserAccount");
 
             migrationBuilder.DropTable(
                 name: "BusinessInfo");
 
             migrationBuilder.DropTable(
                 name: "IdentificationData");
+
+            migrationBuilder.DropTable(
+                name: "AddressData");
         }
     }
 }

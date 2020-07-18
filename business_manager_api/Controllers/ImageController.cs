@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using business_manager_api;
-using Microsoft.AspNetCore.Authorization;
 using System.IO;
 using business_manager_common_library;
 
@@ -24,30 +20,7 @@ namespace business_manager_api.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<BusinessImageModel>>> GetBusinessImage()
-        {
-            return await _context.BusinessImage.ToListAsync();
-        }
-
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetBusinessImageModel(long id)
-        {
-            var businessImageModel = await _context.BusinessImage.FindAsync(id);
-
-            if (businessImageModel == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(new
-            {
-                //status = response.StatusCode,
-                data = businessImageModel
-            });
-        }
-
-        [HttpGet("{id}/image")]
         public async Task<ActionResult> GetBusinessImage(long id)
         {
             var businessImageModel = await _context.BusinessImage.FindAsync(id);
@@ -65,14 +38,14 @@ namespace business_manager_api.Controllers
             });
         }
 
-        [HttpGet("bussiness/{id}/image")]
+        [HttpGet("business/{id}")]
         public ActionResult GetBusinessImages(long id)
         {
             List<BusinessImageModel> businessImageModel = _context.BusinessImage.Where(i => i.BusinessId == id).ToList();
 
             if (businessImageModel == null)
             {
-                return NotFound();
+                return NoContent();
             }
 
             return Ok(new
@@ -87,49 +60,9 @@ namespace business_manager_api.Controllers
             List<ImageModel> Images = new List<ImageModel>();
             foreach (BusinessImageModel bi in BussinessImages)
             {
-                Images.Add(new ImageModel(bi.Id, bi.BusinessId, System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(bi.ImageData))));
+                Images.Add(new ImageModel(bi.Id, bi.BusinessId, System.Text.Encoding.UTF8.GetString(System.Convert.FromBase64String(bi.ImageData))));
             }
             return Images;
-        }
-
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutBusinessImageModel(long id, BusinessImageModel businessImageModel)
-        {
-            if (id != businessImageModel.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(businessImageModel).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BusinessImageModelExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPost()]
-        public async Task<ActionResult<BusinessImageModel>> PostImage(BusinessImageModel businessImageModel)
-        {
-            _context.BusinessImage.Add(businessImageModel);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetBusinessImageModel", new { id = businessImageModel.Id }, businessImageModel);
         }
 
         [HttpPost("business/{id}")]

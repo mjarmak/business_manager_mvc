@@ -10,8 +10,8 @@ using business_manager_api;
 namespace business_manager_api.Migrations
 {
     [DbContext(typeof(DefaultContext))]
-    [Migration("20200630182358_business_manager_mvc")]
-    partial class business_manager_mvc
+    [Migration("20200714193727_business_manager")]
+    partial class business_manager
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,33 @@ namespace business_manager_api.Migrations
                 .HasAnnotation("ProductVersion", "3.1.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("business_manager_api.AddressData", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("BoxNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostalCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Street")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AddressData");
+                });
 
             modelBuilder.Entity("business_manager_api.BusinessDataModel", b =>
                 {
@@ -53,9 +80,6 @@ namespace business_manager_api.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long?>("BusinessDataModelId")
-                        .HasColumnType("bigint");
-
                     b.Property<long>("BusinessId")
                         .HasColumnType("bigint");
 
@@ -63,8 +87,6 @@ namespace business_manager_api.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BusinessDataModelId");
 
                     b.ToTable("BusinessImage");
                 });
@@ -117,9 +139,6 @@ namespace business_manager_api.Migrations
                     b.Property<string>("EmailPro")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Logo")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -132,6 +151,24 @@ namespace business_manager_api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("IdentificationData");
+                });
+
+            modelBuilder.Entity("business_manager_api.LogoModel", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("EntityId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ImageData")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Logo");
                 });
 
             modelBuilder.Entity("business_manager_api.UserAccountModel", b =>
@@ -181,16 +218,9 @@ namespace business_manager_api.Migrations
                         .HasForeignKey("IdentificationDataId");
                 });
 
-            modelBuilder.Entity("business_manager_api.BusinessImageModel", b =>
-                {
-                    b.HasOne("business_manager_api.BusinessDataModel", null)
-                        .WithMany("Images")
-                        .HasForeignKey("BusinessDataModelId");
-                });
-
             modelBuilder.Entity("business_manager_api.BusinessInfo", b =>
                 {
-                    b.HasOne("business_manager_api.IdentificationData", "Address")
+                    b.HasOne("business_manager_api.AddressData", "Address")
                         .WithMany()
                         .HasForeignKey("AddressId");
                 });

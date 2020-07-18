@@ -12,7 +12,7 @@ namespace business_manager_api
 {
     public class Startup
     {
-        //readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
         public Startup(IConfiguration configuration)
         {
@@ -38,14 +38,16 @@ namespace business_manager_api
                 Configuration.GetConnectionString("DefaultConnection"),
                 b => b.MigrationsAssembly(typeof(DefaultContext).Assembly.FullName)));
 
-            //services.AddCors(options =>
-            //{
-            //    options.AddPolicy(name: MyAllowSpecificOrigins,
-            //                      builder =>
-            //                      {
-            //                          builder.WithOrigins("https://localhost:44383");
-            //                      });
-            //});
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                  builder =>
+                                  {
+                                      builder.WithOrigins("https://localhost:44383")
+                                      .AllowAnyMethod()
+                                      .AllowAnyHeader();
+                                  });
+            });
 
             services.AddControllers();
             services.AddMvc().AddFluentValidation();
@@ -95,7 +97,7 @@ namespace business_manager_api
             app.UseRouting();
 
 
-            //app.UseCors(MyAllowSpecificOrigins);
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseAuthentication();
 

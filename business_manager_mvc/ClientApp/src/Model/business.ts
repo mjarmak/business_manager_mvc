@@ -28,7 +28,6 @@ export class IdentificationData {
     tva: string;
     emailPro: string;
     description: string;
-    logo: string;
 }
 export class AddressData {
     id: number;
@@ -37,10 +36,3 @@ export class AddressData {
     street: string;
     boxNumber: string;
 }
-
-
-
-
-/*
-
-*/

@@ -23,26 +23,26 @@ var BusinessManagerService = /** @class */ (function () {
             return null;
         }
         var formData = new FormData();
-        formData.append('logo', logo);
-        console.log('CALL TO ' + this.url + '/logo/business/' + businessId);
-        return this.http.post(this.url + '/logo/business/' + businessId, formData);
+        formData.append('image', logo);
+        console.log('CALL TO ' + this.url + '/business/' + businessId + '/logo');
+        return this.http.post(this.url + '/business/' + businessId + '/logo', formData);
     };
-    BusinessManagerService.prototype.uploadImage = function (image, businessId) {
+    BusinessManagerService.prototype.uploadImage = function (image, businessId, imageId) {
         if (image === undefined) {
             return null;
         }
         var formData = new FormData();
         formData.append('image', image);
-        console.log('CALL TO ' + this.url + '/image/business/' + businessId);
-        return this.http.post(this.url + '/image/business/' + businessId, formData);
+        console.log('CALL TO ' + this.url + '/business/' + businessId + '/photo/' + imageId);
+        return this.http.post(this.url + '/business/' + businessId + '/photo/' + imageId, formData);
     };
     BusinessManagerService.prototype.getBusinessImages = function (businessId) {
-        console.log('CALL TO ' + this.url + '/image/business/');
-        return this.http.get(this.url + '/image/business/' + businessId);
+        console.log('CALL TO ' + this.url + '/business/' + businessId + '/photo');
+        return this.http.get(this.url + '/business/' + businessId + '/photo');
     };
     BusinessManagerService.prototype.getBusinessLogo = function (businessId) {
-        console.log('CALL TO ' + this.url + '/logo/business/' + businessId);
-        return this.http.get(this.url + '/logo/business/' + businessId);
+        console.log('CALL TO ' + this.url + '/business/' + businessId + '/logo');
+        return this.http.get(this.url + '/business/' + businessId + '/logo');
     };
     return BusinessManagerService;
 }());

@@ -1,4 +1,5 @@
 ﻿using business_manager_api.Services;
+using business_manager_common_library;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
@@ -9,17 +10,17 @@ using System.Text.RegularExpressions;
 
 namespace business_manager_api
 {
-    [Table(name: "BusinessData")]
+    [Table(name: "Business")]
     public class BusinessDataModel
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
         public IdentificationData IdentificationData { get; set; }
-        public BusinessInfo BusinessInfo { get; set; }
+        public BusinessInfoData BusinessInfo { get; set; }
         public string WorkHours { get; set; }
     }
     [Table(name: "BusinessInfo")]
-    public class BusinessInfo
+    public class BusinessInfoData
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
@@ -30,16 +31,13 @@ namespace business_manager_api
         public string UrlInstagram { get; set; }
         public string UrlFaceBook { get; set; }
         public string UrlLinkedIn { get; set; }
-    }
-    public enum BusinessTypeEnum
-    {
-        Bar,
-        Club,
-        Concert,
-        StudentCircle
+        public string PhotoPath1 { get; set; }
+        public string PhotoPath2 { get; set; }
+        public string PhotoPath3 { get; set; }
+        public string PhotoPath4 { get; set; }
     }
     
-    [Table(name: "IdentificationData")]
+    [Table(name: "Identification")]
     public class IdentificationData
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -49,8 +47,9 @@ namespace business_manager_api
         public string TVA { get; set; }
         public string EmailPro { get; set; }
         public string Description { get; set; }
+        public string LogoPath { get; set; }
     }
-    [Table(name: "AddressData")]
+    [Table(name: "Address")]
     public class AddressData
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -77,7 +76,7 @@ namespace business_manager_api
 
 
     //Fluent Validation for Business Info
-    public class BusinessInfoValidator : AbstractValidator<BusinessInfo>
+    public class BusinessInfoValidator : AbstractValidator<BusinessInfoData>
     {
         private readonly Regex regex = new Regex(@"[^A-Za-z0-9@-_]");
         //private readonly string matchError = "Cannot contain any special characters";

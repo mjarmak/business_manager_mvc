@@ -9,46 +9,52 @@
   <p *ngIf="this.business.id">{{this.business.id}}</p>
 
   <label for="name">Name:</label>
-  <input bis-input id="name" type="text" [(ngModel)]="this.business.name">
+  <input bis-input id="name" type="text" [(ngModel)]="this.business.identificationData.name">
 
-  <label for="email">Email:</label>
-  <input bis-input id="email" type="email" [(ngModel)]="this.business.email">
-
-  <label for="address">Address:</label>
-  <input bis-input id="address" type="text" [(ngModel)]="this.business.address">
+  <label for="email">Business Email:</label>
+  <input bis-input id="emailBusiness" type="email" [(ngModel)]="this.business.businessInfo.emailBusiness">
 
   <label for="phone">Phone:</label>
-  <input bis-input id="phone" type="text" [(ngModel)]="this.business.phone">
+  <input bis-input id="phone" type="text" [(ngModel)]="this.business.businessInfo.phone">
 
   <label for="emailBusiness">Professional Email:</label>
-  <input bis-input id="emailBusiness" type="email" [(ngModel)]="this.business.emailBusiness">
+  <input bis-input id="emailPro" type="email" [(ngModel)]="this.business.businessInfo.emailPro">
 
   <label for="urlSite">Website Url:</label>
-  <input bis-input id="urlSite" type="url" [(ngModel)]="this.business.urlSite">
+  <input bis-input id="urlSite" type="url" [(ngModel)]="this.business.businessInfo.urlSite">
 
   <label for="urlInstagram">Instagram Url:</label>
-  <input bis-input id="urlInstagram" type="url" [(ngModel)]="this.business.urlInstagram">
+  <input bis-input id="urlInstagram" type="url" [(ngModel)]="this.business.businessInfo.urlInstagram">
 
   <label for="urlFaceBook">Facebook Url:</label>
-  <input bis-input id="urlFaceBook" type="url" [(ngModel)]="this.business.urlFaceBook">
-
-  <label for="type">type:</label>
-  <input bis-input id="urlLinkedIn" type="url" [(ngModel)]="this.business.urlLinkedIn">
+  <input bis-input id="urlFaceBook" type="url" [(ngModel)]="this.business.businessInfo.urlFaceBook">
 
   <label for="urlLinkedIn">Linkedin Url:</label>
-  <input bis-input id="urlLinkedIn" type="url" [(ngModel)]="this.business.urlLinkedIn">
+  <input bis-input id="urlLinkedIn" type="url" [(ngModel)]="this.business.businessInfo.urlLinkedIn">
 
   <label for="type">Type of Business:</label>
-  <input bis-input id="type" type="text" [(ngModel)]="this.business.type">
+  <input bis-input id="type" type="text" [(ngModel)]="this.business.identificationData.type">
 
   <label for="tva">TVA:</label>
-  <input bis-input id="tva" type="text" [(ngModel)]="this.business.tva">
+  <input bis-input id="tva" type="text" [(ngModel)]="this.business.identificationData.tva">
 
   <label for="emailPro">Email Pro:</label>
-  <input bis-input id="emailPro" type="email" [(ngModel)]="this.business.emailPro">
+  <input bis-input id="emailPro" type="email" [(ngModel)]="this.business.identificationData.emailPro">
 
   <label for="description">Description:</label>
-  <input bis-input id="description" type="text" [(ngModel)]="this.business.description">
+  <input bis-input id="description" type="text" [(ngModel)]="this.business.identificationData.description">
+
+  <label for="postalCode">Postal Code:</label>
+  <input bis-input id="postalCode" type="text" [(ngModel)]="this.business.businessInfo.address.postalCode">
+
+  <label for="country">Country:</label>
+  <input bis-input id="country" type="text" [(ngModel)]="this.business.businessInfo.address.country">
+
+  <label for="street">Street:</label>
+  <input bis-input id="street" type="text" [(ngModel)]="this.business.businessInfo.address.street">
+
+  <label for="boxNumber">Box Number:</label>
+  <input bis-input id="boxNumber" type="text" [(ngModel)]="this.business.businessInfo.address.boxNumber">
 
   <label class="image-upload-container btn btn-bwm">
     <span>Select Logo</span>
@@ -58,27 +64,45 @@
            (change)="processLogo(logoInput)">
   </label>
 
-
   <label class="image-upload-container btn btn-bwm">
-    <span>Select Image</span>
-    <input #imageInput
+    <span>Select Image 1</span>
+    <input #imageInput1
            type="file"
            accept="image/*"
            (change)="processFile(imageInput)">
   </label>
 
-  <label for="postalCode">Postal Code:</label>
-  <input bis-input id="postalCode" type="text" [(ngModel)]="this.business.postalCode">
+  <label class="image-upload-container btn btn-bwm">
+    <span>Select Image 2</span>
+    <input #imageInput2
+           type="file"
+           accept="image/*"
+           (change)="processFile(imageInput)">
+  </label>
 
-  <label for="country">Country:</label>
-  <input bis-input id="country" type="text" [(ngModel)]="this.business.country">
+  <label class="image-upload-container btn btn-bwm">
+    <span>Select Image 3</span>
+    <input #imageInput3
+           type="file"
+           accept="image/*"
+           (change)="processFile(imageInput)">
+  </label>
 
-  <label for="street">Street:</label>
-  <input bis-input id="street" type="text" [(ngModel)]="this.business.street">
+  <label class="image-upload-container btn btn-bwm">
+    <span>Select Image 4</span>
+    <input #imageInput4
+           type="file"
+           accept="image/*"
+           (change)="processFile(imageInput)">
+  </label>
 
-  <label for="boxNumber">Box Number:</label>
-  <input bis-input id="boxNumber" type="text" [(ngModel)]="this.business.boxNumber">
-
+  <label class="image-upload-container btn btn-bwm">
+    <span>Select Image 5</span>
+    <input #imageInput5
+           type="file"
+           accept="image/*"
+           (change)="processFile(imageInput)">
+  </label>
 
   <button class="btn-save" id="btnSave" (click)="onClickSave()">Save</button>
 

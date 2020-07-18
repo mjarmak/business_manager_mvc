@@ -2,12 +2,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var BusinessDataModel = /** @class */ (function () {
     function BusinessDataModel() {
+        this.identificationData = new IdentificationData();
+        this.businessInfo = new BusinessInfo();
     }
     return BusinessDataModel;
 }());
 exports.BusinessDataModel = BusinessDataModel;
 var BusinessInfo = /** @class */ (function () {
     function BusinessInfo() {
+        this.address = new AddressData();
+        //photos: File[];
     }
     return BusinessInfo;
 }());

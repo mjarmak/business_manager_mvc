@@ -3,22 +3,21 @@ import { ImageModel } from "./image";
 
 export class BusinessDataModel {
     id: number;
-    identificationData: IdentificationData;
-    businessInfo: BusinessInfo;
+    identificationData: IdentificationData = new IdentificationData();
+    businessInfo: BusinessInfo = new BusinessInfo();
     workHours: string;
-    logo: ImageModel;
-    images: ImageModel[];
 }
 
 export class BusinessInfo {
     id: number;
-    address: AddressData;
+    address: AddressData = new AddressData();
     phone : string;
     emailBusiness : string;
     urlSite : string;
     urlInstagram : string;
     urlFaceBook : string;
-    urlLinkedIn : string;
+    urlLinkedIn: string;
+    //photos: File[];
 }
 
 export class IdentificationData {
@@ -28,6 +27,7 @@ export class IdentificationData {
     tva: string;
     emailPro: string;
     description: string;
+    //logo: File;
 }
 export class AddressData {
     id: number;

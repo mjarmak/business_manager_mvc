@@ -28,36 +28,36 @@ export class BusinessManagerService {
         return this.http.post<ResponseEnvelope>(this.url + '/user', user)
     }
 
-  public uploadLogo(logo: File, businessId: number): Observable<ResponseEnvelope> {
-    if (logo === undefined) {
-      return null;
+    public uploadLogo(logo: File, businessId: number): Observable<ResponseEnvelope> {
+        if (logo === undefined) {
+            return null;
+        }
+        const formData = new FormData();
+
+        formData.append('image', logo);
+
+        console.log('CALL TO ' + this.url + '/business/' + businessId + '/logo')
+        return this.http.post<ResponseEnvelope>(this.url + '/business/' + businessId + '/logo', formData);
     }
-    const formData = new FormData();
 
-    formData.append('logo', logo);
+    public uploadImage(image: File, businessId: number, imageId: number): Observable<ResponseEnvelope> {
+        if (image === undefined) {
+            return null;
+        }
+        const formData = new FormData();
 
-    console.log('CALL TO ' + this.url + '/logo/business/' + businessId)
-    return this.http.post<ResponseEnvelope>(this.url + '/logo/business/' + businessId, formData);
-  }
-
-  public uploadImage(image: File, businessId: number): Observable<ResponseEnvelope> {
-    if (image === undefined) {
-      return null;
+        formData.append('image', image);
+        console.log('CALL TO ' + this.url + '/business/' + businessId + '/photo/' + imageId)
+        return this.http.post<ResponseEnvelope>(this.url + '/business/' + businessId + '/photo/' + imageId, formData);
     }
-    const formData = new FormData();
 
-    formData.append('image', image);
+    public getBusinessImages(businessId: number): Observable<ResponseEnvelope> {
+        console.log('CALL TO ' + this.url + '/business/' + businessId + '/photo')
+        return this.http.get<ResponseEnvelope>(this.url + '/business/' + businessId + '/photo');
+    }
 
-    console.log('CALL TO ' + this.url + '/image/business/' + businessId)
-    return this.http.post<ResponseEnvelope>(this.url + '/image/business/' + businessId, formData);
-  }
-
-  public getBusinessImages(businessId: number): Observable<ResponseEnvelope> {
-    console.log('CALL TO ' + this.url + '/image/business/')
-        return this.http.get<ResponseEnvelope>(this.url + '/image/business/' + businessId);
-  }
-  public getBusinessLogo(businessId: number): Observable<ResponseEnvelope> {
-    console.log('CALL TO ' + this.url + '/logo/business/' + businessId)
-    return this.http.get<ResponseEnvelope>(this.url + '/logo/business/' + businessId);
-  }
+    public getBusinessLogo(businessId: number): Observable<ResponseEnvelope> {
+        console.log('CALL TO ' + this.url + '/business/' + businessId + '/logo')
+        return this.http.get<ResponseEnvelope>(this.url + '/business/' + businessId + '/logo');
+    }
 }

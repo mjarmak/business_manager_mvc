@@ -27,7 +27,7 @@ export class IdentificationData {
     tva: string;
     emailPro: string;
     description: string;
-    //logo: File;
+    logoPath: string;
 }
 export class AddressData {
     id: number;

@@ -102,8 +102,9 @@ namespace business_manager_api
 
             app.UseHttpsRedirection();
 
-            app.UseRouting();
+            app.UseStaticFiles();
 
+            app.UseRouting();
 
             app.UseCors(MyAllowSpecificOrigins);
 

@@ -1,14 +1,11 @@
 <div class="card-table">
-  <img src="https://localhost:44345/logo/business/32/jpeg" alt="nope" width="500" height="333">
 
   <mat-table [dataSource]="dataSource">
-
-
 
     <ng-container matColumnDef="logo">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let business">
-        <img src="https://localhost:44345/logo/business/{{business.id}}/jpeg" alt="nope" width="500" height="333">
+        <img src="this.imagesUrl + business.identificationData.logoPath" alt="nope" width="500" height="333">
       </td>
     </ng-container>
 

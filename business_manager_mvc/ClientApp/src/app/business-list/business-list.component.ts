@@ -4,6 +4,7 @@ import { BusinessDataModel } from '../../Model/business';
 import { MatPaginator } from '@angular/material/paginator';
 import { BusinessManagerService } from '../services/business-manager-svc';
 import { AlertService } from '../services/alert-service';
+import { environment } from '../../environments/environment';
 
 @Component({
     selector: 'app-business-list',
@@ -16,9 +17,11 @@ export class BusinessListComponent implements OnInit {
 
   paginator: MatPaginator;
 
-  public logos: Map<number, string>;
+    public logos: Map<number, string>;
+    public imagesUrl: string;
 
     constructor(private businessManagerService: BusinessManagerService, private alertSerice: AlertService) {
+        this.imagesUrl = environment.business_manager_orc_url + "/images/"
     }
 
   ngOnInit() {

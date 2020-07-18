@@ -12,16 +12,24 @@ export class BusinessManagerService {
 
     constructor(private http: HttpClient) {
         this.url = environment.business_manager_orc_url;
-    }
+  }
+
+  public openBusiness(businessId: number) {
+    window.open("/business-detail/" + businessId, "_self")
+  }
 
     public saveBusiness(businessModel: BusinessDataModel): Observable<ResponseEnvelope> {
         console.log('CALL TO ' + this.url + '/business')
         return this.http.post<ResponseEnvelope>(this.url + '/business', businessModel)
-    }
-    public searchBusinesses(): Observable<ResponseEnvelope> {
-        console.log('CALL TO ' + this.url + '/business')
-        return this.http.get<ResponseEnvelope>(this.url + '/business')
-    }
+  }
+  public searchBusinesses(): Observable<ResponseEnvelope> {
+    console.log('CALL TO ' + this.url + '/business')
+    return this.http.get<ResponseEnvelope>(this.url + '/business')
+  }
+  public getBusiness(businessId: number): Observable<ResponseEnvelope> {
+    console.log('CALL TO ' + this.url + '/business/' + businessId)
+    return this.http.get<ResponseEnvelope>(this.url + '/business/' + businessId)
+  }
 
     public saveUser(user: UserAccountModel): Observable<ResponseEnvelope> {
         console.log('CALL TO ' + this.url + '/user')

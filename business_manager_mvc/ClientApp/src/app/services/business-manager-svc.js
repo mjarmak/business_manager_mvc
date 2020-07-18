@@ -6,6 +6,9 @@ var BusinessManagerService = /** @class */ (function () {
         this.http = http;
         this.url = environment_1.environment.business_manager_orc_url;
     }
+    BusinessManagerService.prototype.openBusiness = function (businessId) {
+        window.open("/business-detail/" + businessId, "_self");
+    };
     BusinessManagerService.prototype.saveBusiness = function (businessModel) {
         console.log('CALL TO ' + this.url + '/business');
         return this.http.post(this.url + '/business', businessModel);
@@ -13,6 +16,10 @@ var BusinessManagerService = /** @class */ (function () {
     BusinessManagerService.prototype.searchBusinesses = function () {
         console.log('CALL TO ' + this.url + '/business');
         return this.http.get(this.url + '/business');
+    };
+    BusinessManagerService.prototype.getBusiness = function (businessId) {
+        console.log('CALL TO ' + this.url + '/business/' + businessId);
+        return this.http.get(this.url + '/business/' + businessId);
     };
     BusinessManagerService.prototype.saveUser = function (user) {
         console.log('CALL TO ' + this.url + '/user');

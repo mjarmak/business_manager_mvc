@@ -36,8 +36,4 @@
     <ProjectReference Include="..\business_manager_common_library\business_manager_common_library.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\images\" />
-  </ItemGroup>
-
 </Project>

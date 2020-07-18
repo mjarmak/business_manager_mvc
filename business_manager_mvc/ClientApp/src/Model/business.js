@@ -11,7 +11,6 @@ exports.BusinessDataModel = BusinessDataModel;
 var BusinessInfo = /** @class */ (function () {
     function BusinessInfo() {
         this.address = new AddressData();
-        //photos: File[];
     }
     return BusinessInfo;
 }());

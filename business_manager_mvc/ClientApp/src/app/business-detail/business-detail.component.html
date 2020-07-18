@@ -1,0 +1,49 @@
+<h1>{{this.business.identification.name}}</h1>
+
+<!--<p *ngIf="!forecasts"><em>Loading...</em></p>-->
+
+<div class="card">
+
+  <img *ngIf="business.identification && business.identification.logoPath" src="{{this.imagesUrl + business.identification.logoPath}}" width="125" height="80">
+
+  <p>Business ID: {{this.business.id}}</p>
+
+  <p>Name: {{this.business.identification.name}}</p>
+
+  <p>Email: {{this.business.identification.email}}</p>
+
+  <p>Name: {{this.business.identification.phone}}</p>
+
+  <p>Professional Email: {{this.business.identification.email}}</p>
+
+  <p>Website Url: {{this.business.identification.urlSite}}</p>
+
+  <p>Instagram Link: {{this.business.identification.urlInstragram}}</p>
+
+  <p>Facebook Url: {{this.business.identification.urlFaceBook}}</p>
+
+  <p>Linkedin url: {{this.business.identification.urlLinkedin}}</p>
+
+  <p>Type of Business: {{this.business.identification.type}}</p>
+
+  <p>Numero TVA: {{this.business.identification.tva}}</p>
+
+  <p>Description: {{this.business.identification.description}}</p>
+
+  <p>Postal code: {{this.business.identification.postalCode}}</p>
+
+  <p>Country: {{this.business.identification.country}}</p>
+
+  <p>Street: {{this.business.identification.street}}</p>
+
+  <p>Box Number: {{this.business.identification.boxNumber}}</p>
+
+  <p>Name: {{this.business.identification.name}}</p>
+
+  <img *ngIf="business.businessInfo && business.businessInfo.photoPath1" src="{{this.imagesUrl + business.businessInfo.photoPath1}}" width="512" height="360">
+  <img *ngIf="business.businessInfo && business.businessInfo.photoPath2" src="{{this.imagesUrl + business.businessInfo.photoPath2}}" width="512" height="360">
+  <img *ngIf="business.businessInfo && business.businessInfo.photoPath3" src="{{this.imagesUrl + business.businessInfo.photoPath3}}" width="512" height="360">
+  <img *ngIf="business.businessInfo && business.businessInfo.photoPath4" src="{{this.imagesUrl + business.businessInfo.photoPath4}}" width="512" height="360">
+  <img *ngIf="business.businessInfo && business.businessInfo.photoPath5" src="{{this.imagesUrl + business.businessInfo.photoPath5}}" width="512" height="360">
+
+</div>

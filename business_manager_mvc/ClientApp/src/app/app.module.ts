@@ -19,6 +19,7 @@ import { BusinessListComponent } from './business-list/business-list.component';
 import { BusinessOverviewComponent } from './business-overview/business-overview.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { BusinessDetailComponent } from './business-detail/business-detail.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
         UserAccountCreateComponent,
         BusinessCreateComponent,
         BusinessListComponent,
-        BusinessOverviewComponent,
+    BusinessOverviewComponent,
+        BusinessDetailComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -41,8 +43,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
         { path: 'counter', component: CounterComponent },
         { path: 'fetch-data', component: FetchDataComponent },
         { path: 'user-account-create', component: UserAccountCreateComponent },
-        { path: 'business-create', component: BusinessCreateComponent },
-        { path: 'business-overview', component: BusinessOverviewComponent },
+      { path: 'business-create', component: BusinessCreateComponent },
+      { path: 'business-overview', component: BusinessOverviewComponent },
+      { path: 'business-detail/:businessId', component: BusinessDetailComponent },
     ]),
     ToastrModule.forRoot({
         positionClass: 'bottom-right',

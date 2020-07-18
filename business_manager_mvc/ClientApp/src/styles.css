@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-@import '~ngx-toastr/toastr.css';  
+@import '~ngx-toastr/toastr.css';
+@import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
 
 /* Provide sufficient contrast against white background */
 a {
@@ -76,4 +77,10 @@ code {
   display: grid;
   width: 100%;
   min-width: 512px;
+}
+.display-table {
+    display: table;
+}
+.clickable {
+  cursor: pointer;
 }

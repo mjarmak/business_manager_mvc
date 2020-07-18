@@ -10,8 +10,10 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace business_manager_api.Controllers
 {
+    [Produces("application/json")]
     [Route("user")]
     [ApiController]
+
     //[Authorize]
     public class UserAccountModelsController : Controller
     {
@@ -22,6 +24,11 @@ namespace business_manager_api.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Get the list of all users
+        /// </summary>
+        /// <remarks>Get an array of all users</remarks>
+        /// <response code="500">Internal Server Error</response>
         // GET: api/UserAccountModels
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserAccountModel>>> GetUserAccount()
@@ -33,6 +40,11 @@ namespace business_manager_api.Controllers
             });
         }
 
+        /// <summary>
+        /// Get User by ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // GET: api/UserAccountModels/5
         [HttpGet("{id}")]
         public async Task<ActionResult<UserAccountModel>> GetUserAccountModel(long id)
@@ -51,9 +63,13 @@ namespace business_manager_api.Controllers
             });
         }
 
+        /// <summary>
+        /// Update user by ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="userAccountModel"></param>
+        /// <returns></returns>
         // PUT: api/UserAccountModels/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUserAccountModel(long id, UserAccountModel userAccountModel)
         {
@@ -83,10 +99,28 @@ namespace business_manager_api.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Create a user
+        /// </summary>
+        /// <remarks>
+        /// This is a sample request:
+        /// {
+        ///     "Id" : 1,
+        ///     "Name" : "Marco",
+        ///     "Surname" : "Rossi",
+        ///     "Email" : "marco.rossi@info.com"
+        /// }
+        /// </remarks>
+        /// <param name="userAccountModel"></param>
+        /// <returns>A new user is created</returns>
+        /// <response code="201">If the new user has been created</response>
+        /// <response code="400">If the users fields is null</response>
+        /// <response code="403">If the users field is forbidden</response>
+        /// <response code="500">If an internal server error occurred</response>
         // POST: api/UserAccountModels
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<UserAccountModel>> PostUserAccountModel(UserAccountModel userAccountModel)
         {
             _context.UserAccount.Add(userAccountModel);
@@ -99,6 +133,11 @@ namespace business_manager_api.Controllers
             });
         }
 
+        /// <summary>
+        /// Delete a user by ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // DELETE: api/UserAccountModels/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<UserAccountModel>> DeleteUserAccountModel(long id)

@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "authentication-api", "authe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "business_manager_orchestrator", "business_manager_orchestrator\business_manager_orchestrator.csproj", "{5FECC433-BC01-4DA9-8213-76FAC15EAA9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "business_manager_common_library", "business_manager_common_library\business_manager_common_library.csproj", "{87EAC29B-C220-4601-8B85-52E1DB3C4209}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "business_manager_common_library", "business_manager_common_library\business_manager_common_library.csproj", "{87EAC29B-C220-4601-8B85-52E1DB3C4209}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

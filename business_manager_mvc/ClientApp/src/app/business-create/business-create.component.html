@@ -9,7 +9,7 @@
   <p *ngIf="this.business.id">{{this.business.id}}</p>
 
   <label for="name">Name:</label>
-  <input bis-input id="name" type="text" [(ngModel)]="this.business.identificationData.name">
+  <input bis-input id="name" type="text" [(ngModel)]="this.business.identification.name">
 
   <label for="email">Business Email:</label>
   <input bis-input id="emailBusiness" type="email" [(ngModel)]="this.business.businessInfo.emailBusiness">
@@ -18,7 +18,7 @@
   <input bis-input id="phone" type="text" [(ngModel)]="this.business.businessInfo.phone">
 
   <label for="emailBusiness">Professional Email:</label>
-  <input bis-input id="emailPro" type="email" [(ngModel)]="this.business.businessInfo.emailPro">
+  <input bis-input id="emailPro" type="email" [(ngModel)]="this.business.identification.emailPro">
 
   <label for="urlSite">Website Url:</label>
   <input bis-input id="urlSite" type="url" [(ngModel)]="this.business.businessInfo.urlSite">
@@ -33,16 +33,13 @@
   <input bis-input id="urlLinkedIn" type="url" [(ngModel)]="this.business.businessInfo.urlLinkedIn">
 
   <label for="type">Type of Business:</label>
-  <input bis-input id="type" type="text" [(ngModel)]="this.business.identificationData.type">
+  <input bis-input id="type" type="text" [(ngModel)]="this.business.identification.type">
 
   <label for="tva">TVA:</label>
-  <input bis-input id="tva" type="text" [(ngModel)]="this.business.identificationData.tva">
-
-  <label for="emailPro">Email Pro:</label>
-  <input bis-input id="emailPro" type="email" [(ngModel)]="this.business.identificationData.emailPro">
+  <input bis-input id="tva" type="text" [(ngModel)]="this.business.identification.tva">
 
   <label for="description">Description:</label>
-  <input bis-input id="description" type="text" [(ngModel)]="this.business.identificationData.description">
+  <input bis-input id="description" type="text" [(ngModel)]="this.business.identification.description">
 
   <label for="postalCode">Postal Code:</label>
   <input bis-input id="postalCode" type="text" [(ngModel)]="this.business.businessInfo.address.postalCode">
@@ -69,7 +66,7 @@
     <input #imageInput1
            type="file"
            accept="image/*"
-           (change)="processFile(imageInput)">
+           (change)="processFile(imageInput1)">
   </label>
 
   <label class="image-upload-container btn btn-bwm">
@@ -77,7 +74,7 @@
     <input #imageInput2
            type="file"
            accept="image/*"
-           (change)="processFile(imageInput)">
+           (change)="processFile(imageInput2)">
   </label>
 
   <label class="image-upload-container btn btn-bwm">
@@ -85,7 +82,7 @@
     <input #imageInput3
            type="file"
            accept="image/*"
-           (change)="processFile(imageInput)">
+           (change)="processFile(imageInput3)">
   </label>
 
   <label class="image-upload-container btn btn-bwm">
@@ -93,7 +90,7 @@
     <input #imageInput4
            type="file"
            accept="image/*"
-           (change)="processFile(imageInput)">
+           (change)="processFile(imageInput4)">
   </label>
 
   <label class="image-upload-container btn btn-bwm">
@@ -101,7 +98,7 @@
     <input #imageInput5
            type="file"
            accept="image/*"
-           (change)="processFile(imageInput)">
+           (change)="processFile(imageInput5)">
   </label>
 
   <button class="btn-save" id="btnSave" (click)="onClickSave()">Save</button>

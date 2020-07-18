@@ -24,22 +24,35 @@ namespace business_manager_api.Controllers
             this.hostingEnvironment = hostingEnvironment;
         }
 
-        // GET: api/BusinessData
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BusinessDataModel>>> GetBusinessDataModel()
         {
             return Ok(new
             {
                 //status = response.StatusCode,
-                data = await _context.BusinessDataModel.ToListAsync()
+                data = await _context.BusinessDataModel
+                .Include(b => b.BusinessInfo)
+                .Include(b => b.BusinessInfo.Address)
+                .Include(b => b.Identification)
+                .ToListAsync()
             });
         }
 
         // GET: api/BusinessData/5
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetBusinessDataModel(long id)
+        public ActionResult GetBusinessDataModel(long id)
         {
-            var businessDataModel = await _context.BusinessDataModel.FindAsync(id);
+            BusinessDataModel businessDataModel;
+            try {
+                businessDataModel = _context.BusinessDataModel
+                    .Include(b => b.BusinessInfo)
+                    .Include(b => b.BusinessInfo.Address)
+                    .Include(b => b.Identification)
+                    .Single(b => b.Id == id);
+            } catch (InvalidOperationException e)
+            {
+                return NotFound();
+            }
 
             if (businessDataModel == null)
             {
@@ -108,7 +121,7 @@ namespace business_manager_api.Controllers
             BusinessDataModel businessDataModel = new BusinessDataModel
             {
                 WorkHours = businessModel.WorkHours,
-                IdentificationData = new IdentificationData
+                Identification = new IdentificationData
                 {
                     Description = businessModel.Identification.Description,
                     EmailPro = businessModel.Identification.EmailPro,
@@ -141,7 +154,7 @@ namespace business_manager_api.Controllers
             return Ok(new
             {
                 //status = response.StatusCode,
-                data = CreatedAtAction("GetBusinessDataModel", new { id = businessModel.Id }, businessModel)
+                data = CreatedAtAction("GetBusinessDataModel", new { id = businessDataModel.Id }, businessDataModel).Value
             });
         }
 
@@ -167,9 +180,13 @@ namespace business_manager_api.Controllers
                 string filePath = Path.Combine(imagesFolder, uniqueLogoName);
                 image.CopyTo(new FileStream(filePath, FileMode.Create));
 
-                BusinessDataModel businessDataModel = await _context.BusinessDataModel.FindAsync(id);
-                businessDataModel.IdentificationData.LogoPath = uniqueLogoName;
-                _context.BusinessDataModel.Add(businessDataModel);
+                BusinessDataModel businessDataModel = _context.BusinessDataModel
+                    .Include(b => b.BusinessInfo)
+                    .Include(b => b.BusinessInfo.Address)
+                    .Include(b => b.Identification)
+                    .Single(b => b.Id == id);
+                businessDataModel.Identification.LogoPath = uniqueLogoName;
+                _context.Entry(businessDataModel).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
             }
             return NoContent();
@@ -201,7 +218,11 @@ namespace business_manager_api.Controllers
                 string filePath = Path.Combine(imagesFolder, uniqueLogoName);
                 image.CopyTo(new FileStream(filePath, FileMode.Create));
 
-                BusinessDataModel businessDataModel = await _context.BusinessDataModel.FindAsync(id);
+                BusinessDataModel businessDataModel = _context.BusinessDataModel
+                    .Include(b => b.BusinessInfo)
+                    .Include(b => b.BusinessInfo.Address)
+                    .Include(b => b.Identification)
+                    .Single(b => b.Id == id);
                 switch (imageId)
                 {
                     case 1:
@@ -220,7 +241,7 @@ namespace business_manager_api.Controllers
                         businessDataModel.BusinessInfo.PhotoPath5 = uniqueLogoName;
                         break;
                 }
-                _context.BusinessDataModel.Add(businessDataModel);
+                _context.Entry(businessDataModel).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
             }
             return NoContent();

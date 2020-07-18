@@ -43,7 +43,7 @@ namespace business_manager_api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AddressData");
+                    b.ToTable("Address");
                 });
 
             modelBuilder.Entity("business_manager_api.BusinessDataModel", b =>
@@ -68,7 +68,7 @@ namespace business_manager_api.Migrations
 
                     b.HasIndex("IdentificationDataId");
 
-                    b.ToTable("BusinessData");
+                    b.ToTable("Business");
                 });
 
             modelBuilder.Entity("business_manager_api.BusinessImageModel", b =>
@@ -89,7 +89,7 @@ namespace business_manager_api.Migrations
                     b.ToTable("BusinessImage");
                 });
 
-            modelBuilder.Entity("business_manager_api.BusinessInfo", b =>
+            modelBuilder.Entity("business_manager_api.BusinessInfoData", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -103,6 +103,21 @@ namespace business_manager_api.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhotoPath1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhotoPath2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhotoPath3")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhotoPath4")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhotoPath5")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UrlFaceBook")
@@ -137,6 +152,9 @@ namespace business_manager_api.Migrations
                     b.Property<string>("EmailPro")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("LogoPath")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -148,7 +166,7 @@ namespace business_manager_api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("IdentificationData");
+                    b.ToTable("Identification");
                 });
 
             modelBuilder.Entity("business_manager_api.LogoModel", b =>
@@ -207,7 +225,7 @@ namespace business_manager_api.Migrations
 
             modelBuilder.Entity("business_manager_api.BusinessDataModel", b =>
                 {
-                    b.HasOne("business_manager_api.BusinessInfo", "BusinessInfo")
+                    b.HasOne("business_manager_api.BusinessInfoData", "BusinessInfo")
                         .WithMany()
                         .HasForeignKey("BusinessInfoId");
 
@@ -216,7 +234,7 @@ namespace business_manager_api.Migrations
                         .HasForeignKey("IdentificationDataId");
                 });
 
-            modelBuilder.Entity("business_manager_api.BusinessInfo", b =>
+            modelBuilder.Entity("business_manager_api.BusinessInfoData", b =>
                 {
                     b.HasOne("business_manager_api.AddressData", "Address")
                         .WithMany()

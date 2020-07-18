@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var BusinessDataModel = /** @class */ (function () {
     function BusinessDataModel() {
-        this.identificationData = new IdentificationData();
+        this.identification = new IdentificationData();
         this.businessInfo = new BusinessInfo();
     }
     return BusinessDataModel;

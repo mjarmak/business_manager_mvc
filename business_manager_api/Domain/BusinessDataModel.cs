@@ -2,10 +2,8 @@
 using business_manager_common_library;
 using FluentValidation;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data;
 using System.Text.RegularExpressions;
 
 namespace business_manager_api
@@ -15,7 +13,9 @@ namespace business_manager_api
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
-        public IdentificationData IdentificationData { get; set; }
+        //[ForeignKey("Identification")]
+        //public long IdentificationId { get; set; }
+        public IdentificationData Identification { get; set; }
         public BusinessInfoData BusinessInfo { get; set; }
         public string WorkHours { get; set; }
     }
@@ -69,7 +69,7 @@ namespace business_manager_api
         //private readonly string matchError = "Cannot contain any special characters";
         public BusinessDataValidator()
         {
-            RuleFor(x => x.IdentificationData.Name).NotNull();
+            RuleFor(x => x.Identification.Name).NotNull();
         }
         
 

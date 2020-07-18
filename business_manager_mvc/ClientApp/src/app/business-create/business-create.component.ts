@@ -25,8 +25,8 @@ export class BusinessCreateComponent implements OnInit {
 
     public onClickSave() {
         this.businessManagerService.saveBusiness(this.business).subscribe(result => {
-            console.log(result.data.value)
-            this.business = result.data.value;
+            console.log(result.data)
+            this.business = result.data;
             document.getElementById("btnSave").setAttribute("disabled", "disabled");
 
             if (this.logo) {
@@ -37,19 +37,18 @@ export class BusinessCreateComponent implements OnInit {
                         this.alertSerice.error("Error adding logo", error.message);
                     })
             }
-            if (this.images) {
-                var i = 1;
-                this.images.forEach((image: File) => {
-                    this.businessManagerService.uploadImage(image, this.business.id, i).subscribe(
-                        result => {
-                            i++;
-                        },
-                        error => {
-                            this.alertSerice.error("Error adding image", error.message);
-                        })
-                }
-                )
-            }
+          if (this.images) {
+            var i = 0;
+            this.images.forEach((image: File) => {
+              i++;
+              this.businessManagerService.uploadImage(image, this.business.id, i).subscribe(
+                result => {
+                },
+                error => {
+                  this.alertSerice.error("Error adding image", error.message);
+                })
+            })
+          }
         }, error => {
             this.alertSerice.error("Error creating business", error.message);
         });

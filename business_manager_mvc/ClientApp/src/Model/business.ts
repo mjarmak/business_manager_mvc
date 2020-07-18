@@ -3,7 +3,7 @@ import { ImageModel } from "./image";
 
 export class BusinessDataModel {
     id: number;
-    identificationData: IdentificationData = new IdentificationData();
+    identification: IdentificationData = new IdentificationData();
     businessInfo: BusinessInfo = new BusinessInfo();
     workHours: string;
 }

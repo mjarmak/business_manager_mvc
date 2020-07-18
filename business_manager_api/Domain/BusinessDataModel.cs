@@ -35,6 +35,7 @@ namespace business_manager_api
         public string PhotoPath2 { get; set; }
         public string PhotoPath3 { get; set; }
         public string PhotoPath4 { get; set; }
+        public string PhotoPath5 { get; set; }
     }
     
     [Table(name: "Identification")]

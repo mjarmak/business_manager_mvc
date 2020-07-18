@@ -217,7 +217,7 @@ namespace business_manager_api.Controllers
                         businessDataModel.BusinessInfo.PhotoPath4 = uniqueLogoName;
                         break;
                     case 5:
-                        businessDataModel.BusinessInfo.PhotoPath4 = uniqueLogoName;
+                        businessDataModel.BusinessInfo.PhotoPath5 = uniqueLogoName;
                         break;
                 }
                 _context.BusinessDataModel.Add(businessDataModel);

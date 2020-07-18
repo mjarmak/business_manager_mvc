@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace business_manager_api.Controllers
 {
+    [Produces("application/json")]
     [Route("business")]
     [ApiController]
     //[Authorize]
@@ -18,6 +19,7 @@ namespace business_manager_api.Controllers
     {
         private readonly DefaultContext _context;
         private readonly IHostingEnvironment hostingEnvironment;
+
         public BusinessDataController(DefaultContext context, IHostingEnvironment hostingEnvironment)
         {
             _context = context;
@@ -82,9 +84,13 @@ namespace business_manager_api.Controllers
             });
         }
 
+        /// <summary>
+        /// Update the business by ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="businessDataModel"></param>
+        /// <returns>The information of a business based on the id</returns>
         // PUT: api/BusinessData/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
         public async Task<IActionResult> PutBusinessDataModel(long id, BusinessDataModel businessDataModel)
         {
@@ -113,6 +119,24 @@ namespace business_manager_api.Controllers
 
             return NoContent();
         }
+
+        /// <summary>
+        /// Create a Business
+        /// </summary>
+        /// <remarks>
+        /// {
+        ///     "Id" : 1,
+        ///     "Name" : "Mario",
+        ///     "Surname" : "Rossi",
+        ///     "Email" : "marco.rossi@info.com"
+        /// }
+        /// </remarks>
+        /// <param name="businessModel"></param>
+        /// <returns>A business entity</returns>
+        /// <response code="201">If the new business has been created</response>
+        /// <response code="400">If the business field is null</response>
+        /// <response code="403">If the business field is forbidden</response>
+        /// <response code="500">If an internal server error occurred</response>
 
         //Learned from https://csharp-video-tutorials.blogspot.com/2019/05/file-upload-in-aspnet-core-mvc.html
         [HttpPost]
@@ -247,6 +271,11 @@ namespace business_manager_api.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Delete a business by ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // DELETE: api/BusinessData/5
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteBusinessDataModel(long id)

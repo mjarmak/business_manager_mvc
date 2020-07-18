@@ -68,7 +68,7 @@ namespace business_manager_api.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <param name="userAccountModel"></param>
-        /// <returns></returns>
+        /// <returns>The information of a user based on the id</returns>
         // PUT: api/UserAccountModels/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUserAccountModel(long id, UserAccountModel userAccountModel)
@@ -114,7 +114,7 @@ namespace business_manager_api.Controllers
         /// <param name="userAccountModel"></param>
         /// <returns>A new user is created</returns>
         /// <response code="201">If the new user has been created</response>
-        /// <response code="400">If the users fields is null</response>
+        /// <response code="400">If the users field is null</response>
         /// <response code="403">If the users field is forbidden</response>
         /// <response code="500">If an internal server error occurred</response>
         // POST: api/UserAccountModels

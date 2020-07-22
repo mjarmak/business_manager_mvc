@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using business_manager_common_library;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -74,7 +74,7 @@ namespace business_manager_api.Controllers
                     .Include(b => b.Identification)
                     .Single(b => b.Id == id);
             }
-            catch (InvalidOperationException e)
+            catch (AmbiguousMatchException)
             {
                 return NotFound();
             }
@@ -317,7 +317,7 @@ namespace business_manager_api.Controllers
                     EmailPro = businessModel.Identification.EmailPro,
                     Name = businessModel.Identification.Name,
                     TVA = businessModel.Identification.TVA,
-                    Type = ((BusinessTypeEnum)Enum.Parse(typeof(BusinessTypeEnum), businessModel.Identification.Type)).ToString()
+                    Type = businessModel.Identification.Type == null ? null : ((BusinessTypeEnum)Enum.Parse(typeof(BusinessTypeEnum), businessModel.Identification.Type)).ToString()
                 },
                 BusinessInfo = new BusinessInfoData
                 {

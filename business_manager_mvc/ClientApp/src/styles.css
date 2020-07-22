@@ -1,6 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+
+/*/@import url('c:\users\bigif\.nuget\packages\bootstrap\4.5.0\contentfiles\any\any\wwwroot\css\bootstrap.css');
+@import url('c:\users\bigif\.nuget\packages\bootstrap\4.5.0\contentfiles\any\any\wwwroot\css\bootstrap.min.css');*/
 @import '~ngx-toastr/toastr.css';
 @import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
+
 
 /* Provide sufficient contrast against white background */
 a {

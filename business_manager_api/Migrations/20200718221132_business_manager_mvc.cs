@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace business_manager_api.Migrations
 {
-    public partial class Initial : Migration
+    public partial class business_manager_mvc : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -44,7 +44,7 @@ namespace business_manager_api.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Type = table.Column<int>(nullable: false),
+                    Type = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     TVA = table.Column<string>(nullable: true),
                     EmailPro = table.Column<string>(nullable: true),
@@ -126,7 +126,7 @@ namespace business_manager_api.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    IdentificationDataId = table.Column<long>(nullable: true),
+                    IdentificationId = table.Column<long>(nullable: true),
                     BusinessInfoId = table.Column<long>(nullable: true),
                     WorkHours = table.Column<string>(nullable: true)
                 },
@@ -140,8 +140,8 @@ namespace business_manager_api.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Business_Identification_IdentificationDataId",
-                        column: x => x.IdentificationDataId,
+                        name: "FK_Business_Identification_IdentificationId",
+                        column: x => x.IdentificationId,
                         principalTable: "Identification",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -153,9 +153,9 @@ namespace business_manager_api.Migrations
                 column: "BusinessInfoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Business_IdentificationDataId",
+                name: "IX_Business_IdentificationId",
                 table: "Business",
-                column: "IdentificationDataId");
+                column: "IdentificationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_BusinessInfo_AddressId",

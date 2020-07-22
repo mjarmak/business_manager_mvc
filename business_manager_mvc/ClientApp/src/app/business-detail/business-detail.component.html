@@ -8,39 +8,37 @@
 
   <p>Business ID: {{this.business.id}}</p>
 
-  <p>Name: {{this.business.identification.name}}</p>
+  <p *ngIf="business.identification && business.identification.name">Name: {{this.business.identification.name}}</p>
 
-  <p>Email: {{this.business.identification.email}}</p>
+  <p *ngIf="business.identification && business.identification.email">Email: {{this.business.identification.email}}</p>
 
-  <p>Name: {{this.business.identification.phone}}</p>
+  <p *ngIf="business.identification && business.identification.phone">Name: {{this.business.identification.phone}}</p>
 
-  <p>Professional Email: {{this.business.identification.email}}</p>
+  <p *ngIf="business.identification && business.identification.urlSite">Website Url: {{this.business.identification.urlSite}}</p>
 
-  <p>Website Url: {{this.business.identification.urlSite}}</p>
+  <p *ngIf="business.identification && business.identification.urlInstagram">Instagram Link: {{this.business.identification.urlInstragram}}</p>
 
-  <p>Instagram Link: {{this.business.identification.urlInstragram}}</p>
+  <p *ngIf="business.identification && business.identification.urlFacebook">Facebook Url: {{this.business.identification.urlFaceBook}}</p>
 
-  <p>Facebook Url: {{this.business.identification.urlFaceBook}}</p>
+  <p *ngIf="business.identification && business.identification.urlLinkedin">Linkedin url: {{this.business.identification.urlLinkedin}}</p>
 
-  <p>Linkedin url: {{this.business.identification.urlLinkedin}}</p>
+  <p *ngIf="business.identification && business.identification.type">Type of Business: {{this.business.identification.type}}</p>
 
-  <p>Type of Business: {{this.business.identification.type}}</p>
+  <p *ngIf="business.identification && business.identification.tva">Numero TVA: {{this.business.identification.tva}}</p>
 
-  <p>Numero TVA: {{this.business.identification.tva}}</p>
+  <p *ngIf="business.identification && business.identification.description">Description: {{this.business.identification.description}}</p>
 
-  <p>Description: {{this.business.identification.description}}</p>
+  <p *ngIf="business.identification && business.identification.postalCode">Postal code: {{this.business.identification.postalCode}}</p>
 
-  <p>Postal code: {{this.business.identification.postalCode}}</p>
+  <p *ngIf="business.identification && business.identification.country">Country: {{this.business.identification.country}}</p>
 
-  <p>Country: {{this.business.identification.country}}</p>
+  <p *ngIf="business.identification && business.identification.street">Street: {{this.business.identification.street}}</p>
 
-  <p>Street: {{this.business.identification.street}}</p>
+  <p *ngIf="business.identification && business.identification.boxNumber">Box Number: {{this.business.identification.boxNumber}}</p>
 
-  <p>Box Number: {{this.business.identification.boxNumber}}</p>
+  <img mat-card-image>
 
-  <p>Name: {{this.business.identification.name}}</p>
-
-  <img *ngIf="business.businessInfo && business.businessInfo.photoPath1" src="{{this.imagesUrl + business.businessInfo.photoPath1}}" width="512" height="360">
+  <img mat-card-image *ngIf="business.businessInfo && business.businessInfo.photoPath1" src="{{this.imagesUrl + business.businessInfo.photoPath1}}" width="512" height="360">
   <img *ngIf="business.businessInfo && business.businessInfo.photoPath2" src="{{this.imagesUrl + business.businessInfo.photoPath2}}" width="512" height="360">
   <img *ngIf="business.businessInfo && business.businessInfo.photoPath3" src="{{this.imagesUrl + business.businessInfo.photoPath3}}" width="512" height="360">
   <img *ngIf="business.businessInfo && business.businessInfo.photoPath4" src="{{this.imagesUrl + business.businessInfo.photoPath4}}" width="512" height="360">

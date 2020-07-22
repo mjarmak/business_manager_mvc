@@ -32,7 +32,7 @@ export class BusinessListComponent implements OnInit {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     }, error => {
-      this.alertService.error("Error loading bussinesses", error.message);
+      this.alertSerice.error("Error loading bussinesses", error.message);
     });
   }
 }

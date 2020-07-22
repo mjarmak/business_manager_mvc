@@ -6,6 +6,7 @@ using System.IO;
 using business_manager_common_library;
 using static System.Net.Mime.MediaTypeNames;
 using Microsoft.AspNetCore.Authorization;
+using System.Reflection;
 
 namespace business_manager_api.Controllers
 {
@@ -46,7 +47,7 @@ namespace business_manager_api.Controllers
             try
             {
                 logoModel = _context.Logo.Where(i => i.EntityId == id).Single();
-            } catch (System.InvalidOperationException e)
+            } catch (AmbiguousMatchException)
             {
                 return NoContent();
             }
@@ -70,7 +71,7 @@ namespace business_manager_api.Controllers
             {
                 logoModel = _context.Logo.Where(i => i.EntityId == id).Single();
             }
-            catch (System.InvalidOperationException e)
+            catch (AmbiguousMatchException)
             {
                 return null;
             }

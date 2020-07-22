@@ -10,7 +10,7 @@ using business_manager_api;
 namespace business_manager_api.Migrations
 {
     [DbContext(typeof(DefaultContext))]
-    [Migration("20200718102817_business_manager_mvc")]
+    [Migration("20200718221132_business_manager_mvc")]
     partial class business_manager_mvc
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -58,7 +58,7 @@ namespace business_manager_api.Migrations
                     b.Property<long?>("BusinessInfoId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("IdentificationDataId")
+                    b.Property<long?>("IdentificationId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("WorkHours")
@@ -68,7 +68,7 @@ namespace business_manager_api.Migrations
 
                     b.HasIndex("BusinessInfoId");
 
-                    b.HasIndex("IdentificationDataId");
+                    b.HasIndex("IdentificationId");
 
                     b.ToTable("Business");
                 });
@@ -163,8 +163,8 @@ namespace business_manager_api.Migrations
                     b.Property<string>("TVA")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -231,9 +231,9 @@ namespace business_manager_api.Migrations
                         .WithMany()
                         .HasForeignKey("BusinessInfoId");
 
-                    b.HasOne("business_manager_api.IdentificationData", "IdentificationData")
+                    b.HasOne("business_manager_api.IdentificationData", "Identification")
                         .WithMany()
-                        .HasForeignKey("IdentificationDataId");
+                        .HasForeignKey("IdentificationId");
                 });
 
             modelBuilder.Entity("business_manager_api.BusinessInfoData", b =>

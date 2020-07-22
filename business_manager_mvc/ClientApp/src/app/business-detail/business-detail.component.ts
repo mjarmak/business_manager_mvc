@@ -5,6 +5,8 @@ import { BusinessDataModel } from '../../Model/business';
 import { BusinessManagerService } from '../services/business-manager-svc';
 import { AlertService } from '../services/alert-service';
 import { ActivatedRoute } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
+
 
 @Component({
     selector: 'app-business-detail',

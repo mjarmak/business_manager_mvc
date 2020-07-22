@@ -34,7 +34,7 @@ import { BusinessDetailComponent } from './business-detail/business-detail.compo
         UserAccountCreateComponent,
         BusinessCreateComponent,
         BusinessListComponent,
-        BusinessDetailComponent
+        BusinessDetailComponent,
         BusinessOverviewComponent,
         LoginComponent,
   ],

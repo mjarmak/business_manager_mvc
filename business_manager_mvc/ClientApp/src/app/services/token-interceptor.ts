@@ -3,7 +3,6 @@ import { AuthService } from './auth-service';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { AlertService } from './alert-service';
-import { Injectable } from '@angular/core';
 import { BusinessManagerService } from './business-manager-svc';
 
 export class TokenInterceptor implements HttpInterceptor {

@@ -16,9 +16,7 @@ export class BusinessListComponent implements OnInit {
   displayedColumns: string[] = ['logo', 'id', "name"];
   dataSource = new MatTableDataSource<BusinessDataModel>();
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
-
+  sort: MatSort;
   paginator: MatPaginator;
 
     public imagesUrl: string;

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using business_manager_common_library;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,7 +15,7 @@ namespace business_manager_api.Controllers
     [Produces("application/json")]
     [Route("business")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class BusinessDataController : Controller
     {
         private readonly DefaultContext _context;

@@ -13,8 +13,7 @@ namespace business_manager_api.Controllers
     [Produces("application/json")]
     [Route("user")]
     [ApiController]
-
-    //[Authorize]
+    [Authorize]
     public class UserAccountModelsController : Controller
     {
         private readonly DefaultContext _context;

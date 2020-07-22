@@ -19,6 +19,9 @@ import { BusinessListComponent } from './business-list/business-list.component';
 import { BusinessOverviewComponent } from './business-overview/business-overview.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { TokenInterceptor } from './services/token-interceptor';
+import { AuthService } from './services/auth-service';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
         BusinessCreateComponent,
         BusinessListComponent,
         BusinessOverviewComponent,
+        LoginComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -43,6 +47,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
         { path: 'user-account-create', component: UserAccountCreateComponent },
         { path: 'business-create', component: BusinessCreateComponent },
         { path: 'business-overview', component: BusinessOverviewComponent },
+        { path: 'login', component: LoginComponent },
     ]),
     ToastrModule.forRoot({
         positionClass: 'bottom-right',
@@ -53,8 +58,14 @@ import { MatPaginatorModule } from '@angular/material/paginator';
       MatPaginatorModule
   ],
     providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: TokenInterceptor,
+            multi: true
+        },
         BusinessManagerService,
-        AlertService
+        AlertService,
+        AuthService
     ],
   bootstrap: [AppComponent]
 })

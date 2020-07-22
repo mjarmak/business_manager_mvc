@@ -17,39 +17,18 @@ export class BusinessListComponent implements OnInit {
 
   paginator: MatPaginator;
 
-    public logos: Map<number, string>;
     public imagesUrl: string;
 
     constructor(private businessManagerService: BusinessManagerService, private alertSerice: AlertService) {
-        this.imagesUrl = environment.business_manager_orc_url + "/images/"
+        this.imagesUrl = environment.business_manager_api_url + "/images/"
     }
 
   ngOnInit() {
-    this.logos = new Map();
     this.businessManagerService.searchBusinesses().subscribe(result => {
       this.dataSource.paginator = this.paginator;
       this.dataSource = new MatTableDataSource<BusinessDataModel>(result.data);
     }, error => {
       this.alertSerice.error("Error loading bussinesses", error.message);
     });
-  }
-  getBusinessLogo(businessId: number): string {
-    if (this.logos.has(businessId)) {
-      return this.logos.get(businessId);
-    } else {
-      this.logos.set(businessId, null);
-      this.businessManagerService.getBusinessLogo(businessId).subscribe(result => {
-        if (result !== null && result.data !== null && result.data.value !== null) {
-          this.logos.set(businessId, result.data.imageData);
-        } else {
-          this.logos.set(businessId, null);
-        }
-      }, error => {
-          //this.alertSerice.warning("No logo", "No logo found for " + businessId);
-          this.logos.set(businessId, null);
-      });
-    console.log(this.logos);
-      return this.logos.get(businessId);
-    }
   }
 }

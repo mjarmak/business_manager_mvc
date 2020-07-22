@@ -23,7 +23,7 @@ export class UserAccountCreateComponent implements OnInit {
         this.businessManagerService.saveUser(this.user).subscribe(result => {
             this.user = result.data;
         }, error => {
-                this.alertSerice.error("Error adding image", error.message);
+                this.alertSerice.error("Error saving user", error.message);
         });
     }
 }

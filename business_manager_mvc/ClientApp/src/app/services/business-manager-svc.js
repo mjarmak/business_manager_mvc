@@ -4,8 +4,16 @@ var environment_1 = require("../../environments/environment");
 var BusinessManagerService = /** @class */ (function () {
     function BusinessManagerService(http) {
         this.http = http;
-        this.url = environment_1.environment.business_manager_orc_url;
+        this.url = environment_1.environment.business_manager_api_url;
     }
+    BusinessManagerService.prototype.openHomePage = function () {
+        console.log("open homepage");
+        window.open("/", "_self");
+    };
+    BusinessManagerService.prototype.openLoginPage = function () {
+        console.log("open homepage");
+        window.open("/login", "_self");
+    };
     BusinessManagerService.prototype.saveBusiness = function (businessModel) {
         console.log('CALL TO ' + this.url + '/business');
         return this.http.post(this.url + '/business', businessModel);

@@ -2,16 +2,25 @@ import { HttpClient } from '@angular/common/http';
 import { BusinessDataModel } from "../../Model/business";
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
-import { ImageModel } from '../../Model/image';
 import { UserAccountModel } from '../../Model/user';
-import { ResponseEnvelope } from '../../Model/respoonseEnvelope';
+import { ResponseEnvelope } from '../../Model/responseEnvelope';
 
 export class BusinessManagerService {
 
     private url: string;
 
     constructor(private http: HttpClient) {
-        this.url = environment.business_manager_orc_url;
+        this.url = environment.business_manager_api_url;
+    }
+
+    public openHomePage() {
+        console.log("open homepage")
+        window.open("/", "_self");
+    }
+
+    public openLoginPage() {
+        console.log("open homepage")
+        window.open("/login", "_self");
     }
 
     public saveBusiness(businessModel: BusinessDataModel): Observable<ResponseEnvelope> {

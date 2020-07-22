@@ -1,0 +1,12 @@
+<div class="card-input center-horizontal">
+  <h1>Login</h1>
+
+  <label for="username">Username:</label>
+  <input id="username" type="text" [(ngModel)]="this.username">
+
+  <label for="password">Password:</label>
+  <input id="password" type="password" [(ngModel)]="this.password">
+
+  <button class="btn-save" id="btnSave" (click)="onClickLogin()">Login</button>
+
+</div>

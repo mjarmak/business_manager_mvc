@@ -22,6 +22,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { TokenInterceptor } from './services/token-interceptor';
 import { AuthService } from './services/auth-service';
 import { LoginComponent } from './login/login.component';
+import { BusinessDetailComponent } from './business-detail/business-detail.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { LoginComponent } from './login/login.component';
         UserAccountCreateComponent,
         BusinessCreateComponent,
         BusinessListComponent,
+        BusinessDetailComponent
         BusinessOverviewComponent,
         LoginComponent,
   ],
@@ -45,8 +47,9 @@ import { LoginComponent } from './login/login.component';
         { path: 'counter', component: CounterComponent },
         { path: 'fetch-data', component: FetchDataComponent },
         { path: 'user-account-create', component: UserAccountCreateComponent },
-        { path: 'business-create', component: BusinessCreateComponent },
-        { path: 'business-overview', component: BusinessOverviewComponent },
+      { path: 'business-create', component: BusinessCreateComponent },
+      { path: 'business-overview', component: BusinessOverviewComponent },
+        { path: 'business-detail/:businessId', component: BusinessDetailComponent },
         { path: 'login', component: LoginComponent },
     ]),
     ToastrModule.forRoot({

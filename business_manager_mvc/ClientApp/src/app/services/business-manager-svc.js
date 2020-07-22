@@ -22,6 +22,10 @@ var BusinessManagerService = /** @class */ (function () {
         console.log('CALL TO ' + this.url + '/business');
         return this.http.get(this.url + '/business');
     };
+    BusinessManagerService.prototype.getBusiness = function (businessId) {
+        console.log('CALL TO ' + this.url + '/business/' + businessId);
+        return this.http.get(this.url + '/business/' + businessId);
+    };
     BusinessManagerService.prototype.saveUser = function (user) {
         console.log('CALL TO ' + this.url + '/user');
         return this.http.post(this.url + '/user', user);

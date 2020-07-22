@@ -32,7 +32,7 @@ namespace business_manager_common_library
     public class Identification
     {
         public long Id { get; set; }
-        public BusinessTypeEnum Type { get; set; }
+        public string Type { get; set; }
         public string Name { get; set; }
         public string TVA { get; set; }
         public string EmailPro { get; set; }

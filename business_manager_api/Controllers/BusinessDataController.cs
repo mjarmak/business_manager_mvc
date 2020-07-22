@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace business_manager_api.Controllers
 {
+    [Produces("application/json")]
     [Route("business")]
     [ApiController]
     [Authorize]
@@ -19,10 +20,32 @@ namespace business_manager_api.Controllers
     {
         private readonly DefaultContext _context;
         private readonly IHostingEnvironment hostingEnvironment;
+
         public BusinessDataController(DefaultContext context, IHostingEnvironment hostingEnvironment)
         {
             _context = context;
             this.hostingEnvironment = hostingEnvironment;
+        }
+
+        [HttpGet("types")]
+        public ActionResult GetBusinessTypes()
+        {
+            BusinessTypeEnum i1;
+            i1 = (BusinessTypeEnum)Enum.Parse(typeof(BusinessTypeEnum), "Bar");
+            i1 = (BusinessTypeEnum)Enum.Parse(typeof(BusinessTypeEnum), "Club");
+            i1 = (BusinessTypeEnum)Enum.Parse(typeof(BusinessTypeEnum), "Concert");
+            i1 = (BusinessTypeEnum)Enum.Parse(typeof(BusinessTypeEnum), "StudentCircle");
+
+            List<string> types = new List<string>();
+            foreach (BusinessTypeEnum type in Enum.GetValues(typeof(BusinessTypeEnum)))
+            {
+                types.Add(type.ToString());
+            }
+            return Ok(new
+            {
+                //status = response.StatusCode,
+                data = types
+            });
         }
 
         [HttpGet]
@@ -44,13 +67,15 @@ namespace business_manager_api.Controllers
         public ActionResult GetBusinessDataModel(long id)
         {
             BusinessDataModel businessDataModel;
-            try {
+            try
+            {
                 businessDataModel = _context.BusinessDataModel
                     .Include(b => b.BusinessInfo)
                     .Include(b => b.BusinessInfo.Address)
                     .Include(b => b.Identification)
                     .Single(b => b.Id == id);
-            } catch (InvalidOperationException e)
+            }
+            catch (InvalidOperationException e)
             {
                 return NotFound();
             }
@@ -83,17 +108,20 @@ namespace business_manager_api.Controllers
             });
         }
 
-        // PUT: api/BusinessData/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        /// <summary>
+        /// Update the business by ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="businessModel"></param>
+        /// <returns>The information of a business based on the id</returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutBusinessDataModel(long id, BusinessDataModel businessDataModel)
+        public async Task<IActionResult> PutBusinessDataModel(long id, BusinessModel businessModel)
         {
-            if (id != businessDataModel.Id)
+            if (id != businessModel.Id)
             {
                 return BadRequest();
             }
-
+            BusinessDataModel businessDataModel = EnvelopeOf(businessModel);
             _context.Entry(businessDataModel).State = EntityState.Modified;
 
             try
@@ -115,39 +143,37 @@ namespace business_manager_api.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Create a Business
+        /// </summary>
+        /// <remarks>
+        /// {
+        ///     "Id" : 1,
+        ///     "Name" : "Mario",
+        ///     "Surname" : "Rossi",
+        ///     "Email" : "marco.rossi@info.com"
+        /// }
+        /// </remarks>
+        /// <param name="businessModel"></param>
+        /// <returns>A business entity</returns>
+        /// <response code="201">If the new business has been created</response>
+        /// <response code="400">If the business field is null</response>
+        /// <response code="403">If the business field is forbidden</response>
+        /// <response code="500">If an internal server error occurred</response>
+
         //Learned from https://csharp-video-tutorials.blogspot.com/2019/05/file-upload-in-aspnet-core-mvc.html
         [HttpPost]
         public async Task<ActionResult<BusinessDataModel>> PostBusinessDataModel(BusinessModel businessModel)
         {
-            BusinessDataModel businessDataModel = new BusinessDataModel
+            BusinessDataModel businessDataModel;
+            try
             {
-                WorkHours = businessModel.WorkHours,
-                Identification = new IdentificationData
-                {
-                    Description = businessModel.Identification.Description,
-                    EmailPro = businessModel.Identification.EmailPro,
-                    Name = businessModel.Identification.Name,
-                    TVA = businessModel.Identification.TVA,
-                    Type = businessModel.Identification.Type
-                },
-                BusinessInfo = new BusinessInfoData
-                {
-                    EmailBusiness = businessModel.BusinessInfo.EmailBusiness,
-                    Phone = businessModel.BusinessInfo.Phone,
-                    UrlFaceBook = businessModel.BusinessInfo.UrlFaceBook,
-                    UrlInstagram = businessModel.BusinessInfo.UrlInstagram,
-                    UrlLinkedIn = businessModel.BusinessInfo.UrlLinkedIn,
-                    UrlSite = businessModel.BusinessInfo.UrlSite,
-                    Address = new AddressData
-                    {
-                        BoxNumber = businessModel.BusinessInfo.Address.BoxNumber,
-                        City = businessModel.BusinessInfo.Address.City,
-                        Country = businessModel.BusinessInfo.Address.Country,
-                        PostalCode = businessModel.BusinessInfo.Address.PostalCode,
-                        Street = businessModel.BusinessInfo.Address.Street
-                    }
-                }
-            };
+                businessDataModel = EnvelopeOf(businessModel);
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest("Invalid paramaters, " + e.Message);
+            }
 
             _context.BusinessDataModel.Add(businessDataModel);
             await _context.SaveChangesAsync();
@@ -176,7 +202,8 @@ namespace business_manager_api.Controllers
             }
 
             string imagesFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
-            if (image != null) {
+            if (image != null)
+            {
                 string uniqueLogoName = Guid.NewGuid().ToString() + "_logo_" + image.FileName;
                 string filePath = Path.Combine(imagesFolder, uniqueLogoName);
                 image.CopyTo(new FileStream(filePath, FileMode.Create));
@@ -214,7 +241,8 @@ namespace business_manager_api.Controllers
             }
 
             string imagesFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
-            if (image != null) {
+            if (image != null)
+            {
                 string uniqueLogoName = Guid.NewGuid().ToString() + "_photo_" + image.FileName;
                 string filePath = Path.Combine(imagesFolder, uniqueLogoName);
                 image.CopyTo(new FileStream(filePath, FileMode.Create));
@@ -248,6 +276,11 @@ namespace business_manager_api.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Delete a business by ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // DELETE: api/BusinessData/5
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteBusinessDataModel(long id)
@@ -271,6 +304,42 @@ namespace business_manager_api.Controllers
         private bool BusinessDataModelExists(long id)
         {
             return _context.BusinessDataModel.Any(e => e.Id == id);
+        }
+        private BusinessDataModel EnvelopeOf(BusinessModel businessModel)
+        {
+            return new BusinessDataModel
+            {
+                Id = businessModel.Id,
+                WorkHours = businessModel.WorkHours,
+                Identification = new IdentificationData
+                {
+                    Id = businessModel.Identification.Id,
+                    Description = businessModel.Identification.Description,
+                    EmailPro = businessModel.Identification.EmailPro,
+                    Name = businessModel.Identification.Name,
+                    TVA = businessModel.Identification.TVA,
+                    Type = ((BusinessTypeEnum)Enum.Parse(typeof(BusinessTypeEnum), businessModel.Identification.Type)).ToString()
+                },
+                BusinessInfo = new BusinessInfoData
+                {
+                    Id = businessModel.BusinessInfo.Id,
+                    EmailBusiness = businessModel.BusinessInfo.EmailBusiness,
+                    Phone = businessModel.BusinessInfo.Phone,
+                    UrlFaceBook = businessModel.BusinessInfo.UrlFaceBook,
+                    UrlInstagram = businessModel.BusinessInfo.UrlInstagram,
+                    UrlLinkedIn = businessModel.BusinessInfo.UrlLinkedIn,
+                    UrlSite = businessModel.BusinessInfo.UrlSite,
+                    Address = new AddressData
+                    {
+                        Id = businessModel.BusinessInfo.Address.Id,
+                        BoxNumber = businessModel.BusinessInfo.Address.BoxNumber,
+                        City = businessModel.BusinessInfo.Address.City,
+                        Country = businessModel.BusinessInfo.Address.Country,
+                        PostalCode = businessModel.BusinessInfo.Address.PostalCode,
+                        Street = businessModel.BusinessInfo.Address.Street
+                    }
+                }
+            };
         }
     }
 }

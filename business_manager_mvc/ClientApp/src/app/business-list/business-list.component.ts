@@ -21,7 +21,7 @@ export class BusinessListComponent implements OnInit {
 
     public imagesUrl: string;
 
-    constructor(private businessManagerService: BusinessManagerService, private alertSerice: AlertService) {
+    constructor(private businessManagerService: BusinessManagerService, private alertService: AlertService) {
         this.imagesUrl = environment.business_manager_api_url + "/images/"
     }
 
@@ -32,7 +32,7 @@ export class BusinessListComponent implements OnInit {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     }, error => {
-      this.alertSerice.error("Error loading bussinesses", error.message);
+      this.alertService.error("Error loading bussinesses", error.message);
     });
   }
 }

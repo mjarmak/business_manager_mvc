@@ -4,22 +4,24 @@ import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { UserAccountModel } from '../../Model/user';
 import { ResponseEnvelope } from '../../Model/responseEnvelope';
+import { AlertService } from './alert-service';
+import { OnInit } from '@angular/core';
 
 export class BusinessManagerService {
 
     private url: string;
 
-    constructor(private http: HttpClient) {
+    public businessTypes: string[];
+
+    constructor(private http: HttpClient, private alertService: AlertService) {
         this.url = environment.business_manager_api_url;
     }
 
     public openHomePage() {
-        console.log("open homepage")
         window.open("/", "_self");
     }
 
     public openLoginPage() {
-        console.log("open homepage")
         window.open("/login", "_self");
     }
 
@@ -38,7 +40,25 @@ export class BusinessManagerService {
   public getBusiness(businessId: number): Observable<ResponseEnvelope> {
     console.log('CALL TO ' + this.url + '/business/' + businessId)
     return this.http.get<ResponseEnvelope>(this.url + '/business/' + businessId)
-  }
+    }
+
+    public getBusinessTypes(): Observable<ResponseEnvelope> {
+      console.log('CALL TO ' + this.url + '/business/types')
+      return this.http.get<ResponseEnvelope>(this.url + '/business/types');
+    }
+    public refreshBusinessTypes(): void {
+        if (this.businessTypes === undefined) {
+            this.businessTypes = []
+            console.log("k " + this.businessTypes);
+            this.getBusinessTypes().subscribe(result => {
+                this.businessTypes = result.data;
+            }, error => {
+                this.businessTypes = undefined;
+                console.log("nope " + this.businessTypes);
+                this.alertService.error("Error loading bussiness types", error.message);
+            });
+        }
+    }
 
     public saveUser(user: UserAccountModel): Observable<ResponseEnvelope> {
         console.log('CALL TO ' + this.url + '/user')

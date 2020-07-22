@@ -19,6 +19,7 @@ export class BusinessCreateComponent implements OnInit {
 
     ngOnInit(): void {
         this.business = new BusinessDataModel();
+        this.businessManagerService.refreshBusinessTypes();
     }
 
     public onClickSave() {
@@ -78,5 +79,9 @@ export class BusinessCreateComponent implements OnInit {
             }
         });
         reader.readAsDataURL(file);
+    }
+    public setBusinessType(type: string) {
+        console.log(type);
+        this.business.identification.type = type;
     }
 }

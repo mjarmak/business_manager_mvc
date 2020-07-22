@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
@@ -23,6 +23,7 @@ import { TokenInterceptor } from './services/token-interceptor';
 import { AuthService } from './services/auth-service';
 import { LoginComponent } from './login/login.component';
 import { BusinessDetailComponent } from './business-detail/business-detail.component';
+import { MatFormFieldModule, MatInputModule, MatSelectModule, MatOptionModule, MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -58,14 +59,20 @@ import { BusinessDetailComponent } from './business-detail/business-detail.compo
     }),
       BrowserAnimationsModule,
       MatTableModule,
-      MatPaginatorModule
-  ],
+      MatPaginatorModule,
+      MatFormFieldModule,
+      MatOptionModule,
+      MatInputModule,
+      MatSelectModule,
+      ReactiveFormsModule,
+    ],
     providers: [
         {
             provide: HTTP_INTERCEPTORS,
             useClass: TokenInterceptor,
             multi: true
         },
+        { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
         BusinessManagerService,
         AlertService,
         AuthService

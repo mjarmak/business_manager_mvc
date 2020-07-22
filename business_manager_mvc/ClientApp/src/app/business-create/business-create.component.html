@@ -33,7 +33,15 @@
   <input bis-input id="urlLinkedIn" type="url" [(ngModel)]="this.business.businessInfo.urlLinkedIn">
 
   <label for="type">Type of Business:</label>
-  <input bis-input id="type" type="text" [(ngModel)]="this.business.identification.type">
+  <mat-form-field *ngIf="this.businessManagerService.businessTypes" appearance="fill">
+    <mat-label>Type</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let type of this.businessManagerService.businessTypes" [value]="type" (click)="this.setBusinessType(type)">
+        {{type}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <p *ngIf="!this.businessManagerService.businessTypes">Unavailable</p>
 
   <label for="tva">TVA:</label>
   <input bis-input id="tva" type="text" [(ngModel)]="this.business.identification.tva">

@@ -18,7 +18,7 @@ export class BusinessDetailComponent implements OnInit {
   public imagesUrl: string;
 
   constructor(private businessManagerService: BusinessManagerService, private alertSerice: AlertService, private route: ActivatedRoute) {
-      this.imagesUrl = environment.business_manager_orc_url + "/images/"
+      this.imagesUrl = environment.business_manager_api_url + "/images/"
     this.business = new BusinessDataModel();
 
     const businessId = this.route.snapshot.paramMap.get("businessId")

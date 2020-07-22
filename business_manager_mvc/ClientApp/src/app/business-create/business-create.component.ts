@@ -1,6 +1,4 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
 import { BusinessDataModel } from '../../Model/business';
 import { BusinessManagerService } from '../services/business-manager-svc';
 import { AlertService } from '../services/alert-service';

@@ -5,13 +5,14 @@ using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using business_manager_common_library;
 using static System.Net.Mime.MediaTypeNames;
+using Microsoft.AspNetCore.Authorization;
 using System.Reflection;
 
 namespace business_manager_api.Controllers
 {
     [Route("logo")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class LogoController : Controller
     {
         private readonly DefaultContext _context;

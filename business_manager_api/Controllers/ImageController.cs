@@ -5,12 +5,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using business_manager_common_library;
+using Microsoft.AspNetCore.Authorization;
 
 namespace business_manager_api.Controllers
 {
     [Route("image")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class ImageController : Controller
     {
         private readonly DefaultContext _context;

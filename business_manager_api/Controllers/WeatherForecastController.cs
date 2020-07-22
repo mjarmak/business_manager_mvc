@@ -9,7 +9,7 @@ namespace business_manager_api.Controllers
 {
     [ApiController]
     [Route("weatherforecast")]
-    //[Authorize]
+    [Authorize]
     public class WeatherForecastController : Controller
     {
         private static readonly string[] Summaries = new[]

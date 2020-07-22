@@ -21,6 +21,13 @@ namespace authentication_api
                 //.AddInMemoryApiScopes(AuthConfiguration.GetScopes())
                 .AddDeveloperSigningCredential();
 
+            services.AddCors(confg =>
+                confg.AddPolicy("AllowAll",
+                    p => p.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader())
+                );
+
             services.AddControllersWithViews();
         }
 
@@ -30,6 +37,8 @@ namespace authentication_api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors("AllowAll");
 
             app.UseRouting();
 

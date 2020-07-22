@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using business_manager_common_library;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +16,7 @@ namespace business_manager_api.Controllers
     [Produces("application/json")]
     [Route("business")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class BusinessDataController : Controller
     {
         private readonly DefaultContext _context;
@@ -121,7 +122,24 @@ namespace business_manager_api.Controllers
             {
                 return BadRequest();
             }
-            BusinessDataModel businessDataModel = EnvelopeOf(businessModel);
+            BusinessDataModel businessDataModel;
+            try
+            {
+                businessDataModel = EnvelopeOf(businessModel);
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest("Invalid paramaters, " + e.Message);
+            }
+            var errors = ValidateBusiness(businessDataModel);
+            if (errors.Count() > 0)
+            {
+                return BadRequest(new
+                {
+                    //status = response.StatusCode,
+                    data = errors
+                }); ;
+            }
             _context.Entry(businessDataModel).State = EntityState.Modified;
 
             try
@@ -175,6 +193,16 @@ namespace business_manager_api.Controllers
                 return BadRequest("Invalid paramaters, " + e.Message);
             }
 
+            var errors = ValidateBusiness(businessDataModel);
+            if (errors.Count() > 0)
+            {
+                return BadRequest(new
+                {
+                    //status = response.StatusCode,
+                    data = errors
+                }); ;
+            }
+
             _context.BusinessDataModel.Add(businessDataModel);
             await _context.SaveChangesAsync();
 
@@ -219,6 +247,7 @@ namespace business_manager_api.Controllers
             }
             return NoContent();
         }
+
 
         [HttpPost("{id}/photo/{imageId}")]
         [Consumes("multipart/form-data")]
@@ -340,6 +369,29 @@ namespace business_manager_api.Controllers
                     }
                 }
             };
+        }
+
+        private List<ValidationFailure> ValidateBusiness(BusinessDataModel businessDataModel)
+        {
+
+            List<ValidationFailure> errors = new List<ValidationFailure>();
+
+            BusinessDataValidator businessDataValidator = new BusinessDataValidator();
+            ValidationResult businessDataValidatorResult = businessDataValidator.Validate(businessDataModel);
+            //return businessDataValidatorResult.IsValid;
+            errors.AddRange(businessDataValidatorResult.Errors);
+
+            BusinessInfoValidator businessInfoValidator = new BusinessInfoValidator();
+            ValidationResult businessInfoValidatorResult = businessInfoValidator.Validate(businessDataModel.BusinessInfo);
+            //return result.IsValid;
+            errors.AddRange(businessInfoValidatorResult.Errors);
+
+            IdentificationDataValidator identificationValidator = new IdentificationDataValidator();
+            ValidationResult identificationValidatorResult = identificationValidator.Validate(businessDataModel.Identification);
+            //return result.IsValid;
+            errors.AddRange(identificationValidatorResult.Errors);
+
+            return errors;
         }
     }
 }

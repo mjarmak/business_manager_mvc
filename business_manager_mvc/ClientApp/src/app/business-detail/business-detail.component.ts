@@ -28,7 +28,7 @@ export class BusinessDetailComponent implements OnInit {
         //console.log(result.data);
         this.business = result.data;
       }, error => {
-        this.alertSerice.error("Error loading bussiness", error.message);
+        this.alertSerice.error("Error loading business", error.message);
       });
     }
     }

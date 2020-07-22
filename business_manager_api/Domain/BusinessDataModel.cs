@@ -65,16 +65,24 @@ namespace business_manager_api
     // Fluent Validation for my BusinessDataModel
     public class BusinessDataValidator : AbstractValidator<BusinessDataModel>
     {
-        private readonly Regex regex = new Regex(@"[^A-Za-z0-9@-_]");
         //private readonly string matchError = "Cannot contain any special characters";
         public BusinessDataValidator()
         {
-            RuleFor(x => x.Identification.Name).NotNull();
+            RuleFor(x => x.WorkHours).NotNull();
         }
-        
-
     }
 
+    // Fluent Validation for my BusinessDataModel
+    public class IdentificationDataValidator : AbstractValidator<IdentificationData>
+    {
+        private readonly Regex regex = new Regex(@"[^A-Za-z0-9@-_]");
+        //private readonly string matchError = "Cannot contain any special characters";
+        public IdentificationDataValidator()
+        {
+            RuleFor(x => x.Name).NotNull();
+            //RuleFor(x => TVAClientService.ValidateVAT("BE", x.TVA)).Equal(true).WithMessage("TVA is invalid");
+        }
+    }
 
     //Fluent Validation for Business Info
     public class BusinessInfoValidator : AbstractValidator<BusinessInfoData>
@@ -98,7 +106,6 @@ namespace business_manager_api
             RuleFor(x => Uri.IsWellFormedUriString(x.UrlLinkedIn, UriKind.RelativeOrAbsolute)).Equal(true).WithMessage("Url LinkedIn not formatted correctly");
 
         }
-
 
     }
 

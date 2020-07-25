@@ -369,20 +369,17 @@ namespace business_manager_api.Controllers
 
             List<ValidationFailure> errors = new List<ValidationFailure>();
 
-            BusinessDataValidator businessDataValidator = new BusinessDataValidator();
-            ValidationResult businessDataValidatorResult = businessDataValidator.Validate(businessDataModel);
-            //return businessDataValidatorResult.IsValid;
-            errors.AddRange(businessDataValidatorResult.Errors);
+            //BusinessDataValidator businessDataValidator = new BusinessDataValidator();
+            //ValidationResult businessDataValidatorResult = businessDataValidator.Validate(businessDataModel);
+            //errors.AddRange(businessDataValidatorResult.Errors);
 
-            BusinessInfoValidator businessInfoValidator = new BusinessInfoValidator();
-            ValidationResult businessInfoValidatorResult = businessInfoValidator.Validate(businessDataModel.BusinessInfo);
-            //return result.IsValid;
-            errors.AddRange(businessInfoValidatorResult.Errors);
+            //BusinessInfoValidator businessInfoValidator = new BusinessInfoValidator();
+            //ValidationResult businessInfoValidatorResult = businessInfoValidator.Validate(businessDataModel.BusinessInfo);
+            //errors.AddRange(businessInfoValidatorResult.Errors);
 
-            IdentificationDataValidator identificationValidator = new IdentificationDataValidator();
-            ValidationResult identificationValidatorResult = identificationValidator.Validate(businessDataModel.Identification);
-            //return result.IsValid;
-            errors.AddRange(identificationValidatorResult.Errors);
+            //IdentificationDataValidator identificationValidator = new IdentificationDataValidator();
+            //ValidationResult identificationValidatorResult = identificationValidator.Validate(businessDataModel.Identification);
+            //errors.AddRange(identificationValidatorResult.Errors);
 
             return errors;
         }

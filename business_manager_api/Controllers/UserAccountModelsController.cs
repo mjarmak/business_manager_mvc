@@ -182,6 +182,11 @@ namespace business_manager_api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<UserAccountDataModel>> PostUserAccountModel(UserAccountModel userAccountModel)
         {
+            if (userAccountModel.Id != null)
+            {
+                return BadRequest("User ID must not be set when creating a user");
+            }
+
             UserAccountDataModel userAccountDataModel;
             try
             {
@@ -191,7 +196,8 @@ namespace business_manager_api.Controllers
             {
                 return BadRequest("Invalid paramaters, " + e.Message);
             }
-
+            userAccountDataModel.State = UserStateEnum.REVIEWING.ToString();
+            userAccountDataModel.Type = UserTypeEnum.USER.ToString();
             var errors = ValidateUser(userAccountDataModel);
             if (errors.Count() > 0)
             {
@@ -263,9 +269,9 @@ namespace business_manager_api.Controllers
 
             List<ValidationFailure> errors = new List<ValidationFailure>();
 
-            UserAccountValidator userAccountValidator = new UserAccountValidator();
-            ValidationResult validationResult = userAccountValidator.Validate(userAccountDataModel);
-            errors.AddRange(validationResult.Errors);
+            //UserAccountValidator userAccountValidator = new UserAccountValidator();
+            //ValidationResult validationResult = userAccountValidator.Validate(userAccountDataModel);
+            //errors.AddRange(validationResult.Errors);
 
             return errors;
         }

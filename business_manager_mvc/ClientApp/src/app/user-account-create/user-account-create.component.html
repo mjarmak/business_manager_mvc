@@ -6,15 +6,20 @@
 
 <div class="card-input">
 
-  <label for="email">Email Address:</label>
+  <label class="margin-top-none" for="email">Email Address:</label>
   <input id="email" type="email" [(ngModel)]="this.user.email">
 
   <label for="password">Password:</label>
   <input id="password" type="password" [(ngModel)]="this.user.password">
 
-  <hr />
 
-  <label for="name">Name:</label>
+  <label for="password">Confirm Password:<a class="text-red" *ngIf="this.passwordDuplicate && this.passwordDuplicate !== this.user.password"> Passwords don't match</a></label>
+    
+  <input [class.border-red]="this.passwordDuplicate && this.passwordDuplicate !== this.user.password" id="passwordDuplicate" type="password" [(ngModel)]="this.passwordDuplicate">
+
+  <hr>
+
+  <label class="margin-top-none" for="name">Name:</label>
   <input id="name" type="text" [(ngModel)]="this.user.name">
 
   <label for="surname">Surname:</label>

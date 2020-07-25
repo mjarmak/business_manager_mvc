@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using DbContext = Microsoft.EntityFrameworkCore.DbContext;
 
-namespace business_manager_api
+namespace business_manager_api.Context
 {
     public class DefaultContext : DbContext
     {

@@ -1,3 +1,4 @@
+using business_manager_api.Context;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -36,9 +37,14 @@ namespace business_manager_api
                 });
 
             services.AddDbContext<DefaultContext>(
-                options => options.UseSqlServer(
-                Configuration.GetConnectionString("DefaultConnection"),
-                b => b.MigrationsAssembly(typeof(DefaultContext).Assembly.FullName)));
+                config =>
+                {
+                    config.UseInMemoryDatabase("Memory");
+                }
+                //options => options.UseSqlServer(
+                //Configuration.GetConnectionString("DefaultConnection"),
+                //b => b.MigrationsAssembly(typeof(DefaultContext).Assembly.FullName))
+                );
 
             services.AddCors(options =>
             {

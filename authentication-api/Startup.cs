@@ -1,6 +1,9 @@
+using authentication_api.Context;
 using business_manager_api;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Logging;
@@ -12,8 +15,22 @@ namespace authentication_api
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            Console.WriteLine("STARTING AUTH");
-            IdentityModelEventSource.ShowPII = true;
+            IdentityModelEventSource.ShowPII = true; // for debugging
+
+            services.AddDbContext<DefaultContext>(config =>
+            {
+                config.UseInMemoryDatabase("Memory");
+            });
+            // AddIdentity registers the services
+            services.AddIdentity<IdentityUser, IdentityRole>(config =>
+            {
+                config.Password.RequiredLength = 4;
+                config.Password.RequireDigit = false;
+                config.Password.RequireNonAlphanumeric = false;
+                config.Password.RequireUppercase = false;
+            })
+                .AddEntityFrameworkStores<DefaultContext>()
+                .AddDefaultTokenProviders();
 
             services.AddIdentityServer()
                 .AddInMemoryApiResources(AuthConfiguration.GetApis())

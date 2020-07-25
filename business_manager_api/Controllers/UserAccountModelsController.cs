@@ -9,6 +9,7 @@ using business_manager_api;
 using Microsoft.AspNetCore.Authorization;
 using business_manager_common_library;
 using FluentValidation.Results;
+using business_manager_api.Context;
 
 namespace business_manager_api.Controllers
 {
@@ -183,6 +184,8 @@ namespace business_manager_api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<UserAccountDataModel>> PostUserAccountModel(UserAccountModel userAccountModel)
         {
+            userAccountModel.Id = 0L;
+
             UserAccountDataModel userAccountDataModel;
             try
             {
@@ -190,9 +193,13 @@ namespace business_manager_api.Controllers
             }
             catch (ArgumentException e)
             {
-                return BadRequest("Invalid paramaters, " + e.Message);
+                return BadRequest(new
+                {
+                    data = "Invalid paramaters, " + e.Message
+                });
             }
-
+            userAccountDataModel.State = UserStateEnum.REVIEWING.ToString();
+            userAccountDataModel.Type = UserTypeEnum.USER.ToString();
             var errors = ValidateUser(userAccountDataModel);
             if (errors.Count() > 0)
             {
@@ -264,9 +271,9 @@ namespace business_manager_api.Controllers
 
             List<ValidationFailure> errors = new List<ValidationFailure>();
 
-            UserAccountValidator userAccountValidator = new UserAccountValidator();
-            ValidationResult validationResult = userAccountValidator.Validate(userAccountDataModel);
-            errors.AddRange(validationResult.Errors);
+            //UserAccountValidator userAccountValidator = new UserAccountValidator();
+            //ValidationResult validationResult = userAccountValidator.Validate(userAccountDataModel);
+            //errors.AddRange(validationResult.Errors);
 
             return errors;
         }

@@ -10,6 +10,7 @@ import { AlertService } from '../services/alert-service';
 export class UserAccountCreateComponent implements OnInit {
 
     public user: UserAccountModel;
+    public passwordDuplicate: string;
 
     ngOnInit(): void {
         this.user = new UserAccountModel;

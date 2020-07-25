@@ -33,10 +33,14 @@ code {
   display: grid;
   width: 50%;
   min-width: 512px;
+  margin-bottom: 1rem;
 }
 .card-input > label {
   margin-top: 1rem;
   margin-bottom: 0;
+}
+.margin-top-none {
+  margin-top: 0 !important;
 }
 .card-input > button {
   margin-top: 1rem;
@@ -72,8 +76,9 @@ code {
   display: grid;
   width: 50%;
   min-width: 512px;
+  margin-bottom: 1rem;
 }
-.card-table {
+/*.card-table {
   margin-top: 1rem;
   padding: 1rem;
   outline: solid thin;
@@ -81,7 +86,8 @@ code {
   display: grid;
   width: 100%;
   min-width: 512px;
-}
+  margin-bottom: 1rem;
+}*/
 
 .center-horizontal {
   margin-left: auto;
@@ -92,4 +98,23 @@ code {
 }
 .clickable {
   cursor: pointer;
+}
+.border-red {
+  border-color: red;
+}
+.text-small {
+  font-size: 0.5rem;
+}
+.text-red {
+  color: red !important;
+}
+hr {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  border: 0;
+  clear: both;
+  display: block;
+  width: 100%;
+  background-color: lightgrey;
+  height: 1px;
 }

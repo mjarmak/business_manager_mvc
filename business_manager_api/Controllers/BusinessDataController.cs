@@ -32,10 +32,10 @@ namespace business_manager_api.Controllers
         public ActionResult GetBusinessTypes()
         {
             BusinessTypeEnum i1;
-            i1 = (BusinessTypeEnum)Enum.Parse(typeof(BusinessTypeEnum), "Bar");
-            i1 = (BusinessTypeEnum)Enum.Parse(typeof(BusinessTypeEnum), "Club");
-            i1 = (BusinessTypeEnum)Enum.Parse(typeof(BusinessTypeEnum), "Concert");
-            i1 = (BusinessTypeEnum)Enum.Parse(typeof(BusinessTypeEnum), "StudentCircle");
+            //i1 = (BusinessTypeEnum)Enum.Parse(typeof(BusinessTypeEnum), "BAR");
+            //i1 = (BusinessTypeEnum)Enum.Parse(typeof(BusinessTypeEnum), "CLUB");
+            //i1 = (BusinessTypeEnum)Enum.Parse(typeof(BusinessTypeEnum), "CONCERT");
+            //i1 = (BusinessTypeEnum)Enum.Parse(typeof(BusinessTypeEnum), "STUDENTCIRCLE");
 
             List<string> types = new List<string>();
             foreach (BusinessTypeEnum type in Enum.GetValues(typeof(BusinessTypeEnum)))

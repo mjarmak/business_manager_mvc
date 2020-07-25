@@ -37,7 +37,7 @@
     <mat-label>Type</mat-label>
     <mat-select>
       <mat-option *ngFor="let type of this.businessManagerService.businessTypes" [value]="type" (click)="this.setBusinessType(type)">
-        {{type}}
+        {{type.charAt(0).toUpperCase() + type.slice(1).toLowerCase()}}
       </mat-option>
     </mat-select>
   </mat-form-field>

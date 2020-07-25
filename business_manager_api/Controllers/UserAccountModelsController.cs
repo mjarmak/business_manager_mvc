@@ -163,8 +163,9 @@ namespace business_manager_api.Controllers
         /// Create a user
         /// </summary>
         /// <remarks>
-        /// This is a sample request:
+        /// An example of a sample request:
         /// {
+        ///    
         ///     "Id" : 1,
         ///     "Name" : "Marco",
         ///     "Surname" : "Rossi",

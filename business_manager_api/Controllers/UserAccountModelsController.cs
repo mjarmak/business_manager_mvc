@@ -9,6 +9,7 @@ using business_manager_api;
 using Microsoft.AspNetCore.Authorization;
 using business_manager_common_library;
 using FluentValidation.Results;
+using business_manager_api.Context;
 
 namespace business_manager_api.Controllers
 {
@@ -182,10 +183,7 @@ namespace business_manager_api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<UserAccountDataModel>> PostUserAccountModel(UserAccountModel userAccountModel)
         {
-            if (userAccountModel.Id != null)
-            {
-                return BadRequest("User ID must not be set when creating a user");
-            }
+            userAccountModel.Id = 0L;
 
             UserAccountDataModel userAccountDataModel;
             try
@@ -194,7 +192,10 @@ namespace business_manager_api.Controllers
             }
             catch (ArgumentException e)
             {
-                return BadRequest("Invalid paramaters, " + e.Message);
+                return BadRequest(new
+                {
+                    data = "Invalid paramaters, " + e.Message
+                });
             }
             userAccountDataModel.State = UserStateEnum.REVIEWING.ToString();
             userAccountDataModel.Type = UserTypeEnum.USER.ToString();

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using business_manager_api.Context;
 using business_manager_common_library;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
@@ -183,7 +184,10 @@ namespace business_manager_api.Controllers
             }
             catch (ArgumentException e)
             {
-                return BadRequest("Invalid paramaters, " + e.Message);
+                return BadRequest(new
+                {
+                    data = "Invalid paramaters, " + e.Message
+                });
             }
 
             var errors = ValidateBusiness(businessDataModel);
@@ -191,7 +195,6 @@ namespace business_manager_api.Controllers
             {
                 return BadRequest(new
                 {
-                    //status = response.StatusCode,
                     data = errors
                 }); ;
             }
@@ -251,7 +254,10 @@ namespace business_manager_api.Controllers
 
             if (imageId < 1 || imageId > 5)
             {
-                return BadRequest("Image ID must be between 1 and 5 inclusive");
+                return BadRequest(new
+                {
+                    data = "Image ID must be between 1 and 5 inclusive"
+                });
             }
             if (!BusinessDataModelExists(id))
             {
@@ -259,7 +265,10 @@ namespace business_manager_api.Controllers
             }
             if (!image.ContentType.Contains("image") && !image.ContentType.Contains("jpeg") && !image.ContentType.Contains("jpg"))
             {
-                return BadRequest("File must be an image");
+                return BadRequest(new
+                {
+                    data = "File must be an image"
+                });
             }
 
             string imagesFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
@@ -318,7 +327,6 @@ namespace business_manager_api.Controllers
 
             return Ok(new
             {
-                //status = response.StatusCode,
                 data = businessDataModel
             });
         }

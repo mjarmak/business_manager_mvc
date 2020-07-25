@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-namespace business_manager_api
+namespace authentication_api.Context
 {
     // IdentityDbContext contains all the user tables
     public class DefaultContext : IdentityDbContext

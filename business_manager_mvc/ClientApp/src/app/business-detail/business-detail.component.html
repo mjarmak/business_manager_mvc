@@ -1,47 +1,56 @@
-<h1>{{this.business.identification.name}}</h1>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <h3>{{this.business.identification.name}}
+        <!--<p *ngIf="!forecasts"><em>Loading...</em></p>-->
+      </h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2">
+      <img *ngIf="business.identification && business.identification.logoPath" src="{{this.imagesUrl + business.identification.logoPath}}" width="125" height="80">
+    </div>
+    <div class="col-md-8">
+      <p>Business ID: {{this.business.id}}</p>
 
-<!--<p *ngIf="!forecasts"><em>Loading...</em></p>-->
+      <p *ngIf="business.identification && business.identification.name">Name: {{this.business.identification.name}}</p>
 
-<div class="card">
+      <p *ngIf="business.identification && business.identification.email">Email: {{this.business.identification.email}}</p>
 
-  <img *ngIf="business.identification && business.identification.logoPath" src="{{this.imagesUrl + business.identification.logoPath}}" width="125" height="80">
+      <p *ngIf="business.identification && business.identification.phone">Name: {{this.business.identification.phone}}</p>
 
-  <p>Business ID: {{this.business.id}}</p>
+      <p *ngIf="business.identification && business.identification.urlSite">Website Url: {{this.business.identification.urlSite}}</p>
 
-  <p *ngIf="business.identification && business.identification.name">Name: {{this.business.identification.name}}</p>
+      <p *ngIf="business.identification && business.identification.urlInstagram">Instagram Link: {{this.business.identification.urlInstragram}}</p>
 
-  <p *ngIf="business.identification && business.identification.email">Email: {{this.business.identification.email}}</p>
+      <p *ngIf="business.identification && business.identification.urlFacebook">Facebook Url: {{this.business.identification.urlFaceBook}}</p>
 
-  <p *ngIf="business.identification && business.identification.phone">Name: {{this.business.identification.phone}}</p>
+      <p *ngIf="business.identification && business.identification.urlLinkedin">Linkedin url: {{this.business.identification.urlLinkedin}}</p>
 
-  <p *ngIf="business.identification && business.identification.urlSite">Website Url: {{this.business.identification.urlSite}}</p>
+      <p *ngIf="business.identification && business.identification.type">Type of Business: {{this.business.identification.type}}</p>
 
-  <p *ngIf="business.identification && business.identification.urlInstagram">Instagram Link: {{this.business.identification.urlInstragram}}</p>
+      <p *ngIf="business.identification && business.identification.tva">Numero TVA: {{this.business.identification.tva}}</p>
 
-  <p *ngIf="business.identification && business.identification.urlFacebook">Facebook Url: {{this.business.identification.urlFaceBook}}</p>
+      <p *ngIf="business.identification && business.identification.description">Description: {{this.business.identification.description}}</p>
 
-  <p *ngIf="business.identification && business.identification.urlLinkedin">Linkedin url: {{this.business.identification.urlLinkedin}}</p>
+      <p *ngIf="business.identification && business.identification.postalCode">Postal code: {{this.business.identification.postalCode}}</p>
 
-  <p *ngIf="business.identification && business.identification.type">Type of Business: {{this.business.identification.type}}</p>
+      <p *ngIf="business.identification && business.identification.country">Country: {{this.business.identification.country}}</p>
 
-  <p *ngIf="business.identification && business.identification.tva">Numero TVA: {{this.business.identification.tva}}</p>
+      <p *ngIf="business.identification && business.identification.street">Street: {{this.business.identification.street}}</p>
 
-  <p *ngIf="business.identification && business.identification.description">Description: {{this.business.identification.description}}</p>
+      <p *ngIf="business.identification && business.identification.boxNumber">Box Number: {{this.business.identification.boxNumber}}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <img mat-card-image>
 
-  <p *ngIf="business.identification && business.identification.postalCode">Postal code: {{this.business.identification.postalCode}}</p>
-
-  <p *ngIf="business.identification && business.identification.country">Country: {{this.business.identification.country}}</p>
-
-  <p *ngIf="business.identification && business.identification.street">Street: {{this.business.identification.street}}</p>
-
-  <p *ngIf="business.identification && business.identification.boxNumber">Box Number: {{this.business.identification.boxNumber}}</p>
-
-  <img mat-card-image>
-
-  <img mat-card-image *ngIf="business.businessInfo && business.businessInfo.photoPath1" src="{{this.imagesUrl + business.businessInfo.photoPath1}}" width="512" height="360">
-  <img *ngIf="business.businessInfo && business.businessInfo.photoPath2" src="{{this.imagesUrl + business.businessInfo.photoPath2}}" width="512" height="360">
-  <img *ngIf="business.businessInfo && business.businessInfo.photoPath3" src="{{this.imagesUrl + business.businessInfo.photoPath3}}" width="512" height="360">
-  <img *ngIf="business.businessInfo && business.businessInfo.photoPath4" src="{{this.imagesUrl + business.businessInfo.photoPath4}}" width="512" height="360">
-  <img *ngIf="business.businessInfo && business.businessInfo.photoPath5" src="{{this.imagesUrl + business.businessInfo.photoPath5}}" width="512" height="360">
-
+      <img mat-card-image *ngIf="business.businessInfo && business.businessInfo.photoPath1" src="{{this.imagesUrl + business.businessInfo.photoPath1}}" width="512" height="360">
+      <img *ngIf="business.businessInfo && business.businessInfo.photoPath2" src="{{this.imagesUrl + business.businessInfo.photoPath2}}" width="512" height="360">
+      <img *ngIf="business.businessInfo && business.businessInfo.photoPath3" src="{{this.imagesUrl + business.businessInfo.photoPath3}}" width="512" height="360">
+      <img *ngIf="business.businessInfo && business.businessInfo.photoPath4" src="{{this.imagesUrl + business.businessInfo.photoPath4}}" width="512" height="360">
+      <img *ngIf="business.businessInfo && business.businessInfo.photoPath5" src="{{this.imagesUrl + business.businessInfo.photoPath5}}" width="512" height="360">
+    </div>
+  </div>
 </div>

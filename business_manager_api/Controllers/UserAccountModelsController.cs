@@ -15,7 +15,7 @@ namespace business_manager_api.Controllers
     [Produces("application/json")]
     [Route("user")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class UserAccountModelsController : Controller
     {
         private readonly DefaultContext _context;
@@ -23,6 +23,48 @@ namespace business_manager_api.Controllers
         public UserAccountModelsController(DefaultContext context)
         {
             _context = context;
+        }
+
+        [HttpGet("genders")]
+        public ActionResult GetUserGenders()
+        {
+            List<string> types = new List<string>();
+            foreach (UserGenderEnum type in Enum.GetValues(typeof(UserGenderEnum)))
+            {
+                types.Add(type.ToString());
+            }
+            return Ok(new
+            {
+                data = types
+            });
+        }
+
+        [HttpGet("types")]
+        public ActionResult GetUserTypes()
+        {
+            List<string> types = new List<string>();
+            foreach (UserTypeEnum type in Enum.GetValues(typeof(UserTypeEnum)))
+            {
+                types.Add(type.ToString());
+            }
+            return Ok(new
+            {
+                data = types
+            });
+        }
+
+        [HttpGet("states")]
+        public ActionResult GetUserStates()
+        {
+            List<string> types = new List<string>();
+            foreach (UserStateEnum type in Enum.GetValues(typeof(UserStateEnum)))
+            {
+                types.Add(type.ToString());
+            }
+            return Ok(new
+            {
+                data = types
+            });
         }
 
         /// <summary>
@@ -211,8 +253,8 @@ namespace business_manager_api.Controllers
                 Phone = userAccountModel.Phone,
                 Profession = userAccountModel.Profession,
                 Password = userAccountModel.Password,
-                Gender = userAccountModel.Gender == null ? null : ((UserTypeEnum)Enum.Parse(typeof(UserTypeEnum), userAccountModel.Gender)).ToString(),
-                State = userAccountModel.State == null ? null : ((UserTypeEnum)Enum.Parse(typeof(UserTypeEnum), userAccountModel.State)).ToString(),
+                Gender = userAccountModel.Gender == null ? null : ((UserGenderEnum)Enum.Parse(typeof(UserGenderEnum), userAccountModel.Gender)).ToString(),
+                State = userAccountModel.State == null ? null : ((UserStateEnum)Enum.Parse(typeof(UserStateEnum), userAccountModel.State)).ToString(),
                 Type = userAccountModel.Type == null ? null : ((UserTypeEnum)Enum.Parse(typeof(UserTypeEnum), userAccountModel.Type)).ToString()
             };
         }

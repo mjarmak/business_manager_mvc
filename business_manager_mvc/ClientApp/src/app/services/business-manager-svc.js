@@ -32,16 +32,30 @@ var BusinessManagerService = /** @class */ (function () {
         console.log('CALL TO ' + this.url + '/business/types');
         return this.http.get(this.url + '/business/types');
     };
+    BusinessManagerService.prototype.getUserGenders = function () {
+        console.log('CALL TO ' + this.url + '/user/genders');
+        return this.http.get(this.url + '/user/genders');
+    };
     BusinessManagerService.prototype.refreshBusinessTypes = function () {
         var _this = this;
         if (this.businessTypes === undefined) {
             this.businessTypes = [];
-            console.log("k " + this.businessTypes);
             this.getBusinessTypes().subscribe(function (result) {
                 _this.businessTypes = result.data;
             }, function (error) {
                 _this.businessTypes = undefined;
-                console.log("nope " + _this.businessTypes);
+                _this.alertService.error("Error loading bussiness types", error.message);
+            });
+        }
+    };
+    BusinessManagerService.prototype.refreshUserGenders = function () {
+        var _this = this;
+        if (this.userGenders === undefined) {
+            this.userGenders = [];
+            this.getUserGenders().subscribe(function (result) {
+                _this.userGenders = result.data;
+            }, function (error) {
+                _this.userGenders = undefined;
                 _this.alertService.error("Error loading bussiness types", error.message);
             });
         }

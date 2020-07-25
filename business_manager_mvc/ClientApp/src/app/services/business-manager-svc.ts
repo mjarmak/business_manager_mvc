@@ -12,6 +12,7 @@ export class BusinessManagerService {
     private url: string;
 
     public businessTypes: string[];
+    public userGenders: string[];
 
     constructor(private http: HttpClient, private alertService: AlertService) {
         this.url = environment.business_manager_api_url;
@@ -46,15 +47,29 @@ export class BusinessManagerService {
       console.log('CALL TO ' + this.url + '/business/types')
       return this.http.get<ResponseEnvelope>(this.url + '/business/types');
     }
+    public getUserGenders(): Observable<ResponseEnvelope> {
+        console.log('CALL TO ' + this.url + '/user/genders')
+        return this.http.get<ResponseEnvelope>(this.url + '/user/genders');
+    }
+
     public refreshBusinessTypes(): void {
         if (this.businessTypes === undefined) {
             this.businessTypes = []
-            console.log("k " + this.businessTypes);
             this.getBusinessTypes().subscribe(result => {
                 this.businessTypes = result.data;
             }, error => {
                 this.businessTypes = undefined;
-                console.log("nope " + this.businessTypes);
+                this.alertService.error("Error loading bussiness types", error.message);
+            });
+        }
+    }
+    public refreshUserGenders(): void {
+        if (this.userGenders === undefined) {
+            this.userGenders = []
+            this.getUserGenders().subscribe(result => {
+                this.userGenders = result.data;
+            }, error => {
+                    this.userGenders = undefined;
                 this.alertService.error("Error loading bussiness types", error.message);
             });
         }

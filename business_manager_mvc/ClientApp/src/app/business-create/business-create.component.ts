@@ -81,7 +81,6 @@ export class BusinessCreateComponent implements OnInit {
         reader.readAsDataURL(file);
     }
     public setBusinessType(type: string) {
-        console.log(type);
         this.business.identification.type = type;
     }
 }

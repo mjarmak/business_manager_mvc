@@ -34,6 +34,7 @@ export class BusinessDetailComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.businessManagerService.refreshBusinessTypes();
     }
 
     public onClickSave() {

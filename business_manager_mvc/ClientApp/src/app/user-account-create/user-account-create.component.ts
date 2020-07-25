@@ -13,6 +13,7 @@ export class UserAccountCreateComponent implements OnInit {
 
     ngOnInit(): void {
         this.user = new UserAccountModel;
+        this.businessManagerService.refreshUserGenders();
     }
 
     constructor(private businessManagerService: BusinessManagerService, private alertSerice: AlertService) {
@@ -25,5 +26,8 @@ export class UserAccountCreateComponent implements OnInit {
         }, error => {
                 this.alertSerice.error("Error saving user", error.message);
         });
+    }
+    public setUserGender(gender: string) {
+        this.user.gender = gender;
     }
 }

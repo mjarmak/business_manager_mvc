@@ -17,7 +17,7 @@ namespace business_manager_common_library
         public string Type { get; set; }
         public string State { get; set; }
     }
-    public enum GenderEnum
+    public enum UserGenderEnum
     {
         MALE,
         FEMALE,
@@ -28,7 +28,7 @@ namespace business_manager_common_library
         USER,
         ADMIN
     }
-    public enum StateEnum
+    public enum UserStateEnum
     {
         REVIEWING,
         ACTIVE,

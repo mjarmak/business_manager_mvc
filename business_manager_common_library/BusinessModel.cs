@@ -23,10 +23,10 @@ namespace business_manager_common_library
     }
     public enum BusinessTypeEnum
     {
-        Bar,
-        Club,
-        Concert,
-        StudentCircle
+        BAR,
+        CLUB,
+        CONCERT,
+        STUDENTCIRCLE
     }
    
     public class Identification

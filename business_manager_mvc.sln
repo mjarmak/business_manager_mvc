@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "business_manager_api", "bus
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "authentication-api", "authentication-api\authentication-api.csproj", "{6AFE3F74-8C1C-4D47-8A00-CA59BE3ED434}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "business_manager_orchestrator", "business_manager_orchestrator\business_manager_orchestrator.csproj", "{5FECC433-BC01-4DA9-8213-76FAC15EAA9F}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "business_manager_common_library", "business_manager_common_library\business_manager_common_library.csproj", "{87EAC29B-C220-4601-8B85-52E1DB3C4209}"
 EndProject
 Global
@@ -31,10 +29,6 @@ Global
 		{6AFE3F74-8C1C-4D47-8A00-CA59BE3ED434}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6AFE3F74-8C1C-4D47-8A00-CA59BE3ED434}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6AFE3F74-8C1C-4D47-8A00-CA59BE3ED434}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5FECC433-BC01-4DA9-8213-76FAC15EAA9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5FECC433-BC01-4DA9-8213-76FAC15EAA9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5FECC433-BC01-4DA9-8213-76FAC15EAA9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5FECC433-BC01-4DA9-8213-76FAC15EAA9F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{87EAC29B-C220-4601-8B85-52E1DB3C4209}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{87EAC29B-C220-4601-8B85-52E1DB3C4209}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87EAC29B-C220-4601-8B85-52E1DB3C4209}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using business_manager_api;
 using Microsoft.AspNetCore.Authorization;
+using business_manager_common_library;
+using FluentValidation.Results;
 
 namespace business_manager_api.Controllers
 {
@@ -30,7 +32,7 @@ namespace business_manager_api.Controllers
         /// <response code="500">Internal Server Error</response>
         // GET: api/UserAccountModels
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<UserAccountModel>>> GetUserAccount()
+        public async Task<ActionResult<IEnumerable<UserAccountDataModel>>> GetUserAccount()
         {
             return Ok(new
             {
@@ -46,7 +48,7 @@ namespace business_manager_api.Controllers
         /// <returns></returns>
         // GET: api/UserAccountModels/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserAccountModel>> GetUserAccountModel(long id)
+        public async Task<ActionResult<UserAccountDataModel>> GetUserAccountModel(long id)
         {
             var userAccountModel = await _context.UserAccount.FindAsync(id);
 
@@ -76,8 +78,25 @@ namespace business_manager_api.Controllers
             {
                 return BadRequest();
             }
-
-            _context.Entry(userAccountModel).State = EntityState.Modified;
+            UserAccountDataModel userAccountDataModel;
+            try
+            {
+                userAccountDataModel = EnvelopeOf(userAccountModel);
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest("Invalid paramaters, " + e.Message);
+            }
+            var errors = ValidateUser(userAccountDataModel);
+            if (errors.Count() > 0)
+            {
+                return BadRequest(new
+                {
+                    //status = response.StatusCode,
+                    data = errors
+                }); ;
+            }
+            _context.Entry(userAccountDataModel).State = EntityState.Modified;
 
             try
             {
@@ -94,7 +113,6 @@ namespace business_manager_api.Controllers
                     throw;
                 }
             }
-
             return NoContent();
         }
 
@@ -120,15 +138,35 @@ namespace business_manager_api.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<UserAccountModel>> PostUserAccountModel(UserAccountModel userAccountModel)
+        public async Task<ActionResult<UserAccountDataModel>> PostUserAccountModel(UserAccountModel userAccountModel)
         {
-            _context.UserAccount.Add(userAccountModel);
+            UserAccountDataModel userAccountDataModel;
+            try
+            {
+                userAccountDataModel = EnvelopeOf(userAccountModel);
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest("Invalid paramaters, " + e.Message);
+            }
+
+            var errors = ValidateUser(userAccountDataModel);
+            if (errors.Count() > 0)
+            {
+                return BadRequest(new
+                {
+                    //status = response.StatusCode,
+                    data = errors
+                }); ;
+            }
+
+            _context.UserAccount.Add(userAccountDataModel);
             await _context.SaveChangesAsync();
 
             return Ok(new
             {
                 //status = response.StatusCode,
-                data = CreatedAtAction("GetUserAccountModel", new { id = userAccountModel.Id }, userAccountModel)
+                data = CreatedAtAction("GetUserAccountModel", new { id = userAccountDataModel.Id }, userAccountDataModel).Value
             });
         }
 
@@ -139,7 +177,7 @@ namespace business_manager_api.Controllers
         /// <returns></returns>
         // DELETE: api/UserAccountModels/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<UserAccountModel>> DeleteUserAccountModel(long id)
+        public async Task<ActionResult<UserAccountDataModel>> DeleteUserAccountModel(long id)
         {
             var userAccountModel = await _context.UserAccount.FindAsync(id);
             if (userAccountModel == null)
@@ -160,6 +198,34 @@ namespace business_manager_api.Controllers
         private bool UserAccountModelExists(long id)
         {
             return _context.UserAccount.Any(e => e.Id == id);
+        }
+        private UserAccountDataModel EnvelopeOf(UserAccountModel userAccountModel)
+        {
+            return new UserAccountDataModel
+            {
+                Id = userAccountModel.Id,
+                Email = userAccountModel.Email,
+                Name = userAccountModel.Name,
+                Surname = userAccountModel.Surname,
+                BirthDate = userAccountModel.BirthDate,
+                Phone = userAccountModel.Phone,
+                Profession = userAccountModel.Profession,
+                Password = userAccountModel.Password,
+                Gender = userAccountModel.Gender == null ? null : ((UserTypeEnum)Enum.Parse(typeof(UserTypeEnum), userAccountModel.Gender)).ToString(),
+                State = userAccountModel.State == null ? null : ((UserTypeEnum)Enum.Parse(typeof(UserTypeEnum), userAccountModel.State)).ToString(),
+                Type = userAccountModel.Type == null ? null : ((UserTypeEnum)Enum.Parse(typeof(UserTypeEnum), userAccountModel.Type)).ToString()
+            };
+        }
+        private List<ValidationFailure> ValidateUser(UserAccountDataModel userAccountDataModel)
+        {
+
+            List<ValidationFailure> errors = new List<ValidationFailure>();
+
+            UserAccountValidator userAccountValidator = new UserAccountValidator();
+            ValidationResult validationResult = userAccountValidator.Validate(userAccountDataModel);
+            errors.AddRange(validationResult.Errors);
+
+            return errors;
         }
     }
 }

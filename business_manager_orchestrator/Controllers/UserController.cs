@@ -27,7 +27,7 @@ namespace business_manager_orchestrator.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostUser(UserModel userAccountModel)
+        public async Task<IActionResult> PostUser(UserAccountModel userAccountModel)
         {
             //retrieve access token
             var tokenResponse = await authClient.GetToken();

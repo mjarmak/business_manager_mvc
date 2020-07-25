@@ -157,7 +157,6 @@ namespace business_manager_api.Controllers
                     throw;
                 }
             }
-
             return NoContent();
         }
 

@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 namespace business_manager_api
 {
     [Table(name: "UserAccount")]
-    public class UserAccountModel
+    public class UserAccountDataModel
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
@@ -18,19 +18,15 @@ namespace business_manager_api
         public string Email { get; set; }
         
         public string Phone { get; set; }
-        public GenderEnum Gender { get; set; }
+        public string Gender { get; set; }
         public DateTime BirthDate { get; set; }
         public bool Profession { get; set; }
         public string Password { get; set; }
-    }
-    public enum GenderEnum
-    {
-        Male,
-        Female,
-        Unknown
+        public string Type { get; set; }
+        public string State { get; set; }
     }
     
-    public class UserAccountValidator : AbstractValidator<UserAccountModel>
+    public class UserAccountValidator : AbstractValidator<UserAccountDataModel>
     {
         private readonly Regex regex = new Regex(@"[^A-Za-z0-9@-_]");
         private readonly string matchError = "Cannot contain any special characters";

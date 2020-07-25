@@ -8,13 +8,9 @@ namespace business_manager_api
         public DefaultContext(DbContextOptions<DefaultContext> options) : base(options)
         {
         }
-
         public DbSet<BusinessDataModel> BusinessDataModel { get; set; }
-        public DbSet<BusinessImageModel> BusinessImage { get; set; }
         public DbSet<IdentificationData> Identification { get; set; }
         public DbSet<BusinessInfoData> BusinessInfo { get; set; }
-        public DbSet<UserAccountModel> UserAccount { get; set; }
-        public DbSet<LogoModel> Logo { get; set; }
-
+        public DbSet<UserAccountDataModel> UserAccount { get; set; }
     }
 }

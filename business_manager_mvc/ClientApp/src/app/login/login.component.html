@@ -1,11 +1,11 @@
-<div class="card-input center-horizontal">
+<div class="card-input center-horizontal card-min-width-512 width-50">
   <h1>Login</h1>
 
   <label for="username">Username:</label>
-  <input id="username" type="text" [(ngModel)]="this.username">
+  <input id="username" type="text" [(ngModel)]="this.username" (keydown.enter)="onClickLogin()">
 
   <label for="password">Password:</label>
-  <input id="password" type="password" [(ngModel)]="this.password">
+  <input id="password" type="password" [(ngModel)]="this.password" (keydown.enter)="onClickLogin()">
 
   <button class="btn btn-save tn-primary" id="btnSave" (click)="onClickLogin()">Login</button>
 

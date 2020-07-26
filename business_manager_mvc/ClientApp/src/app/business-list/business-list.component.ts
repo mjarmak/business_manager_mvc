@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { BusinessDataModel } from '../../Model/business';
 import { BusinessManagerService } from '../services/business-manager-svc';
 import { AlertService } from '../services/alert-service';
 import { environment } from '../../environments/environment';
-import { MatSort } from '@angular/material/sort';
 
 
 @Component({
@@ -14,9 +14,9 @@ import { MatSort } from '@angular/material/sort';
 })
 export class BusinessListComponent implements OnInit {
   displayedColumns: string[] = ['logo', 'id', "name"];
-  dataSource = new MatTableDataSource<BusinessDataModel>();
-  sort: MatSort;
-    paginator: MatPaginator;
+    dataSource = new MatTableDataSource<BusinessDataModel>();
+    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+    @ViewChild(MatSort, { static: true }) sort: MatSort;
     @Input() type: string;
     @Input() city: string;
     @Input() country: string;
@@ -30,13 +30,13 @@ export class BusinessListComponent implements OnInit {
 
     ngOnInit() {
         this.refresh();
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
     }
 
     refresh() {
         this.businessManagerService.searchBusinesses(this.country, this.city, this.openNow, this.type).subscribe(result => {
             this.dataSource.data = result.data;
-            this.dataSource.sort = this.sort;
-            this.dataSource.paginator = this.paginator;
         }, error => {
             this.alertService.error("Error loading bussinesses", error.message);
         });

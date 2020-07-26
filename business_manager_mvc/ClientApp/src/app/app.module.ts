@@ -23,7 +23,7 @@ import { TokenInterceptor } from './services/token-interceptor';
 import { AuthService } from './services/auth-service';
 import { LoginComponent } from './login/login.component';
 import { BusinessDetailComponent } from './business-detail/business-detail.component';
-import { MatFormFieldModule, MatInputModule, MatSelectModule, MatOptionModule, MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatSelectModule, MatOptionModule, MAT_FORM_FIELD_DEFAULT_OPTIONS, MatSortModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -60,6 +60,7 @@ import { MatFormFieldModule, MatInputModule, MatSelectModule, MatOptionModule, M
       BrowserAnimationsModule,
       MatTableModule,
       MatPaginatorModule,
+      MatSortModule,
       MatFormFieldModule,
       MatOptionModule,
       MatInputModule,

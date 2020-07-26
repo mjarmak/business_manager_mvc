@@ -23,10 +23,8 @@ export class TokenInterceptor implements HttpInterceptor {
                 if (error.status === 401) {
                     this.alertSerice.warning("Login expired", "Please login again");
                     this.businessManagerService.openLoginPage();
-                    console.log("unauthorized");
                 } else if (error.status === 500) {
                     this.alertSerice.error(error.statusText, error.message);
-                    console.log("received error");
                 }
             }
         ));

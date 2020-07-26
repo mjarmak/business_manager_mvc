@@ -4,7 +4,7 @@
 
 <!--<p *ngIf="!forecasts"><em>Loading...</em></p>-->
 
-<div class="card-input">
+<div class="card-input card-min-width-512 width-50">
 
   <label class="margin-top-none" for="email">Email Address:</label>
   <input id="email" type="email" [(ngModel)]="this.user.email">
@@ -30,7 +30,7 @@
 
   <label for="gender">Gender:</label>
   <mat-form-field *ngIf="this.businessManagerService.userGenders" appearance="fill">
-    <mat-label>Select gender</mat-label>
+    <mat-label>Select Gender</mat-label>
     <mat-select>
       <mat-option *ngFor="let gender of this.businessManagerService.userGenders" [value]="gender" (click)="this.setUserGender(gender)">
         {{gender.charAt(0).toUpperCase() + gender.slice(1).toLowerCase()}}

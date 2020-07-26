@@ -20,9 +20,22 @@ var BusinessManagerService = /** @class */ (function () {
         console.log('CALL TO ' + this.url + '/business');
         return this.http.post(this.url + '/business', businessModel);
     };
-    BusinessManagerService.prototype.searchBusinesses = function () {
-        console.log('CALL TO ' + this.url + '/business');
-        return this.http.get(this.url + '/business');
+    BusinessManagerService.prototype.searchBusinesses = function (country, city, openNow, type) {
+        var path = '/business/search?';
+        if (country) {
+            path = path + "&country=" + country;
+        }
+        if (city) {
+            path = path + "&city=" + city;
+        }
+        if (openNow) {
+            path = path + "&openNow=" + openNow;
+        }
+        if (type) {
+            path = path + "&type=" + type;
+        }
+        console.log('CALL TO ' + this.url + path);
+        return this.http.get(this.url + path);
     };
     BusinessManagerService.prototype.getBusiness = function (businessId) {
         console.log('CALL TO ' + this.url + '/business/' + businessId);

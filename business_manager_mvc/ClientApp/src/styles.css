@@ -31,9 +31,10 @@ code {
   outline: solid thin;
   outline-color: lightgrey;
   display: grid;
-  width: 50%;
-  min-width: 512px;
   margin-bottom: 1rem;
+}
+.card-min-width-512 {
+  min-width: 512px;
 }
 .card-input > label {
   margin-top: 1rem;
@@ -41,6 +42,9 @@ code {
 }
 .margin-top-none {
   margin-top: 0 !important;
+}
+.margin-right-medium {
+  margin-right: 1rem;
 }
 .card-input > button {
   margin-top: 1rem;
@@ -74,8 +78,6 @@ code {
   outline: solid thin;
   outline-color: lightgrey;
   display: grid;
-  width: 50%;
-  min-width: 512px;
   margin-bottom: 1rem;
 }
 
@@ -110,4 +112,24 @@ hr {
 }
 .width-full {
   width: 100%;
+}
+.width-50 {
+  width: 50%;
+}
+.card-row {
+  display: flex;
+}
+.card-column-50 {
+  flex: 50%;
+}
+.card-column-15 {
+  flex: 15%;
+  /*min-width: 15%;*/
+}
+.card-column-85 {
+  flex: 85%;
+  /*min-width: 85%;*/
+}
+.height-fit-content {
+  height: fit-content;
 }

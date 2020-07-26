@@ -1,11 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using business_manager_api.Context;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace business_manager_api
 {
@@ -13,7 +9,11 @@ namespace business_manager_api
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var host = CreateHostBuilder(args).Build();
+
+            AddBusinesses(host);
+
+            host.Run();
 
         }
 
@@ -23,5 +23,55 @@ namespace business_manager_api
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
+        private static void AddBusinesses(IHost host)
+        {
+            var scope = host.Services.CreateScope();
+
+            var context = scope.ServiceProvider.GetRequiredService<DefaultContext>();
+            context.BusinessDataModel.Add(new BusinessDataModel
+            {
+                WorkHours = null,
+                Identification = new IdentificationData(),
+                BusinessInfo = new BusinessInfoData { Address = new AddressData { Country = "Belgium", City = "Ixelles" } }
+            });
+            context.BusinessDataModel.Add(new BusinessDataModel
+            {
+                WorkHours = null,
+                Identification = new IdentificationData(),
+                BusinessInfo = new BusinessInfoData { Address = new AddressData { Country = "Belgium", City = "Auderghem" } }
+            });
+            context.BusinessDataModel.Add(new BusinessDataModel
+            {
+                WorkHours = null,
+                Identification = new IdentificationData(),
+                BusinessInfo = new BusinessInfoData { Address = new AddressData { Country = "Lebanon", City = "Beirut" } }
+            });
+            context.BusinessDataModel.Add(new BusinessDataModel
+            {
+                WorkHours = null,
+                Identification = new IdentificationData(),
+                BusinessInfo = new BusinessInfoData()
+            });
+            context.BusinessDataModel.Add(new BusinessDataModel
+            {
+                WorkHours = null,
+                Identification = new IdentificationData(),
+                BusinessInfo = new BusinessInfoData()
+            });
+            context.BusinessDataModel.Add(new BusinessDataModel
+            {
+                WorkHours = null,
+                Identification = new IdentificationData(),
+                BusinessInfo = new BusinessInfoData()
+            });
+            context.BusinessDataModel.Add(new BusinessDataModel
+            {
+                WorkHours = null,
+                Identification = new IdentificationData(),
+                BusinessInfo = new BusinessInfoData()
+            });
+            context.SaveChangesAsync();
+        }
     }
 }

@@ -19,11 +19,9 @@ var TokenInterceptor = /** @class */ (function () {
             if (error.status === 401) {
                 _this.alertSerice.warning("Login expired", "Please login again");
                 _this.businessManagerService.openLoginPage();
-                console.log("unauthorized");
             }
             else if (error.status === 500) {
                 _this.alertSerice.error(error.statusText, error.message);
-                console.log("received error");
             }
         }));
     };

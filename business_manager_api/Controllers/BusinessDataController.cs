@@ -71,15 +71,15 @@ namespace business_manager_api.Controllers
 
             if (type != null)
             {
-                set = set.Where(b => b.Identification.Type == type);
+                set = set.Where(b => string.Equals(b.Identification.Type, type, StringComparison.OrdinalIgnoreCase));
             }
             if (city != null)
             {
-                set = set.Where(b => b.BusinessInfo.Address.City == city);
+                set = set.Where(b => string.Equals(b.BusinessInfo.Address.City, city, StringComparison.OrdinalIgnoreCase));
             }
             if (country != null)
             {
-                set = set.Where(b => b.BusinessInfo.Address.Country == country);
+                set = set.Where(b => string.Equals(b.BusinessInfo.Address.Country, country, StringComparison.OrdinalIgnoreCase));
             }
             if (openNow)
             {

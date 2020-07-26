@@ -33,10 +33,24 @@ export class BusinessManagerService {
     public saveBusiness(businessModel: BusinessDataModel): Observable<ResponseEnvelope> {
         console.log('CALL TO ' + this.url + '/business')
         return this.http.post<ResponseEnvelope>(this.url + '/business', businessModel)
-  }
-  public searchBusinesses(): Observable<ResponseEnvelope> {
-    console.log('CALL TO ' + this.url + '/business')
-    return this.http.get<ResponseEnvelope>(this.url + '/business')
+    }
+    public searchBusinesses(country?: string, city?: string, openNow?: boolean, type?: string): Observable<ResponseEnvelope> {
+        let path = '/business/search?'
+        if (country) {
+            path = path + "&country=" + country
+        }
+        if (city) {
+            path = path + "&city=" + city
+        }
+        if (openNow) {
+            path = path + "&openNow=" + openNow
+        }
+        if (type) {
+            path = path + "&type=" + type
+        }
+
+          console.log('CALL TO ' + this.url + path)
+        return this.http.get<ResponseEnvelope>(this.url + path)
   }
   public getBusiness(businessId: number): Observable<ResponseEnvelope> {
     console.log('CALL TO ' + this.url + '/business/' + businessId)

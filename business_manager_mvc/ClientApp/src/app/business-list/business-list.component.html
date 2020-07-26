@@ -12,22 +12,28 @@
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>No.</th>
-      <td mat-cell *matCellDef="let business">{{business.id}}</td>
-    </ng-container>
+        <tr>
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>No.</th>
+            <td mat-cell *matCellDef="let business">{{business.id}}</td>
+          </ng-container>
+        </tr>
+        
+        <tr>
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+            <td mat-cell *matCellDef="let business">{{business.identification.name}}</td>
+          </ng-container>
+        </tr>
 
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-      <td mat-cell *matCellDef="let business">{{business.identification.name}}</td>
-    </ng-container>
+        <tr>
+          <ng-container matColumnDef="workHours">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Work Hours</th>
+            <td mat-cell *matCellDef="let business">{{business.workHours}}</td>
+          </ng-container>
+        </tr>
 
-    <ng-container matColumnDef="workHours">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Work Hours</th>
-      <td mat-cell *matCellDef="let business">{{business.workHours}}</td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-</div>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+  </div>

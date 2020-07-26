@@ -15,7 +15,6 @@ import { MatSort } from '@angular/material/sort';
 export class BusinessListComponent implements OnInit {
   displayedColumns: string[] = ['logo', 'id', "name"];
   dataSource = new MatTableDataSource<BusinessDataModel>();
-
   sort: MatSort;
   paginator: MatPaginator;
 
@@ -31,6 +30,7 @@ export class BusinessListComponent implements OnInit {
       this.dataSource = new MatTableDataSource<BusinessDataModel>(result.data);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
+
     }, error => {
         this.alertService.error("Error loading bussinesses", error.message);
     });

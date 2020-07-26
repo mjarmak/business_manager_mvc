@@ -12,7 +12,7 @@ namespace business_manager_api
         public static IEnumerable<ApiResource> GetApis()
         {
             return new List<ApiResource> {
-                new ApiResource("business_manager_api")
+                new ApiResource("bm")
             };
         }
 
@@ -24,7 +24,7 @@ namespace business_manager_api
                     ClientId = "client_id",
                     ClientSecrets = { new Secret("client_secret".ToSha256()) },
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
-                    AllowedScopes = { "business_manager_api" },
+                    AllowedScopes = { "bm" },
                     RequireConsent = false,
                     AlwaysIncludeUserClaimsInIdToken = true
                 }

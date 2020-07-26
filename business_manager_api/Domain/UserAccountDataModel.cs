@@ -1,6 +1,7 @@
 using business_manager_api.Services;
 using FluentValidation;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.RegularExpressions;
@@ -22,9 +23,8 @@ namespace business_manager_api
         public bool Profession { get; set; }
         public string Type { get; set; }
         public string State { get; set; }
-        public List<string> roles { get; set; }
     }
-    
+
     public class UserAccountValidator : AbstractValidator<UserAccountDataModel>
     {
         private readonly Regex regex = new Regex(@"[^A-Za-z0-9@-_]");

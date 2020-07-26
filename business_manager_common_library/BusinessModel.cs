@@ -1,11 +1,13 @@
-﻿namespace business_manager_common_library
+﻿using System.Collections.Generic;
+
+namespace business_manager_common_library
 {
     public class BusinessModel
     {
         public long Id { get; set; }
         public Identification Identification { get; set; }
         public BusinessInfo BusinessInfo { get; set; }
-        public string WorkHours { get; set; }
+        public List<WorkHours> WorkHours { get; set; }
     }
     public class BusinessInfo
     {
@@ -43,5 +45,26 @@
         public string Country { get; set; }
         public string Street { get; set; }
         public string BoxNumber { get; set; }
+    }
+    public class WorkHours
+    {
+        public long Id { get; set; }
+        public long BusinessId { get; set; }
+        public string Day { get; set; }
+        public int HourFrom { get; set; }
+        public int HourTo { get; set; }
+        public int MinuteTo { get; set; }
+        public int MinuteFrom { get; set; }
+        public bool closed { get; set; }
+    }
+    public enum WorkHoursDayEnum
+    {
+        MONDAY,
+        TUESDAY,
+        WEDNESDAY,
+        THURSDAY,
+        FRIDAY,
+        SATURDAY,
+        SUNDAY
     }
 }

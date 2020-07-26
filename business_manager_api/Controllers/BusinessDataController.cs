@@ -54,6 +54,7 @@ namespace business_manager_api.Controllers
                 .Include(b => b.BusinessInfo)
                 .Include(b => b.BusinessInfo.Address)
                 .Include(b => b.Identification)
+                .Include(b => b.WorkHours)
                 .ToListAsync()
             });
         }
@@ -69,16 +70,23 @@ namespace business_manager_api.Controllers
                     .Include(b => b.BusinessInfo)
                     .Include(b => b.BusinessInfo.Address)
                     .Include(b => b.Identification)
+                    .Include(b => b.WorkHours)
                     .Single(b => b.Id == id);
             }
             catch (AmbiguousMatchException)
             {
-                return NotFound();
+                return NotFound(new
+                {
+                    data = "Business with ID " + id + " does not exist."
+                });
             }
 
             if (businessDataModel == null)
             {
-                return NotFound();
+                return NotFound(new
+                {
+                    data = "Business with ID " + id + " does not exist."
+                });
             }
 
             return Ok(new
@@ -117,6 +125,13 @@ namespace business_manager_api.Controllers
             {
                 return BadRequest();
             }
+            if (!BusinessDataModelExists(id))
+            {
+                return NotFound(new
+                {
+                    data = "Business with ID " + id + " does not exist."
+                });
+            }
             BusinessDataModel businessDataModel;
             try
             {
@@ -136,6 +151,28 @@ namespace business_manager_api.Controllers
                 }); ;
             }
             _context.Entry(businessDataModel).State = EntityState.Modified;
+            if (businessDataModel.BusinessInfo != null && businessDataModel.BusinessInfo.Id != 0)
+            {
+                _context.Entry(businessDataModel.BusinessInfo).State = EntityState.Modified;
+                if (businessDataModel.BusinessInfo.Address != null && businessDataModel.BusinessInfo.Address.Id != 0)
+                {
+                    _context.Entry(businessDataModel.BusinessInfo.Address).State = EntityState.Modified;
+                }
+            }
+            if (businessDataModel.Identification != null && businessDataModel.Identification.Id != 0)
+            {
+                _context.Entry(businessDataModel.Identification).State = EntityState.Modified;
+            }
+            if (businessDataModel.WorkHours != null && businessDataModel.WorkHours.Count() > 0)
+            {
+                businessDataModel.WorkHours.ForEach(delegate (WorkHoursData workHours)
+                {
+                    if (workHours.Id != 0)
+                    {
+                        _context.Entry(workHours).State = EntityState.Modified;
+                    }
+                });
+            }
 
             try
             {
@@ -143,14 +180,7 @@ namespace business_manager_api.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!BusinessDataModelExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                throw;
             }
             return NoContent();
         }
@@ -209,6 +239,19 @@ namespace business_manager_api.Controllers
             });
         }
 
+        [HttpPost("force")]
+        public async Task<ActionResult<BusinessDataModel>> PostBusinessDataModelForce(BusinessDataModel businessDataModel)
+        {
+            _context.BusinessDataModel.Add(businessDataModel);
+            await _context.SaveChangesAsync();
+
+            return Ok(new
+            {
+                //status = response.StatusCode,
+                data = CreatedAtAction("GetBusinessDataModel", new { id = businessDataModel.Id }, businessDataModel).Value
+            });
+        }
+
         [HttpPost("{id}/logo")]
         [Consumes("multipart/form-data")]
         [RequestSizeLimit(100_000_000)]
@@ -236,6 +279,7 @@ namespace business_manager_api.Controllers
                     .Include(b => b.BusinessInfo)
                     .Include(b => b.BusinessInfo.Address)
                     .Include(b => b.Identification)
+                    .Include(b => b.WorkHours)
                     .Single(b => b.Id == id);
                 businessDataModel.Identification.LogoPath = uniqueLogoName;
                 _context.Entry(businessDataModel).State = EntityState.Modified;
@@ -282,6 +326,7 @@ namespace business_manager_api.Controllers
                     .Include(b => b.BusinessInfo)
                     .Include(b => b.BusinessInfo.Address)
                     .Include(b => b.Identification)
+                    .Include(b => b.WorkHours)
                     .Single(b => b.Id == id);
                 switch (imageId)
                 {
@@ -319,7 +364,10 @@ namespace business_manager_api.Controllers
             var businessDataModel = await _context.BusinessDataModel.FindAsync(id);
             if (businessDataModel == null)
             {
-                return NotFound();
+                return NotFound(new
+                {
+                    data = "Business with ID " + id + " does not exist."
+                });
             }
 
             _context.BusinessDataModel.Remove(businessDataModel);
@@ -340,8 +388,17 @@ namespace business_manager_api.Controllers
             return new BusinessDataModel
             {
                 Id = businessModel.Id,
-                WorkHours = businessModel.WorkHours,
-                Identification = new IdentificationData
+                WorkHours = businessModel.WorkHours == null ? null : businessModel.WorkHours.Select(workHours => new WorkHoursData()
+                {
+                    Id = workHours.Id,
+                    Day = workHours.Day == null ? null : ((WorkHoursDayEnum)Enum.Parse(typeof(WorkHoursDayEnum), workHours.Day)).ToString(),
+                    HourFrom = workHours.HourFrom,
+                    HourTo = workHours.HourTo,
+                    MinuteFrom = workHours.MinuteFrom,
+                    MinuteTo = workHours.MinuteTo,
+                    closed = workHours.closed
+                }).ToList(),
+                Identification = businessModel.Identification == null ? new IdentificationData() : new IdentificationData
                 {
                     Id = businessModel.Identification.Id,
                     Description = businessModel.Identification.Description,
@@ -350,7 +407,7 @@ namespace business_manager_api.Controllers
                     TVA = businessModel.Identification.TVA,
                     Type = businessModel.Identification.Type == null ? null : ((BusinessTypeEnum)Enum.Parse(typeof(BusinessTypeEnum), businessModel.Identification.Type)).ToString()
                 },
-                BusinessInfo = new BusinessInfoData
+                BusinessInfo = businessModel.BusinessInfo == null ? new BusinessInfoData() : new BusinessInfoData
                 {
                     Id = businessModel.BusinessInfo.Id,
                     EmailBusiness = businessModel.BusinessInfo.EmailBusiness,

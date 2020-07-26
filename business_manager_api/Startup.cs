@@ -32,7 +32,7 @@ namespace business_manager_api
                 .AddJwtBearer("Bearer", config =>
                 {
                     config.Authority = "https://localhost:44321/";
-                    config.Audience = "business_manager_api";
+                    config.Audience = "bm";
                     //config.RequireHttpsMetadata = false;
                 });
 

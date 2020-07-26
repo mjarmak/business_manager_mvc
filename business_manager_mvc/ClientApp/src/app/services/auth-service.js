@@ -20,7 +20,7 @@ var AuthService = /** @class */ (function () {
         var formData = new FormData();
         formData.append("client_id", username);
         formData.append("client_secret", password);
-        formData.append("scope", "business_manager_api");
+        formData.append("scope", "bm");
         formData.append("grant_type", "client_credentials");
         return this.http.post(this.url + '/connect/token', formData);
     };

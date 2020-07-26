@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using System.Collections.Generic;
-
-namespace business_manager_common_library
+﻿namespace business_manager_common_library
 {
     public class BusinessModel
     {

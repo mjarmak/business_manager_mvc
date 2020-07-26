@@ -17,7 +17,7 @@ namespace business_manager_api.Controllers
     [Produces("application/json")]
     [Route("business")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class BusinessDataController : Controller
     {
         private readonly DefaultContext _context;

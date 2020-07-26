@@ -24,7 +24,9 @@ namespace business_manager_api
                     ClientId = "client_id",
                     ClientSecrets = { new Secret("client_secret".ToSha256()) },
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
-                    AllowedScopes = { "business_manager_api" }
+                    AllowedScopes = { "business_manager_api" },
+                    RequireConsent = false,
+                    AlwaysIncludeUserClaimsInIdToken = true
                 }
             };
         }

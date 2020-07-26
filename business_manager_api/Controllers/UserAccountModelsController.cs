@@ -16,7 +16,7 @@ namespace business_manager_api.Controllers
     [Produces("application/json")]
     [Route("user")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class UserAccountModelsController : Controller
     {
         private readonly DefaultContext _context;
@@ -97,7 +97,10 @@ namespace business_manager_api.Controllers
 
             if (userAccountModel == null)
             {
-                return NotFound();
+                return NotFound(new
+                {
+                    data = "User with ID " + id + " does not exist."
+                });
             }
 
             return Ok(new

@@ -16,14 +16,13 @@ namespace business_manager_api
         public string Surname { get; set; }
         [Index(IsUnique = true)]
         public string Email { get; set; }
-        
         public string Phone { get; set; }
         public string Gender { get; set; }
         public DateTime BirthDate { get; set; }
         public bool Profession { get; set; }
-        public string Password { get; set; }
         public string Type { get; set; }
         public string State { get; set; }
+        public List<string> roles { get; set; }
     }
     
     public class UserAccountValidator : AbstractValidator<UserAccountDataModel>

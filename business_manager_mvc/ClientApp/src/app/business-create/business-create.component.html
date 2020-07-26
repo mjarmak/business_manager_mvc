@@ -46,9 +46,18 @@
   <label for="tva">TVA:</label>
   <input bis-input id="tva" type="text" [(ngModel)]="this.business.identification.tva">
 
-  <label for="description">Description:</label>
+
+  <div class="form-group">
+    <label for="exampleTextarea">Description:</label>
+    <textarea class="form-control" id="exampleTextarea description" [(ngModel)]="this.business.identification.description" rows="3" placeholder="Descritpion of max 1000 words."></textarea>
+
+  </div>
+  <!--
+    <label for="description">Description:</label>
 
   <input bis-input id="description" type="text" [(ngModel)]="this.business.identification.description">
+  -->
+
 
   <label for="postalCode">Postal Code:</label>
   <input bis-input id="postalCode" type="text" [(ngModel)]="this.business.businessInfo.address.postalCode">
@@ -61,7 +70,7 @@
 
   <label for="boxNumber">Box Number:</label>
   <input bis-input id="boxNumber" type="text" [(ngModel)]="this.business.businessInfo.address.boxNumber">
-  
+
   <label class="image-upload-container btn btn-bwm">
     <span>Select Logo</span>
     <input #logoInput

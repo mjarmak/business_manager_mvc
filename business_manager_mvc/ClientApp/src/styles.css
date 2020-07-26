@@ -31,7 +31,7 @@ code {
   outline: solid thin;
   outline-color: lightgrey;
   display: grid;
-  width: 50%;
+  width: auto;
   min-width: 512px;
   margin-bottom: 1rem;
 }

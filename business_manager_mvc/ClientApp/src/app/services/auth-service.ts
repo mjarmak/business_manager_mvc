@@ -1,6 +1,6 @@
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { TokenEnvelope } from '../../Model/tokenEnvelope';
+import { TokenEnvelope } from '../../model/tokenEnvelope';
 import { Observable } from 'rxjs';
 
 export class AuthService {

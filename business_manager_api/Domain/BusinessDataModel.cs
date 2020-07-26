@@ -2,6 +2,7 @@
 using business_manager_common_library;
 using FluentValidation;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.RegularExpressions;
@@ -17,7 +18,7 @@ namespace business_manager_api
         //public long IdentificationId { get; set; }
         public IdentificationData Identification { get; set; }
         public BusinessInfoData BusinessInfo { get; set; }
-        public string WorkHours { get; set; }
+        public List<WorkHoursData> WorkHours { get; set; }
     }
     [Table(name: "BusinessInfo")]
     public class BusinessInfoData
@@ -61,6 +62,19 @@ namespace business_manager_api
         public string Street { get; set; }
         public string BoxNumber { get; set; }
     }
+    [Table(name: "WorkHours")]
+    public class WorkHoursData
+    {
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long Id { get; set; }
+        public string Day { get; set; }
+        public int HourFrom { get; set; }
+        public int HourTo { get; set; }
+        public int MinuteTo { get; set; }
+        public int MinuteFrom { get; set; }
+        public bool Closed { get; set; }
+    }
+
 
     // Fluent Validation for my BusinessDataModel
     public class BusinessDataValidator : AbstractValidator<BusinessDataModel>

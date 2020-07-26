@@ -33,7 +33,9 @@ namespace authentication_api
                 .AddDefaultTokenProviders();
 
             services.AddIdentityServer()
+                .AddAspNetIdentity<IdentityUser>()
                 .AddInMemoryApiResources(AuthConfiguration.GetApis())
+                //.AddInMemoryIdentityResources(AuthConfiguration.GetIdentityResources())
                 .AddInMemoryClients(AuthConfiguration.GetClients())
                 //.AddInMemoryApiScopes(AuthConfiguration.GetScopes())
                 .AddDeveloperSigningCredential();
@@ -45,7 +47,7 @@ namespace authentication_api
                         .AllowAnyHeader())
                 );
 
-            services.AddControllersWithViews();
+            services.AddControllers();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

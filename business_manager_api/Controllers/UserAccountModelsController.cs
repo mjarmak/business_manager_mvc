@@ -16,7 +16,7 @@ namespace business_manager_api.Controllers
     [Produces("application/json")]
     [Route("user")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class UserAccountModelsController : Controller
     {
         private readonly DefaultContext _context;
@@ -97,7 +97,10 @@ namespace business_manager_api.Controllers
 
             if (userAccountModel == null)
             {
-                return NotFound();
+                return NotFound(new
+                {
+                    data = "User with ID " + id + " does not exist."
+                });
             }
 
             return Ok(new
@@ -149,7 +152,10 @@ namespace business_manager_api.Controllers
             {
                 if (!UserAccountModelExists(id))
                 {
-                    return NotFound();
+                    return NotFound(new
+                    {
+                        data = "User with ID " + id + " does not exist."
+                    });
                 }
                 else
                 {
@@ -232,7 +238,10 @@ namespace business_manager_api.Controllers
             var userAccountModel = await _context.UserAccount.FindAsync(id);
             if (userAccountModel == null)
             {
-                return NotFound();
+                return NotFound(new
+                {
+                    data = "User with ID " + id + " does not exist."
+                });
             }
 
             _context.UserAccount.Remove(userAccountModel);
@@ -260,7 +269,6 @@ namespace business_manager_api.Controllers
                 BirthDate = userAccountModel.BirthDate,
                 Phone = userAccountModel.Phone,
                 Profession = userAccountModel.Profession,
-                Password = userAccountModel.Password,
                 Gender = userAccountModel.Gender == null ? null : ((UserGenderEnum)Enum.Parse(typeof(UserGenderEnum), userAccountModel.Gender)).ToString(),
                 State = userAccountModel.State == null ? null : ((UserStateEnum)Enum.Parse(typeof(UserStateEnum), userAccountModel.State)).ToString(),
                 Type = userAccountModel.Type == null ? null : ((UserTypeEnum)Enum.Parse(typeof(UserTypeEnum), userAccountModel.Type)).ToString()

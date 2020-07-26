@@ -28,22 +28,22 @@ namespace business_manager_api
         public void ConfigureServices(IServiceCollection services)
         {
 
-            //services.AddAuthentication("Bearer")
-            //    .AddJwtBearer("Bearer", config =>
-            //    {
-            //        config.Authority = "https://localhost:44321/";
-            //        config.Audience = "business_manager_api";
-            //        //config.RequireHttpsMetadata = false;
-            //    });
+            services.AddAuthentication("Bearer")
+                .AddJwtBearer("Bearer", config =>
+                {
+                    config.Authority = "https://localhost:44321/";
+                    config.Audience = "bm";
+                    //config.RequireHttpsMetadata = false;
+                });
 
             services.AddDbContext<DefaultContext>(
-                //config =>
-                //{
-                //    config.UseInMemoryDatabase("Memory");
-                //}
-                options => options.UseSqlServer(
-                Configuration.GetConnectionString("DefaultConnection"),
-                b => b.MigrationsAssembly(typeof(DefaultContext).Assembly.FullName))
+                config =>
+                {
+                    config.UseInMemoryDatabase("Memory");
+                }
+                //options => options.UseSqlServer(
+                //Configuration.GetConnectionString("DefaultConnection"),
+                //b => b.MigrationsAssembly(typeof(DefaultContext).Assembly.FullName))
                 );
 
             services.AddCors(options =>

@@ -78,16 +78,6 @@ code {
   min-width: 512px;
   margin-bottom: 1rem;
 }
-/*.card-table {
-  margin-top: 1rem;
-  padding: 1rem;
-  outline: solid thin;
-  outline-color: lightgrey;
-  display: grid;
-  width: 100%;
-  min-width: 512px;
-  margin-bottom: 1rem;
-}*/
 
 .center-horizontal {
   margin-left: auto;
@@ -117,4 +107,7 @@ hr {
   width: 100%;
   background-color: lightgrey;
   height: 1px;
+}
+.width-full {
+  width: 100%;
 }

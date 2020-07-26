@@ -72,7 +72,7 @@ namespace business_manager_api
         public int HourTo { get; set; }
         public int MinuteTo { get; set; }
         public int MinuteFrom { get; set; }
-        public bool closed { get; set; }
+        public bool Closed { get; set; }
     }
 
 

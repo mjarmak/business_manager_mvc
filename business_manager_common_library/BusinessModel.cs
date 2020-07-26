@@ -55,7 +55,7 @@ namespace business_manager_common_library
         public int HourTo { get; set; }
         public int MinuteTo { get; set; }
         public int MinuteFrom { get; set; }
-        public bool closed { get; set; }
+        public bool Closed { get; set; }
     }
     public enum WorkHoursDayEnum
     {

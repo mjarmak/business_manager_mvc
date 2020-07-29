@@ -12,7 +12,7 @@ namespace business_manager_api.Services
             {
                 //Création de l'intance PhoneNumberUtil
                 var util = PhoneNumberUtil.GetInstance();
-                PhoneNumber number = null;
+                PhoneNumber number;
                 //Si le numéro contient l'indicatif + ou le 00
                 if (phoneNumber.StartsWith("+") || phoneNumber.StartsWith("00"))
                 {

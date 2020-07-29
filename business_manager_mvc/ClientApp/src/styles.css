@@ -6,6 +6,7 @@
 @import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
 
 
+
 /* Provide sufficient contrast against white background */
 a {
   color: #0366d6;
@@ -55,8 +56,7 @@ code {
   border: solid 1px lightgreen;
   background-color: #ccffcc
 }
-.card-input > input {
-}
+
 .toast-container {
   top: 0;
   left: 0;

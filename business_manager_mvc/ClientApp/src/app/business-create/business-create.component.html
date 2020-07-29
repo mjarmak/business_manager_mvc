@@ -49,7 +49,7 @@
 
   <div class="form-group">
     <label for="exampleTextarea">Description:</label>
-    <textarea class="form-control" id="exampleTextarea description" [(ngModel)]="this.business.identification.description" rows="3" placeholder="Descritpion of max 1000 words."></textarea>
+    <textarea class="form-control" id="exampleTextarea description" [(ngModel)]="this.business.identification.description" rows="3" placeholder="Descritpion of max 1000 chara."></textarea>
 
   </div>
   <!--
@@ -70,6 +70,7 @@
 
   <label for="boxNumber">Box Number:</label>
   <input bis-input id="boxNumber" type="text" [(ngModel)]="this.business.businessInfo.address.boxNumber">
+  <hr/>
 
   <label class="image-upload-container btn btn-bwm">
     <span>Select Logo</span>

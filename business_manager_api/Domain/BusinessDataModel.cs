@@ -1,5 +1,5 @@
 ﻿using business_manager_api.Services;
-using business_manager_common_library;
+//using business_manager_common_library;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
@@ -27,6 +27,7 @@ namespace business_manager_api
         public long Id { get; set; }
         public AddressData Address { get; set; }
         public string Phone { get; set; }
+       
         public string EmailBusiness { get; set; }
         public string UrlSite { get; set; }
         public string UrlInstagram { get; set; }

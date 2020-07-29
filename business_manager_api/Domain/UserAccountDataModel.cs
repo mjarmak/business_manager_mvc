@@ -1,7 +1,6 @@
 using business_manager_api.Services;
 using FluentValidation;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.RegularExpressions;

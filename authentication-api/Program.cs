@@ -1,7 +1,9 @@
+using IdentityModel;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Security.Claims;
 
 namespace authentication_api
 {
@@ -14,9 +16,17 @@ namespace authentication_api
             {
                 var userManager = scope.ServiceProvider
                     .GetRequiredService<UserManager<IdentityUser>>();
+                var roleManager = scope.ServiceProvider
+                    .GetRequiredService<RoleManager<IdentityRole>>();
 
                 var user = new IdentityUser("admin");
-                userManager.CreateAsync(user, "admin").GetAwaiter().GetResult();
+                userManager.CreateAsync(user, "password").GetAwaiter().GetResult();
+                userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.Role, "ADMIN"));
+
+                roleManager.CreateAsync(new IdentityRole { Name = "ADMIN" }).GetAwaiter().GetResult();
+                roleManager.CreateAsync(new IdentityRole { Name = "USER" }).GetAwaiter().GetResult();
+                roleManager.CreateAsync(new IdentityRole { Name = "REVIEWING" }).GetAwaiter().GetResult();
+                roleManager.CreateAsync(new IdentityRole { Name = "BLOCKED" }).GetAwaiter().GetResult();
             }
             host.Run();
         }

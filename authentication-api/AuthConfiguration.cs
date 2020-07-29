@@ -23,19 +23,12 @@ namespace business_manager_api
                 {
                     ClientId = "client_id",
                     ClientSecrets = { new Secret("client_secret".ToSha256()) },
-                    AllowedGrantTypes = GrantTypes.ClientCredentials,
+                    AllowedGrantTypes = GrantTypes.ResourceOwnerPasswordAndClientCredentials,
                     AllowedScopes = { "bm" },
                     RequireConsent = false,
                     AlwaysIncludeUserClaimsInIdToken = true
                 }
             };
         }
-
-        //public static IEnumerable<ApiScope> GetScopes()
-        //{
-        //    return new List<ApiScope> {
-        //        new ApiScope("business_manager", "Business Manager")
-        //    };
-        //}
     }
 }

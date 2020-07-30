@@ -1,8 +1,8 @@
-import { Component, Inject, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { AlertService } from '../services/alert-service';
-import { BusinessManagerService } from '../services/business-manager-svc';
+import { Component, OnInit, ViewChild, OnDestroy } from "@angular/core";
+//import { AlertService } from "../services/alert-service";
+//import { UserManagerService } from '../services/user-manager-svc';
 import { UserListComponent } from "../user-list/user-list.component";
-import { BusinessListComponent } from "../business-list/business-list.component";
+import { UserListComponent } from "../user-list/user-list.component";
 
 @Component({
     selector: 'app-user-overview',
@@ -10,11 +10,9 @@ import { BusinessListComponent } from "../business-list/business-list.component"
 })
 export class UserOverviewComponent implements OnInit, OnDestroy {
 
-    @ViewChild(UserListComponent, { static: false }) userListComponent: BusinessListComponent;
+    @ViewChild(UserListComponent, { static: false }) userListComponent: UserListComponent;
     type: string;
-    city: string;
-    country: string;
-    openNow: string;
+    name: string;
 
     interval: any;
 
@@ -28,7 +26,7 @@ export class UserOverviewComponent implements OnInit, OnDestroy {
         clearInterval(this.interval);
     }
 
-    public setBusinessType(type: string) {
+    public setUserType(type: string) {
         this.type = type;
     }
 }

@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild, OnDestroy } from "@angular/core";
-//import { AlertService } from "../services/alert-service";
-//import { UserManagerService } from '../services/user-manager-svc';
+import { AlertService } from "../services/alert-service";
 import { UserListComponent } from "../user-list/user-list.component";
-import { UserListComponent } from "../user-list/user-list.component";
+//import { UserListComponent } from "../user-list/user-list.component";
 
 @Component({
     selector: 'app-user-overview',

@@ -24,6 +24,8 @@ import { AuthService } from './services/auth-service';
 import { LoginComponent } from './login/login.component';
 import { BusinessDetailComponent } from './business-detail/business-detail.component';
 import { MatFormFieldModule, MatInputModule, MatSelectModule, MatOptionModule, MAT_FORM_FIELD_DEFAULT_OPTIONS, MatSortModule } from '@angular/material';
+import { UserListComponent } from './user-list/user-list.component';
+import { UserOverviewComponent } from './user-overview/user-overview.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { MatFormFieldModule, MatInputModule, MatSelectModule, MatOptionModule, M
         BusinessListComponent,
         BusinessDetailComponent,
         BusinessOverviewComponent,
-        LoginComponent,
+    LoginComponent,
+    UserListComponent,
+        UserOverviewComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -50,8 +54,9 @@ import { MatFormFieldModule, MatInputModule, MatSelectModule, MatOptionModule, M
         { path: 'user-account-create', component: UserAccountCreateComponent },
       { path: 'business-create', component: BusinessCreateComponent },
       { path: 'business-overview', component: BusinessOverviewComponent },
-        { path: 'business-detail/:businessId', component: BusinessDetailComponent },
-        { path: 'login', component: LoginComponent },
+      { path: 'business-detail/:businessId', component: BusinessDetailComponent },
+      { path: 'login', component: LoginComponent },
+      { path: 'user-overview', component: UserOverviewComponent },
     ]),
     ToastrModule.forRoot({
         positionClass: 'bottom-right',

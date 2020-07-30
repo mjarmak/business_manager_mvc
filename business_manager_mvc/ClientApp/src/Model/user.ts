@@ -6,5 +6,5 @@ export class UserAccountModel {
     gender: string;
     birthday: string;
     professional: boolean;
-    password: string;
+    //password: string;
 }

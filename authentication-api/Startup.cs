@@ -1,3 +1,4 @@
+using AspNet.Security.OpenIdConnect.Primitives;
 using authentication_api.Context;
 using business_manager_api;
 using Microsoft.AspNetCore.Builder;
@@ -16,6 +17,14 @@ namespace authentication_api
         public void ConfigureServices(IServiceCollection services)
         {
             IdentityModelEventSource.ShowPII = true; // for debugging
+
+            services.AddAuthentication("Bearer")
+                .AddJwtBearer("Bearer", config =>
+                {
+                    config.Authority = "https://localhost:44321/";
+                    config.Audience = "bm";
+                    //config.RequireHttpsMetadata = false;
+                });
 
             services.AddDbContext<DefaultContext>(config =>
             {
@@ -38,13 +47,12 @@ namespace authentication_api
                 .AddInMemoryClients(AuthConfiguration.GetClients())
                 .AddDeveloperSigningCredential();
 
-            services.AddCors(confg =>
-                confg.AddPolicy("AllowAll",
+            services.AddCors(config =>
+                config.AddPolicy("AllowAll",
                     p => p.AllowAnyOrigin()
                         .AllowAnyMethod()
                         .AllowAnyHeader())
                 );
-
             services.AddControllers();
         }
 
@@ -59,11 +67,15 @@ namespace authentication_api
 
             app.UseRouting();
 
+            app.UseAuthentication();
+
+            app.UseAuthorization();
+
             app.UseIdentityServer();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapDefaultControllerRoute();
+                endpoints.MapControllers();
             });
         }
     }

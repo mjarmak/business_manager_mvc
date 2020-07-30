@@ -19,14 +19,14 @@ namespace authentication_api
                 var roleManager = scope.ServiceProvider
                     .GetRequiredService<RoleManager<IdentityRole>>();
 
-                var user = new IdentityUser("admin");
-                userManager.CreateAsync(user, "password").GetAwaiter().GetResult();
-                userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.Role, "ADMIN"));
-
                 roleManager.CreateAsync(new IdentityRole { Name = "ADMIN" }).GetAwaiter().GetResult();
                 roleManager.CreateAsync(new IdentityRole { Name = "USER" }).GetAwaiter().GetResult();
                 roleManager.CreateAsync(new IdentityRole { Name = "REVIEWING" }).GetAwaiter().GetResult();
                 roleManager.CreateAsync(new IdentityRole { Name = "BLOCKED" }).GetAwaiter().GetResult();
+
+                var user = new IdentityUser("admin");
+                userManager.CreateAsync(user, "password").GetAwaiter().GetResult();
+                userManager.AddToRoleAsync(user, "ADMIN");
             }
             host.Run();
         }

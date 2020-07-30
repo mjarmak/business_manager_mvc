@@ -1,5 +1,6 @@
 ﻿using business_manager_common_library;
 using IdentityModel;
+using IdentityServer4.AccessTokenValidation;
 using IdentityServer4.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -81,21 +82,45 @@ namespace authentication_api.Controllers
 
         [Route("user")]
         [HttpGet]
-        public async Task<IEnumerable<IdentityUser>> GetAllUsers(string role)
+        [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme)]
+        public async Task<ActionResult<IEnumerable<IdentityUser>>> GetAllUsers(string role)
         {
-            return await _userManager.GetUsersInRoleAsync(role);
+            return Ok(new
+            {
+                data = _userManager.GetUsersInRoleAsync(role)
+            });
         }
-
-        [Route("user/validate")]
+        [Route("user/username")]
         [HttpGet]
-        public async Task<ActionResult> ValidateUser(string userName)
+        [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme)]
+        public async Task<ActionResult> GetUsersByUserName(string username)
         {
-            var user = await _userManager.FindByNameAsync(userName);
+            var user = await _userManager.FindByNameAsync(username);
             if (user == null)
             {
                 return BadRequest(new
                 {
-                    data = "User " + userName + " doesn't exist"
+                    data = "User " + username + " doesn't exist"
+                });
+            }
+            return Ok(new
+            {
+                data = user
+            });
+        }
+
+        [Route("user/validate")]
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme)]
+        [Authorize(Roles = "ADMIN", AuthenticationSchemes = "Bearer")]
+        public async Task<ActionResult> ValidateUser(string username)
+        {
+            var user = await _userManager.FindByNameAsync(username);
+            if (user == null)
+            {
+                return BadRequest(new
+                {
+                    data = "User " + username + " doesn't exist"
                 });
             }
             await _userManager.RemoveFromRoleAsync(user, "BLOCKED");
@@ -115,7 +140,8 @@ namespace authentication_api.Controllers
         }
         [Route("user/block")]
         [HttpGet]
-        //[Authorize(Roles = "ADMIN")]
+        [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme)]
+        [Authorize(Roles = "ADMIN")]
         public async Task<ActionResult> BlockUser(string userName)
         {
             var user = await _userManager.FindByNameAsync(userName);

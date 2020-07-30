@@ -60,10 +60,10 @@ namespace authentication_api.Controllers
 
         [Route("register")]
         [HttpPost]
-        public async Task<ActionResult> Register(LoginInfo loginInfo)
+        public async Task<ActionResult> Register(UserAccountModel userAccountModel)
         {
-            var user = new IdentityUser(loginInfo.Username);
-            var result = await _userManager.CreateAsync(user, loginInfo.Password);
+            var user = new IdentityUser(userAccountModel.Email);
+            var result = await _userManager.CreateAsync(user, userAccountModel.Password);
 
             if (!result.Succeeded)
             {
@@ -72,8 +72,37 @@ namespace authentication_api.Controllers
                     data = result.Errors.ToList()[0].Description
                 });
             }
-            var result2 = await _userManager.AddToRoleAsync(user, "REVIEWING");
-            //await _userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.Role, "REVIEW"));
+            await _userManager.AddToRoleAsync(user, "REVIEWING");
+            if (userAccountModel.Email != null)
+            {
+                await _userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.Email, userAccountModel.Email));
+            }
+            if (userAccountModel.Name != null)
+            {
+                await _userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.Name, userAccountModel.Name));
+            }
+            if (userAccountModel.Surname != null)
+            {
+                    await _userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.FamilyName, userAccountModel.Surname));
+            }
+            if (userAccountModel.Gender != null)
+            {
+                    await _userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.Gender, userAccountModel.Gender));
+            }
+            if (userAccountModel.Phone != null)
+            {
+                    await _userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.PhoneNumber, userAccountModel.Phone));
+            }
+            if (userAccountModel.State != null) 
+            {
+                    await _userManager.AddClaimAsync(user, new Claim("State", userAccountModel.State));
+            }
+            if (userAccountModel.BirthDate != null)
+            {
+                    await _userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.BirthDate, userAccountModel.BirthDate.ToString()));
+            }
+            await _userManager.AddClaimAsync(user, new Claim( "Professional" , userAccountModel.Profession ? "1" : "0"));
+
             return Ok(new
             {
                 data = result.ToString()

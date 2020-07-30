@@ -17,7 +17,12 @@ namespace business_manager_api
                     UserClaims =
                     {
                         JwtClaimTypes.Name,
-                        JwtClaimTypes.Role
+                        JwtClaimTypes.FamilyName,
+                        JwtClaimTypes.Gender,
+                        JwtClaimTypes.PhoneNumber,
+                        "State",
+                        JwtClaimTypes.BirthDate,
+                        "Professional"
                     }
                 }
             };
@@ -25,11 +30,8 @@ namespace business_manager_api
         public static IEnumerable<ApiResource> GetApis()
         {
             return new List<ApiResource> {
-                new ApiResource("bm"),
-                new ApiResource("auth", new[] {
-                    JwtClaimTypes.Name,
-                    JwtClaimTypes.Role
-                })
+                new ApiResource("bm", new[] { JwtClaimTypes.Role }),
+                new ApiResource("auth", new[] { JwtClaimTypes.Role })
             };
         }
 

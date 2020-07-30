@@ -69,7 +69,7 @@ namespace authentication_api.Controllers
             {
                 return BadRequest(new
                 {
-                    data = result.Errors
+                    data = result.Errors.ToList()[0].Description
                 });
             }
             var result2 = await _userManager.AddToRoleAsync(user, "REVIEWING");
@@ -80,19 +80,31 @@ namespace authentication_api.Controllers
             });
         }
 
-        [Route("user")]
+
+        [Route("roles")]
         [HttpGet]
-        [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme)]
-        public async Task<ActionResult<IEnumerable<IdentityUser>>> GetAllUsers(string role)
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "ADMIN")]
+        public ActionResult<IEnumerable<IdentityUser>> GetAllRoles()
         {
             return Ok(new
             {
-                data = _userManager.GetUsersInRoleAsync(role)
+                data = _roleManager.Roles.ToList().Select(role => role.Name).ToList(),
+            });
+        }
+
+        [Route("user")]
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "ADMIN")]
+        public ActionResult<IEnumerable<IdentityUser>> GetAllUsers(string role)
+        {
+            return Ok(new
+            {
+                data = _userManager.GetUsersInRoleAsync(role).Result
             });
         }
         [Route("user/username")]
         [HttpGet]
-        [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme)]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "ADMIN")]
         public async Task<ActionResult> GetUsersByUserName(string username)
         {
             var user = await _userManager.FindByNameAsync(username);
@@ -111,8 +123,7 @@ namespace authentication_api.Controllers
 
         [Route("user/validate")]
         [HttpGet]
-        [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme)]
-        [Authorize(Roles = "ADMIN", AuthenticationSchemes = "Bearer")]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "ADMIN")]
         public async Task<ActionResult> ValidateUser(string username)
         {
             var user = await _userManager.FindByNameAsync(username);
@@ -130,7 +141,7 @@ namespace authentication_api.Controllers
             {
                 return BadRequest(new
                 {
-                    data = result.Errors
+                    data = result.Errors.ToList()[0].Description
                 });
             }
             return Ok(new
@@ -140,8 +151,7 @@ namespace authentication_api.Controllers
         }
         [Route("user/block")]
         [HttpGet]
-        [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme)]
-        [Authorize(Roles = "ADMIN")]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "ADMIN")]
         public async Task<ActionResult> BlockUser(string userName)
         {
             var user = await _userManager.FindByNameAsync(userName);
@@ -159,7 +169,7 @@ namespace authentication_api.Controllers
             {
                 return BadRequest(new
                 {
-                    data = result.Errors
+                    data = result.Errors.ToList()[0].Description
                 });
             }
             return Ok(new

@@ -1,4 +1,5 @@
 ﻿using IdentityModel;
+using IdentityServer4;
 using IdentityServer4.Models;
 using System;
 using System.Collections.Generic;
@@ -9,10 +10,23 @@ namespace business_manager_api
 {
     public static class AuthConfiguration
     {
+        public static IEnumerable<IdentityResource> GetIdentityResources() =>
+            new List<IdentityResource>
+            {
+                new IdentityResources.OpenId {
+                    UserClaims =
+                    {
+                        JwtClaimTypes.Name,
+                        JwtClaimTypes.Email,
+                        JwtClaimTypes.Role
+                    }
+                }
+            };
+
         public static IEnumerable<ApiResource> GetApis()
         {
             return new List<ApiResource> {
-                new ApiResource("bm")
+                new ApiResource("bm", new[] { JwtClaimTypes.Name, JwtClaimTypes.Email, JwtClaimTypes.Role })
             };
         }
 
@@ -24,9 +38,9 @@ namespace business_manager_api
                     ClientId = "client_id",
                     ClientSecrets = { new Secret("client_secret".ToSha256()) },
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPasswordAndClientCredentials,
-                    AllowedScopes = { "bm" },
+                    AllowedScopes = { "bm", "openid" },
                     RequireConsent = false,
-                    AlwaysIncludeUserClaimsInIdToken = true
+                    AlwaysIncludeUserClaimsInIdToken = true,
                 }
             };
         }

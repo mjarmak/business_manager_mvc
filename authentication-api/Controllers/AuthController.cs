@@ -1,14 +1,10 @@
 ﻿using business_manager_common_library;
-using IdentityModel;
 using IdentityServer4.AccessTokenValidation;
 using IdentityServer4.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace authentication_api.Controllers
@@ -19,7 +15,7 @@ namespace authentication_api.Controllers
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
+        public RoleManager<IdentityRole> Manager { get; }
         private readonly IIdentityServerInteractionService _interactionService;
         public AuthController(
             UserManager<IdentityUser> userManager,
@@ -29,7 +25,7 @@ namespace authentication_api.Controllers
         {
             _signInManager = signInManager;
             _userManager = userManager;
-            _roleManager = roleManager;
+            Manager = roleManager;
             _interactionService = interactionService;
         }
 

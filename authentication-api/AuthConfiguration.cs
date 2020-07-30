@@ -17,7 +17,6 @@ namespace business_manager_api
                     UserClaims =
                     {
                         JwtClaimTypes.Name,
-                        JwtClaimTypes.Email,
                         JwtClaimTypes.Role
                     }
                 }
@@ -26,7 +25,11 @@ namespace business_manager_api
         public static IEnumerable<ApiResource> GetApis()
         {
             return new List<ApiResource> {
-                new ApiResource("bm", new[] { JwtClaimTypes.Name, JwtClaimTypes.Email, JwtClaimTypes.Role })
+                new ApiResource("bm"),
+                new ApiResource("auth", new[] {
+                    JwtClaimTypes.Name,
+                    JwtClaimTypes.Role
+                })
             };
         }
 
@@ -38,7 +41,7 @@ namespace business_manager_api
                     ClientId = "client_id",
                     ClientSecrets = { new Secret("client_secret".ToSha256()) },
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPasswordAndClientCredentials,
-                    AllowedScopes = { "bm", "openid" },
+                    AllowedScopes = { "bm", "auth", IdentityServerConstants.StandardScopes.OpenId },
                     RequireConsent = false,
                     AlwaysIncludeUserClaimsInIdToken = true,
                 }

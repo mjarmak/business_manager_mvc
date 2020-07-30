@@ -22,7 +22,7 @@ namespace authentication_api
                 .AddJwtBearer("Bearer", config =>
                 {
                     config.Authority = "https://localhost:44321/";
-                    config.Audience = "bm";
+                    config.Audience = "auth";
                     //config.RequireHttpsMetadata = false;
                 });
 

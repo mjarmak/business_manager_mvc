@@ -25,7 +25,7 @@ export class UserAccountCreateComponent implements OnInit {
         console.log('user is ' + this.user.email)
         this.authService.Register(this.user).subscribe(result => {
             this.user = result.data;
-            RouterService.OpenHomePage();
+            RouterService.openHomePage();
         }, error => {
                 this.alertSerice.error("Error registering user", error.message);
         });

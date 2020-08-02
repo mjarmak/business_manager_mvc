@@ -42,7 +42,7 @@ export class BusinessListComponent implements OnInit {
             this.alertService.error("Error loading bussinesses", error.message);
         });
     }
-    public static openBusiness(businessId: number) {
-        RouterService.OpenBusiness(businessId);
+    public openBusiness(businessId: number) {
+        RouterService.openBusiness(businessId);
     }
 }

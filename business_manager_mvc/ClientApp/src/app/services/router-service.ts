@@ -5,11 +5,11 @@ import { Injectable } from '@angular/core';
 })
 export class RouterService {
 
-    public static OpenHomePage() {
+    public static openHomePage() {
         window.open("/", "_self");
     }
 
-    public static OpenBusiness(businessId: number) {
+    public static openBusiness(businessId: number) {
         window.open("/business-detail/" + businessId, "_self")
     }
 

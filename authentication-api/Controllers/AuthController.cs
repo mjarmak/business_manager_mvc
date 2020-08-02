@@ -1,10 +1,12 @@
 ﻿using business_manager_common_library;
+using FluentValidation.Results;
 using IdentityModel;
 using IdentityServer4.AccessTokenValidation;
 using IdentityServer4.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -32,35 +34,30 @@ namespace authentication_api.Controllers
             _interactionService = interactionService;
         }
 
-        //[Route("login")]
-        //[HttpPost]
-        //public async Task<ActionResult> Login(LoginInfo loginInfo)
-        //{
-        //    var result = await _signInManager.PasswordSignInAsync(loginInfo.Username, loginInfo.Password, false, false);
-        //    if (!result.Succeeded)
-        //    {
-        //        return BadRequest(new
-        //        {
-        //            data = result.ToString()
-        //        });
-        //    }
-        //    return Ok(new
-        //    {
-        //        data = result.ToString()
-        //    });
-        //}
-
-        //[Route("logout")]
-        //[HttpGet]
-        //public async Task<ActionResult> Logout(string logoutId)
-        //{
-        //    return Ok();
-        //}
-
         [Route("register")]
         [HttpPost]
         public async Task<ActionResult> Register(UserAccountModel userAccountModel)
         {
+            UserAccountDataModel userAccountDataModel;
+            try
+            {
+                userAccountDataModel = EnvelopeOf(userAccountModel);
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest("Invalid paramaters, " + e.Message);
+            }
+            var errors = ValidateUser(userAccountDataModel);
+            if (errors.Count() > 0)
+            {
+                return BadRequest(new
+                {
+                    //status = response.StatusCode,
+                    data = errors
+                }); ;
+            }
+
+
             var user = new IdentityUser(userAccountModel.Email);
             var result = await _userManager.CreateAsync(user, userAccountModel.Password);
 
@@ -212,6 +209,34 @@ namespace authentication_api.Controllers
             {
                 data = result.ToString()
             });
+        }
+
+
+        private UserAccountDataModel EnvelopeOf(UserAccountModel userAccountModel)
+        {
+            return new UserAccountDataModel
+            {
+                Id = userAccountModel.Id,
+                Email = userAccountModel.Email,
+                Name = userAccountModel.Name,
+                Surname = userAccountModel.Surname,
+                BirthDate = userAccountModel.BirthDate,
+                Phone = userAccountModel.Phone,
+                Profession = userAccountModel.Profession,
+                Gender = userAccountModel.Gender == null ? null : ((UserGenderEnum) Enum.Parse(typeof(UserGenderEnum), userAccountModel.Gender)).ToString(),
+                State = userAccountModel.State == null ? null : ((UserStateEnum) Enum.Parse(typeof(UserStateEnum), userAccountModel.State)).ToString(),
+                Type = userAccountModel.Type == null ? null : ((UserTypeEnum) Enum.Parse(typeof(UserTypeEnum), userAccountModel.Type)).ToString()
+            };
+        }
+        private List<ValidationFailure> ValidateUser(UserAccountDataModel userAccountDataModel)
+        {
+            List<ValidationFailure> errors = new List<ValidationFailure>();
+
+            UserAccountValidator userAccountValidator = new UserAccountValidator();
+            ValidationResult validationResult = userAccountValidator.Validate(userAccountDataModel);
+            errors.AddRange(validationResult.Errors);
+
+            return errors;
         }
     }
 }

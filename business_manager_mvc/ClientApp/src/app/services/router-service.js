@@ -10,10 +10,10 @@ var core_1 = require("@angular/core");
 var RouterService = /** @class */ (function () {
     function RouterService() {
     }
-    RouterService.OpenHomePage = function () {
+    RouterService.openHomePage = function () {
         window.open("/", "_self");
     };
-    RouterService.OpenBusiness = function (businessId) {
+    RouterService.openBusiness = function (businessId) {
         window.open("/business-detail/" + businessId, "_self");
     };
     RouterService.openLoginPage = function () {

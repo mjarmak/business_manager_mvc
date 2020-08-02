@@ -48,20 +48,20 @@ export class LoginComponent implements OnInit {
                 .subscribe(userInfo => {
                     if (userInfo.role === "BLOCKED") {
                         this.alertService.warning("Access Denied", "This user is blocked");
-                        this.authService.clearToken();
+                        this.authService.clearUserInfo();
                         this.username = "";
                         this.password = "";
                     } else {
                         this.authService.setUserinfo(userInfo);
-                        RouterService.OpenHomePage();
+                        RouterService.openHomePage();
                     }
                 }, error => {
-                        this.authService.clearToken();
+                        this.authService.clearUserInfo();
                         this.alertService.error("Error fetching user info", error.message);
                 });
 
         }, error => {
-            this.authService.clearToken();
+                this.authService.clearUserInfo();
             this.alertService.error("Error fetching user token", error.message);
         });
     }

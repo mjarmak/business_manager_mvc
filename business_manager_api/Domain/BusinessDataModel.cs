@@ -13,7 +13,7 @@ namespace business_manager_api.Domain
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
-        public bool Active { get; set; }
+        public bool Disabled { get; set; }
         public IdentificationData Identification { get; set; }
         [Display(Name = "Business Info")]
         public BusinessInfoData BusinessInfo { get; set; }
@@ -105,12 +105,15 @@ namespace business_manager_api.Domain
     //Fluent Validation for Business Info
     public class BusinessInfoValidator : AbstractValidator<BusinessInfoData>
     {
-        private readonly Regex regex = new Regex(@"[^A-Za-z0-9@-_]");
-        //private readonly string matchError = "Cannot contain any special characters";
+        private readonly Regex RegexName = new Regex("^[A-Za-z0-9]*$");
+        private readonly Regex RegexEmail = new Regex("^[A-Za-z0-9@-_.]*$");
+        private readonly string matchError = "Cannot contain any special characters";
         public BusinessInfoValidator()
         {
-            RuleFor(s => s.EmailBusiness).NotEmpty().WithMessage("Email address is required.")
-                     .EmailAddress().WithMessage("A valid email is required.");
+            RuleFor(s => s.EmailBusiness)
+                .Length(0, 255).NotNull().WithMessage("The Email field is empty.")
+                .Matches(RegexEmail).WithMessage(matchError)
+                .EmailAddress().WithMessage("A valid email is required");
 
             RuleFor(x => x.Phone)
                 .Length(0, 25);

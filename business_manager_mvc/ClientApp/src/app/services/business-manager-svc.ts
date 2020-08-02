@@ -25,7 +25,7 @@ export class BusinessManagerService {
         console.log('CALL TO ' + this.url + '/business')
         return this.http.post<ResponseEnvelope>(this.url + '/business', businessModel)
     }
-    public searchBusinesses(country?: string, city?: string, openNow?: boolean, type?: string): Observable<ResponseEnvelope> {
+    public searchBusinesses(country?: string, city?: string, openNow?: boolean, type?: string, onlyDisabled?: string): Observable<ResponseEnvelope> {
         let path = '/business/search?'
         if (country) {
             path = path + "&country=" + country
@@ -38,6 +38,9 @@ export class BusinessManagerService {
         }
         if (type) {
             path = path + "&type=" + type
+        }
+        if (onlyDisabled) {
+            path = path + "&onlyDisabled=" + onlyDisabled
         }
 
           console.log('CALL TO ' + this.url + path)

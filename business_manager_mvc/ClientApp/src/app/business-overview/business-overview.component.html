@@ -27,6 +27,9 @@
     <label for="openNow">Open Now:</label>
     <input id="openNow" type="checkbox" [(ngModel)]="this.openNow">
 
+    <label for="onlyDisabled">Show only disabled:</label>
+    <input id="onlyDisabled" type="checkbox" [(ngModel)]="this.onlyDisabled">
+
     <button type="button" class="btn btn-primary btn-sm" id="btnSearch" (click)="businessList.refresh()">Search</button>
 
   </div>
@@ -36,6 +39,8 @@
                      [type]="this.type"
                      [country]="this.country"
                      [city]="this.city"
-                     [openNow]="this.openNow"></app-business-list>
+                     [openNow]="this.openNow"
+                     [onlyDisabled]="this.onlyDisabled"
+                     ></app-business-list>
 
 </div>

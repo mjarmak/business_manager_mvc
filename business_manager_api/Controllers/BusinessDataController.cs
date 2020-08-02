@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,22 +12,24 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Net.Http.Headers;
 
 namespace business_manager_api.Controllers
 {
     [Produces("application/json")]
     [Route("business")]
     [ApiController]
-    [Authorize]
     public class BusinessDataController : Controller
     {
         private readonly DefaultContext _context;
         private readonly IHostingEnvironment hostingEnvironment;
+        private readonly JwtSecurityTokenHandler tokenHandler;
 
         public BusinessDataController(DefaultContext context, IHostingEnvironment hostingEnvironment)
         {
             _context = context;
             this.hostingEnvironment = hostingEnvironment;
+            tokenHandler = new JwtSecurityTokenHandler();
         }
 
         [HttpGet("types")]
@@ -59,9 +62,11 @@ namespace business_manager_api.Controllers
                 .Include(b => b.BusinessInfo.Address)
                 .Include(b => b.Identification)
                 .Include(b => b.WorkHours)
+                .Where(b => b.Disabled == false)
                 .ToListAsync()
             });
         }
+
         /// <summary>
         /// Search the specific Business Based by different parameters such as type, country, city, open hours
         /// </summary>
@@ -69,11 +74,14 @@ namespace business_manager_api.Controllers
         /// <param name="country"></param>
         /// <param name="city"></param>
         /// <param name="openNow"></param>
+        /// <param name="onlyDisabled"></param>
         /// <returns></returns>
         [HttpGet("search")]
-        //[Authorize(Roles = "ADMIN,USER")]
-        public async Task<ActionResult<IEnumerable<BusinessDataModel>>> SearchBusinesses([FromQuery] string type, [FromQuery] string country, [FromQuery] string city, [FromQuery] bool openNow)
+        public async Task<ActionResult<IEnumerable<BusinessDataModel>>> SearchBusinesses([FromQuery] string type, [FromQuery] string country, [FromQuery] string city, [FromQuery] bool openNow,
+            [FromQuery] bool onlyDisabled)
         {
+            string role = GetClaim("role");
+
             var set = _context.BusinessDataModel
                 .Include(b => b.BusinessInfo)
                 .Include(b => b.BusinessInfo.Address)
@@ -93,19 +101,32 @@ namespace business_manager_api.Controllers
             {
                 set = set.Where(b => string.Equals(b.BusinessInfo.Address.Country, country, StringComparison.OrdinalIgnoreCase));
             }
-            if (openNow)
+            if (role != null)
             {
-                DateTime today = DateTime.Now;
-                string day = today.DayOfWeek.ToString().ToUpper();
-                int hour = today.Hour;
-                int minute = today.Minute;
-                set = set.Where(b => b.WorkHours
-                .Any(a => (
-                    !a.Closed
-                    && a.Day == day
-                    && (a.HourFrom + (float)a.MinuteFrom/60) <= (hour + (float)minute/60)
-                    && (a.HourTo + (float)a.MinuteTo/60) >= (hour + (float)minute/60)
-                )));
+                if (role == "ADMIN" && onlyDisabled)
+                {
+                    set = set.Where(b => b.Disabled == onlyDisabled);
+                } else
+                {
+                    set = set.Where(b => b.Disabled == false);
+                }
+                if ((role == "USER" || role == "ADMIN") && openNow)
+                {
+                    DateTime today = DateTime.Now;
+                    string day = today.DayOfWeek.ToString().ToUpper();
+                    int hour = today.Hour;
+                    int minute = today.Minute;
+                    set = set.Where(b => b.WorkHours
+                    .Any(a => (
+                        !a.Closed
+                        && a.Day == day
+                        && (a.HourFrom + (float)a.MinuteFrom / 60) <= (hour + (float)minute / 60)
+                        && (a.HourTo + (float)a.MinuteTo / 60) >= (hour + (float)minute / 60)
+                    )));
+                }
+            } else
+            {
+                set = set.Where(b => b.Disabled == false);
             }
 
             return Ok(new
@@ -127,6 +148,7 @@ namespace business_manager_api.Controllers
             try
             {
                 businessDataModel = _context.BusinessDataModel
+                    .Where(b => b.Disabled == false)
                     .Include(b => b.BusinessInfo)
                     .Include(b => b.BusinessInfo.Address)
                     .Include(b => b.Identification)
@@ -179,6 +201,7 @@ namespace business_manager_api.Controllers
         /// <param name="businessModel"></param>
         /// <returns>The information of a business based on the id</returns>
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> UpdateBusiness(long id, BusinessModel businessModel)
         {
             if (id != businessModel.Id)
@@ -189,7 +212,7 @@ namespace business_manager_api.Controllers
             {
                 return NotFound(new
                 {
-                    data = "Business with ID " + id + " does not exist."
+                    data = new List<string> { "Business with ID " + id + " does not exist." }
                 });
             }
             BusinessDataModel businessDataModel;
@@ -265,6 +288,7 @@ namespace business_manager_api.Controllers
 
         //Learned from https://csharp-video-tutorials.blogspot.com/2019/05/file-upload-in-aspnet-core-mvc.html
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<BusinessDataModel>> CreateBusiness(BusinessModel businessModel)
         {
             BusinessDataModel businessDataModel;
@@ -278,7 +302,7 @@ namespace business_manager_api.Controllers
             {
                 return BadRequest(new
                 {
-                    data = "Invalid paramaters, " + e.Message
+                    data = new List<string> { "Invalid paramaters, " + e.Message }
                 });
             }
 
@@ -316,6 +340,7 @@ namespace business_manager_api.Controllers
 
         [HttpPost("{id}/logo")]
         [Consumes("multipart/form-data")]
+        [Authorize]
         [RequestSizeLimit(100_000_000)]
         public async Task<ActionResult> PostLogo(long id)
         {
@@ -323,11 +348,17 @@ namespace business_manager_api.Controllers
 
             if (!BusinessExists(id))
             {
-                return NotFound("Business does not exist");
+                return NotFound(new
+                {
+                    data = new List<string> { "Business does not exist." }
+                });
             }
             if (!image.ContentType.Contains("image") && !image.ContentType.Contains("jpeg") && !image.ContentType.Contains("jpg"))
             {
-                return BadRequest("File must be an image");
+                return BadRequest(new
+                {
+                    data = new List<string> { "File must be an image." }
+                });
             }
 
             var imagesFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
@@ -354,6 +385,7 @@ namespace business_manager_api.Controllers
         [HttpPost("{id}/photo/{imageId}")]
         [Consumes("multipart/form-data")]
         [RequestSizeLimit(100_000_000)]
+        [Authorize]
         public async Task<ActionResult> PostPhoto(long id, long imageId)
         {
             var image = Request.Form.Files[0];
@@ -362,7 +394,7 @@ namespace business_manager_api.Controllers
             {
                 return BadRequest(new
                 {
-                    data = "Image ID must be between 1 and 5 inclusive"
+                    data = new List<string> { "Image ID must be between 1 and 5 inclusive." }
                 });
             }
             if (!BusinessExists(id))
@@ -373,7 +405,7 @@ namespace business_manager_api.Controllers
             {
                 return BadRequest(new
                 {
-                    data = "File must be an image"
+                    data = new List<string> { "File must be an image." }
                 });
             }
 
@@ -421,6 +453,7 @@ namespace business_manager_api.Controllers
         /// <returns></returns>
         // DELETE: api/BusinessData/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "ADMIN")]
         public async Task<ActionResult> DeleteBusinessDataModel(long id)
         {
             var businessDataModel = await _context.BusinessDataModel.FindAsync(id);
@@ -428,7 +461,7 @@ namespace business_manager_api.Controllers
             {
                 return NotFound(new
                 {
-                    data = "Business with ID " + id + " does not exist."
+                    data = new List<string> { "Business with ID " + id + " does not exist." }
                 });
             }
 
@@ -518,24 +551,40 @@ namespace business_manager_api.Controllers
             return workHours;
         }
 
-        private static List<ValidationFailure> ValidateBusiness(BusinessDataModel businessDataModel)
+        private List<string> ValidateBusiness(BusinessDataModel businessDataModel)
         {
 
             var errors = new List<ValidationFailure>();
 
-            //BusinessDataValidator businessDataValidator = new BusinessDataValidator();
-            //ValidationResult businessDataValidatorResult = businessDataValidator.Validate(businessDataModel);
-            //errors.AddRange(businessDataValidatorResult.Errors);
+            BusinessDataValidator businessDataValidator = new BusinessDataValidator();
+            ValidationResult businessDataValidatorResult = businessDataValidator.Validate(businessDataModel);
+            errors.AddRange(businessDataValidatorResult.Errors);
 
-            //BusinessInfoValidator businessInfoValidator = new BusinessInfoValidator();
-            //ValidationResult businessInfoValidatorResult = businessInfoValidator.Validate(businessDataModel.BusinessInfo);
-            //errors.AddRange(businessInfoValidatorResult.Errors);
+            BusinessInfoValidator businessInfoValidator = new BusinessInfoValidator();
+            ValidationResult businessInfoValidatorResult = businessInfoValidator.Validate(businessDataModel.BusinessInfo);
+            errors.AddRange(businessInfoValidatorResult.Errors);
 
-            //IdentificationDataValidator identificationValidator = new IdentificationDataValidator();
-            //ValidationResult identificationValidatorResult = identificationValidator.Validate(businessDataModel.Identification);
-            //errors.AddRange(identificationValidatorResult.Errors);
+            IdentificationDataValidator identificationValidator = new IdentificationDataValidator();
+            ValidationResult identificationValidatorResult = identificationValidator.Validate(businessDataModel.Identification);
+            errors.AddRange(identificationValidatorResult.Errors);
 
-            return errors;
+            return ErrorsToStrings(errors);
+        }
+        private List<string> ErrorsToStrings(IList<ValidationFailure> validationFailures)
+        {
+            return validationFailures?.Select(ValidationFailure => ValidationFailure.PropertyName + " " + ValidationFailure.ErrorMessage).ToList();
+        }
+        private string GetClaim(string name)
+        {
+            string accessTokenString = Request.Headers[HeaderNames.Authorization].ToString();
+
+            if (accessTokenString == null || !accessTokenString.Contains("Bearer "))
+            {
+                return null;
+            }
+
+            JwtSecurityToken accessToken = tokenHandler.ReadToken(accessTokenString.Replace("Bearer ", "")) as JwtSecurityToken;
+            return accessToken.Claims.Single(claim => claim.Type == name).Value;
         }
     }
 }

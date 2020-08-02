@@ -107,10 +107,6 @@ namespace business_manager_api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUserAccountModel(long id, UserAccountModel userAccountModel)
         {
-            if (id != userAccountModel.Id)
-            {
-                return BadRequest();
-            }
             UserAccountDataModel userAccountDataModel;
             try
             {
@@ -177,7 +173,6 @@ namespace business_manager_api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<UserAccountDataModel>> PostUserAccountModel(UserAccountModel userAccountModel)
         {
-            userAccountModel.Id = 0L;
 
             UserAccountDataModel userAccountDataModel;
             try
@@ -249,7 +244,6 @@ namespace business_manager_api.Controllers
         {
             return new UserAccountDataModel
             {
-                Id = userAccountModel.Id,
                 Email = userAccountModel.Email,
                 Name = userAccountModel.Name,
                 Surname = userAccountModel.Surname,
@@ -257,8 +251,6 @@ namespace business_manager_api.Controllers
                 Phone = userAccountModel.Phone,
                 Profession = userAccountModel.Profession,
                 Gender = userAccountModel.Gender == null ? null : ((UserGenderEnum)Enum.Parse(typeof(UserGenderEnum), userAccountModel.Gender)).ToString(),
-                State = userAccountModel.State == null ? null : ((UserStateEnum)Enum.Parse(typeof(UserStateEnum), userAccountModel.State)).ToString(),
-                Type = userAccountModel.Type == null ? null : ((UserTypeEnum)Enum.Parse(typeof(UserTypeEnum), userAccountModel.Type)).ToString()
             };
         }
         private static List<ValidationFailure> ValidateUser()

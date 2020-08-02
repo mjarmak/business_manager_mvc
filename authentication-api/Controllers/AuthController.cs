@@ -1,7 +1,6 @@
 ﻿using business_manager_common_library;
 using FluentValidation.Results;
 using IdentityModel;
-using IdentityServer4.AccessTokenValidation;
 using IdentityServer4.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -11,7 +10,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using IdentityModel;
 
 namespace authentication_api.Controllers
 {
@@ -59,46 +57,42 @@ namespace authentication_api.Controllers
             }
 
 
-            var user = new IdentityUser(userAccountModel.Email);
-            var result = await _userManager.CreateAsync(user, userAccountModel.Password);
+            var user = new IdentityUser(userAccountDataModel.Email);
+            var result = await _userManager.CreateAsync(user, userAccountDataModel.Password);
 
             if (!result.Succeeded)
             {
                 return BadRequest(new
                 {
-                    data = result.Errors.ToList()[0].Description
+                    data = new List<string> { result.Errors.ToList()[0].Description }
                 });
             }
             await _userManager.AddToRoleAsync(user, "REVIEWING");
-            if (userAccountModel.Email != null)
+            if (userAccountDataModel.Email != null)
             {
-                await _userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.Email, userAccountModel.Email));
+                await _userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.Email, userAccountDataModel.Email));
             }
-            if (userAccountModel.Name != null)
+            if (userAccountDataModel.Name != null)
             {
-                await _userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.Name, userAccountModel.Name));
+                await _userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.Name, userAccountDataModel.Name));
             }
-            if (userAccountModel.Surname != null)
+            if (userAccountDataModel.Surname != null)
             {
-                    await _userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.FamilyName, userAccountModel.Surname));
+                    await _userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.FamilyName, userAccountDataModel.Surname));
             }
-            if (userAccountModel.Gender != null)
+            if (userAccountDataModel.Gender != null)
             {
-                    await _userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.Gender, userAccountModel.Gender));
+                    await _userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.Gender, userAccountDataModel.Gender));
             }
-            if (userAccountModel.Phone != null)
+            if (userAccountDataModel.Phone != null)
             {
-                    await _userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.PhoneNumber, userAccountModel.Phone));
+                    await _userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.PhoneNumber, userAccountDataModel.Phone));
             }
-            if (userAccountModel.State != null) 
+            if (userAccountDataModel.BirthDate != null)
             {
-                    await _userManager.AddClaimAsync(user, new Claim("State", userAccountModel.State));
+                    await _userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.BirthDate, userAccountDataModel.BirthDate.ToString()));
             }
-            if (userAccountModel.BirthDate != null)
-            {
-                    await _userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.BirthDate, userAccountModel.BirthDate.ToString()));
-            }
-            await _userManager.AddClaimAsync(user, new Claim( "Professional" , userAccountModel.Profession ? "1" : "0"));
+            await _userManager.AddClaimAsync(user, new Claim( "Professional" , userAccountDataModel.Profession ? "1" : "0"));
 
             return Ok(new
             {
@@ -146,7 +140,7 @@ namespace authentication_api.Controllers
             {
                 return BadRequest(new
                 {
-                    data = "User " + username + " doesn't exist"
+                    data = new List<string> { "User " + username + " doesn't exist" }
                 });
             }
             return Ok(new
@@ -165,7 +159,7 @@ namespace authentication_api.Controllers
             {
                 return BadRequest(new
                 {
-                    data = "User " + username + " doesn't exist"
+                    data = new List<string> { "User " + username + " doesn't exist" }
                 });
             }
             await _userManager.RemoveFromRoleAsync(user, "BLOCKED");
@@ -175,7 +169,7 @@ namespace authentication_api.Controllers
             {
                 return BadRequest(new
                 {
-                    data = result.Errors.ToList()[0].Description
+                    data = new List<string> { result.Errors.ToList()[0].Description }
                 });
             }
             return Ok(new
@@ -186,14 +180,14 @@ namespace authentication_api.Controllers
         [Route("user/block")]
         [HttpGet]
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "ADMIN")]
-        public async Task<ActionResult> BlockUser(string userName)
+        public async Task<ActionResult> BlockUser(string username)
         {
-            var user = await _userManager.FindByNameAsync(userName);
+            var user = await _userManager.FindByNameAsync(username);
             if (user == null)
             {
                 return BadRequest(new
                 {
-                    data = "User " + userName + " doesn't exist"
+                    data = new List<string> { "User " + username + " doesn't exist" }
                 });
             }
             await _userManager.RemoveFromRoleAsync(user, "USER");
@@ -203,7 +197,36 @@ namespace authentication_api.Controllers
             {
                 return BadRequest(new
                 {
-                    data = result.Errors.ToList()[0].Description
+                    data = new List<string> { result.Errors.ToList()[0].Description }
+                });
+            }
+            return Ok(new
+            {
+                data = result.ToString()
+            });
+        }
+        [Route("user/make-admin")]
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "ADMIN")]
+        public async Task<ActionResult> MakeUserAdmin(string username)
+        {
+            var user = await _userManager.FindByNameAsync(username);
+            if (user == null)
+            {
+                return BadRequest(new
+                {
+                    data = new List<string> { "User " + username + " doesn't exist" }
+                });
+            }
+            await _userManager.RemoveFromRoleAsync(user, "BLOCKED");
+            await _userManager.RemoveFromRoleAsync(user, "REVIEWING");
+            await _userManager.AddToRoleAsync(user, "USER");
+            var result = await _userManager.AddToRoleAsync(user, "ADMIN");
+            if (!result.Succeeded)
+            {
+                return BadRequest(new
+                {
+                    data = new List<string> { result.Errors.ToList()[0].Description }
                 });
             }
             return Ok(new
@@ -217,7 +240,6 @@ namespace authentication_api.Controllers
         {
             return new UserAccountDataModel
             {
-                Id = userAccountModel.Id,
                 Email = userAccountModel.Email,
                 Name = userAccountModel.Name,
                 Surname = userAccountModel.Surname,
@@ -225,11 +247,10 @@ namespace authentication_api.Controllers
                 Phone = userAccountModel.Phone,
                 Profession = userAccountModel.Profession,
                 Gender = userAccountModel.Gender == null ? null : ((UserGenderEnum) Enum.Parse(typeof(UserGenderEnum), userAccountModel.Gender)).ToString(),
-                State = userAccountModel.State == null ? null : ((UserStateEnum) Enum.Parse(typeof(UserStateEnum), userAccountModel.State)).ToString(),
-                Type = userAccountModel.Type == null ? null : ((UserTypeEnum) Enum.Parse(typeof(UserTypeEnum), userAccountModel.Type)).ToString()
+                Password = userAccountModel.Password
             };
         }
-        private List<ValidationFailure> ValidateUser(UserAccountDataModel userAccountDataModel)
+        private List<string> ValidateUser(UserAccountDataModel userAccountDataModel)
         {
             List<ValidationFailure> errors = new List<ValidationFailure>();
 
@@ -237,7 +258,11 @@ namespace authentication_api.Controllers
             ValidationResult validationResult = userAccountValidator.Validate(userAccountDataModel);
             errors.AddRange(validationResult.Errors);
 
-            return errors;
+            return ErrorsToStrings(errors);
+        }
+        private List<string> ErrorsToStrings(IList<ValidationFailure> validationFailures)
+        {
+            return validationFailures?.Select(ValidationFailure => ValidationFailure.PropertyName + " " + ValidationFailure.ErrorMessage).ToList();
         }
     }
 }

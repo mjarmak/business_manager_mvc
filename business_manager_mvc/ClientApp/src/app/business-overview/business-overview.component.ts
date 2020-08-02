@@ -14,10 +14,13 @@ export class BusinessOverviewComponent implements OnInit, OnDestroy {
     city: string;
     country: string;
     openNow: string;
+    role: string;
+    onlyDisabled: string
 
     interval: any;
 
     constructor(private businessManagerService: BusinessManagerService) {
+        this.role = localStorage.getItem("userrole");
     }
 
     ngOnInit() {

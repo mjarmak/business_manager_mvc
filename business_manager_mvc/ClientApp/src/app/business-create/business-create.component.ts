@@ -14,6 +14,8 @@ export class BusinessCreateComponent implements OnInit {
     public logo: File;
     public images: File[];
 
+    public errors = []
+
     constructor(private businessManagerService: BusinessManagerService, private alertSerice: AlertService) {
 
     }
@@ -27,6 +29,7 @@ export class BusinessCreateComponent implements OnInit {
         this.businessManagerService.saveBusiness(this.business).subscribe(result => {
             console.log(result.data);
             this.business = result.data;
+            this.errors = [];
             document.getElementById("btnSave").setAttribute("disabled", "disabled");
 
             if (this.logo) {
@@ -34,6 +37,7 @@ export class BusinessCreateComponent implements OnInit {
                     result => {
                     },
                     error => {
+                        this.errors.concat(error.data);
                         this.alertSerice.error("Error adding logo", error.message);
                     });
             }
@@ -44,12 +48,14 @@ export class BusinessCreateComponent implements OnInit {
               this.businessManagerService.uploadImage(image, this.business.id, i).subscribe(
                 result => {
                 },
-                error => {
+                  error => {
+                      this.errors.concat(error.data);
                   this.alertSerice.error("Error adding image", error.message);
                 });
             });
           }
         }, error => {
+            this.errors = error.data;
             this.alertSerice.error("Error creating business", error.message);
         });
 

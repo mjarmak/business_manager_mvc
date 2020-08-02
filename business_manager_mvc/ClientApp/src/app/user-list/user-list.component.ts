@@ -1,7 +1,7 @@
-import { Component, Inject, OnInit } from "@angular/core";
-import { UserAccountModel } from "../../Model/user";
-import { UserManagerService } from "../services/auth-service";
+import { Component, Inject, OnInit, Input, ViewChild } from "@angular/core";
 import { AlertService } from "../services/alert-service";
+import { UserManagerService } from "../services/user-manager-svc";
+import { MatTableDataSource, MatPaginator, MatSort } from "@angular/material";
 
 @Component({
     selector: "app-user-list",
@@ -9,26 +9,50 @@ import { AlertService } from "../services/alert-service";
 })
 export class UserListComponent implements OnInit {
 
-    user: UserAccountModel;
-    passwordDuplicate: string;
+    displayedColumns: string[] = ['userName', 'more'];
+    dataSource = new MatTableDataSource<any>();
+    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+    @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-    ngOnInit(): void {
-        this.user = new UserAccountModel;
-        this.userManagerService.refreshUserGenders();
-    }
+    @Input() role: string;
+    @Input() gender: string;
 
     constructor(private userManagerService: UserManagerService, private readonly alertService: AlertService) {
     }
 
-    onClickSave() {
-        console.log(`user is ${this.user.email}`);
-        this.userManagerService.saveUser(this.user).subscribe(result => {
-            this.user = result.data;
+    ngOnInit() {
+        this.refresh();
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+    }
+
+    refresh() {
+        this.userManagerService.searchUsers(this.role).subscribe(result => {
+            this.dataSource.data = result.data;
         }, error => {
-                this.alertService.error("Error saving user", error.message);
+            this.alertService.error("Error loading users", error.message);
         });
     }
-    setUserGender(gender: string) {
-        this.user.gender = gender;
+
+    changeUserRole(username:string, action: string) {
+        return this.userManagerService.changeUserRole(username, action).subscribe(result => {
+            this.refresh();
+
+            switch (action) {
+                case "make-admin":
+                    this.alertService.success("User updated" + action, "User is now an admin");
+                    break;
+                case "validate":
+                    this.alertService.success("User updated" + action, "User is now validated");
+                    break;
+                case "block":
+                    this.alertService.success("User updated" + action, "User is now blocked");
+                    break;
+            }
+
+        }, error => {
+            this.alertService.error("Error updating user: " + action, error.message);
+        });
     }
+
 }

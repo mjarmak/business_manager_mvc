@@ -17,10 +17,8 @@ var AuthService = /** @class */ (function () {
     AuthService.prototype.getToken = function () {
         return localStorage.getItem('token');
     };
-    AuthService.prototype.clearToken = function () {
-        localStorage.removeItem('token');
-    };
     AuthService.prototype.clearUserInfo = function () {
+        localStorage.removeItem('token');
         localStorage.removeItem('username');
         localStorage.removeItem('useremail');
         localStorage.removeItem('userrole');
@@ -41,12 +39,6 @@ var AuthService = /** @class */ (function () {
     };
     AuthService.prototype.setToken = function (token) {
         localStorage.setItem('token', token);
-    };
-    AuthService.prototype.setRole = function (role) {
-        localStorage.setItem('role', role);
-    };
-    AuthService.prototype.clearRole = function () {
-        localStorage.removeItem('role');
     };
     AuthService.prototype.Connect = function (username, password) {
         var formData = new FormData();

@@ -13,8 +13,7 @@ namespace business_manager_api.Domain
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
-        //[ForeignKey("Identification")]
-        //public long IdentificationId { get; set; }
+        public bool Active { get; set; }
         public IdentificationData Identification { get; set; }
         [Display(Name = "Business Info")]
         public BusinessInfoData BusinessInfo { get; set; }

@@ -66,7 +66,7 @@ namespace business_manager_mvc
                 spa.Options.SourcePath = "ClientApp";
 
                 if (!env.IsDevelopment()) return;
-                spa.Options.StartupTimeout = new TimeSpan(0, 2, 80);
+                spa.Options.StartupTimeout = new TimeSpan(0, 2, 30);
                 spa.UseAngularCliServer(npmScript: "start");
             });
         }

@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using business_manager_api;
 using Microsoft.AspNetCore.Authorization;
 using business_manager_common_library;
 using FluentValidation.Results;
@@ -29,11 +28,7 @@ namespace business_manager_api.Controllers
         [HttpGet("genders")]
         public ActionResult GetUserGenders()
         {
-            List<string> types = new List<string>();
-            foreach (UserGenderEnum type in Enum.GetValues(typeof(UserGenderEnum)))
-            {
-                types.Add(type.ToString());
-            }
+            var types = (from UserGenderEnum type in Enum.GetValues(typeof(UserGenderEnum)) select type.ToString()).ToList();
             return Ok(new
             {
                 data = types
@@ -43,11 +38,7 @@ namespace business_manager_api.Controllers
         [HttpGet("types")]
         public ActionResult GetUserTypes()
         {
-            List<string> types = new List<string>();
-            foreach (UserTypeEnum type in Enum.GetValues(typeof(UserTypeEnum)))
-            {
-                types.Add(type.ToString());
-            }
+            var types = (from UserTypeEnum type in Enum.GetValues(typeof(UserTypeEnum)) select type.ToString()).ToList();
             return Ok(new
             {
                 data = types
@@ -57,11 +48,7 @@ namespace business_manager_api.Controllers
         [HttpGet("states")]
         public ActionResult GetUserStates()
         {
-            List<string> types = new List<string>();
-            foreach (UserStateEnum type in Enum.GetValues(typeof(UserStateEnum)))
-            {
-                types.Add(type.ToString());
-            }
+            var types = (from UserStateEnum type in Enum.GetValues(typeof(UserStateEnum)) select type.ToString()).ToList();
             return Ok(new
             {
                 data = types
@@ -133,14 +120,14 @@ namespace business_manager_api.Controllers
             {
                 return BadRequest("Invalid paramaters, " + e.Message);
             }
-            var errors = ValidateUser(userAccountDataModel);
+            var errors = ValidateUser();
             if (errors.Count() > 0)
             {
                 return BadRequest(new
                 {
                     //status = response.StatusCode,
                     data = errors
-                }); ;
+                });
             }
             _context.Entry(userAccountDataModel).State = EntityState.Modified;
 
@@ -206,14 +193,14 @@ namespace business_manager_api.Controllers
             }
             userAccountDataModel.State = UserStateEnum.REVIEWING.ToString();
             userAccountDataModel.Type = UserTypeEnum.USER.ToString();
-            var errors = ValidateUser(userAccountDataModel);
+            var errors = ValidateUser();
             if (errors.Count() > 0)
             {
                 return BadRequest(new
                 {
                     //status = response.StatusCode,
                     data = errors
-                }); ;
+                });
             }
 
             _context.UserAccount.Add(userAccountDataModel);
@@ -274,10 +261,10 @@ namespace business_manager_api.Controllers
                 Type = userAccountModel.Type == null ? null : ((UserTypeEnum)Enum.Parse(typeof(UserTypeEnum), userAccountModel.Type)).ToString()
             };
         }
-        private List<ValidationFailure> ValidateUser(UserAccountDataModel userAccountDataModel)
+        private static List<ValidationFailure> ValidateUser()
         {
 
-            List<ValidationFailure> errors = new List<ValidationFailure>();
+            var errors = new List<ValidationFailure>();
 
             //UserAccountValidator userAccountValidator = new UserAccountValidator();
             //ValidationResult validationResult = userAccountValidator.Validate(userAccountDataModel);

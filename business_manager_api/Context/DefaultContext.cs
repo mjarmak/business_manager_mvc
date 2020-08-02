@@ -1,3 +1,4 @@
+using business_manager_api.Domain;
 using Microsoft.EntityFrameworkCore;
 using DbContext = Microsoft.EntityFrameworkCore.DbContext;
 

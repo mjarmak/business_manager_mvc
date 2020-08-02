@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using business_manager_api.Context;
+using business_manager_api.Domain;
 using business_manager_common_library;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
@@ -44,6 +44,10 @@ namespace business_manager_api.Controllers
             });
         }
 
+        /// <summary>
+        /// List of the businesses created
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BusinessDataModel>>> GetAllBusinesses()
         {
@@ -58,7 +62,14 @@ namespace business_manager_api.Controllers
                 .ToListAsync()
             });
         }
-
+        /// <summary>
+        /// Search the specific Business Based by different parameters such as type, country, city, open hours
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="country"></param>
+        /// <param name="city"></param>
+        /// <param name="openNow"></param>
+        /// <returns></returns>
         [HttpGet("search")]
         //[Authorize(Roles = "ADMIN,USER")]
         public async Task<ActionResult<IEnumerable<BusinessDataModel>>> SearchBusinesses([FromQuery] string type, [FromQuery] string country, [FromQuery] string city, [FromQuery] bool openNow)
@@ -103,6 +114,11 @@ namespace business_manager_api.Controllers
             });
         }
 
+        /// <summary>
+        /// Search the business by ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // GET: api/BusinessData/5
         [HttpGet("{id}")]
         public ActionResult GetBusinessDataModel(long id)
@@ -186,7 +202,7 @@ namespace business_manager_api.Controllers
                 return BadRequest("Invalid paramaters, " + e.Message);
             }
             var errors = ValidateBusiness(businessDataModel);
-            if (errors.Count() > 0)
+            if (errors.Any())
             {
                 return BadRequest(new
                 {
@@ -207,7 +223,7 @@ namespace business_manager_api.Controllers
             {
                 _context.Entry(businessDataModel.Identification).State = EntityState.Modified;
             }
-            if (businessDataModel.WorkHours != null && businessDataModel.WorkHours.Count() > 0)
+            if (businessDataModel.WorkHours != null && businessDataModel.WorkHours.Any())
             {
                 businessDataModel.WorkHours.ForEach(delegate (WorkHoursData workHours)
                 {
@@ -267,7 +283,7 @@ namespace business_manager_api.Controllers
             }
 
             var errors = ValidateBusiness(businessDataModel);
-            if (errors.Count() > 0)
+            if (errors.Any())
             {
                 return BadRequest(new
                 {
@@ -275,7 +291,7 @@ namespace business_manager_api.Controllers
                 }); ;
             }
 
-            _context.BusinessDataModel.Add(businessDataModel);
+            await _context.BusinessDataModel.AddAsync(businessDataModel);
             await _context.SaveChangesAsync();
 
             return Ok(new
@@ -288,7 +304,7 @@ namespace business_manager_api.Controllers
         [HttpPost("force")]
         public async Task<ActionResult<BusinessDataModel>> PostBusinessDataModelForce(BusinessDataModel businessDataModel)
         {
-            _context.BusinessDataModel.Add(businessDataModel);
+            await _context.BusinessDataModel.AddAsync(businessDataModel);
             await _context.SaveChangesAsync();
 
             return Ok(new
@@ -314,14 +330,14 @@ namespace business_manager_api.Controllers
                 return BadRequest("File must be an image");
             }
 
-            string imagesFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
+            var imagesFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
             if (image != null)
             {
-                string uniqueLogoName = Guid.NewGuid().ToString() + "_logo_" + image.FileName;
-                string filePath = Path.Combine(imagesFolder, uniqueLogoName);
-                image.CopyTo(new FileStream(filePath, FileMode.Create));
+                var uniqueLogoName = Guid.NewGuid().ToString() + "_logo_" + image.FileName;
+                var filePath = Path.Combine(imagesFolder, uniqueLogoName);
+                await image.CopyToAsync(new FileStream(filePath, FileMode.Create));
 
-                BusinessDataModel businessDataModel = _context.BusinessDataModel
+                var businessDataModel = _context.BusinessDataModel
                     .Include(b => b.BusinessInfo)
                     .Include(b => b.BusinessInfo.Address)
                     .Include(b => b.Identification)
@@ -361,11 +377,11 @@ namespace business_manager_api.Controllers
                 });
             }
 
-            string imagesFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
+            var imagesFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
             if (image != null)
             {
-                string uniqueLogoName = Guid.NewGuid().ToString() + "_photo_" + image.FileName;
-                string filePath = Path.Combine(imagesFolder, uniqueLogoName);
+                var uniqueLogoName = Guid.NewGuid().ToString() + "_photo_" + image.FileName;
+                var filePath = Path.Combine(imagesFolder, uniqueLogoName);
                 image.CopyTo(new FileStream(filePath, FileMode.Create));
 
                 BusinessDataModel businessDataModel = _context.BusinessDataModel
@@ -445,12 +461,12 @@ namespace business_manager_api.Controllers
         {
             return _context.Identification.Any(e => e.Id == id);
         }
-        private BusinessDataModel EnvelopeOf(BusinessModel businessModel)
+        private static BusinessDataModel EnvelopeOf(BusinessModel businessModel)
         {
             return new BusinessDataModel
             {
                 Id = businessModel.Id,
-                WorkHours = businessModel.WorkHours == null ? null : businessModel.WorkHours.Select(workHours => new WorkHoursData()
+                WorkHours = businessModel.WorkHours?.Select(workHours => new WorkHoursData()
                 {
                     Id = workHours.Id,
                     Day = workHours.Day == null ? null : ((WorkHoursDayEnum)Enum.Parse(typeof(WorkHoursDayEnum), workHours.Day)).ToString(),
@@ -491,21 +507,21 @@ namespace business_manager_api.Controllers
             };
         }
 
-        private List<WorkHoursData> AddMissingDays(List<WorkHoursData> workHours)
+        private static List<WorkHoursData> AddMissingDays(List<WorkHoursData> workHours)
         {
             foreach (WorkHoursDayEnum day in Enum.GetValues(typeof(WorkHoursDayEnum)))
             {
-                if (!workHours.Any(w => w.Day == day.ToString())) {
+                if (workHours.All(w => w.Day != day.ToString())) {
                     workHours.Add(new WorkHoursData { Day = day.ToString(), Closed = true });
                 }
             }
             return workHours;
         }
 
-        private List<ValidationFailure> ValidateBusiness(BusinessDataModel businessDataModel)
+        private static List<ValidationFailure> ValidateBusiness(BusinessDataModel businessDataModel)
         {
 
-            List<ValidationFailure> errors = new List<ValidationFailure>();
+            var errors = new List<ValidationFailure>();
 
             //BusinessDataValidator businessDataValidator = new BusinessDataValidator();
             //ValidationResult businessDataValidatorResult = businessDataValidator.Validate(businessDataModel);

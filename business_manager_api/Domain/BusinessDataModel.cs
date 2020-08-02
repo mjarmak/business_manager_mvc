@@ -1,13 +1,12 @@
-﻿using business_manager_api.Services;
-//using business_manager_common_library;
-using FluentValidation;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.RegularExpressions;
+using business_manager_api.Services;
+using FluentValidation;
 
-namespace business_manager_api
+namespace business_manager_api.Domain
 {
     [Table(name: "Business")]
     public class BusinessDataModel
@@ -16,7 +15,9 @@ namespace business_manager_api
         public long Id { get; set; }
         public bool Active { get; set; }
         public IdentificationData Identification { get; set; }
+        [Display(Name = "Business Info")]
         public BusinessInfoData BusinessInfo { get; set; }
+        [Display(Name = "Work hours")]
         public List<WorkHoursData> WorkHours { get; set; }
     }
     [Table(name: "BusinessInfo")]
@@ -25,8 +26,10 @@ namespace business_manager_api
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
         public AddressData Address { get; set; }
+        [Display(Name = "Phone number")]
         public string Phone { get; set; }
-       
+
+        [Display(Name = "Professional Email")]
         public string EmailBusiness { get; set; }
         public string UrlSite { get; set; }
         public string UrlInstagram { get; set; }
@@ -47,6 +50,7 @@ namespace business_manager_api
         public string Type { get; set; }
         public string Name { get; set; }
         public string TVA { get; set; }
+        [Display(Name = "Professional Email")]
         public string EmailPro { get; set; }
         public string Description { get; set; }
         public string LogoPath { get; set; }
@@ -89,7 +93,7 @@ namespace business_manager_api
     // Fluent Validation for my BusinessDataModel
     public class IdentificationDataValidator : AbstractValidator<IdentificationData>
     {
-        private readonly Regex regex = new Regex(@"[^A-Za-z0-9@-_]");
+        private readonly Regex _regex = new Regex(@"[^A-Za-z0-9@-_]");
         //private readonly string matchError = "Cannot contain any special characters";
         public IdentificationDataValidator()
         {

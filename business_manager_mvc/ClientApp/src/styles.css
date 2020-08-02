@@ -56,6 +56,16 @@ code {
   border: solid 1px lightgreen;
   background-color: #ccffcc
 }
+.btn-primary {
+  color: black;
+  border: solid 1px lightgreen;
+  background-color: #ccffcc
+}
+.btn-secondary {
+  color: black;
+  border: solid 1px lightblue;
+  background-color: #87ccff
+}
 
 .toast-container {
   top: 0;

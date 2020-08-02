@@ -9,7 +9,6 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
-import { UserAccountCreateComponent } from './user-account-create/user-account-create.component';
 import { BusinessCreateComponent } from './business-create/business-create.component';
 import { BusinessManagerService } from './services/business-manager-svc';
 import { ToastrModule } from 'ngx-toastr';  
@@ -21,9 +20,11 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { TokenInterceptor } from './services/token-interceptor';
 import { AuthService } from './services/auth-service';
+import { RouterService } from './services/router-service';
 import { LoginComponent } from './login/login.component';
 import { BusinessDetailComponent } from './business-detail/business-detail.component';
 import { MatFormFieldModule, MatInputModule, MatSelectModule, MatOptionModule, MAT_FORM_FIELD_DEFAULT_OPTIONS, MatSortModule } from '@angular/material';
+import { UserAccountCreateComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,7 @@ import { MatFormFieldModule, MatInputModule, MatSelectModule, MatOptionModule, M
         BusinessListComponent,
         BusinessDetailComponent,
         BusinessOverviewComponent,
-        LoginComponent,
+        LoginComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -47,7 +48,7 @@ import { MatFormFieldModule, MatInputModule, MatSelectModule, MatOptionModule, M
       { path: '', component: HomeComponent, pathMatch: 'full' },
         { path: 'counter', component: CounterComponent },
         { path: 'fetch-data', component: FetchDataComponent },
-        { path: 'user-account-create', component: UserAccountCreateComponent },
+        { path: 'register', component: UserAccountCreateComponent },
       { path: 'business-create', component: BusinessCreateComponent },
       { path: 'business-overview', component: BusinessOverviewComponent },
         { path: 'business-detail/:businessId', component: BusinessDetailComponent },
@@ -76,7 +77,8 @@ import { MatFormFieldModule, MatInputModule, MatSelectModule, MatOptionModule, M
         { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
         BusinessManagerService,
         AlertService,
-        AuthService
+        AuthService,
+        RouterService
     ],
   bootstrap: [AppComponent]
 })

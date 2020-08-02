@@ -6,7 +6,7 @@
 
     <ng-container matColumnDef="logo">
       <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let business" class="clickable" (click)="businessManagerService.openBusiness(business.id)">
+      <td mat-cell *matCellDef="let business" class="clickable" (click)="this.openBusiness(business.id)">
         <img src="{{(!business.identification || !business.identification.logoPath) ? '/images/logo_business_default.jpeg' : this.imagesUrl + business.identification.logoPath}}" alt="nope" width="125" height="80">
       </td>
     </ng-container>

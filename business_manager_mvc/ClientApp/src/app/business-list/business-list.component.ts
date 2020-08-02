@@ -6,6 +6,7 @@ import { BusinessDataModel } from '../../Model/business';
 import { BusinessManagerService } from '../services/business-manager-svc';
 import { AlertService } from '../services/alert-service';
 import { environment } from '../../environments/environment';
+import { RouterService } from '../services/router-service';
 
 
 @Component({
@@ -40,5 +41,8 @@ export class BusinessListComponent implements OnInit {
         }, error => {
             this.alertService.error("Error loading bussinesses", error.message);
         });
+    }
+    public static openBusiness(businessId: number) {
+        RouterService.OpenBusiness(businessId);
     }
 }

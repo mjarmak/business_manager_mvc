@@ -10,6 +10,8 @@
 
     <!-- Set this to true if you enable server-side prerendering -->
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
+    
+    <TypeScriptExperimentalDecorators>true</TypeScriptExperimentalDecorators>
   </PropertyGroup>
 
   <ItemGroup>
@@ -36,12 +38,14 @@
     <None Remove="ClientApp\src\app\services\alert-service.ts" />
     <None Remove="ClientApp\src\app\services\auth-service.ts" />
     <None Remove="ClientApp\src\app\services\business-manager-svc.ts" />
+    <None Remove="ClientApp\src\app\services\router-service.ts" />
     <None Remove="ClientApp\src\app\services\token-interceptor.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\services\alert-service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\auth-service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\router-service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\business-manager-svc.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\token-interceptor.ts" />
   </ItemGroup>

@@ -5,7 +5,9 @@
 export const environment = {
     production: false,
     business_manager_api_url: "https://localhost:44345",
-    authentication_api_url: "https://localhost:44321"
+    authentication_api_url: "https://localhost:44321",
+    client_id: "client_id",
+    client_secret: "client_secret"
 };
 
 /*

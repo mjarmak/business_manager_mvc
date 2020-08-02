@@ -33,30 +33,30 @@ namespace authentication_api.Controllers
             _interactionService = interactionService;
         }
 
-        [Route("login")]
-        [HttpPost]
-        public async Task<ActionResult> Login(LoginInfo loginInfo)
-        {
-            var result = await _signInManager.PasswordSignInAsync(loginInfo.Username, loginInfo.Password, false, false);
-            if (!result.Succeeded)
-            {
-                return BadRequest(new
-                {
-                    data = result.ToString()
-                });
-            }
-            return Ok(new
-            {
-                data = result.ToString()
-            });
-        }
+        //[Route("login")]
+        //[HttpPost]
+        //public async Task<ActionResult> Login(LoginInfo loginInfo)
+        //{
+        //    var result = await _signInManager.PasswordSignInAsync(loginInfo.Username, loginInfo.Password, false, false);
+        //    if (!result.Succeeded)
+        //    {
+        //        return BadRequest(new
+        //        {
+        //            data = result.ToString()
+        //        });
+        //    }
+        //    return Ok(new
+        //    {
+        //        data = result.ToString()
+        //    });
+        //}
 
-        [Route("logout")]
-        [HttpGet]
-        public async Task<ActionResult> Logout(string logoutId)
-        {
-            return Ok();
-        }
+        //[Route("logout")]
+        //[HttpGet]
+        //public async Task<ActionResult> Logout(string logoutId)
+        //{
+        //    return Ok();
+        //}
 
         [Route("register")]
         [HttpPost]

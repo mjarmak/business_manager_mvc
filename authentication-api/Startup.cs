@@ -23,6 +23,7 @@ namespace authentication_api
                 {
                     config.Authority = "https://localhost:44321/";
                     config.Audience = "auth";
+                    config.Audience = "bm";
                     //config.RequireHttpsMetadata = false;
                 });
 

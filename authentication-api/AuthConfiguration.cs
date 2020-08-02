@@ -22,7 +22,8 @@ namespace business_manager_api
                         JwtClaimTypes.PhoneNumber,
                         "State",
                         JwtClaimTypes.BirthDate,
-                        "Professional"
+                        "Professional",
+                        JwtClaimTypes.Role
                     }
                 }
             };
@@ -30,7 +31,7 @@ namespace business_manager_api
         public static IEnumerable<ApiResource> GetApis()
         {
             return new List<ApiResource> {
-                new ApiResource("bm", new[] { JwtClaimTypes.Role }),
+                new ApiResource("bm", new[] { JwtClaimTypes.Role } ),
                 new ApiResource("auth", new[] { JwtClaimTypes.Role })
             };
         }

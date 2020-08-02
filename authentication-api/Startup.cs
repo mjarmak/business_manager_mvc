@@ -22,6 +22,7 @@ namespace authentication_api
                 .AddJwtBearer("Bearer", config =>
                 {
                     config.Authority = "https://localhost:44321/";
+                    config.Audience = "auth";
                     config.Audience = "bm";
                     //config.RequireHttpsMetadata = false;
                 });
@@ -44,6 +45,7 @@ namespace authentication_api
             services.AddIdentityServer()
                 .AddAspNetIdentity<IdentityUser>()
                 .AddInMemoryApiResources(AuthConfiguration.GetApis())
+                .AddInMemoryIdentityResources(AuthConfiguration.GetIdentityResources())
                 .AddInMemoryClients(AuthConfiguration.GetClients())
                 .AddDeveloperSigningCredential();
 

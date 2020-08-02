@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { AlertService } from './alert-service';
 import { BusinessManagerService } from './business-manager-svc';
+import { RouterService } from './router-service';
 
 export class TokenInterceptor implements HttpInterceptor {
 
@@ -11,18 +12,20 @@ export class TokenInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-        request = request.clone({
-            setHeaders: {
-                Authorization: `Bearer ${this.auth.getToken()}`
-            }
-        });
+        if (!request.headers.has("Authorization")) {
+            request = request.clone({
+                setHeaders: {
+                    Authorization: `Bearer ${this.auth.getToken()}`
+                }
+            });
+        }
 
         return next.handle(request).pipe(tap(
             (event: HttpEvent<any>) => console.log(event instanceof HttpResponse ? 'dope' : 'not dope'),
             (error: HttpErrorResponse) => {
                 if (error.status === 401) {
                     this.alertSerice.warning("Login expired", "Please login again");
-                    this.businessManagerService.openLoginPage();
+                    RouterService.openLoginPage();
                 } else if (error.status === 500) {
                     this.alertSerice.error(error.statusText, error.message);
                 }

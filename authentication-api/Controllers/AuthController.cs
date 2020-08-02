@@ -29,66 +29,107 @@ namespace authentication_api.Controllers
             _interactionService = interactionService;
         }
 
-        [Route("login")]
+        //[Route("login")]
+        //[HttpPost]
+        //public async Task<ActionResult> Login(LoginInfo loginInfo)
+        //{
+        //    var result = await _signInManager.PasswordSignInAsync(loginInfo.Username, loginInfo.Password, false, false);
+        //    if (!result.Succeeded)
+        //    {
+        //        return BadRequest(new
+        //        {
+        //            data = result.ToString()
+        //        });
+        //    }
+        //    return Ok(new
+        //    {
+        //        data = result.ToString()
+        //    });
+        //}
+
+        //[Route("logout")]
+        //[HttpGet]
+        //public async Task<ActionResult> Logout(string logoutId)
+        //{
+        //    return Ok();
+        //}
+
+        [Route("register")]
         [HttpPost]
-        public async Task<ActionResult> Login(LoginInfo loginInfo)
+        public async Task<ActionResult> Register(UserAccountModel userAccountModel)
         {
-            var result = await _signInManager.PasswordSignInAsync(loginInfo.Username, loginInfo.Password, false, false);
+            var user = new IdentityUser(userAccountModel.Email);
+            var result = await _userManager.CreateAsync(user, userAccountModel.Password);
+
             if (!result.Succeeded)
             {
                 return BadRequest(new
                 {
-                    data = result.ToString()
+                    data = result.Errors.ToList()[0].Description
                 });
             }
+            await _userManager.AddToRoleAsync(user, "REVIEWING");
+            if (userAccountModel.Email != null)
+            {
+                await _userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.Email, userAccountModel.Email));
+            }
+            if (userAccountModel.Name != null)
+            {
+                await _userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.Name, userAccountModel.Name));
+            }
+            if (userAccountModel.Surname != null)
+            {
+                    await _userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.FamilyName, userAccountModel.Surname));
+            }
+            if (userAccountModel.Gender != null)
+            {
+                    await _userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.Gender, userAccountModel.Gender));
+            }
+            if (userAccountModel.Phone != null)
+            {
+                    await _userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.PhoneNumber, userAccountModel.Phone));
+            }
+            if (userAccountModel.State != null) 
+            {
+                    await _userManager.AddClaimAsync(user, new Claim("State", userAccountModel.State));
+            }
+            if (userAccountModel.BirthDate != null)
+            {
+                    await _userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.BirthDate, userAccountModel.BirthDate.ToString()));
+            }
+            await _userManager.AddClaimAsync(user, new Claim( "Professional" , userAccountModel.Profession ? "1" : "0"));
+
             return Ok(new
             {
                 data = result.ToString()
             });
         }
 
-        [Route("logout")]
+
+        [Route("roles")]
         [HttpGet]
-        public async Task<ActionResult> Logout(string logoutId)
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "ADMIN")]
+        public ActionResult<IEnumerable<IdentityUser>> GetAllRoles()
         {
-            return Ok();
-        }
-
-        [Route("register")]
-        [HttpPost]
-        public async Task<ActionResult> Register(LoginInfo loginInfo)
-        {
-            var user = new IdentityUser(loginInfo.Username);
-            var result = await _userManager.CreateAsync(user, loginInfo.Password);
-
-            if (!result.Succeeded)
-            {
-                return BadRequest(new
-                {
-                    data = result.Errors
-                });
-            }
-            var result2 = await _userManager.AddToRoleAsync(user, "REVIEWING");
-            //await _userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.Role, "REVIEW"));
             return Ok(new
             {
-                data = result.ToString()
+                data = _roleManager.Roles.ToList().Select(role => role.Name).ToList(),
             });
         }
 
         [Route("user")]
         [HttpGet]
-        [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme)]
-        public async Task<ActionResult<IEnumerable<IdentityUser>>> GetAllUsers(string role)
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "ADMIN")]
+        public ActionResult<IEnumerable<IdentityUser>> GetAllUsers(string role)
         {
             return Ok(new
             {
-                data = _userManager.GetUsersInRoleAsync(role)
+                data = _userManager.GetUsersInRoleAsync(role).Result
             });
         }
         [Route("user/username")]
         [HttpGet]
-        [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme)]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "ADMIN")]
         public async Task<ActionResult> GetUsersByUserName(string username)
         {
             var user = await _userManager.FindByNameAsync(username);
@@ -107,8 +148,7 @@ namespace authentication_api.Controllers
 
         [Route("user/validate")]
         [HttpGet]
-        [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme)]
-        [Authorize(Roles = "ADMIN", AuthenticationSchemes = "Bearer")]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "ADMIN")]
         public async Task<ActionResult> ValidateUser(string username)
         {
             var user = await _userManager.FindByNameAsync(username);
@@ -126,7 +166,7 @@ namespace authentication_api.Controllers
             {
                 return BadRequest(new
                 {
-                    data = result.Errors
+                    data = result.Errors.ToList()[0].Description
                 });
             }
             return Ok(new
@@ -136,8 +176,7 @@ namespace authentication_api.Controllers
         }
         [Route("user/block")]
         [HttpGet]
-        [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme)]
-        [Authorize(Roles = "ADMIN")]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "ADMIN")]
         public async Task<ActionResult> BlockUser(string userName)
         {
             var user = await _userManager.FindByNameAsync(userName);
@@ -155,7 +194,7 @@ namespace authentication_api.Controllers
             {
                 return BadRequest(new
                 {
-                    data = result.Errors
+                    data = result.Errors.ToList()[0].Description
                 });
             }
             return Ok(new

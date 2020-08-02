@@ -29,15 +29,15 @@
   <input id="phone" type="text" [(ngModel)]="this.user.phone">
 
   <label for="gender">Gender:</label>
-  <mat-form-field *ngIf="this.businessManagerService.userGenders" appearance="fill">
+  <mat-form-field *ngIf="this.userGenders" appearance="fill">
     <mat-label>Select Gender</mat-label>
     <mat-select>
-      <mat-option *ngFor="let gender of this.businessManagerService.userGenders" [value]="gender" (click)="this.setUserGender(gender)">
-        {{gender.charAt(0).toUpperCase() + gender.slice(1).toLowerCase()}}
+      <mat-option *ngFor="let gender of this.userGenders" [value]="gender" (click)="this.setUserGender(gender)">
+        {{gender}}
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <p *ngIf="!this.businessManagerService.userGenders">Unavailable</p>
+  <p *ngIf="!this.userGenders">Unavailable</p>
 
   <label for="birthday">Birthday:</label>
   <input id="birthday" type="date" [(ngModel)]="this.user.birthday">

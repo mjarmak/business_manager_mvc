@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { AlertService } from '../services/alert-service';
 import { AuthService } from '../services/auth-service';
 import { BusinessManagerService } from '../services/business-manager-svc';
+import { RouterService } from '../services/router-service';
 
 @Component({
     selector: 'app-login',
@@ -15,21 +16,53 @@ export class LoginComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    constructor(private alertSerice: AlertService, private authService: AuthService, private businessManagerService: BusinessManagerService) {
+    constructor(private alertService: AlertService, private authService: AuthService, private businessManagerService: BusinessManagerService) {
     }
 
     public onClickLogin() {
-        this.authService.Connect(this.username, this.password).subscribe(
+        this.authService.Login(this.username, this.password).subscribe(
             result => {
                 console.log(result.access_token);
                 if (result.access_token) {
-                    this.authService.setToken(result.access_token, this.username);
-                    this.businessManagerService.openHomePage();
+                    this.authService.setToken(result.access_token);
+
+                    this.RefreshUserInfo(this.username, this.password);
                 }
             },
             error => {
-                this.alertSerice.warning("Login Failed", "Please enter the correct username and password");
+                this.alertService.warning("Login Failed", "Please enter the correct username and password");
             }
         );
+    }
+
+    public OpenRegisterPage() {
+        window.open("/register", "_self");
+    }
+
+
+    public RefreshUserInfo(username: string, password: string) {
+        this.authService.GetToken(username, password, "openid", "password").subscribe(result => {
+
+            let headers = { "Authorization": "Bearer " + result.access_token }
+            this.authService.GetUserInfo(result.access_token)
+                .subscribe(userInfo => {
+                    if (userInfo.role === "BLOCKED") {
+                        this.alertService.warning("Access Denied", "This user is blocked");
+                        this.authService.clearToken();
+                        this.username = "";
+                        this.password = "";
+                    } else {
+                        this.authService.setUserinfo(userInfo);
+                        RouterService.OpenHomePage();
+                    }
+                }, error => {
+                        this.authService.clearToken();
+                        this.alertService.error("Error fetching user info", error.message);
+                });
+
+        }, error => {
+            this.authService.clearToken();
+            this.alertService.error("Error fetching user token", error.message);
+        });
     }
 }

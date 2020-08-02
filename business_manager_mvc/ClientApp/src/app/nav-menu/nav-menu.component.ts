@@ -9,9 +9,11 @@ import { RouterService } from "../services/router-service";
 })
 export class NavMenuComponent {
 
-  isExpanded = false;
+    isExpanded = false;
+    role: string;
 
     constructor(private authService: AuthService) {
+        this.role = localStorage.getItem("userrole");
     }
 
   collapse() {
@@ -23,9 +25,7 @@ export class NavMenuComponent {
     }
 
     Logout() {
-        this.authService.clearToken();
         this.authService.clearUserInfo();
-        this.authService.clearRole();
         this.OpenLoginPage();
     }
 

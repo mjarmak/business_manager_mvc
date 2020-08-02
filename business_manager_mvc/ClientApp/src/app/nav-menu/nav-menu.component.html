@@ -39,6 +39,11 @@
             <a class="nav-link text-dark" [routerLink]="['/business-overview']">Business Overview</a>
           </li>
 
+
+          <li *ngIf="this.role.includes('ADMIN')" class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/user-overview']">User Overview</a>
+          </li>
+
           <li class="nav-item clickable">
             <a class="nav-link text-dark" (click)="this.OpenLoginPage()">Login</a>
           </li>

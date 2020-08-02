@@ -60,6 +60,7 @@ namespace business_manager_api.Controllers
         }
 
         [HttpGet("search")]
+        //[Authorize(Roles = "ADMIN,USER")]
         public async Task<ActionResult<IEnumerable<BusinessDataModel>>> SearchBusinesses([FromQuery] string type, [FromQuery] string country, [FromQuery] string city, [FromQuery] bool openNow)
         {
             var set = _context.BusinessDataModel

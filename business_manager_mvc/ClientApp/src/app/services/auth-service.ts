@@ -22,10 +22,8 @@ export class AuthService {
     public getToken(): string {
         return localStorage.getItem('token');
     }
-    public clearToken(): void {
-        localStorage.removeItem('token');
-    }
     public clearUserInfo(): void {
+        localStorage.removeItem('token');
         localStorage.removeItem('username');
         localStorage.removeItem('useremail');
         localStorage.removeItem('userrole');
@@ -49,13 +47,6 @@ export class AuthService {
 
     public setToken(token: string) {
         localStorage.setItem('token', token);
-    }
-
-    public setRole(role: string) {
-        localStorage.setItem('role', role);
-    }
-    public clearRole() {
-        localStorage.removeItem('role');
     }
 
     public Connect(username: string, password: string): Observable<TokenEnvelope> {

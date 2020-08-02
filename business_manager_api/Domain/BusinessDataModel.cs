@@ -14,8 +14,7 @@ namespace business_manager_api
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
-        //[ForeignKey("Identification")]
-        //public long IdentificationId { get; set; }
+        public bool Active { get; set; }
         public IdentificationData Identification { get; set; }
         public BusinessInfoData BusinessInfo { get; set; }
         public List<WorkHoursData> WorkHours { get; set; }

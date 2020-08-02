@@ -12,31 +12,51 @@ namespace authentication_api
         public static void Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
-            using (var scope = host.Services.CreateScope())
-            {
-                var userManager = scope.ServiceProvider
-                    .GetRequiredService<UserManager<IdentityUser>>();
-                var roleManager = scope.ServiceProvider
-                    .GetRequiredService<RoleManager<IdentityRole>>();
+            var scope = host.Services.CreateScope();
 
-                roleManager.CreateAsync(new IdentityRole { Name = "ADMIN" }).GetAwaiter().GetResult();
-                roleManager.CreateAsync(new IdentityRole { Name = "USER" }).GetAwaiter().GetResult();
-                roleManager.CreateAsync(new IdentityRole { Name = "REVIEWING" }).GetAwaiter().GetResult();
-                roleManager.CreateAsync(new IdentityRole { Name = "BLOCKED" }).GetAwaiter().GetResult();
+            var roleManager = scope.ServiceProvider
+                .GetRequiredService<RoleManager<IdentityRole>>();
 
-                var user = new IdentityUser("admin");
-                userManager.CreateAsync(user, "password").GetAwaiter().GetResult();
-                userManager.AddToRoleAsync(user, "ADMIN");
-                userManager.AddToRoleAsync(user, "USER");
-                userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.Email, "admin@businessmanager.com"));
-                userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.Name, "admin"));
-                userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.FamilyName, "admin"));
-                userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.Gender, "OTHER"));
-                userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.PhoneNumber, "+32466550935"));
-                userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.BirthDate, "10/07/2020 17:02:31"));
-                userManager.AddClaimAsync(user, new Claim("Professional", "0"));
-            }
+            roleManager.CreateAsync(new IdentityRole { Name = "ADMIN" }).GetAwaiter().GetResult();
+            roleManager.CreateAsync(new IdentityRole { Name = "USER" }).GetAwaiter().GetResult();
+            roleManager.CreateAsync(new IdentityRole { Name = "REVIEWING" }).GetAwaiter().GetResult();
+            roleManager.CreateAsync(new IdentityRole { Name = "BLOCKED" }).GetAwaiter().GetResult();
+
+            AddUser(host, "admin@businessmanager.com", "ADMIN", "admin", "admin", "OTHER", "+32466550935",
+                    "10/07/2020 17:02:31", "0");
+
+            AddUser(host, "mohamadjarmak@gmail.com", "USER", "Mohamad", "Jarmak", "MALE", "+32466550935",
+                "10/07/2020 17:02:31", "1");
+
+            AddUser(host, "bigi_admin@businessmanager.com", "ADMIN", "Francesco", "Bigi", "MALE", "+32466550935",
+                "10/07/2020 17:02:31", "0");
+
+            AddUser(host, "newbreaker@gmail.com", "REVIEWING", "Francesco", "Bigi", "MALE", "+32466550935",
+                "10/07/2020 17:02:31", "0");
+
+            AddUser(host, "blocked@gmail.com", "BLOCKED", "Pluto", "Pippo", "OTHER", "+32466550935",
+                "10/07/2020 17:02:31", "0");
+
             host.Run();
+        }
+
+        public static void AddUser(IHost host, string email, string role, string name, string familyName, string gender, string phoneNumber, string birthdate, string professional)
+        {
+            var scope = host.Services.CreateScope();
+
+            var userManager = scope.ServiceProvider
+                .GetRequiredService<UserManager<IdentityUser>>();
+
+            var user = new IdentityUser(email);
+            userManager.CreateAsync(user, "password").GetAwaiter().GetResult();
+            userManager.AddToRoleAsync(user, role);
+            userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.Email, email));
+            userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.Name, name));
+            userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.FamilyName, familyName));
+            userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.Gender, gender));
+            userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.PhoneNumber, phoneNumber));
+            userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.BirthDate, birthdate));
+            userManager.AddClaimAsync(user, new Claim("Professional", professional));
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

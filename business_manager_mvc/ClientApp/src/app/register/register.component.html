@@ -4,6 +4,10 @@
 
 <!--<p *ngIf="!forecasts"><em>Loading...</em></p>-->
 
+<div *ngIf="this.errors && this.errors.length != 0" class="card-error card-min-width-512 width-50">
+  <p *ngFor="let error of this.errors">- {{error}}</p>
+</div>
+
 <div class="card-input card-min-width-512 width-50">
 
   <label class="margin-top-none" for="email">Email Address:</label>
@@ -14,7 +18,7 @@
 
 
   <label for="password">Confirm Password:<a class="text-red" *ngIf="this.passwordDuplicate && this.passwordDuplicate !== this.user.password"> Passwords don't match</a></label>
-    
+
   <input [class.border-red]="this.passwordDuplicate && this.passwordDuplicate !== this.user.password" id="passwordDuplicate" type="password" [(ngModel)]="this.passwordDuplicate">
 
   <hr>
@@ -33,7 +37,7 @@
     <mat-label>Select Gender</mat-label>
     <mat-select>
       <mat-option *ngFor="let gender of this.userGenders" [value]="gender" (click)="this.setUserGender(gender)">
-        {{gender}}
+        {{gender.charAt(0).toUpperCase() + gender.slice(1).toLowerCase()}}
       </mat-option>
     </mat-select>
   </mat-form-field>

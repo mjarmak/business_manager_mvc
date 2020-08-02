@@ -8,6 +8,10 @@ namespace business_manager_api.Services
         //FORMAT VALIDATION
         public static bool IsValidPhoneNumber(string phoneNumber)
         {
+            if (phoneNumber == null)
+            {
+                return false;
+            }
             try
             {
                 //Création de l'intance PhoneNumberUtil

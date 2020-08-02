@@ -24,21 +24,20 @@ namespace authentication_api
     {
         private readonly Regex RegexName = new Regex("^[A-Za-z0-9]*$");
         private readonly Regex RegexEmail = new Regex("^[A-Za-z0-9@-_.]*$");
-        private readonly string matchError = "Cannot contain any special characters";
         public UserAccountValidator()
         {
             RuleFor(x => x.Name)
-                .Length(1, 50).NotNull().WithMessage("The Name field is empty.")
-                .Matches(RegexName).WithMessage(matchError);
+                .Length(1, 50).NotNull().WithMessage("The Name field cannot be empty.")
+                .Matches(RegexName).WithMessage("Name cannot contain any special characters");
 
             RuleFor(x => x.Surname)
-                .Length(0, 50).NotNull().WithMessage("The Surname field is empty.")
-                .Matches(RegexName).WithMessage(matchError);
+                .Length(0, 50).NotNull().WithMessage("Surname field cannot be empty.")
+                .Matches(RegexName).WithMessage("Surname cannot contain any special characters");
 
             RuleFor(x => x.Email)
-                .Length(0, 255).NotNull().WithMessage("The Email field is empty.")
-                .Matches(RegexEmail).WithMessage(matchError)
-                .EmailAddress().WithMessage("A valid email is required");
+                .Length(0, 255).NotNull().WithMessage("Email field cannot be empty.")
+                .Matches(RegexEmail).WithMessage("Email cannot contain any special characters")
+                .EmailAddress().WithMessage("A valid Email is required");
 
             RuleFor(x => x.Password)
                 .Length(0, 255).NotNull().WithMessage("The Password field is empty.")

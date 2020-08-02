@@ -44,6 +44,21 @@ code {
 .margin-top-none {
   margin-top: 0 !important;
 }
+.margin-top-medium {
+  margin-top: 1rem;
+}
+.margin-bottom-medium {
+  margin-bottom: 1rem !important;
+}
+.margin-bottom-large {
+  margin-bottom: 2rem !important;
+}
+.margin-none {
+  margin: 0 !important;
+}
+.margin-right-small {
+  margin-right: 0.5rem;
+}
 .margin-right-medium {
   margin-right: 1rem;
 }
@@ -90,6 +105,18 @@ code {
   display: grid;
   margin-bottom: 1rem;
 }
+.card-error {
+  margin-top: 1rem;
+  padding: 1rem;
+  outline: solid thin;
+  outline-color: red;
+  display: grid;
+  margin-bottom: 1rem;
+  background-color: lightcoral
+}
+.card-error > p {
+  margin: 0;
+}
 
 .center-horizontal {
   margin-left: auto;
@@ -125,6 +152,12 @@ hr {
 }
 .width-50 {
   width: 50%;
+}
+.width-large {
+  width: 2rem;
+}
+.width-huge {
+  width: 4rem;
 }
 .card-row {
   display: flex;

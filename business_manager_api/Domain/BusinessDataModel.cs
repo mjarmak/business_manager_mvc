@@ -107,12 +107,11 @@ namespace business_manager_api.Domain
     {
         private readonly Regex RegexName = new Regex("^[A-Za-z0-9]*$");
         private readonly Regex RegexEmail = new Regex("^[A-Za-z0-9@-_.]*$");
-        private readonly string matchError = "Cannot contain any special characters";
         public BusinessInfoValidator()
         {
             RuleFor(s => s.EmailBusiness)
-                .Length(0, 255).NotNull().WithMessage("The Email field is empty.")
-                .Matches(RegexEmail).WithMessage(matchError)
+                .Length(0, 255).NotNull().WithMessage("The Email field cannot be empty.")
+                .Matches(RegexEmail).WithMessage("Email cannot contain any special characters")
                 .EmailAddress().WithMessage("A valid email is required");
 
             RuleFor(x => x.Phone)

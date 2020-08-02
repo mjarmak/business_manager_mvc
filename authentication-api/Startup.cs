@@ -34,7 +34,7 @@ namespace authentication_api
             // AddIdentity registers the services
             services.AddIdentity<IdentityUser, IdentityRole>(config =>
             {
-                config.Password.RequiredLength = 4;
+                config.Password.RequiredLength = 6;
                 config.Password.RequireDigit = false;
                 config.Password.RequireNonAlphanumeric = false;
                 config.Password.RequireUppercase = false;

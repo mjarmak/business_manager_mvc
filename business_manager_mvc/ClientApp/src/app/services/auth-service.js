@@ -21,12 +21,13 @@ var AuthService = /** @class */ (function () {
         localStorage.removeItem('token');
         localStorage.removeItem('username');
         localStorage.removeItem('useremail');
-        localStorage.removeItem('userrole');
+        localStorage.setItem('userrole', "NONE");
     };
     AuthService.prototype.getUsername = function () {
         return localStorage.getItem('username');
     };
     AuthService.prototype.setUserinfo = function (userinfo) {
+        console.log(userinfo);
         if (userinfo.name) {
             localStorage.setItem('username', userinfo.name);
         }
@@ -77,11 +78,7 @@ var AuthService = /** @class */ (function () {
         return this.http.get(this.url + '/connect/userinfo', { headers: headers });
     };
     AuthService.prototype.isAuthenticated = function () {
-        // get the token
-        var token = this.getToken();
-        // return a boolean reflecting 
-        // whether or not the token is expired
-        return true;
+        return this.getToken() != undefined;
     };
     AuthService = __decorate([
         core_1.Injectable({

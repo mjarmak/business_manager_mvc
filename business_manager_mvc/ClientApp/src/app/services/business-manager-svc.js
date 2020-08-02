@@ -58,6 +58,22 @@ var BusinessManagerService = /** @class */ (function () {
             });
         }
     };
+    BusinessManagerService.prototype.getDays = function () {
+        console.log('CALL TO ' + this.url + '/business/days');
+        return this.http.get(this.url + '/business/days');
+    };
+    BusinessManagerService.prototype.refreshDays = function () {
+        var _this = this;
+        if (this.days === undefined) {
+            this.days = [];
+            this.getDays().subscribe(function (result) {
+                _this.days = result.data;
+            }, function (error) {
+                _this.days = undefined;
+                _this.alertService.error("Error loading days", error.message);
+            });
+        }
+    };
     BusinessManagerService.prototype.uploadLogo = function (logo, businessId) {
         if (logo === undefined) {
             return null;

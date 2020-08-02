@@ -47,6 +47,21 @@ namespace business_manager_api.Controllers
             });
         }
 
+        [HttpGet("days")]
+        public ActionResult GetDays()
+        {
+            List<string> days = new List<string>();
+            foreach (WorkHoursDayEnum day in Enum.GetValues(typeof(WorkHoursDayEnum)))
+            {
+                days.Add(day.ToString());
+            }
+            return Ok(new
+            {
+                //status = response.StatusCode,
+                data = days
+            });
+        }
+
         /// <summary>
         /// List of the businesses created
         /// </summary>
@@ -159,7 +174,7 @@ namespace business_manager_api.Controllers
             {
                 return NotFound(new
                 {
-                    data = "Business with ID " + id + " does not exist."
+                    data = new List<string> { "Business with ID " + id + " does not exist." }
                 });
             }
 
@@ -167,7 +182,7 @@ namespace business_manager_api.Controllers
             {
                 return NotFound(new
                 {
-                    data = "Business with ID " + id + " does not exist."
+                    data = new List<string> { "Business with ID " + id + " does not exist." }
                 });
             }
 
@@ -222,7 +237,10 @@ namespace business_manager_api.Controllers
             }
             catch (ArgumentException e)
             {
-                return BadRequest("Invalid paramaters, " + e.Message);
+                return BadRequest(new
+                {
+                    data = new List<string> { "Invalid paramaters, " + e.Message + "." }
+                });
             }
             var errors = ValidateBusiness(businessDataModel);
             if (errors.Any())
@@ -572,7 +590,7 @@ namespace business_manager_api.Controllers
         }
         private List<string> ErrorsToStrings(IList<ValidationFailure> validationFailures)
         {
-            return validationFailures?.Select(ValidationFailure => ValidationFailure.PropertyName + " " + ValidationFailure.ErrorMessage).ToList();
+            return validationFailures?.Select(ValidationFailure => ValidationFailure.ErrorMessage).ToList();
         }
         private string GetClaim(string name)
         {
@@ -583,8 +601,14 @@ namespace business_manager_api.Controllers
                 return null;
             }
 
-            JwtSecurityToken accessToken = tokenHandler.ReadToken(accessTokenString.Replace("Bearer ", "")) as JwtSecurityToken;
-            return accessToken.Claims.Single(claim => claim.Type == name).Value;
+            try
+            {
+                JwtSecurityToken accessToken = tokenHandler.ReadToken(accessTokenString.Replace("Bearer ", "")) as JwtSecurityToken;
+                return accessToken.Claims.Single(claim => claim.Type == name).Value;
+            } catch (ArgumentException e)
+            {
+                return null;
+            }
         }
     }
 }

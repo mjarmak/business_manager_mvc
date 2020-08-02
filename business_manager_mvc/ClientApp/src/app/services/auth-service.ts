@@ -26,7 +26,7 @@ export class AuthService {
         localStorage.removeItem('token');
         localStorage.removeItem('username');
         localStorage.removeItem('useremail');
-        localStorage.removeItem('userrole');
+        localStorage.setItem('userrole', "NONE");
     }
 
     public getUsername(): string {
@@ -34,6 +34,7 @@ export class AuthService {
     }
 
     public setUserinfo(userinfo: UserInfo) {
+        console.log(userinfo);
         if (userinfo.name) {
             localStorage.setItem('username', userinfo.name);
         }
@@ -90,10 +91,6 @@ export class AuthService {
     }
 
     public isAuthenticated(): boolean {
-        // get the token
-        const token = this.getToken();
-        // return a boolean reflecting 
-        // whether or not the token is expired
-        return true;
+        return this.getToken() != undefined;
     }
 }

@@ -44,7 +44,10 @@ namespace authentication_api.Controllers
             }
             catch (ArgumentException e)
             {
-                return BadRequest("Invalid paramaters, " + e.Message);
+                return BadRequest(new
+                {
+                    data = new List<string> { "Invalid paramaters, " + e.Message }
+                });
             }
             var errors = ValidateUser(userAccountDataModel);
             if (errors.Count() > 0)
@@ -262,7 +265,7 @@ namespace authentication_api.Controllers
         }
         private List<string> ErrorsToStrings(IList<ValidationFailure> validationFailures)
         {
-            return validationFailures?.Select(ValidationFailure => ValidationFailure.PropertyName + " " + ValidationFailure.ErrorMessage).ToList();
+            return validationFailures?.Select(ValidationFailure => ValidationFailure.ErrorMessage).ToList();
         }
     }
 }

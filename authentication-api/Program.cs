@@ -27,6 +27,14 @@ namespace authentication_api
                 var user = new IdentityUser("admin");
                 userManager.CreateAsync(user, "password").GetAwaiter().GetResult();
                 userManager.AddToRoleAsync(user, "ADMIN");
+                userManager.AddToRoleAsync(user, "USER");
+                userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.Email, "admin@businessmanager.com"));
+                userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.Name, "admin"));
+                userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.FamilyName, "admin"));
+                userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.Gender, "OTHER"));
+                userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.PhoneNumber, "+32466550935"));
+                userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.BirthDate, "10/07/2020 17:02:31"));
+                userManager.AddClaimAsync(user, new Claim("Professional", "0"));
             }
             host.Run();
         }

@@ -13,9 +13,9 @@ export class BusinessOverviewComponent implements OnInit, OnDestroy {
     type: string;
     city: string;
     country: string;
-    openNow: string;
+    openNow: boolean;
     role: string;
-    onlyDisabled: string
+    onlyDisabled: boolean
 
     interval: any;
 

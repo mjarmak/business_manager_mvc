@@ -18,6 +18,7 @@ namespace business_manager_api
                     {
                         JwtClaimTypes.Name,
                         JwtClaimTypes.FamilyName,
+                        JwtClaimTypes.Email,
                         JwtClaimTypes.Gender,
                         JwtClaimTypes.PhoneNumber,
                         "State",

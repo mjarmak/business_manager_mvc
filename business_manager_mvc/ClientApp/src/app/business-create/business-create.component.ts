@@ -1,7 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { BusinessDataModel } from '../../Model/business';
+import { BusinessDataModel, WorkHoursData } from '../../Model/business';
 import { BusinessManagerService } from '../services/business-manager-svc';
 import { AlertService } from '../services/alert-service';
+import { RouterService } from '../services/router-service';
 
 
 @Component({
@@ -22,7 +23,22 @@ export class BusinessCreateComponent implements OnInit {
 
     ngOnInit(): void {
         this.business = new BusinessDataModel();
+        this.business.workHours = [
+            new WorkHoursData("MONDAY", 9, 19, 0, 0, false),
+            new WorkHoursData("TUESDAY", 9, 19, 0, 0, false),
+            new WorkHoursData("WEDNESDAY", 9, 19, 0, 0, false),
+            new WorkHoursData("THURSDAY", 9, 19, 0, 0, false),
+            new WorkHoursData("FRIDAY", 9, 19, 0, 0, false),
+            new WorkHoursData("SATURDAY", 9, 19, 0, 0, true),
+            new WorkHoursData("SUNDAY", 9, 19, 0, 0, true)
+        ]
+
         this.businessManagerService.refreshBusinessTypes();
+        this.businessManagerService.refreshDays();
+
+        if (localStorage.getItem("useremail")) {
+            this.business.identification.emailPro = localStorage.getItem("useremail");
+        }
     }
 
     public onClickSave() {
@@ -37,7 +53,7 @@ export class BusinessCreateComponent implements OnInit {
                     result => {
                     },
                     error => {
-                        this.errors.concat(error.data);
+                        this.errors.concat(error.error.data);
                         this.alertSerice.error("Error adding logo", error.message);
                     });
             }
@@ -49,13 +65,14 @@ export class BusinessCreateComponent implements OnInit {
                 result => {
                 },
                   error => {
-                      this.errors.concat(error.data);
+                      this.errors.concat(error.error.data);
                   this.alertSerice.error("Error adding image", error.message);
                 });
             });
-          }
+            }
+            RouterService.openBusiness(this.business.id);
         }, error => {
-            this.errors = error.data;
+            this.errors = error.error.data;
             this.alertSerice.error("Error creating business", error.message);
         });
 

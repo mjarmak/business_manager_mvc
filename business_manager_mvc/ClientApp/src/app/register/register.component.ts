@@ -12,7 +12,9 @@ export class UserAccountCreateComponent implements OnInit {
 
     public user: UserAccountModel;
     public passwordDuplicate: string;
-    public userGenders = [ "Male", "Female", "Other" ];
+    public userGenders = ["MALE", "FEMALE", "OTHER"];
+
+    public errors = []
 
     ngOnInit(): void {
         this.user = new UserAccountModel;
@@ -25,9 +27,12 @@ export class UserAccountCreateComponent implements OnInit {
         console.log('user is ' + this.user.email)
         this.authService.Register(this.user).subscribe(result => {
             this.user = result.data;
+            this.errors = [];
             RouterService.openHomePage();
         }, error => {
-                this.alertSerice.error("Error registering user", error.message);
+                console.log(error);
+                this.errors = error.error.data;
+                //this.alertSerice.error("Error registering user", error.message);
         });
     }
     public setUserGender(gender: string) {

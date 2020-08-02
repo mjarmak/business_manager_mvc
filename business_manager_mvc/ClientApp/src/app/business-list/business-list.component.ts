@@ -22,6 +22,7 @@ export class BusinessListComponent implements OnInit {
     @Input() city: string;
     @Input() country: string;
     @Input() openNow: boolean;
+    @Input() onlyDisabled: boolean;
 
     public imagesUrl: string;
 
@@ -36,7 +37,7 @@ export class BusinessListComponent implements OnInit {
     }
 
     refresh() {
-        this.businessManagerService.searchBusinesses(this.country, this.city, this.openNow, this.type).subscribe(result => {
+        this.businessManagerService.searchBusinesses(this.country, this.city, this.openNow, this.type, this.onlyDisabled).subscribe(result => {
             this.dataSource.data = result.data;
         }, error => {
             this.alertService.error("Error loading bussinesses", error.message);

@@ -17,6 +17,8 @@ export class BusinessManagerService {
 
     public businessTypes: string[];
 
+    public days: string[];
+
     constructor(private http: HttpClient, private alertService: AlertService) {
         this.url = environment.business_manager_api_url;
     }
@@ -25,7 +27,7 @@ export class BusinessManagerService {
         console.log('CALL TO ' + this.url + '/business')
         return this.http.post<ResponseEnvelope>(this.url + '/business', businessModel)
     }
-    public searchBusinesses(country?: string, city?: string, openNow?: boolean, type?: string, onlyDisabled?: string): Observable<ResponseEnvelope> {
+    public searchBusinesses(country?: string, city?: string, openNow?: boolean, type?: string, onlyDisabled?: boolean): Observable<ResponseEnvelope> {
         let path = '/business/search?'
         if (country) {
             path = path + "&country=" + country
@@ -64,6 +66,23 @@ export class BusinessManagerService {
             }, error => {
                 this.businessTypes = undefined;
                 this.alertService.error("Error loading bussiness types", error.message);
+            });
+        }
+    }
+
+    public getDays(): Observable<ResponseEnvelope> {
+        console.log('CALL TO ' + this.url + '/business/days')
+        return this.http.get<ResponseEnvelope>(this.url + '/business/days');
+    }
+
+    public refreshDays(): void {
+        if (this.days === undefined) {
+            this.days = []
+            this.getDays().subscribe(result => {
+                this.days = result.data;
+            }, error => {
+                    this.days = undefined;
+                this.alertService.error("Error loading days", error.message);
             });
         }
     }

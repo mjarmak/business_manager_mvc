@@ -26,11 +26,11 @@
             <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
           </li>
 
-          <li class="nav-item" [routerLinkActive]="['link-active']">
+          <li *ngIf="!this.authService.isAuthenticated()" class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/register']">Register</a>
           </li>
 
-          <li class="nav-item" [routerLinkActive]="['link-active']">
+          <li *ngIf="this.authService.isAuthenticated()" class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/business-create']">Create Business </a>
 
           </li>
@@ -40,15 +40,15 @@
           </li>
 
 
-          <li *ngIf="this.role.includes('ADMIN')" class="nav-item" [routerLinkActive]="['link-active']">
+          <li *ngIf="this.role.includes('ADMIN') && this.authService.isAuthenticated()" class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/user-overview']">User Overview</a>
           </li>
 
-          <li class="nav-item clickable">
+          <li *ngIf="!this.authService.isAuthenticated()" class="nav-item clickable">
             <a class="nav-link text-dark" (click)="this.OpenLoginPage()">Login</a>
           </li>
 
-          <li class="nav-item clickable">
+          <li *ngIf="this.authService.isAuthenticated()" class="nav-item clickable">
             <a class="nav-link text-dark" (click)="this.Logout()">Logout</a>
           </li>
         </ul>

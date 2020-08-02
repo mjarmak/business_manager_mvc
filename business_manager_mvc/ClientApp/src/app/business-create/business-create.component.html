@@ -1,125 +1,162 @@
-<h1>Create Business</h1>
+<h3>Create Business</h3>
 
 <p>Please fill in all the required fields.</p>
 
 <!--<p *ngIf="!forecasts"><em>Loading...</em></p>-->
 
-<div class="card-input card-min-width-512 width-50">
 
-  <p *ngIf="this.business.id">{{this.business.id}}</p>
+<div class="card-min-width-512 width-full">
 
-  <label class="margin-top-none" for="name">Name:</label>
-  <input bis-input id="name" type="text" [(ngModel)]="this.business.identification.name">
+  <div class="card-row">
 
-  <label for="email">Business Email:</label>
-  <input bis-input id="emailBusiness" type="email" [(ngModel)]="this.business.businessInfo.emailBusiness">
+    <div class="card-column-50 height-fit-content margin-right-medium">
 
-  <label for="phone">Phone:</label>
-  <input bis-input id="phone" type="text" [(ngModel)]="this.business.businessInfo.phone">
+      <div class="card-error" *ngIf="this.errors && this.errors.length != 0">
+        <p *ngFor="let error of this.errors">- {{error}}</p>
+      </div>
 
-  <label for="emailBusiness">Professional Email:</label>
-  <input bis-input id="emailPro" type="email" [(ngModel)]="this.business.identification.emailPro">
+      <div class="card-input">
 
-  <label for="urlSite">Website Url:</label>
-  <input bis-input id="urlSite" type="url" [(ngModel)]="this.business.businessInfo.urlSite">
+        <p *ngIf="this.business.id">{{this.business.id}}</p>
 
-  <label for="urlInstagram">Instagram Url:</label>
-  <input bis-input id="urlInstagram" type="url" [(ngModel)]="this.business.businessInfo.urlInstagram">
+        <label class="margin-top-none" for="name">Name:</label>
+        <input bis-input id="name" type="text" [(ngModel)]="this.business.identification.name">
 
-  <label for="urlFaceBook">Facebook Url:</label>
-  <input bis-input id="urlFaceBook" type="url" [(ngModel)]="this.business.businessInfo.urlFaceBook">
+        <label for="email">Business Email:</label>
+        <input bis-input id="emailBusiness" type="email" [(ngModel)]="this.business.businessInfo.emailBusiness">
 
-  <label for="urlLinkedIn">Linkedin Url:</label>
-  <input bis-input id="urlLinkedIn" type="url" [(ngModel)]="this.business.businessInfo.urlLinkedIn">
+        <label for="phone">Phone:</label>
+        <input bis-input id="phone" type="text" [(ngModel)]="this.business.businessInfo.phone">
 
-  <label for="type">Type of Business:</label>
-  <mat-form-field *ngIf="this.businessManagerService.businessTypes" appearance="fill">
-    <mat-label>Type</mat-label>
-    <mat-select>
-      <mat-option *ngFor="let type of this.businessManagerService.businessTypes" [value]="type" (click)="this.setBusinessType(type)">
-        {{type.charAt(0).toUpperCase() + type.slice(1).toLowerCase()}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <p *ngIf="!this.businessManagerService.businessTypes">Unavailable</p>
+        <!--<label for="emailBusiness">Professional Email:</label>
+        <input bis-input id="emailPro" type="email" [(ngModel)]="this.business.identification.emailPro">-->
 
-  <label for="tva">TVA:</label>
-  <input bis-input id="tva" type="text" [(ngModel)]="this.business.identification.tva">
+        <label for="urlSite">Website Url:</label>
+        <input bis-input id="urlSite" type="url" [(ngModel)]="this.business.businessInfo.urlSite">
+
+        <label for="urlInstagram">Instagram Url:</label>
+        <input bis-input id="urlInstagram" type="url" [(ngModel)]="this.business.businessInfo.urlInstagram">
+
+        <label for="urlFaceBook">Facebook Url:</label>
+        <input bis-input id="urlFaceBook" type="url" [(ngModel)]="this.business.businessInfo.urlFaceBook">
+
+        <label for="urlLinkedIn">Linkedin Url:</label>
+        <input bis-input id="urlLinkedIn" type="url" [(ngModel)]="this.business.businessInfo.urlLinkedIn">
+
+        <label for="type">Type of Business:</label>
+        <mat-form-field *ngIf="this.businessManagerService.businessTypes" appearance="fill">
+          <mat-label>Type</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let type of this.businessManagerService.businessTypes" [value]="type" (click)="this.setBusinessType(type)">
+              {{type.charAt(0).toUpperCase() + type.slice(1).toLowerCase()}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <p *ngIf="!this.businessManagerService.businessTypes">Unavailable</p>
+
+        <label for="tva">TVA:</label>
+        <input bis-input id="tva" type="text" [(ngModel)]="this.business.identification.tva">
 
 
-  <div class="form-group">
-    <label for="exampleTextarea">Description:</label>
-    <textarea class="form-control" id="exampleTextarea description" [(ngModel)]="this.business.identification.description" rows="3" placeholder="Descritpion of max 1000 chara."></textarea>
+        <div class="form-group">
+          <label for="exampleTextarea">Description:</label>
+          <textarea class="form-control" id="exampleTextarea description" [(ngModel)]="this.business.identification.description" rows="3" placeholder="Descritpion of max 1000 chara."></textarea>
+
+        </div>
+        <!--
+          <label for="description">Description:</label>
+
+        <input bis-input id="description" type="text" [(ngModel)]="this.business.identification.description">
+        -->
+
+
+        <label for="postalCode">Postal Code:</label>
+        <input bis-input id="postalCode" type="text" [(ngModel)]="this.business.businessInfo.address.postalCode">
+
+        <label for="country">Country:</label>
+        <input bis-input id="country" type="text" [(ngModel)]="this.business.businessInfo.address.country">
+
+        <label for="street">Street:</label>
+        <input bis-input id="street" type="text" [(ngModel)]="this.business.businessInfo.address.street">
+
+        <label for="boxNumber">Box Number:</label>
+        <input bis-input id="boxNumber" type="text" [(ngModel)]="this.business.businessInfo.address.boxNumber">
+        <hr />
+      </div>
+    </div>
+    <div class="card-input card-column-50 height-fit-content">
+
+
+      <div *ngFor="let workHour of this.business.workHours" class="margin-bottom-medium">
+        <div style="display: flex !important">
+          <input class="margin-right-small" style="margin-top: 0.3rem" id="{{workHour.id}}closed" type="checkbox" [(ngModel)]="!workHour.closed">
+          <p class="margin-none">{{workHour.day}}:</p>
+        </div>
+
+        <label class="margin-right-medium" for="street">From:</label>
+        <input class="width-huge margin-right-small" bis-input id="{{workHour.id}}hourFrom" type="number" [(ngModel)]="workHour.hourFrom">
+        <input class="width-huge margin-right-small" bis-input id="{{workHour.id}}minuteFrom" type="number" [(ngModel)]="workHour.minuteFrom">
+
+        <label class="margin-right-medium" for="street">To:</label>
+        <input class="width-huge margin-right-small" bis-input id="{{workHour.id}}hourTo" type="number" [(ngModel)]="workHour.hourTo">
+        <input class="width-huge margin-right-small" bis-input id="{{workHour.id}}minuteTo" type="number" [(ngModel)]="workHour.minuteTo">
+
+        <hr class="margin-top-medium margin-bottom-medium" />
+      </div>
+
+      <label class="image-upload-container btn btn-bwm">
+        <span>Select Logo</span>
+        <input #logoInput
+               type="file"
+               accept="image/*"
+               (change)="processLogo(logoInput)">
+      </label>
+
+      <label class="image-upload-container btn btn-bwm">
+        <span>Select Image 1</span>
+        <input #imageInput1
+               type="file"
+               accept="image/*"
+               (change)="processFile(imageInput1)">
+      </label>
+
+      <label class="image-upload-container btn btn-bwm">
+        <span>Select Image 2</span>
+        <input #imageInput2
+               type="file"
+               accept="image/*"
+               (change)="processFile(imageInput2)">
+      </label>
+
+      <label class="image-upload-container btn btn-bwm">
+        <span>Select Image 3</span>
+        <input #imageInput3
+               type="file"
+               accept="image/*"
+               (change)="processFile(imageInput3)">
+      </label>
+
+      <label class="image-upload-container btn btn-bwm">
+        <span>Select Image 4</span>
+        <input #imageInput4
+               type="file"
+               accept="image/*"
+               (change)="processFile(imageInput4)">
+      </label>
+
+      <label class="image-upload-container btn btn-bwm">
+        <span>Select Image 5</span>
+        <input #imageInput5
+               type="file"
+               accept="image/*"
+               (change)="processFile(imageInput5)">
+      </label>
+
+    </div>
 
   </div>
-  <!--
-    <label for="description">Description:</label>
-
-  <input bis-input id="description" type="text" [(ngModel)]="this.business.identification.description">
-  -->
 
 
-  <label for="postalCode">Postal Code:</label>
-  <input bis-input id="postalCode" type="text" [(ngModel)]="this.business.businessInfo.address.postalCode">
-
-  <label for="country">Country:</label>
-  <input bis-input id="country" type="text" [(ngModel)]="this.business.businessInfo.address.country">
-
-  <label for="street">Street:</label>
-  <input bis-input id="street" type="text" [(ngModel)]="this.business.businessInfo.address.street">
-
-  <label for="boxNumber">Box Number:</label>
-  <input bis-input id="boxNumber" type="text" [(ngModel)]="this.business.businessInfo.address.boxNumber">
-  <hr/>
-
-  <label class="image-upload-container btn btn-bwm">
-    <span>Select Logo</span>
-    <input #logoInput
-           type="file"
-           accept="image/*"
-           (change)="processLogo(logoInput)">
-  </label>
-
-  <label class="image-upload-container btn btn-bwm">
-    <span>Select Image 1</span>
-    <input #imageInput1
-           type="file"
-           accept="image/*"
-           (change)="processFile(imageInput1)">
-  </label>
-
-  <label class="image-upload-container btn btn-bwm">
-    <span>Select Image 2</span>
-    <input #imageInput2
-           type="file"
-           accept="image/*"
-           (change)="processFile(imageInput2)">
-  </label>
-
-  <label class="image-upload-container btn btn-bwm">
-    <span>Select Image 3</span>
-    <input #imageInput3
-           type="file"
-           accept="image/*"
-           (change)="processFile(imageInput3)">
-  </label>
-
-  <label class="image-upload-container btn btn-bwm">
-    <span>Select Image 4</span>
-    <input #imageInput4
-           type="file"
-           accept="image/*"
-           (change)="processFile(imageInput4)">
-  </label>
-
-  <label class="image-upload-container btn btn-bwm">
-    <span>Select Image 5</span>
-    <input #imageInput5
-           type="file"
-           accept="image/*"
-           (change)="processFile(imageInput5)">
-  </label>
-
-  <button type="button" class="btn btn-primary btn-sm" id="btnSave" (click)="onClickSave()">Save</button>
+  <button type="button" class="btn btn-primary width-full margin-bottom-large" id="btnSave" (click)="onClickSave()">Save</button>
 
 </div>

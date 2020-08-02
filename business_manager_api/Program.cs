@@ -114,7 +114,7 @@ namespace business_manager_api
                     new WorkHoursData { Day = WorkHoursDayEnum.SUNDAY.ToString(), HourFrom = 8, HourTo = 17, Closed = false, MinuteFrom = 30, MinuteTo = 30 }
                 },
                 Identification = new IdentificationData { Type = BusinessTypeEnum.CONCERT.ToString() },
-                BusinessInfo = new BusinessInfoData { Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue de Luxembourg", BoxNumber = "6", PostalCode = "1600" } }
+                BusinessInfo = new BusinessInfoData { Address = new AddressData { City = "Bruges", Country = "Belgium", Street = "Rue de Luxembourg", BoxNumber = "6", PostalCode = "1600" } }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
             {
@@ -143,7 +143,7 @@ namespace business_manager_api
                     new WorkHoursData { Day = WorkHoursDayEnum.SUNDAY.ToString(), HourFrom = 8, HourTo = 17, Closed = false, MinuteFrom = 30, MinuteTo = 30 }
                 },
                 Identification = new IdentificationData { Type = BusinessTypeEnum.CONCERT.ToString() },
-                BusinessInfo = new BusinessInfoData { Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue de Grece", BoxNumber = "8", PostalCode = "1800" } }
+                BusinessInfo = new BusinessInfoData { Address = new AddressData { City = "Vilvoorde", Country = "Belgium", Street = "Rue de Grece", BoxNumber = "8", PostalCode = "1800" } }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
             {

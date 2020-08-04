@@ -73,6 +73,19 @@ export class BusinessManagerService {
     public getDays(): Observable<ResponseEnvelope> {
         console.log('CALL TO ' + this.url + '/business/days')
         return this.http.get<ResponseEnvelope>(this.url + '/business/days');
+  }
+
+    public enableBusiness(id: number): Observable<ResponseEnvelope> {
+      console.log('CALL TO ' + this.url + '/business/' + id + "/enable")
+      return this.http.get<ResponseEnvelope>(this.url + '/business/' + id + "/enable");
+  }
+    public disableBusiness(id: number): Observable<ResponseEnvelope> {
+      console.log('CALL TO ' + this.url + '/business/' + id + "/disable")
+      return this.http.get<ResponseEnvelope>(this.url + '/business/' + id + "/disable");
+  }
+    public deleteBusiness(id: number): Observable<ResponseEnvelope> {
+      console.log('CALL TO ' + this.url + '/business/' + id)
+      return this.http.delete<ResponseEnvelope>(this.url + '/business/' + id);
     }
 
     public refreshDays(): void {

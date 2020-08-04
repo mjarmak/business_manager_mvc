@@ -14,7 +14,7 @@ import { RouterService } from '../services/router-service';
     templateUrl: './business-list.component.html'
 })
 export class BusinessListComponent implements OnInit {
-  displayedColumns: string[] = ['logo', 'id', "name"];
+  @Input() displayedColumns: string[];
     dataSource = new MatTableDataSource<BusinessDataModel>();
     @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
     @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -30,7 +30,10 @@ export class BusinessListComponent implements OnInit {
         this.imagesUrl = environment.business_manager_api_url + "/images/"
     }
 
-    ngOnInit() {
+  ngOnInit() {
+    if (!this.displayedColumns) {
+      this.displayedColumns = ['logo', 'id', "name"];
+    }
         this.refresh();
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -45,5 +48,27 @@ export class BusinessListComponent implements OnInit {
     }
     public openBusiness(businessId: number) {
         RouterService.openBusiness(businessId);
+  }
+
+    public enableBusiness(id: number) {
+      return this.businessManagerService.enableBusiness(id).subscribe(result => {
+        this.refresh();
+      }, error => {
+        this.alertService.error("Error updating business " + id, error.message);
+      });
+  }
+  public disableBusiness(id: number) {
+    return this.businessManagerService.disableBusiness(id).subscribe(result => {
+        this.refresh();
+      }, error => {
+        this.alertService.error("Error updating business " + id, error.message);
+      });
+  }
+  public deleteBusiness(id: number) {
+    return this.businessManagerService.deleteBusiness(id).subscribe(result => {
+        this.refresh();
+      }, error => {
+        this.alertService.error("Error updating business " + id, error.message);
+      });
     }
 }

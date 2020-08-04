@@ -62,6 +62,18 @@ var BusinessManagerService = /** @class */ (function () {
         console.log('CALL TO ' + this.url + '/business/days');
         return this.http.get(this.url + '/business/days');
     };
+    BusinessManagerService.prototype.enableBusiness = function (id) {
+        console.log('CALL TO ' + this.url + '/business/' + id + "/enable");
+        return this.http.get(this.url + '/business/' + id + "/enable");
+    };
+    BusinessManagerService.prototype.disableBusiness = function (id) {
+        console.log('CALL TO ' + this.url + '/business/' + id + "/disable");
+        return this.http.get(this.url + '/business/' + id + "/disable");
+    };
+    BusinessManagerService.prototype.deleteBusiness = function (id) {
+        console.log('CALL TO ' + this.url + '/business/' + id);
+        return this.http.delete(this.url + '/business/' + id);
+    };
     BusinessManagerService.prototype.refreshDays = function () {
         var _this = this;
         if (this.days === undefined) {

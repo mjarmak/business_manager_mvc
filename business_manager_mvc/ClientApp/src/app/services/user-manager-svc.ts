@@ -18,7 +18,6 @@ export class UserManagerService {
     }
 
     public getUserRoles(): Observable<ResponseEnvelope> {
-        console.log('CALL TO ' + this.url + '/roles')
         return this.http.get<ResponseEnvelope>(this.url + '/roles');
     }
 
@@ -27,8 +26,6 @@ export class UserManagerService {
         if (role) {
             path = path + "&role=" + role
         }
-
-        console.log('CALL TO ' + this.url + path)
         return this.http.get<ResponseEnvelope>(this.url + path)
     }
 
@@ -45,7 +42,6 @@ export class UserManagerService {
     }
 
     changeUserRole(username: string, action: string) {
-        console.log('CALL TO ' + this.url + '/user/' + action)
         return this.http.get<ResponseEnvelope>(this.url + "/user/" + action + "?username=" + username);
     }
 }

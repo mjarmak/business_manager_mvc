@@ -24,7 +24,6 @@ export class BusinessManagerService {
     }
 
     public saveBusiness(businessModel: BusinessDataModel): Observable<ResponseEnvelope> {
-        console.log('CALL TO ' + this.url + '/business')
         return this.http.post<ResponseEnvelope>(this.url + '/business', businessModel)
     }
     public searchBusinesses(country?: string, city?: string, openNow?: boolean, type?: string, onlyDisabled?: boolean): Observable<ResponseEnvelope> {
@@ -45,16 +44,13 @@ export class BusinessManagerService {
             path = path + "&onlyDisabled=" + onlyDisabled
         }
 
-          console.log('CALL TO ' + this.url + path)
         return this.http.get<ResponseEnvelope>(this.url + path)
   }
   public getBusiness(businessId: number): Observable<ResponseEnvelope> {
-    console.log('CALL TO ' + this.url + '/business/' + businessId)
     return this.http.get<ResponseEnvelope>(this.url + '/business/' + businessId)
     }
 
     public getBusinessTypes(): Observable<ResponseEnvelope> {
-      console.log('CALL TO ' + this.url + '/business/types')
       return this.http.get<ResponseEnvelope>(this.url + '/business/types');
     }
 
@@ -71,20 +67,16 @@ export class BusinessManagerService {
     }
 
     public getDays(): Observable<ResponseEnvelope> {
-        console.log('CALL TO ' + this.url + '/business/days')
         return this.http.get<ResponseEnvelope>(this.url + '/business/days');
   }
 
     public enableBusiness(id: number): Observable<ResponseEnvelope> {
-      console.log('CALL TO ' + this.url + '/business/' + id + "/enable")
       return this.http.get<ResponseEnvelope>(this.url + '/business/' + id + "/enable");
   }
     public disableBusiness(id: number): Observable<ResponseEnvelope> {
-      console.log('CALL TO ' + this.url + '/business/' + id + "/disable")
       return this.http.get<ResponseEnvelope>(this.url + '/business/' + id + "/disable");
   }
     public deleteBusiness(id: number): Observable<ResponseEnvelope> {
-      console.log('CALL TO ' + this.url + '/business/' + id)
       return this.http.delete<ResponseEnvelope>(this.url + '/business/' + id);
     }
 
@@ -108,7 +100,6 @@ export class BusinessManagerService {
 
         formData.append('image', logo);
 
-        console.log('CALL TO ' + this.url + '/business/' + businessId + '/logo')
         return this.http.post<ResponseEnvelope>(this.url + '/business/' + businessId + '/logo', formData);
     }
 
@@ -119,17 +110,14 @@ export class BusinessManagerService {
         const formData = new FormData();
 
         formData.append('image', image);
-        console.log('CALL TO ' + this.url + '/business/' + businessId + '/photo/' + imageId)
         return this.http.post<ResponseEnvelope>(this.url + '/business/' + businessId + '/photo/' + imageId, formData);
     }
 
     public getBusinessImages(businessId: number): Observable<ResponseEnvelope> {
-        console.log('CALL TO ' + this.url + '/business/' + businessId + '/photo')
         return this.http.get<ResponseEnvelope>(this.url + '/business/' + businessId + '/photo');
     }
 
     public getBusinessLogo(businessId: number): Observable<ResponseEnvelope> {
-        console.log('CALL TO ' + this.url + '/business/' + businessId + '/logo')
         return this.http.get<ResponseEnvelope>(this.url + '/business/' + businessId + '/logo');
     }
 }

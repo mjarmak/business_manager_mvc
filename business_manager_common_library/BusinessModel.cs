@@ -5,6 +5,7 @@ namespace business_manager_common_library
     public class BusinessModel
     {
         public long Id { get; set; }
+        public bool Disabled { get; set; }
         public Identification Identification { get; set; }
         public BusinessInfo BusinessInfo { get; set; }
         public List<WorkHours> WorkHours { get; set; }

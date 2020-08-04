@@ -13,8 +13,14 @@ var RouterService = /** @class */ (function () {
     RouterService.openHomePage = function () {
         window.open("/", "_self");
     };
+    RouterService.openBusinessOverview = function () {
+        window.open("/business-overview", "_self");
+    };
     RouterService.openBusiness = function (businessId) {
         window.open("/business-detail/" + businessId, "_self");
+    };
+    RouterService.openBusinessCreate = function (businessId) {
+        window.open("/business-create/" + businessId, "_self");
     };
     RouterService.openLoginPage = function () {
         window.open("/login", "_self");

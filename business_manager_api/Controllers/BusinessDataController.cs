@@ -85,8 +85,8 @@ namespace business_manager_api.Controllers
         /// <returns></returns>
         [HttpGet("search")]
         public async Task<ActionResult<IEnumerable<BusinessDataModel>>> SearchBusinesses(
-            [FromQuery] string type, 
-            [FromQuery] string country, 
+            [FromQuery] string type,
+            [FromQuery] string country,
             [FromQuery] string city, [FromQuery] bool openNow,
             [FromQuery] bool onlyDisabled)
         {
@@ -113,19 +113,16 @@ namespace business_manager_api.Controllers
             }
             if (role != null)
             {
-                if (role == "ADMIN" && onlyDisabled)
+                if (role.Contains("ADMIN") && onlyDisabled)
                 {
                     set = set.Where(b => b.Disabled == onlyDisabled);
-                } else
+                }
+                else
                 {
                     set = set.Where(b => b.Disabled == false);
                 }
 
-                if ((role != "USER" && role != "ADMIN") || !openNow)
-                    return Ok(new
-                    {
-                        data = await set.ToListAsync()
-                    });
+                if ((role.Contains("USER") || role.Contains("ADMIN")) && openNow)
                 {
                     var today = DateTime.Now;
                     var day = today.DayOfWeek.ToString().ToUpper();
@@ -139,7 +136,8 @@ namespace business_manager_api.Controllers
                             && (a.HourTo + (float)a.MinuteTo / 60) >= (hour + (float)minute / 60)
                         )));
                 }
-            } else
+            }
+            else
             {
                 set = set.Where(b => b.Disabled == false);
             }
@@ -159,18 +157,33 @@ namespace business_manager_api.Controllers
         [HttpGet("{id}")]
         public ActionResult GetBusinessDataModel(long id)
         {
+
+            var role = GetClaim("role");
+
             BusinessDataModel businessDataModel;
             try
             {
-                businessDataModel = _context.BusinessDataModel
-                    .Where(b => b.Disabled == false)
-                    .Include(b => b.BusinessInfo)
-                    .Include(b => b.BusinessInfo.Address)
-                    .Include(b => b.Identification)
-                    .Include(b => b.WorkHours)
-                    .Single(b => b.Id == id);
+                if (role.Contains("ADMIN"))
+                {
+                    businessDataModel = _context.BusinessDataModel
+                        .Include(b => b.BusinessInfo)
+                        .Include(b => b.BusinessInfo.Address)
+                        .Include(b => b.Identification)
+                        .Include(b => b.WorkHours)
+                        .Single(b => b.Id == id);
+                }
+                else
+                {
+                    businessDataModel = _context.BusinessDataModel
+                        .Where(b => b.Disabled == false)
+                        .Include(b => b.BusinessInfo)
+                        .Include(b => b.BusinessInfo.Address)
+                        .Include(b => b.Identification)
+                        .Include(b => b.WorkHours)
+                        .Single(b => b.Id == id);
+                }
             }
-            
+
             catch (InvalidOperationException)
             {
                 return NotFound(new
@@ -213,9 +226,19 @@ namespace business_manager_api.Controllers
         //Disable or Enable the business data
         // GET: api/BusinessDisableEnable/
         [HttpGet("{id}/enable")]
-        [Authorize(Roles = "ADMIN")]
+        [Authorize]
         public ActionResult BusinessEnable(long id)
         {
+            var role = GetClaim("role");
+            if (!role.Contains("ADMIN") && !role.Contains("USER"))
+            {
+                return BadRequest(new
+                {
+                    data = "User is not validated."
+                });
+            }
+            var email = GetClaim("email");
+
             BusinessDataModel businessDataModel;
             try
             {
@@ -240,6 +263,14 @@ namespace business_manager_api.Controllers
                 return NotFound(new
                 {
                     data = "Business with ID " + id + " does not exist."
+                });
+            }
+
+            if (businessDataModel.Identification.EmailPro != email && !role.Contains("ADMIN"))
+            {
+                return BadRequest(new
+                {
+                    data = "Business with ID " + id + " does not belong to user " + email + "."
                 });
             }
 
@@ -256,9 +287,19 @@ namespace business_manager_api.Controllers
         //Disable or Enable the business data
         // GET: api/BusinessDisableEnable/
         [HttpGet("{id}/disable")]
-        [Authorize(Roles = "ADMIN")]
+        [Authorize]
         public ActionResult BusinessDisable(long id)
         {
+            var role = GetClaim("role");
+            if (!role.Contains("ADMIN") && !role.Contains("USER"))
+            {
+                return BadRequest(new
+                {
+                    data = "User is not validated."
+                });
+            }
+            var email = GetClaim("email");
+
             BusinessDataModel businessDataModel;
             try
             {
@@ -286,6 +327,13 @@ namespace business_manager_api.Controllers
                 });
             }
 
+            if (businessDataModel.Identification.EmailPro != email && !role.Contains("ADMIN"))
+            {
+                return BadRequest(new
+                {
+                    data = "Business with ID " + id + " does not belong to user " + email + "."
+                });
+            }
             businessDataModel.Disabled = true;
             _context.Entry(businessDataModel).State = EntityState.Modified;
             _context.SaveChangesAsync();
@@ -337,7 +385,7 @@ namespace business_manager_api.Controllers
                 {
                     //status = response.StatusCode,
                     data = errors
-                }); 
+                });
             }
             _context.Entry(businessDataModel).State = EntityState.Modified;
             if (businessDataModel.BusinessInfo != null && businessDataModel.BusinessInfo.Id != 0 && BusinessInfoExists(businessDataModel.BusinessInfo.Id))
@@ -408,7 +456,8 @@ namespace business_manager_api.Controllers
             var errors = ValidateBusiness(businessDataModel);
             if (errors.Any())
             {
-                return BadRequest(new {
+                return BadRequest(new
+                {
                     data = errors
                 });
             }
@@ -614,7 +663,7 @@ namespace business_manager_api.Controllers
                     TVA = businessModel.Identification.TVA,
                     Type = businessModel.Identification.Type == null ? null : ((BusinessTypeEnum)Enum.Parse(typeof(BusinessTypeEnum), businessModel.Identification.Type)).ToString()
                 },
-                BusinessInfo = businessModel.BusinessInfo == null ? new BusinessInfoData{ Address = new AddressData() } : new BusinessInfoData
+                BusinessInfo = businessModel.BusinessInfo == null ? new BusinessInfoData { Address = new AddressData() } : new BusinessInfoData
                 {
                     Id = businessModel.BusinessInfo.Id,
                     EmailBusiness = businessModel.BusinessInfo.EmailBusiness,
@@ -640,7 +689,8 @@ namespace business_manager_api.Controllers
         {
             foreach (WorkHoursDayEnum day in Enum.GetValues(typeof(WorkHoursDayEnum)))
             {
-                if (workHours.All(w => w.Day != day.ToString())) {
+                if (workHours.All(w => w.Day != day.ToString()))
+                {
                     workHours.Add(new WorkHoursData { Day = day.ToString(), Closed = true });
                 }
             }
@@ -683,7 +733,8 @@ namespace business_manager_api.Controllers
             {
                 var accessToken = _tokenHandler.ReadToken(accessTokenString.Replace("Bearer ", "")) as JwtSecurityToken;
                 return accessToken.Claims.Single(claim => claim.Type == name).Value;
-            } catch (ArgumentException)
+            }
+            catch (ArgumentException)
             {
                 return null;
             }

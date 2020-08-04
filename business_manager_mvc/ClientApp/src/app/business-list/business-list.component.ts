@@ -43,7 +43,7 @@ export class BusinessListComponent implements OnInit {
         this.businessManagerService.searchBusinesses(this.country, this.city, this.openNow, this.type, this.onlyDisabled).subscribe(result => {
             this.dataSource.data = result.data;
         }, error => {
-            this.alertService.error("Error loading bussinesses", error.message);
+            this.alertService.error("Error loading bussinesses", error.error.data);
         });
     }
     public openBusiness(businessId: number) {
@@ -54,21 +54,21 @@ export class BusinessListComponent implements OnInit {
       return this.businessManagerService.enableBusiness(id).subscribe(result => {
         this.refresh();
       }, error => {
-        this.alertService.error("Error updating business " + id, error.message);
+        this.alertService.error("Error updating business " + id, error.error.data);
       });
   }
   public disableBusiness(id: number) {
     return this.businessManagerService.disableBusiness(id).subscribe(result => {
         this.refresh();
       }, error => {
-        this.alertService.error("Error updating business " + id, error.message);
+        this.alertService.error("Error updating business " + id, error.error.data);
       });
   }
   public deleteBusiness(id: number) {
     return this.businessManagerService.deleteBusiness(id).subscribe(result => {
         this.refresh();
       }, error => {
-        this.alertService.error("Error updating business " + id, error.message);
+        this.alertService.error("Error updating business " + id, error.error.data);
       });
     }
 }

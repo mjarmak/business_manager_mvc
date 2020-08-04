@@ -51,7 +51,7 @@ export class UserListComponent implements OnInit {
             }
 
         }, error => {
-            this.alertService.error("Error updating user: " + action, error.message);
+            this.alertService.error("Error updating user: " + action, error.error.data);
         });
     }
 

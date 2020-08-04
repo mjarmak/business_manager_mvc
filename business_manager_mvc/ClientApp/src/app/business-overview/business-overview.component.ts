@@ -22,7 +22,7 @@ export class BusinessOverviewComponent implements OnInit, OnDestroy {
 
     constructor(private businessManagerService: BusinessManagerService) {
       this.role = localStorage.getItem("userrole");
-      if (this.role && this.role) {
+      if (this.role && this.role.includes("ADMIN")) {
         this.displayedColumns = ['logo', 'id', "name", "more"];
       }
     }

@@ -22,7 +22,6 @@ export class LoginComponent implements OnInit {
     public onClickLogin() {
         this.authService.Login(this.username, this.password).subscribe(
             result => {
-                console.log(result.access_token);
                 if (result.access_token) {
                     this.authService.setToken(result.access_token);
 

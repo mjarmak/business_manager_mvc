@@ -15,7 +15,6 @@ var BusinessManagerService = /** @class */ (function () {
         this.url = environment_1.environment.business_manager_api_url;
     }
     BusinessManagerService.prototype.saveBusiness = function (businessModel) {
-        console.log('CALL TO ' + this.url + '/business');
         return this.http.post(this.url + '/business', businessModel);
     };
     BusinessManagerService.prototype.searchBusinesses = function (country, city, openNow, type, onlyDisabled) {
@@ -35,15 +34,12 @@ var BusinessManagerService = /** @class */ (function () {
         if (onlyDisabled) {
             path = path + "&onlyDisabled=" + onlyDisabled;
         }
-        console.log('CALL TO ' + this.url + path);
         return this.http.get(this.url + path);
     };
     BusinessManagerService.prototype.getBusiness = function (businessId) {
-        console.log('CALL TO ' + this.url + '/business/' + businessId);
         return this.http.get(this.url + '/business/' + businessId);
     };
     BusinessManagerService.prototype.getBusinessTypes = function () {
-        console.log('CALL TO ' + this.url + '/business/types');
         return this.http.get(this.url + '/business/types');
     };
     BusinessManagerService.prototype.refreshBusinessTypes = function () {
@@ -59,19 +55,15 @@ var BusinessManagerService = /** @class */ (function () {
         }
     };
     BusinessManagerService.prototype.getDays = function () {
-        console.log('CALL TO ' + this.url + '/business/days');
         return this.http.get(this.url + '/business/days');
     };
     BusinessManagerService.prototype.enableBusiness = function (id) {
-        console.log('CALL TO ' + this.url + '/business/' + id + "/enable");
         return this.http.get(this.url + '/business/' + id + "/enable");
     };
     BusinessManagerService.prototype.disableBusiness = function (id) {
-        console.log('CALL TO ' + this.url + '/business/' + id + "/disable");
         return this.http.get(this.url + '/business/' + id + "/disable");
     };
     BusinessManagerService.prototype.deleteBusiness = function (id) {
-        console.log('CALL TO ' + this.url + '/business/' + id);
         return this.http.delete(this.url + '/business/' + id);
     };
     BusinessManagerService.prototype.refreshDays = function () {
@@ -92,7 +84,6 @@ var BusinessManagerService = /** @class */ (function () {
         }
         var formData = new FormData();
         formData.append('image', logo);
-        console.log('CALL TO ' + this.url + '/business/' + businessId + '/logo');
         return this.http.post(this.url + '/business/' + businessId + '/logo', formData);
     };
     BusinessManagerService.prototype.uploadImage = function (image, businessId, imageId) {
@@ -101,15 +92,12 @@ var BusinessManagerService = /** @class */ (function () {
         }
         var formData = new FormData();
         formData.append('image', image);
-        console.log('CALL TO ' + this.url + '/business/' + businessId + '/photo/' + imageId);
         return this.http.post(this.url + '/business/' + businessId + '/photo/' + imageId, formData);
     };
     BusinessManagerService.prototype.getBusinessImages = function (businessId) {
-        console.log('CALL TO ' + this.url + '/business/' + businessId + '/photo');
         return this.http.get(this.url + '/business/' + businessId + '/photo');
     };
     BusinessManagerService.prototype.getBusinessLogo = function (businessId) {
-        console.log('CALL TO ' + this.url + '/business/' + businessId + '/logo');
         return this.http.get(this.url + '/business/' + businessId + '/logo');
     };
     BusinessManagerService = __decorate([

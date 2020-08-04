@@ -34,8 +34,8 @@
         <mat-form-field appearance="fill">
           <mat-label>Action</mat-label>
           <mat-select>
-            <mat-option [value]="ENABLE" (click)="this.enableBusiness(business.id)">Enable</mat-option>
-            <mat-option [value]="DISABLE" (click)="this.disableBusiness(business.id)">Disable</mat-option>
+            <mat-option *ngIf="business.disabled" [value]="ENABLE" (click)="this.enableBusiness(business.id)">Enable</mat-option>
+            <mat-option *ngIf="!business.disabled" [value]="DISABLE" (click)="this.disableBusiness(business.id)">Disable</mat-option>
             <mat-option [value]="DELETE" (click)="this.deleteBusiness(business.id)">Delete</mat-option>
           </mat-select>
         </mat-form-field>

@@ -15,7 +15,6 @@ var UserManagerService = /** @class */ (function () {
         this.url = environment_1.environment.authentication_api_url;
     }
     UserManagerService.prototype.getUserRoles = function () {
-        console.log('CALL TO ' + this.url + '/roles');
         return this.http.get(this.url + '/roles');
     };
     UserManagerService.prototype.searchUsers = function (role) {
@@ -23,7 +22,6 @@ var UserManagerService = /** @class */ (function () {
         if (role) {
             path = path + "&role=" + role;
         }
-        console.log('CALL TO ' + this.url + path);
         return this.http.get(this.url + path);
     };
     UserManagerService.prototype.refreshUserRoles = function () {
@@ -39,7 +37,6 @@ var UserManagerService = /** @class */ (function () {
         }
     };
     UserManagerService.prototype.changeUserRole = function (username, action) {
-        console.log('CALL TO ' + this.url + '/user/' + action);
         return this.http.get(this.url + "/user/" + action + "?username=" + username);
     };
     UserManagerService = __decorate([

@@ -9,12 +9,24 @@
   </div>
   <div class="row">
     <div class="col-md-2">
+
+      <button *ngIf="this.isOwner || (this.role && this.role.includes('ADMIN'))" type="button" class="btn btn-primary width-full margin-bottom-large" id="btnSave" (click)="editBusiness()">Edit</button>
+
+      <button *ngIf="this.isOwner" type="button" class="btn btn-primary width-full margin-bottom-large" id="btnSave" (click)="disableBusiness()">Delete</button>
+
+      <button *ngIf="this.role && this.role.includes('ADMIN')" type="button" class="btn btn-primary width-full" id="btnSave" (click)="enableBusiness()">Enable</button>
+      <button *ngIf="this.role && this.role.includes('ADMIN')" type="button" class="btn btn-primary width-full" id="btnSave" (click)="disableBusiness()">Disable</button>
+      <button *ngIf="this.role && this.role.includes('ADMIN')" type="button" class="btn btn-primary width-full margin-bottom-large" id="btnSave" (click)="deleteBusiness()">Delete</button>
+
       <img *ngIf="business.identification && business.identification.logoPath" src="{{this.imagesUrl + business.identification.logoPath}}" width="125" height="80">
     </div>
     <div class="col-md-8">
+      <p>Disabled: {{this.business.disabled}}</p>
+
       <p>Business ID: {{this.business.id}}</p>
 
       <p *ngIf="business.identification && business.identification.name">Name: {{this.business.identification.name}}</p>
+
 
       <p *ngIf="business.identification && business.identification.email">Email: {{this.business.identification.email}}</p>
 

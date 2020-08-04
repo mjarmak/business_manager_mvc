@@ -43,7 +43,6 @@ export class BusinessCreateComponent implements OnInit {
 
     public onClickSave() {
         this.businessManagerService.saveBusiness(this.business).subscribe(result => {
-            console.log(result.data);
             this.business = result.data;
             this.errors = [];
             document.getElementById("btnSave").setAttribute("disabled", "disabled");
@@ -97,7 +96,6 @@ export class BusinessCreateComponent implements OnInit {
                 this.images = [];
             }
             if (this.images.length >= 5) {
-                console.log("CANT PUT MORE THAN 5 IMAGES");
                 this.alertSerice.warning("Can't add image", "Can't add more than 5 images");
             } else {
                 this.images.push(file);

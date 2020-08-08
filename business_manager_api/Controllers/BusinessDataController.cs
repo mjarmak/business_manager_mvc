@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using business_manager_api.Context;
 using business_manager_api.Domain;
+using business_manager_api.Validator;
 using business_manager_common_library;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;

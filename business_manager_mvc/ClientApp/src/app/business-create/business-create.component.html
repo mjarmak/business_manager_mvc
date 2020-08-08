@@ -17,7 +17,7 @@
 
       <div class="card-input">
 
-        <button *ngIf="this.business.id" type="button" class="btn btn-secondary" id="btnOpen" (click)="this.openBusiness(business.id)">Details</button>
+        <button *ngIf="this.business.id" type="button" class="btn-secondary" id="btnOpen" (click)="this.openBusiness(business.id)">Details</button>
 
         <p *ngIf="this.business.id">{{this.business.id}}</p>
 
@@ -107,7 +107,7 @@
 
       <div class="card-row">
         <img *ngIf="business.identification && business.identification.logoPath" src="{{this.imagesUrl + business.identification.logoPath}}" width="125" height="80">
-        <label class="image-upload-container btn btn-bwm">
+        <label class="image-upload-container btn-bwm">
           <span>Select Logo</span>
           <input #logoInput
                  type="file"
@@ -118,7 +118,7 @@
 
       <div class="card-row">
         <img *ngIf="business.businessInfo && business.businessInfo.photoPath1" src="{{this.imagesUrl + business.businessInfo.photoPath1}}" width="125" height="80">
-        <label class="image-upload-container btn btn-bwm">
+        <label class="image-upload-container btn-bwm">
           <span>Select Image 1</span>
           <input #imageInput1
                  type="file"
@@ -129,7 +129,7 @@
 
       <div class="card-row">
         <img *ngIf="business.businessInfo && business.businessInfo.photoPath2" src="{{this.imagesUrl + business.businessInfo.photoPath2}}" width="125" height="80">
-        <label class="image-upload-container btn btn-bwm">
+        <label class="image-upload-container btn-bwm">
           <span>Select Image 2</span>
           <input #imageInput2
                  type="file"
@@ -140,7 +140,7 @@
 
       <div class="card-row">
         <img *ngIf="business.businessInfo && business.businessInfo.photoPath3" src="{{this.imagesUrl + business.businessInfo.photoPath3}}" width="125" height="80">
-        <label class="image-upload-container btn btn-bwm">
+        <label class="image-upload-container btn-bwm">
           <span>Select Image 3</span>
           <input #imageInput3
                  type="file"
@@ -151,7 +151,7 @@
 
       <div class="card-row">
         <img *ngIf="business.businessInfo && business.businessInfo.photoPath4" src="{{this.imagesUrl + business.businessInfo.photoPath4}}" width="125" height="80">
-        <label class="image-upload-container btn btn-bwm">
+        <label class="image-upload-container btn-bwm">
           <span>Select Image 4</span>
           <input #imageInput4
                  type="file"
@@ -162,7 +162,7 @@
 
       <div class="card-row">
         <img *ngIf="business.businessInfo && business.businessInfo.photoPath5" src="{{this.imagesUrl + business.businessInfo.photoPath5}}" width="125" height="80">
-        <label class="image-upload-container btn btn-bwm">
+        <label class="image-upload-container btn-bwm">
           <span>Select Image 5</span>
           <input #imageInput5
                  type="file"
@@ -176,6 +176,6 @@
   </div>
 
 
-  <button type="button" class="btn btn-primary width-full margin-bottom-large" id="btnSave" (click)="onClickSave()">Save</button>
+  <button type="button" class="btn-primary width-full margin-bottom-large" id="btnSave" (click)="onClickSave()">Save</button>
 
 </div>

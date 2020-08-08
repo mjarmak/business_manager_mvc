@@ -13,13 +13,13 @@
 
       <p *ngIf="this.isOwner || (this.role && this.role.includes('ADMIN'))">Disabled: {{this.business.disabled}}</p>
 
-      <button *ngIf="this.isOwner || (this.role && this.role.includes('ADMIN'))" type="button" class="btn btn-primary width-full margin-bottom-medium" id="btnEdit" (click)="editBusiness()">Edit</button>
+      <button *ngIf="this.isOwner || (this.role && this.role.includes('ADMIN'))" type="button" class="btn-primary width-full margin-bottom-medium" id="btnEdit" (click)="editBusiness()">Edit</button>
 
-      <button *ngIf="this.isOwner" type="button" class="btn btn-primary width-full margin-bottom-medium" id="btnDisableUser" (click)="disableBusiness()">Delete</button>
+      <button *ngIf="this.isOwner" type="button" class="btn-primary width-full margin-bottom-medium" id="btnDisableUser" (click)="disableBusiness()">Delete</button>
 
-      <button *ngIf="this.role && this.role.includes('ADMIN') && this.business.disabled" type="button" class="btn btn-primary width-full margin-bottom-medium" id="btnEnable" (click)="enableBusiness()">Enable</button>
-      <button *ngIf="this.role && this.role.includes('ADMIN') && !this.business.disabled" type="button" class="btn btn-primary width-full margin-bottom-medium" id="btnDisable" (click)="disableBusiness()">Disable</button>
-      <button *ngIf="this.role && this.role.includes('ADMIN')" type="button" class="btn btn-primary width-full margin-bottom-large" id="btnDelete" (click)="deleteBusiness()">Delete</button>
+      <button *ngIf="this.role && this.role.includes('ADMIN') && this.business.disabled" type="button" class="btn-primary width-full margin-bottom-medium" id="btnEnable" (click)="enableBusiness()">Enable</button>
+      <button *ngIf="this.role && this.role.includes('ADMIN') && !this.business.disabled" type="button" class="btn-primary width-full margin-bottom-medium" id="btnDisable" (click)="disableBusiness()">Disable</button>
+      <button *ngIf="this.role && this.role.includes('ADMIN')" type="button" class="btn-primary width-full margin-bottom-large" id="btnDelete" (click)="deleteBusiness()">Delete</button>
     </div>
     <div class="col-md-8">
 
@@ -70,22 +70,22 @@
       </div>
 
       <button *ngIf="business.businessInfo && business.businessInfo.urlSite" type="button"
-              class="btn btn-secondary margin-bottom-medium width-20 margin-right-medium" id="btnWebsite"
+              class="btn-secondary margin-bottom-medium width-20 margin-right-medium" id="btnWebsite"
               (click)="this.openNewTab(business.businessInfo.urlSite)">
         Facebook
       </button>
       <button *ngIf="business.businessInfo && business.businessInfo.urlInstagram" type="button"
-              class="btn btn-secondary margin-bottom-medium width-20 margin-right-medium" id="btnInstagram"
+              class="btn-secondary margin-bottom-medium width-20 margin-right-medium" id="btnInstagram"
               (click)="this.openNewTab(business.businessInfo.urlInstagram)">
         Instagram
       </button>
       <button *ngIf="business.businessInfo && business.businessInfo.urlFaceBook" type="button"
-              class="btn btn-secondary margin-bottom-medium width-20 margin-right-medium" id="btnFacebook"
+              class="btn-secondary margin-bottom-medium width-20 margin-right-medium" id="btnFacebook"
               (click)="this.openNewTab(business.businessInfo.urlFaceBook)">
         Facebook
       </button>
       <button *ngIf="business.businessInfo && business.businessInfo.urlLinkedIn" type="button"
-              class="btn btn-secondary margin-bottom-medium width-20 margin-right-medium" id="btnLinkedin"
+              class="btn-secondary margin-bottom-medium width-20 margin-right-medium" id="btnLinkedin"
               (click)="this.openNewTab(business.businessInfo.urlLinkedIn)">
         Linkedin
       </button>

@@ -25,10 +25,10 @@
     <input bis-input id="city" type="text" [(ngModel)]="this.city" (keydown.enter)="businessList.refresh()">
 
     <label *ngIf="this.role && (this.role.includes('ADMIN') || this.role.includes('USER'))" for="openNow">Open Now:</label>
-    <input *ngIf="this.role && (this.role.includes('ADMIN') || this.role.includes('USER'))" id="openNow" type="checkbox" [(ngModel)]="this.openNow">
+    <input class="margin-top-small" *ngIf="this.role && (this.role.includes('ADMIN') || this.role.includes('USER'))" id="openNow" type="checkbox" [(ngModel)]="this.openNow">
 
     <label *ngIf="this.role && (this.role.includes('ADMIN'))" for="onlyDisabled">Show only disabled:</label>
-    <input *ngIf="this.role && (this.role.includes('ADMIN'))" id="onlyDisabled" type="checkbox" [(ngModel)]="this.onlyDisabled">
+    <input class="margin-top-small" *ngIf="this.role && (this.role.includes('ADMIN'))" id="onlyDisabled" type="checkbox" [(ngModel)]="this.onlyDisabled">
 
     <button type="button" class="btn btn-primary btn-sm" id="btnSearch" (click)="businessList.refresh()">Search</button>
 

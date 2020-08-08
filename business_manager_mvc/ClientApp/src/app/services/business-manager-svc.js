@@ -17,6 +17,9 @@ var BusinessManagerService = /** @class */ (function () {
     BusinessManagerService.prototype.saveBusiness = function (businessModel) {
         return this.http.post(this.url + '/business', businessModel);
     };
+    BusinessManagerService.prototype.updateBusiness = function (businessModel, id) {
+        return this.http.put(this.url + '/business/' + id, businessModel);
+    };
     BusinessManagerService.prototype.searchBusinesses = function (country, city, openNow, type, onlyDisabled) {
         var path = '/business/search?';
         if (country) {
@@ -93,6 +96,22 @@ var BusinessManagerService = /** @class */ (function () {
         var formData = new FormData();
         formData.append('image', image);
         return this.http.post(this.url + '/business/' + businessId + '/photo/' + imageId, formData);
+    };
+    BusinessManagerService.prototype.updateLogo = function (logo, businessId) {
+        if (logo === undefined) {
+            return null;
+        }
+        var formData = new FormData();
+        formData.append('image', logo);
+        return this.http.put(this.url + '/business/' + businessId + '/logo', formData);
+    };
+    BusinessManagerService.prototype.updateImage = function (image, businessId, imageId) {
+        if (image === undefined) {
+            return null;
+        }
+        var formData = new FormData();
+        formData.append('image', image);
+        return this.http.put(this.url + '/business/' + businessId + '/photo/' + imageId, formData);
     };
     BusinessManagerService.prototype.getBusinessImages = function (businessId) {
         return this.http.get(this.url + '/business/' + businessId + '/photo');

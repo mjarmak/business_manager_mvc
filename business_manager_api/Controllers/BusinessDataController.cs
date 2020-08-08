@@ -377,6 +377,19 @@ namespace business_manager_api.Controllers
                     data = new List<string> { "Business with ID " + id + " does not exist." }
                 });
             }
+            else if (!BusinessBelongsToUser(id, email))
+            {
+                return BadRequest(new
+                {
+                    data = "Business with ID " + id + " does not belong to user " + email + "."
+                });
+            } else if (businessModel.Identification.EmailPro != email)
+            {
+                return BadRequest(new
+                {
+                    data = "Professional email must be the same as the user email: " + email + "."
+                });
+            }
             BusinessDataModel businessDataModel;
             try
             {
@@ -396,14 +409,6 @@ namespace business_manager_api.Controllers
                 {
                     //status = response.StatusCode,
                     data = errors
-                });
-            }
-
-            if (businessDataModel.Identification.EmailPro != email && !role.Contains("ADMIN"))
-            {
-                return BadRequest(new
-                {
-                    data = "Business with ID " + id + " does not belong to user " + email + "."
                 });
             }
 
@@ -455,16 +460,24 @@ namespace business_manager_api.Controllers
 
         /*Learned from https://csharp-video-tutorials.blogspot.com/2019/05/file-upload-in-aspnet-core-mvc.html */
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "USER,ADMIN")]
         public async Task<ActionResult<BusinessDataModel>> CreateBusiness(BusinessModel businessModel)
         {
+            var role = GetClaim("role");
+            if (!role.Contains("ADMIN") && !role.Contains("USER"))
+            {
+                return BadRequest(new
+                {
+                    data = "User is not validated."
+                });
+            }
+
             BusinessDataModel businessDataModel;
             try
             {
                 businessDataModel = EnvelopeOf(businessModel);
                 businessDataModel.WorkHours = AddMissingDays(businessDataModel.WorkHours);
             }
-
             catch (ArgumentException e)
             {
                 return BadRequest(new
@@ -479,6 +492,16 @@ namespace business_manager_api.Controllers
                 return BadRequest(new
                 {
                     data = errors
+                });
+            }
+
+
+            var email = GetClaim("email");
+            if (businessDataModel.Identification.EmailPro != email && !role.Contains("ADMIN"))
+            {
+                return BadRequest(new
+                {
+                    data = "Business does not belong to user " + email + "."
                 });
             }
 
@@ -507,10 +530,20 @@ namespace business_manager_api.Controllers
 
         [HttpPost("{id}/logo")]
         [Consumes("multipart/form-data")]
+        [RequestSizeLimit(5000000)]
         [Authorize]
-        [RequestSizeLimit(100_000_000)]
         public async Task<ActionResult> PostLogo(long id)
         {
+            var role = GetClaim("role");
+            if (!role.Contains("ADMIN") && !role.Contains("USER"))
+            {
+                return BadRequest(new
+                {
+                    data = "User is not validated."
+                });
+            }
+            var email = GetClaim("email");
+
             var image = Request.Form.Files[0];
 
             if (!BusinessExists(id))
@@ -528,18 +561,27 @@ namespace business_manager_api.Controllers
                 });
             }
 
+            var businessDataModel = _context.BusinessDataModel
+                .Include(b => b.BusinessInfo)
+                .Include(b => b.BusinessInfo.Address)
+                .Include(b => b.Identification)
+                .Include(b => b.WorkHours)
+                .Single(b => b.Id == id);
+
+            if (businessDataModel.Identification.EmailPro != email && !role.Contains("ADMIN"))
+            {
+                return BadRequest(new
+                {
+                    data = "Business with ID " + id + " does not belong to user " + email + "."
+                });
+            }
+
             var imagesFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
             {
                 var uniqueLogoName = Guid.NewGuid().ToString() + "_logo_" + image.FileName;
                 var filePath = Path.Combine(imagesFolder, uniqueLogoName);
                 await image.CopyToAsync(new FileStream(filePath, FileMode.Create));
 
-                var businessDataModel = _context.BusinessDataModel
-                    .Include(b => b.BusinessInfo)
-                    .Include(b => b.BusinessInfo.Address)
-                    .Include(b => b.Identification)
-                    .Include(b => b.WorkHours)
-                    .Single(b => b.Id == id);
                 businessDataModel.Identification.LogoPath = uniqueLogoName;
                 _context.Entry(businessDataModel).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
@@ -550,10 +592,20 @@ namespace business_manager_api.Controllers
 
         [HttpPost("{id}/photo/{imageId}")]
         [Consumes("multipart/form-data")]
-        [RequestSizeLimit(100_000_000)]
+        [RequestSizeLimit(5000000)]
         [Authorize]
         public async Task<ActionResult> PostPhoto(long id, long imageId)
         {
+            var role = GetClaim("role");
+            if (!role.Contains("ADMIN") && !role.Contains("USER"))
+            {
+                return BadRequest(new
+                {
+                    data = "User is not validated."
+                });
+            }
+            var email = GetClaim("email");
+
             var image = Request.Form.Files[0];
 
             if (imageId < 1 || imageId > 5)
@@ -575,18 +627,208 @@ namespace business_manager_api.Controllers
                 });
             }
 
+            var businessDataModel = _context.BusinessDataModel
+                .Include(b => b.BusinessInfo)
+                .Include(b => b.BusinessInfo.Address)
+                .Include(b => b.Identification)
+                .Include(b => b.WorkHours)
+                .Single(b => b.Id == id);
+
+            if (businessDataModel.Identification.EmailPro != email && !role.Contains("ADMIN"))
+            {
+                return BadRequest(new
+                {
+                    data = "Business with ID " + id + " does not belong to user " + email + "."
+                });
+            }
+
             var imagesFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
             {
                 var uniqueLogoName = Guid.NewGuid().ToString() + "_photo_" + image.FileName;
                 var filePath = Path.Combine(imagesFolder, uniqueLogoName);
                 await image.CopyToAsync(new FileStream(filePath, FileMode.Create));
 
-                var businessDataModel = _context.BusinessDataModel
-                    .Include(b => b.BusinessInfo)
-                    .Include(b => b.BusinessInfo.Address)
-                    .Include(b => b.Identification)
-                    .Include(b => b.WorkHours)
-                    .Single(b => b.Id == id);
+                switch (imageId)
+                {
+                    case 1:
+                        businessDataModel.BusinessInfo.PhotoPath1 = uniqueLogoName;
+                        break;
+                    case 2:
+                        businessDataModel.BusinessInfo.PhotoPath2 = uniqueLogoName;
+                        break;
+                    case 3:
+                        businessDataModel.BusinessInfo.PhotoPath3 = uniqueLogoName;
+                        break;
+                    case 4:
+                        businessDataModel.BusinessInfo.PhotoPath4 = uniqueLogoName;
+                        break;
+                    case 5:
+                        businessDataModel.BusinessInfo.PhotoPath5 = uniqueLogoName;
+                        break;
+                }
+                _context.Entry(businessDataModel).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+            }
+            return NoContent();
+        }
+
+
+        [HttpPut("{id}/logo")]
+        [Consumes("multipart/form-data")]
+        [RequestSizeLimit(1000000)]
+        [Authorize]
+        public async Task<ActionResult> UpdateLogo(long id)
+        {
+            var role = GetClaim("role");
+            if (!role.Contains("ADMIN") && !role.Contains("USER"))
+            {
+                return BadRequest(new
+                {
+                    data = "User is not validated."
+                });
+            }
+            var email = GetClaim("email");
+
+            var image = Request.Form.Files[0];
+
+            if (!BusinessExists(id))
+            {
+                return NotFound(new
+                {
+                    data = new List<string> { "Business does not exist." }
+                });
+            }
+            if (!image.ContentType.Contains("image") && !image.ContentType.Contains("jpeg") && !image.ContentType.Contains("jpg"))
+            {
+                return BadRequest(new
+                {
+                    data = new List<string> { "File must be an image." }
+                });
+            }
+
+            var businessDataModel = _context.BusinessDataModel
+                .Include(b => b.BusinessInfo)
+                .Include(b => b.BusinessInfo.Address)
+                .Include(b => b.Identification)
+                .Include(b => b.WorkHours)
+                .Single(b => b.Id == id);
+
+            if (businessDataModel.Identification.EmailPro != email && !role.Contains("ADMIN"))
+            {
+                return BadRequest(new
+                {
+                    data = "Business with ID " + id + " does not belong to user " + email + "."
+                });
+            }
+
+            var imagesFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
+            {
+                //string logoPathOld = businessDataModel.Identification.LogoPath;
+                //if (!string.IsNullOrEmpty(logoPathOld))
+                //{
+                //    string filePathOld = Path.Combine(imagesFolder, logoPathOld);
+                //    if (System.IO.File.Exists(filePathOld))
+                //    {
+                //        System.IO.File.Delete(filePathOld);
+                //    }
+                //}
+                var uniqueLogoName = Guid.NewGuid().ToString() + "_logo_" + image.FileName;
+                var filePath = Path.Combine(imagesFolder, uniqueLogoName);
+                await image.CopyToAsync(new FileStream(filePath, FileMode.Create));
+
+                businessDataModel.Identification.LogoPath = uniqueLogoName;
+                _context.Entry(businessDataModel).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+            }
+            return NoContent();
+        }
+
+
+        [HttpPut("{id}/photo/{imageId}")]
+        [Consumes("multipart/form-data")]
+        [RequestSizeLimit(5000000)]
+        [Authorize]
+        public async Task<ActionResult> UpdatePhoto(long id, long imageId)
+        {
+            var role = GetClaim("role");
+            if (!role.Contains("ADMIN") && !role.Contains("USER"))
+            {
+                return BadRequest(new
+                {
+                    data = "User is not validated."
+                });
+            }
+            var email = GetClaim("email");
+
+            var image = Request.Form.Files[0];
+
+            if (imageId < 1 || imageId > 5)
+            {
+                return BadRequest(new
+                {
+                    data = new List<string> { "Image ID must be between 1 and 5 inclusive." }
+                });
+            }
+            if (!BusinessExists(id))
+            {
+                return NotFound("Business does not exist");
+            }
+            if (!image.ContentType.Contains("image") && !image.ContentType.Contains("jpeg") && !image.ContentType.Contains("jpg"))
+            {
+                return BadRequest(new
+                {
+                    data = new List<string> { "File must be an image." }
+                });
+            }
+
+            var businessDataModel = _context.BusinessDataModel
+                .Include(b => b.BusinessInfo)
+                .Include(b => b.BusinessInfo.Address)
+                .Include(b => b.Identification)
+                .Include(b => b.WorkHours)
+                .Single(b => b.Id == id);
+
+            if (businessDataModel.Identification.EmailPro != email && !role.Contains("ADMIN"))
+            {
+                return BadRequest(new
+                {
+                    data = "Business with ID " + id + " does not belong to user " + email + "."
+                });
+            }
+
+            var imagesFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
+            {
+                //var photoePathOld = "";
+                //switch (imageId)
+                //{
+                //    case 1:
+                //        photoePathOld = businessDataModel.BusinessInfo.PhotoPath1;
+                //        break;
+                //    case 2:
+                //        photoePathOld = businessDataModel.BusinessInfo.PhotoPath2;
+                //        break;
+                //    case 3:
+                //        photoePathOld = businessDataModel.BusinessInfo.PhotoPath3;
+                //        break;
+                //    case 4:
+                //        photoePathOld = businessDataModel.BusinessInfo.PhotoPath4;
+                //        break;
+                //    case 5:
+                //        photoePathOld = businessDataModel.BusinessInfo.PhotoPath5;
+                //        break;
+                //}
+                //if (photoePathOld != null && !string.IsNullOrEmpty(photoePathOld))
+                //{
+                //    string filePathOld = Path.Combine(imagesFolder, photoePathOld);
+                //    if (System.IO.File.Exists(filePathOld))
+                //    {
+                //        System.IO.File.Delete(filePathOld);
+                //    }
+                //}
+                var uniqueLogoName = Guid.NewGuid().ToString() + "_photo_" + image.FileName;
+                var filePath = Path.Combine(imagesFolder, uniqueLogoName);
+                await image.CopyToAsync(new FileStream(filePath, FileMode.Create));
+
                 switch (imageId)
                 {
                     case 1:
@@ -642,6 +884,10 @@ namespace business_manager_api.Controllers
         private bool BusinessExists(long id)
         {
             return _context.BusinessDataModel.Any(e => e.Id == id);
+        }
+        private bool BusinessBelongsToUser(long id, string email)
+        {
+            return _context.BusinessDataModel.Any(e => e.Id == id && e.Identification.EmailPro == email);
         }
         private bool WorkHoursExists(long id)
         {
@@ -722,17 +968,17 @@ namespace business_manager_api.Controllers
 
             var errors = new List<ValidationFailure>();
 
-            var businessDataValidator = new BusinessDataValidator();
-            var businessDataValidatorResult = businessDataValidator.Validate(businessDataModel);
-            errors.AddRange(businessDataValidatorResult.Errors);
+            //var businessDataValidator = new BusinessDataValidator();
+            //var businessDataValidatorResult = businessDataValidator.Validate(businessDataModel);
+            //errors.AddRange(businessDataValidatorResult.Errors);
 
-            var businessInfoValidator = new BusinessInfoValidator();
-            var businessInfoValidatorResult = businessInfoValidator.Validate(businessDataModel.BusinessInfo);
-            errors.AddRange(businessInfoValidatorResult.Errors);
+            //var businessInfoValidator = new BusinessInfoValidator();
+            //var businessInfoValidatorResult = businessInfoValidator.Validate(businessDataModel.BusinessInfo);
+            //errors.AddRange(businessInfoValidatorResult.Errors);
 
-            var identificationValidator = new IdentificationDataValidator();
-            var identificationValidatorResult = identificationValidator.Validate(businessDataModel.Identification);
-            errors.AddRange(identificationValidatorResult.Errors);
+            //var identificationValidator = new IdentificationDataValidator();
+            //var identificationValidatorResult = identificationValidator.Validate(businessDataModel.Identification);
+            //errors.AddRange(identificationValidatorResult.Errors);
 
             return ErrorsToStrings(errors);
         }
@@ -746,7 +992,7 @@ namespace business_manager_api.Controllers
 
             if (accessTokenString == null || !accessTokenString.Contains("Bearer "))
             {
-                return null;
+                return "NONE";
             }
 
             try
@@ -756,7 +1002,7 @@ namespace business_manager_api.Controllers
             }
             catch (ArgumentException)
             {
-                return null;
+                return "NONE";
             }
         }
     }

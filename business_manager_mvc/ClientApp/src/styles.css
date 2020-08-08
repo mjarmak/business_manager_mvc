@@ -45,10 +45,17 @@ code {
   margin-top: 0 !important;
 }
 .margin-top-medium {
-  margin-top: 1rem;
+  margin-top: 1rem !important;
 }
 .margin-bottom-medium {
   margin-bottom: 1rem !important;
+}
+.margin-top-small {
+  margin-top: 0.5rem !important;
+}
+
+.margin-bottom-small {
+  margin-bottom: 0.5rem !important;
 }
 .margin-bottom-large {
   margin-bottom: 2rem !important;
@@ -149,6 +156,9 @@ hr {
 }
 .width-full {
   width: 100%;
+}
+.width-20 {
+  width: 20%;
 }
 .width-50 {
   width: 50%;

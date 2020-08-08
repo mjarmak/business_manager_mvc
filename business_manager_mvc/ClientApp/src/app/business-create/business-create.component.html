@@ -31,7 +31,7 @@
         <input bis-input id="phone" type="text" [(ngModel)]="this.business.businessInfo.phone">
 
         <!--<label for="emailBusiness">Professional Email:</label>
-        <input bis-input id="emailPro" type="email" [(ngModel)]="this.business.identification.emailPro">-->
+  <input bis-input id="emailPro" type="email" [(ngModel)]="this.business.identification.emailPro">-->
 
         <label for="urlSite">Website Url:</label>
         <input bis-input id="urlSite" type="url" [(ngModel)]="this.business.businessInfo.urlSite">
@@ -48,7 +48,7 @@
         <label for="type">Type of Business:</label>
         <mat-form-field *ngIf="this.businessManagerService.businessTypes" appearance="fill">
           <mat-label>Type</mat-label>
-          <mat-select>
+          <mat-select [(ngModel)]="this.business.identification.type">
             <mat-option *ngFor="let type of this.businessManagerService.businessTypes" [value]="type" (click)="this.setBusinessType(type)">
               {{type.charAt(0).toUpperCase() + type.slice(1).toLowerCase()}}
             </mat-option>
@@ -65,93 +65,111 @@
           <textarea class="form-control" id="exampleTextarea description" [(ngModel)]="this.business.identification.description" rows="3" placeholder="Descritpion of max 1000 chara."></textarea>
 
         </div>
-        <!--
-          <label for="description">Description:</label>
-
-        <input bis-input id="description" type="text" [(ngModel)]="this.business.identification.description">
-        -->
-
-
-        <label for="postalCode">Postal Code:</label>
-        <input bis-input id="postalCode" type="text" [(ngModel)]="this.business.businessInfo.address.postalCode">
-
-        <label for="country">Country:</label>
-        <input bis-input id="country" type="text" [(ngModel)]="this.business.businessInfo.address.country">
 
         <label for="street">Street:</label>
         <input bis-input id="street" type="text" [(ngModel)]="this.business.businessInfo.address.street">
 
+        <label for="city">City:</label>
+        <input bis-input id="city" type="text" [(ngModel)]="this.business.businessInfo.address.city">
+
+        <label for="country">Country:</label>
+        <input bis-input id="country" type="text" [(ngModel)]="this.business.businessInfo.address.country">
+
         <label for="boxNumber">Box Number:</label>
         <input bis-input id="boxNumber" type="text" [(ngModel)]="this.business.businessInfo.address.boxNumber">
+
+        <label for="postalCode">Postal Code:</label>
+        <input bis-input id="postalCode" type="text" [(ngModel)]="this.business.businessInfo.address.postalCode">
+
       </div>
     </div>
     <div class="card-input card-column-50 height-fit-content">
 
 
-      <div *ngFor="let workHour of this.business.workHours" class="margin-bottom-medium">
+      <div *ngFor="let workHour of this.business.workHours">
+        <p class="margin-none">{{workHour.day}}:</p>
+
         <div style="display: flex !important">
-          <input class="margin-right-small" style="margin-top: 0.3rem" id="{{workHour.id}}closed" type="checkbox" [(ngModel)]="!workHour.closed">
-          <p class="margin-none">{{workHour.day}}:</p>
+          <label class="margin-right-small margin-bottom-small">Closed:</label>
+          <input style="margin-top: 0.35rem" id="{{workHour.id}}closed" type="checkbox" [(ngModel)]="workHour.closed">
         </div>
 
-        <label class="margin-right-medium" for="street">From:</label>
+        <label class="margin-right-medium">From:</label>
         <input class="width-huge margin-right-small" bis-input id="{{workHour.id}}hourFrom" type="number" [(ngModel)]="workHour.hourFrom">
         <input class="width-huge margin-right-small" bis-input id="{{workHour.id}}minuteFrom" type="number" [(ngModel)]="workHour.minuteFrom">
 
-        <label class="margin-right-medium" for="street">To:</label>
+        <label class="margin-right-medium">To:</label>
         <input class="width-huge margin-right-small" bis-input id="{{workHour.id}}hourTo" type="number" [(ngModel)]="workHour.hourTo">
         <input class="width-huge margin-right-small" bis-input id="{{workHour.id}}minuteTo" type="number" [(ngModel)]="workHour.minuteTo">
 
-        <hr class="margin-top-medium margin-bottom-medium" />
+        <hr class="margin-top-small margin-bottom-small" />
       </div>
 
-      <label class="image-upload-container btn btn-bwm">
-        <span>Select Logo</span>
-        <input #logoInput
-               type="file"
-               accept="image/*"
-               (change)="processLogo(logoInput)">
-      </label>
+      <div class="card-row">
+        <img *ngIf="business.identification && business.identification.logoPath" src="{{this.imagesUrl + business.identification.logoPath}}" width="125" height="80">
+        <label class="image-upload-container btn btn-bwm">
+          <span>Select Logo</span>
+          <input #logoInput
+                 type="file"
+                 accept="image/*"
+                 (change)="processLogo(logoInput)">
+        </label>
+      </div>
 
-      <label class="image-upload-container btn btn-bwm">
-        <span>Select Image 1</span>
-        <input #imageInput1
-               type="file"
-               accept="image/*"
-               (change)="processFile(imageInput1)">
-      </label>
+      <div class="card-row">
+        <img *ngIf="business.businessInfo && business.businessInfo.photoPath1" src="{{this.imagesUrl + business.businessInfo.photoPath1}}" width="125" height="80">
+        <label class="image-upload-container btn btn-bwm">
+          <span>Select Image 1</span>
+          <input #imageInput1
+                 type="file"
+                 accept="image/*"
+                 (change)="processFile(imageInput1, 1)">
+        </label>
+      </div>
 
-      <label class="image-upload-container btn btn-bwm">
-        <span>Select Image 2</span>
-        <input #imageInput2
-               type="file"
-               accept="image/*"
-               (change)="processFile(imageInput2)">
-      </label>
+      <div class="card-row">
+        <img *ngIf="business.businessInfo && business.businessInfo.photoPath2" src="{{this.imagesUrl + business.businessInfo.photoPath2}}" width="125" height="80">
+        <label class="image-upload-container btn btn-bwm">
+          <span>Select Image 2</span>
+          <input #imageInput2
+                 type="file"
+                 accept="image/*"
+                 (change)="processFile(imageInput2, 2)">
+        </label>
+      </div>
 
-      <label class="image-upload-container btn btn-bwm">
-        <span>Select Image 3</span>
-        <input #imageInput3
-               type="file"
-               accept="image/*"
-               (change)="processFile(imageInput3)">
-      </label>
+      <div class="card-row">
+        <img *ngIf="business.businessInfo && business.businessInfo.photoPath3" src="{{this.imagesUrl + business.businessInfo.photoPath3}}" width="125" height="80">
+        <label class="image-upload-container btn btn-bwm">
+          <span>Select Image 3</span>
+          <input #imageInput3
+                 type="file"
+                 accept="image/*"
+                 (change)="processFile(imageInput3, 3)">
+        </label>
+      </div>
 
-      <label class="image-upload-container btn btn-bwm">
-        <span>Select Image 4</span>
-        <input #imageInput4
-               type="file"
-               accept="image/*"
-               (change)="processFile(imageInput4)">
-      </label>
+      <div class="card-row">
+        <img *ngIf="business.businessInfo && business.businessInfo.photoPath4" src="{{this.imagesUrl + business.businessInfo.photoPath4}}" width="125" height="80">
+        <label class="image-upload-container btn btn-bwm">
+          <span>Select Image 4</span>
+          <input #imageInput4
+                 type="file"
+                 accept="image/*"
+                 (change)="processFile(imageInput4, 4)">
+        </label>
+      </div>
 
-      <label class="image-upload-container btn btn-bwm">
-        <span>Select Image 5</span>
-        <input #imageInput5
-               type="file"
-               accept="image/*"
-               (change)="processFile(imageInput5)">
-      </label>
+      <div class="card-row">
+        <img *ngIf="business.businessInfo && business.businessInfo.photoPath5" src="{{this.imagesUrl + business.businessInfo.photoPath5}}" width="125" height="80">
+        <label class="image-upload-container btn btn-bwm">
+          <span>Select Image 5</span>
+          <input #imageInput5
+                 type="file"
+                 accept="image/*"
+                 (change)="processFile(imageInput5, 5)">
+        </label>
+      </div>
 
     </div>
 

@@ -26,4 +26,8 @@ export class RouterService {
     public static openUserPage() {
         window.open("/user-detail", "_self");
     }
+    public static openNewTab(url: string) {
+        url = url.match(/^https?:/) ? url : '//' + url;
+        window.open(url, '_blank');
+    }
 }

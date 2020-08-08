@@ -4,6 +4,7 @@ import { BusinessManagerService } from '../services/business-manager-svc';
 import { AlertService } from '../services/alert-service';
 import { RouterService } from '../services/router-service';
 import { ActivatedRoute } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 
 @Component({
@@ -14,7 +15,8 @@ export class BusinessCreateComponent implements OnInit {
 
     public business: BusinessDataModel;
     public logo: File;
-    public images: File[];
+    public images: Map<number, File> = new Map;
+    imagesUrl: string;
 
     public errors = []
 
@@ -23,7 +25,7 @@ export class BusinessCreateComponent implements OnInit {
         private alertService: AlertService,
         private readonly route: ActivatedRoute
     ) {
-
+        this.imagesUrl = environment.business_manager_api_url + "/images/";
     }
 
     ngOnInit(): void {
@@ -60,7 +62,13 @@ export class BusinessCreateComponent implements OnInit {
 
     public onClickSave() {
         if (this.business.id) {
-
+            this.businessManagerService.updateBusiness(this.business, this.business.id).subscribe(result => {
+                this.errors = [];
+                this.alertService.success("Business Updated", "");
+            }, error => {
+                this.errors = error.error.data;
+                this.alertService.error("Error creating business", error.message);
+            });
         } else {
             this.businessManagerService.saveBusiness(this.business).subscribe(result => {
                 this.business = result.data;
@@ -77,10 +85,8 @@ export class BusinessCreateComponent implements OnInit {
                         });
                 }
                 if (this.images) {
-                    var i = 0;
-                    this.images.forEach((image: File) => {
-                        i++;
-                        this.businessManagerService.uploadImage(image, this.business.id, i).subscribe(
+                    this.images.forEach((image: File, index: number) => {
+                        this.businessManagerService.uploadImage(image, this.business.id, index).subscribe(
                             result => {
                             },
                             error => {
@@ -95,30 +101,55 @@ export class BusinessCreateComponent implements OnInit {
                 this.alertService.error("Error creating business", error.message);
             });
         }
-  }
+    }
 
-  processLogo(imageInput: any) {
+    processLogo(imageInput: any) {
         const file: File = imageInput.files[0];
         const reader = new FileReader();
 
         reader.addEventListener('load', (event: any) => {
             this.logo = file;
+            if (this.business.id) {
+                this.businessManagerService.updateLogo(this.logo, this.business.id).subscribe(
+                    result => {
+                        this.businessManagerService.getBusiness(this.business.id).subscribe(result => {
+                            this.business = result.data;
+                        }, error => {
+                            this.alertService.error("Error loading business", error.message);
+                        });
+                    },
+                    error => {
+                        this.errors.concat(error.error.data);
+                        this.alertService.error("Error adding logo", error.message);
+                    });
+            }
         });
         reader.readAsDataURL(file);
     }
 
-    processFile(imageInput: any) {
+    processFile(imageInput: any, index: number) {
         const file: File = imageInput.files[0];
         const reader = new FileReader();
 
         reader.addEventListener('load', (event: any) => {
-            if (!this.images) {
-                this.images = [];
-            }
-            if (this.images.length >= 5) {
+            if (this.images.size > 5 || index > 5 || index < 1) {
                 this.alertService.warning("Can't add image", "Can't add more than 5 images");
             } else {
-                this.images.push(file);
+                this.images.set(index, file);
+                if (this.business.id) {
+                    this.businessManagerService.updateImage(this.images.get(index), this.business.id, index).subscribe(
+                        result => {
+                            this.businessManagerService.getBusiness(this.business.id).subscribe(result => {
+                                this.business = result.data;
+                            }, error => {
+                                this.alertService.error("Error loading business", error.message);
+                            });
+                        },
+                        error => {
+                            this.errors.concat(error.error.data);
+                            this.alertService.error("Error adding image", error.message);
+                        });
+                }
             }
         });
         reader.readAsDataURL(file);

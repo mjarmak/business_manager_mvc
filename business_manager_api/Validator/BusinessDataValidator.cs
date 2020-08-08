@@ -59,6 +59,8 @@ namespace business_manager_api.Validator
         public IdentificationDataValidator()
         {
             RuleFor(x => x.Name).NotNull();
+
+            RuleFor(x => x.TVA).NotNull();
             RuleFor(x => TVAClientService.ValidateVAT("BE", x.TVA))
                 .Equal(true)
                 .WithMessage("The TVA number is invalid");

@@ -28,6 +28,10 @@ var RouterService = /** @class */ (function () {
     RouterService.openUserPage = function () {
         window.open("/user-detail", "_self");
     };
+    RouterService.openNewTab = function (url) {
+        url = url.match(/^https?:/) ? url : '//' + url;
+        window.open(url, '_blank');
+    };
     RouterService = __decorate([
         core_1.Injectable({
             providedIn: 'root',

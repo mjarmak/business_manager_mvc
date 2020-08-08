@@ -18,10 +18,10 @@
 
   <p for="phone">Phone Number: {{this.user.phone}}</p>
 
-  <p *ngIf="this.user.professional && this.user.professional === true">Professional</p>
-  <p *ngIf="this.user.professional && this.user.professional === false">Not Professional</p>
+  <p *ngIf="this.user.professional !== undefined && this.user.professional === true">Professional</p>
+  <p *ngIf="this.user.professional !== undefined && this.user.professional === false">Not Professional</p>
 
-  <button *ngIf="this.role && this.role.includes('USER')" class="btn-secondary" id="btnEdit" (click)="onClickEdit()">Edit</button>
+  <button *ngIf="this.role && this.role.includes('USER')" class="btn-secondary margin-top-none" id="btnEdit" (click)="onClickEdit()">Edit</button>
 
 </div>
 
@@ -31,9 +31,9 @@
 
   <p for="birthday">Birthday: {{this.user.birthday}}</p>
 
-  <p for="gender">Gender: {{this.user.gender.charAt(0).toUpperCase() + this.user.gender.slice(1).toLowerCase()}}</p>
+  <p class="margin-none" for="gender">Gender: {{this.user.gender.charAt(0).toUpperCase() + this.user.gender.slice(1).toLowerCase()}}</p>
 
-  <hr class="margin-top-medium margin-bottom-medium"/>
+  <hr class="margin-top-small margin-bottom-small"/>
 
   <label class="margin-top-none" for="name">Name:</label>
   <input id="name" type="text" [(ngModel)]="this.userUpdate.nameNew">

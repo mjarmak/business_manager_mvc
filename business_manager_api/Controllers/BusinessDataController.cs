@@ -421,7 +421,7 @@ namespace business_manager_api.Controllers
                     _context.Entry(businessDataModel.BusinessInfo.Address).State = EntityState.Modified;
                 }
             }
-            if (businessDataModel.Identification != null && businessDataModel.Identification.Id != 0 && IdentificaitonExists(businessDataModel.Identification.Id))
+            if (businessDataModel.Identification != null && businessDataModel.Identification.Id != 0 && IdentificationExists(businessDataModel.Identification.Id))
             {
                 _context.Entry(businessDataModel.Identification).State = EntityState.Modified;
             }
@@ -859,6 +859,7 @@ namespace business_manager_api.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         // DELETE: api/BusinessData/5
+        [ValidateAntiForgeryToken]
         [HttpDelete("{id}")]
         [Authorize(Roles = "ADMIN")]
         public async Task<ActionResult> DeleteBusinessDataModel(long id)
@@ -901,7 +902,7 @@ namespace business_manager_api.Controllers
         {
             return _context.BusinessInfo.Any(e => e.Id == id);
         }
-        private bool IdentificaitonExists(long id)
+        private bool IdentificationExists(long id)
         {
             return _context.Identification.Any(e => e.Id == id);
         }

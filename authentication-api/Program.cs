@@ -22,7 +22,7 @@ namespace authentication_api
             roleManager.CreateAsync(new IdentityRole { Name = "REVIEWING" }).GetAwaiter().GetResult();
             roleManager.CreateAsync(new IdentityRole { Name = "BLOCKED" }).GetAwaiter().GetResult();
 
-            AddUser(host, "admin@businessmanager.com", "ADMIN", "admin", "admin", "OTHER", "+32466550935",
+            AddUser(host, "admin", "ADMIN", "admin", "admin", "OTHER", "+32466550935",
                     "10/07/2020 17:02:31", "0");
 
             AddUser(host, "mohamadjarmak@gmail.com", "USER", "Mohamad", "Jarmak", "MALE", "+32466550935",

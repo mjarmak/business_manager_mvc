@@ -1,4 +1,3 @@
-using System;
 
 namespace business_manager_common_library
 {

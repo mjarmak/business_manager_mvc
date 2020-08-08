@@ -46,7 +46,8 @@ namespace business_manager_api
                 },
                 
                 Identification = new IdentificationData { Type = BusinessTypeEnum.CLUB.ToString(), Name = "Disco Club Belgium", EmailPro = "mohamadjarmak@gmail.com", Description = "Disco Club since 1990."},
-                BusinessInfo = new BusinessInfoData { Address = new AddressData { City = "Bruxelles", Country = "Belgium", Street = "Rue de Belgique", BoxNumber = "1", PostalCode = "1100" } }
+                BusinessInfo = new BusinessInfoData {Phone = "+32493741427", Address = new AddressData { City = "Bruxelles", Country = "Belgium", Street = "Rue de Belgique", BoxNumber = "1", PostalCode = "1100" },
+                    UrlSite = "", UrlFaceBook = "https://www.facebook.com/bigfra12", UrlInstagram = "https://www.instagram.com/belgium", UrlLinkedIn = "www.linkedin.com/in/bigif" }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
             {
@@ -60,7 +61,8 @@ namespace business_manager_api
                     new WorkHoursData { Day = WorkHoursDayEnum.SUNDAY.ToString(), HourFrom = 15, HourTo = 23, Closed = false, MinuteFrom = 0, MinuteTo = 0 }
                 },
                 Identification = new IdentificationData { Type = BusinessTypeEnum.BAR.ToString(), Name = "Disco Bar Italy", EmailPro = "francesco.bigi.87@gmail.com", Description = "Disco Bar Italy since 1990."},
-                BusinessInfo = new BusinessInfoData { Address = new AddressData { City = "Bruxelles", Country = "Belgium", Street = "Rue de L'Italie", BoxNumber = "2", PostalCode = "1200" } }
+                BusinessInfo = new BusinessInfoData { Phone = "+32493741427", Address = new AddressData { City = "Bruxelles", Country = "Belgium", Street = "Rue de L'Italie", BoxNumber = "2", PostalCode = "1200" },
+                    UrlSite = "", UrlFaceBook = "https://www.facebook.com/bigfra12", UrlInstagram = "https://www.instagram.com/belgium", UrlLinkedIn = "www.linkedin.com/in/bigif" }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
             {
@@ -74,7 +76,12 @@ namespace business_manager_api
                     new WorkHoursData { Day = WorkHoursDayEnum.SUNDAY.ToString(), HourFrom = 8, HourTo = 17, Closed = false, MinuteFrom = 30, MinuteTo = 30 }
                 },
                 Identification = new IdentificationData { Type = BusinessTypeEnum.BAR.ToString(), Name = "Disco Bar Beirut", EmailPro = "francesco.bigi.87@gmail.com", Description = "Disco Bar Beirut since 1990." },
-                BusinessInfo = new BusinessInfoData { Address = new AddressData {  City = "Beirut", Country = "Lebanon", Street = "Rue de France", BoxNumber = "3", PostalCode = "1300" } }
+                BusinessInfo = new BusinessInfoData { Phone = "+32493741427", Address = new AddressData {  City = "Beirut", Country = "Lebanon", Street = "Rue de France", BoxNumber = "3", PostalCode = "1300" },
+                    UrlSite = "",
+                    UrlFaceBook = "https://www.facebook.com/bigfra12",
+                    UrlInstagram = "https://www.instagram.com/belgium",
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
+                }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
             {
@@ -88,7 +95,12 @@ namespace business_manager_api
                     new WorkHoursData { Day = WorkHoursDayEnum.SUNDAY.ToString(), HourFrom = 8, HourTo = 17, Closed = false, MinuteFrom = 30, MinuteTo = 30 }
                 },
                 Identification = new IdentificationData { Type = BusinessTypeEnum.BAR.ToString(), Name = "Disco Bar Spain", EmailPro = "francesco.bigi.87@gmail.com", Description = "Disco Bar Spain since 1990." },
-                BusinessInfo = new BusinessInfoData { Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue de l'Espagne", BoxNumber = "4", PostalCode = "1400" } }
+                BusinessInfo = new BusinessInfoData { Phone = "+32493741427", Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue de l'Espagne", BoxNumber = "4", PostalCode = "1400" },
+                    UrlSite = "",
+                    UrlFaceBook = "https://www.facebook.com/bigfra12",
+                    UrlInstagram = "https://www.instagram.com/belgium",
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
+                }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
             {
@@ -102,7 +114,12 @@ namespace business_manager_api
                     new WorkHoursData { Day = WorkHoursDayEnum.SUNDAY.ToString(), HourFrom = 8, HourTo = 17, Closed = false, MinuteFrom = 30, MinuteTo = 30 }
                 },
                 Identification = new IdentificationData { Type = BusinessTypeEnum.BAR.ToString(), Name = "Disco Bar Portugal", EmailPro = "francesco.bigi.87@gmail.com", Description = "Disco Bar Portugal since 1990." },
-                BusinessInfo = new BusinessInfoData { Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue du Portugal", BoxNumber = "5", PostalCode = "1500" } }
+                BusinessInfo = new BusinessInfoData { Phone = "+32493741427", Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue du Portugal", BoxNumber = "5", PostalCode = "1500" },
+                    UrlSite = "",
+                    UrlFaceBook = "https://www.facebook.com/bigfra12",
+                    UrlInstagram = "https://www.instagram.com/belgium",
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
+                }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
             {
@@ -116,7 +133,12 @@ namespace business_manager_api
                     new WorkHoursData { Day = WorkHoursDayEnum.SUNDAY.ToString(), HourFrom = 8, HourTo = 17, Closed = false, MinuteFrom = 30, MinuteTo = 30 }
                 },
                 Identification = new IdentificationData { Type = BusinessTypeEnum.CONCERT.ToString(), Name = "Disco Concert Luxembourg", EmailPro = "francesco.bigi.87@gmail.com", Description = "Disco Concert Luxembourg since 1990." },
-                BusinessInfo = new BusinessInfoData { Address = new AddressData { City = "Bruges", Country = "Belgium", Street = "Rue de Luxembourg", BoxNumber = "6", PostalCode = "1600" } }
+                BusinessInfo = new BusinessInfoData { Phone = "+32493741427", Address = new AddressData { City = "Bruges", Country = "Belgium", Street = "Rue de Luxembourg", BoxNumber = "6", PostalCode = "1600" },
+                    UrlSite = "",
+                    UrlFaceBook = "https://www.facebook.com/bigfra12",
+                    UrlInstagram = "https://www.instagram.com/belgium",
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
+                }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
             {
@@ -130,7 +152,12 @@ namespace business_manager_api
                     new WorkHoursData { Day = WorkHoursDayEnum.SUNDAY.ToString(), HourFrom = 8, HourTo = 17, Closed = false, MinuteFrom = 30, MinuteTo = 30 }
                 },
                 Identification = new IdentificationData { Type = BusinessTypeEnum.CLUB.ToString(), Name = "Disco Bar Holland", EmailPro = "newbreaker@gmail.com", Description = "Disco CLUB Holland since 1990." },
-                BusinessInfo = new BusinessInfoData { Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue de Hollande", BoxNumber = "7", PostalCode = "1700" } },
+                BusinessInfo = new BusinessInfoData { Phone = "+32493741427", Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue de Hollande", BoxNumber = "7", PostalCode = "1700" },
+                    UrlSite = "",
+                    UrlFaceBook = "https://www.facebook.com/bigfra12",
+                    UrlInstagram = "https://www.instagram.com/belgium",
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
+                },
                 Disabled = true
             }); ;
             context.BusinessDataModel.Add(new BusinessDataModel
@@ -145,7 +172,12 @@ namespace business_manager_api
                     new WorkHoursData { Day = WorkHoursDayEnum.SUNDAY.ToString(), HourFrom = 8, HourTo = 17, Closed = false, MinuteFrom = 30, MinuteTo = 30 }
                 },
                 Identification = new IdentificationData { Type = BusinessTypeEnum.CONCERT.ToString(), Name = "Disco Concert Greece", EmailPro = "francesco.bigi.87@gmail.com", Description = "Disco Concert Greece since 1990." },
-                BusinessInfo = new BusinessInfoData { Address = new AddressData { City = "Vilvoorde", Country = "Belgium", Street = "Rue de Grece", BoxNumber = "8", PostalCode = "1800" } }
+                BusinessInfo = new BusinessInfoData { Phone = "+32493741427", Address = new AddressData { City = "Vilvoorde", Country = "Belgium", Street = "Rue de Grece", BoxNumber = "8", PostalCode = "1800" },
+                    UrlSite = "",
+                    UrlFaceBook = "https://www.facebook.com/bigfra12",
+                    UrlInstagram = "https://www.instagram.com/belgium",
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
+                }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
             {
@@ -159,7 +191,12 @@ namespace business_manager_api
                     new WorkHoursData { Day = WorkHoursDayEnum.SUNDAY.ToString(), HourFrom = 8, HourTo = 17, Closed = false, MinuteFrom = 30, MinuteTo = 30 }
                 },
                 Identification = new IdentificationData { Type = BusinessTypeEnum.CONCERT.ToString(), Name = "Disco Concert Greece", EmailPro = "newbreaker@gmail.com", Description = "Disco Concert Sweden since 1990." },
-                BusinessInfo = new BusinessInfoData { Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue de Swede", BoxNumber = "9", PostalCode = "1900" } }
+                BusinessInfo = new BusinessInfoData { Phone = "+32493741427", Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue de Swede", BoxNumber = "9", PostalCode = "1900" },
+                    UrlSite = "",
+                    UrlFaceBook = "https://www.facebook.com/bigfra12",
+                    UrlInstagram = "https://www.instagram.com/belgium",
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
+                }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
             {
@@ -173,7 +210,12 @@ namespace business_manager_api
                     new WorkHoursData { Day = WorkHoursDayEnum.SUNDAY.ToString(), HourFrom = 8, HourTo = 17, Closed = false, MinuteFrom = 30, MinuteTo = 30 }
                 },
                 Identification = new IdentificationData { Type = BusinessTypeEnum.STUDENTCIRCLE.ToString(), Name = "Student circle Finland", EmailPro = "newbreaker@gmail.com", Description = "Student circle FInland since 1990." },
-                BusinessInfo = new BusinessInfoData { Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue de Finlande", BoxNumber = "10", PostalCode = "2000" } }
+                BusinessInfo = new BusinessInfoData { Phone = "+32493741427", Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue de Finlande", BoxNumber = "10", PostalCode = "2000" },
+                    UrlSite = "",
+                    UrlFaceBook = "https://www.facebook.com/bigfra12",
+                    UrlInstagram = "https://www.instagram.com/belgium",
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
+                }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
             {
@@ -187,7 +229,12 @@ namespace business_manager_api
                     new WorkHoursData { Day = WorkHoursDayEnum.SUNDAY.ToString(), HourFrom = 8, HourTo = 17, Closed = false, MinuteFrom = 30, MinuteTo = 30 }
                 },
                 Identification = new IdentificationData { Type = BusinessTypeEnum.CONCERT.ToString(), Name = "Disco Bar Poland", EmailPro = "newbreaker@gmail.com", Description = "Disco Poland since 1990." },
-                BusinessInfo = new BusinessInfoData { Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue de Pologne", BoxNumber = "11", PostalCode = "2100" } },
+                BusinessInfo = new BusinessInfoData { Phone = "+32493741427", Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue de Pologne", BoxNumber = "11", PostalCode = "2100" },
+                    UrlSite = "",
+                    UrlFaceBook = "https://www.facebook.com/bigfra12",
+                    UrlInstagram = "https://www.instagram.com/belgium",
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
+                },
                 Disabled = true
             });
             context.BusinessDataModel.Add(new BusinessDataModel
@@ -202,7 +249,12 @@ namespace business_manager_api
                     new WorkHoursData { Day = WorkHoursDayEnum.SUNDAY.ToString(), HourFrom = 8, HourTo = 17, Closed = false, MinuteFrom = 30, MinuteTo = 30 }
                 },
                 Identification = new IdentificationData { Type = BusinessTypeEnum.CONCERT.ToString(), Name = "Disco Bar Croatie", EmailPro = "newbreaker@gmail.com", Description = "Disco Croatie since 1990." },
-                BusinessInfo = new BusinessInfoData { Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue de Croatie", BoxNumber = "12", PostalCode = "2200" } }
+                BusinessInfo = new BusinessInfoData { Phone = "+32493741427", Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue de Croatie", BoxNumber = "12", PostalCode = "2200" },
+                    UrlSite = "",
+                    UrlFaceBook = "https://www.facebook.com/bigfra12",
+                    UrlInstagram = "https://www.instagram.com/belgium",
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
+                }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
             {
@@ -216,7 +268,12 @@ namespace business_manager_api
                     new WorkHoursData { Day = WorkHoursDayEnum.SUNDAY.ToString(), HourFrom = 8, HourTo = 17, Closed = false, MinuteFrom = 30, MinuteTo = 30 }
                 },
                 Identification = new IdentificationData { Type = BusinessTypeEnum.CONCERT.ToString(), Name = "Disco Bar Roumanie", EmailPro = "newbreaker@gmail.com", Description = "Disco Roumanie since 1990." },
-                BusinessInfo = new BusinessInfoData { Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue de Roumanie", BoxNumber = "13", PostalCode = "2300" } }
+                BusinessInfo = new BusinessInfoData { Phone = "+32493741427", Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue de Roumanie", BoxNumber = "13", PostalCode = "2300" },
+                    UrlSite = "",
+                    UrlFaceBook = "https://www.facebook.com/bigfra12",
+                    UrlInstagram = "https://www.instagram.com/belgium",
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
+                }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
             {
@@ -230,7 +287,12 @@ namespace business_manager_api
                     new WorkHoursData { Day = WorkHoursDayEnum.SUNDAY.ToString(), HourFrom = 8, HourTo = 17, Closed = false, MinuteFrom = 30, MinuteTo = 30 }
                 },
                 Identification = new IdentificationData { Type = BusinessTypeEnum.CONCERT.ToString(), Name = "Disco Bar Norvegia", EmailPro = "newbreaker@gmail.com", Description = "Disco Norvegia since 1990." },
-                BusinessInfo = new BusinessInfoData { Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue de Norvege", BoxNumber = "14", PostalCode = "2400" } }
+                BusinessInfo = new BusinessInfoData { Phone = "+32493741427", Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue de Norvege", BoxNumber = "14", PostalCode = "2400" },
+                    UrlSite = "",
+                    UrlFaceBook = "https://www.facebook.com/bigfra12",
+                    UrlInstagram = "https://www.instagram.com/belgium",
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
+                }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
             {
@@ -244,7 +306,12 @@ namespace business_manager_api
                     new WorkHoursData { Day = WorkHoursDayEnum.SUNDAY.ToString(), HourFrom = 8, HourTo = 17, Closed = false, MinuteFrom = 30, MinuteTo = 30 }
                 },
                 Identification = new IdentificationData { Type = BusinessTypeEnum.CONCERT.ToString(), Name = "Disco Bar Ukraina", EmailPro = "newbreaker@gmail.com", Description = "Disco Ukraina since 1990." },
-                BusinessInfo = new BusinessInfoData { Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue de Ukraine", BoxNumber = "15", PostalCode = "2500" } }
+                BusinessInfo = new BusinessInfoData { Phone = "+32493741427", Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue de Ukraine", BoxNumber = "15", PostalCode = "2500" },
+                    UrlSite = "",
+                    UrlFaceBook = "https://www.facebook.com/bigfra12",
+                    UrlInstagram = "https://www.instagram.com/belgium",
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
+                }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
             {
@@ -258,7 +325,12 @@ namespace business_manager_api
                     new WorkHoursData { Day = WorkHoursDayEnum.SUNDAY.ToString(), HourFrom = 8, HourTo = 17, Closed = false, MinuteFrom = 30, MinuteTo = 30 }
                 },
                 Identification = new IdentificationData { Type = BusinessTypeEnum.CONCERT.ToString(), Name = "Disco Bar Austria", EmailPro = "newbreaker@gmail.com", Description = "Disco Austria since 1990." },
-                BusinessInfo = new BusinessInfoData { Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue de L'autriche", BoxNumber = "16", PostalCode = "2600" } }
+                BusinessInfo = new BusinessInfoData { Phone = "+32493741427", Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue de L'autriche", BoxNumber = "16", PostalCode = "2600" },
+                    UrlSite = "",
+                    UrlFaceBook = "https://www.facebook.com/bigfra12",
+                    UrlInstagram = "https://www.instagram.com/belgium",
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
+                }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
             {
@@ -272,7 +344,12 @@ namespace business_manager_api
                     new WorkHoursData { Day = WorkHoursDayEnum.SUNDAY.ToString(), HourFrom = 8, HourTo = 17, Closed = false, MinuteFrom = 30, MinuteTo = 30 }
                 },
                 Identification = new IdentificationData { Type = BusinessTypeEnum.CONCERT.ToString(), Name = "Disco Bar Czeque", EmailPro = "newbreaker@gmail.com", Description = "Disco Czeque since 1990." },
-                BusinessInfo = new BusinessInfoData { Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue de Republique Czeque", BoxNumber = "17", PostalCode = "2700" } }
+                BusinessInfo = new BusinessInfoData { Phone = "+32493741427", Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue de Republique Czeque", BoxNumber = "17", PostalCode = "2700" },
+                    UrlSite = "",
+                    UrlFaceBook = "https://www.facebook.com/bigfra12",
+                    UrlInstagram = "https://www.instagram.com/belgium",
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
+                }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
             {
@@ -285,8 +362,22 @@ namespace business_manager_api
                     new WorkHoursData { Day = WorkHoursDayEnum.SATURDAY.ToString(), HourFrom = 8, HourTo = 17, Closed = false, MinuteFrom = 30, MinuteTo = 30 },
                     new WorkHoursData { Day = WorkHoursDayEnum.SUNDAY.ToString(), HourFrom = 8, HourTo = 17, Closed = false, MinuteFrom = 30, MinuteTo = 30 }
                 },
-                Identification = new IdentificationData { Type = BusinessTypeEnum.CONCERT.ToString(), Name = "Concert Bar Cyprus", EmailPro = "newbreaker@gmail.com", Description = "Concert Cyprus since 1990." },
-                BusinessInfo = new BusinessInfoData { Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue de Cyprus", BoxNumber = "18", PostalCode = "2800" } },
+                Identification = new IdentificationData
+                {
+                    Type = BusinessTypeEnum.CONCERT.ToString(), 
+                    Name = "Concert Bar Cyprus", EmailPro = "newbreaker@gmail.com", 
+                    Description = "Concert Cyprus since 1990."
+                },
+                BusinessInfo = new BusinessInfoData { 
+                    Phone = "+32493741427", Address = new AddressData
+                    {
+                        City = "Anverse", Country = "Belgium", Street = "Rue de Cyprus", BoxNumber = "18", PostalCode = "2800"
+                    },
+                    UrlSite = "",
+                    UrlFaceBook = "https://www.facebook.com/bigfra12",
+                    UrlInstagram = "https://www.instagram.com/belgium",
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
+                },
                 Disabled = true
             });
             context.BusinessDataModel.Add(new BusinessDataModel
@@ -301,7 +392,12 @@ namespace business_manager_api
                     new WorkHoursData { Day = WorkHoursDayEnum.SUNDAY.ToString(), HourFrom = 8, HourTo = 17, Closed = false, MinuteFrom = 30, MinuteTo = 30 }
                 },
                 Identification = new IdentificationData { Type = BusinessTypeEnum.BAR.ToString(), Name = "Disco Bar Malta", EmailPro = "newbreaker@gmail.com", Description = "Disco Malta since 1990." },
-                BusinessInfo = new BusinessInfoData { Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue de Malte", BoxNumber = "19", PostalCode = "2900" } }
+                BusinessInfo = new BusinessInfoData { Phone = "+32493741427", Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue de Malte", BoxNumber = "19", PostalCode = "2900" },
+                    UrlSite = "",
+                    UrlFaceBook = "https://www.facebook.com/bigfra12",
+                    UrlInstagram = "https://www.instagram.com/belgium",
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
+                }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
             {
@@ -315,7 +411,12 @@ namespace business_manager_api
                     new WorkHoursData { Day = WorkHoursDayEnum.SUNDAY.ToString(), HourFrom = 8, HourTo = 17, Closed = false, MinuteFrom = 30, MinuteTo = 30 }
                 },
                 Identification = new IdentificationData { Type = BusinessTypeEnum.CLUB.ToString(), Name = "CLUB Lithuania", EmailPro = "newbreaker@gmail.com", Description = "Club Lithuania since 1990." },
-                BusinessInfo = new BusinessInfoData { Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue de Lithuanie", BoxNumber = "20", PostalCode = "3000" } }
+                BusinessInfo = new BusinessInfoData { Phone = "+32493741427", Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue de Lithuanie", BoxNumber = "20", PostalCode = "3000" },
+                    UrlSite = "",
+                    UrlFaceBook = "https://www.facebook.com/bigfra12",
+                    UrlInstagram = "https://www.instagram.com/belgium",
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
+                }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
             {
@@ -329,7 +430,12 @@ namespace business_manager_api
                     new WorkHoursData { Day = WorkHoursDayEnum.SUNDAY.ToString(), HourFrom = 8, HourTo = 17, Closed = false, MinuteFrom = 30, MinuteTo = 30 }
                 },
                 Identification = new IdentificationData { Type = BusinessTypeEnum.BAR.ToString(), Name = "Disco Bar Estonia", EmailPro = "newbreaker@gmail.com", Description = "Disco Estonia since 1990." },
-                BusinessInfo = new BusinessInfoData { Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue de Estonie", BoxNumber = "21", PostalCode = "3100" } }
+                BusinessInfo = new BusinessInfoData { Phone = "+32493741427", Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue de Estonie", BoxNumber = "21", PostalCode = "3100" },
+                    UrlSite = "",
+                    UrlFaceBook = "https://www.facebook.com/bigfra12",
+                    UrlInstagram = "https://www.instagram.com/belgium",
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
+                }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
             {
@@ -343,7 +449,12 @@ namespace business_manager_api
                     new WorkHoursData { Day = WorkHoursDayEnum.SUNDAY.ToString(), HourFrom = 8, HourTo = 17, Closed = false, MinuteFrom = 30, MinuteTo = 30 }
                 },
                 Identification = new IdentificationData { Type = BusinessTypeEnum.BAR.ToString(), Name = "Disco Bar Serbia", EmailPro = "newbreaker@gmail.com", Description = "Disco BAR Serbia since 1990." },
-                BusinessInfo = new BusinessInfoData { Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue de Serbie", BoxNumber = "22", PostalCode = "3200" } }
+                BusinessInfo = new BusinessInfoData { Phone = "+32493741427", Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue de Serbie", BoxNumber = "22", PostalCode = "3200" },
+                    UrlSite = "",
+                    UrlFaceBook = "https://www.facebook.com/bigfra12",
+                    UrlInstagram = "https://www.instagram.com/belgium",
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
+                }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
             {
@@ -357,7 +468,12 @@ namespace business_manager_api
                     new WorkHoursData { Day = WorkHoursDayEnum.SUNDAY.ToString(), HourFrom = 8, HourTo = 17, Closed = false, MinuteFrom = 30, MinuteTo = 30 }
                 },
                 Identification = new IdentificationData { Type = BusinessTypeEnum.CONCERT.ToString(), Name = "Disco Bar Bielorussie", EmailPro = "newbreaker@gmail.com", Description = "Concert Bielorussie since 1990." },
-                BusinessInfo = new BusinessInfoData { Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue de Bielorussie", BoxNumber = "23", PostalCode = "3300" } }
+                BusinessInfo = new BusinessInfoData { Phone = "+32493741427", Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue de Bielorussie", BoxNumber = "23", PostalCode = "3300" },
+                    UrlSite = "",
+                    UrlFaceBook = "https://www.facebook.com/bigfra12",
+                    UrlInstagram = "https://www.instagram.com/belgium",
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
+                }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
             {
@@ -371,7 +487,12 @@ namespace business_manager_api
                     new WorkHoursData { Day = WorkHoursDayEnum.SUNDAY.ToString(), HourFrom = 8, HourTo = 17, Closed = false, MinuteFrom = 30, MinuteTo = 30 }
                 },
                 Identification = new IdentificationData { Type = BusinessTypeEnum.STUDENTCIRCLE.ToString(), Name = "Student circle Monaco", EmailPro = "newbreaker@gmail.com", Description = "Student circle Monaco since 1990." },
-                BusinessInfo = new BusinessInfoData { Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue de Monaco", BoxNumber = "24", PostalCode = "3400" } },
+                BusinessInfo = new BusinessInfoData { Phone = "+32493741427", Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue de Monaco", BoxNumber = "24", PostalCode = "3400" },
+                    UrlSite = "",
+                    UrlFaceBook = "https://www.facebook.com/bigfra12",
+                    UrlInstagram = "https://www.instagram.com/belgium",
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
+                },
                 Disabled = true
             });
             context.BusinessDataModel.Add(new BusinessDataModel
@@ -386,7 +507,12 @@ namespace business_manager_api
                     new WorkHoursData { Day = WorkHoursDayEnum.SUNDAY.ToString(), HourFrom = 8, HourTo = 17, Closed = false, MinuteFrom = 30, MinuteTo = 30 }
                 },
                 Identification = new IdentificationData { Type = BusinessTypeEnum.CLUB.ToString(), Name = "Disco CLUB Moldavie", EmailPro = "newbreaker@gmail.com", Description = "Disco Moldavi since 1990." },
-                BusinessInfo = new BusinessInfoData { Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue de Moldavie", BoxNumber = "25", PostalCode = "3500" } }
+                BusinessInfo = new BusinessInfoData { Phone = "+32493741427", Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue de Moldavie", BoxNumber = "25", PostalCode = "3500" },
+                    UrlSite = "",
+                    UrlFaceBook = "https://www.facebook.com/bigfra12",
+                    UrlInstagram = "https://www.instagram.com/belgium",
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
+                }
             });
             context.SaveChangesAsync();
         }

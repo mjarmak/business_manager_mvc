@@ -17,10 +17,13 @@ export class UserAccountDetailComponent implements OnInit {
     public passwordDuplicate: string;
     public userGenders = ["MALE", "FEMALE", "OTHER"];
     public editMode: boolean = false;
+    public role: string;
 
     public errors = []
 
     ngOnInit(): void {
+        this.role = localStorage.getItem("userrole");
+
         this.user = new UserAccountModel;
         this.user.name = localStorage.getItem("username");
         this.user.surname = localStorage.getItem("userfamily_name");
@@ -28,7 +31,6 @@ export class UserAccountDetailComponent implements OnInit {
         this.user.gender = localStorage.getItem("usergender");
         this.user.phone = localStorage.getItem("userphone_number");
         this.user.professional = Boolean(Number(localStorage.getItem("userprofessional")));
-        console.log(this.user.professional)
         this.user.birthday = localStorage.getItem("userbirthdate");
     }
 

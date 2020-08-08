@@ -1,8 +1,4 @@
-<h1>Create Account</h1>
-
-<p>Please fill in all the required fields.</p>
-
-<!--<p *ngIf="!forecasts"><em>Loading...</em></p>-->
+<h1>{{this.user.name}} {{this.user.surname}}</h1>
 
 <div *ngIf="this.errors && this.errors.length != 0" class="card-error card-min-width-512 width-50">
   <p *ngFor="let error of this.errors">- {{error}}</p>
@@ -25,7 +21,7 @@
   <p *ngIf="this.user.professional && this.user.professional === true">Professional</p>
   <p *ngIf="this.user.professional && this.user.professional === false">Not Professional</p>
 
-  <button class="btn-secondary" id="btnEdit" (click)="onClickEdit()">Edit</button>
+  <button *ngIf="this.role && this.role.includes('USER')" class="btn-secondary" id="btnEdit" (click)="onClickEdit()">Edit</button>
 
 </div>
 

@@ -356,6 +356,16 @@ namespace business_manager_api.Controllers
         [Authorize]
         public async Task<IActionResult> UpdateBusiness(long id, BusinessModel businessModel)
         {
+            var role = GetClaim("role");
+            if (!role.Contains("ADMIN") && !role.Contains("USER"))
+            {
+                return BadRequest(new
+                {
+                    data = "User is not validated."
+                });
+            }
+            var email = GetClaim("email");
+
             if (id != businessModel.Id)
             {
                 return BadRequest();
@@ -388,6 +398,15 @@ namespace business_manager_api.Controllers
                     data = errors
                 });
             }
+
+            if (businessDataModel.Identification.EmailPro != email && !role.Contains("ADMIN"))
+            {
+                return BadRequest(new
+                {
+                    data = "Business with ID " + id + " does not belong to user " + email + "."
+                });
+            }
+
             _context.Entry(businessDataModel).State = EntityState.Modified;
             if (businessDataModel.BusinessInfo != null && businessDataModel.BusinessInfo.Id != 0 && BusinessInfoExists(businessDataModel.BusinessInfo.Id))
             {

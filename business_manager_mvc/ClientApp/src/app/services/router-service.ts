@@ -16,8 +16,8 @@ export class RouterService {
     public static openBusiness(businessId: number) {
         window.open("/business-detail/" + businessId, "_self")
   }
-    public static openBusinessCreate(businessId: number) {
-      window.open("/business-create/" + businessId, "_self")
+    public static openBusinessEdit(businessId: number) {
+      window.open("/business-edit/" + businessId, "_self")
     }
 
     public static openLoginPage() {

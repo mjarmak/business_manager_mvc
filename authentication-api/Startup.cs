@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Logging;
@@ -14,6 +15,13 @@ namespace authentication_api
 {
     public class Startup
     {
+        //public Startup(IConfiguration configuration)
+        //{
+        //    Configuration = configuration;
+        //}
+
+        //public IConfiguration Configuration { get; }
+
         public void ConfigureServices(IServiceCollection services)
         {
             IdentityModelEventSource.ShowPII = true; // for debugging
@@ -25,6 +33,12 @@ namespace authentication_api
                     config.Audience = "auth";
                     config.Audience = "bm";
                     //config.RequireHttpsMetadata = false;
+                });
+            services.AddAuthentication()
+                .AddGoogle(options =>
+                {
+                    options.ClientId = "832616258163-p7j556d7o2op229gu8ktnghbaufvp2gc.apps.googleusercontent.com";
+                    options.ClientSecret = "f28dIUNO28hLcv7e739-6IdO";
                 });
 
             services.AddDbContext<DefaultContext>(config =>

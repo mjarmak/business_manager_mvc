@@ -27,7 +27,6 @@ var AuthService = /** @class */ (function () {
         return localStorage.getItem('username');
     };
     AuthService.prototype.setUserinfo = function (userinfo) {
-        console.log(userinfo);
         if (userinfo.name) {
             localStorage.setItem('username', userinfo.name);
         }

@@ -18,7 +18,7 @@ var TokenInterceptor = /** @class */ (function () {
                 }
             });
         }
-        return next.handle(request).pipe(operators_1.tap(function (event) { return console.log(event instanceof http_1.HttpResponse ? 'dope' : 'not dope'); }, function (error) {
+        return next.handle(request).pipe(operators_1.tap(function (event) { return event instanceof http_1.HttpResponse; }, function (error) {
             if (error.status === 401) {
                 _this.alertSerice.warning("Login expired", "Please login again");
                 router_service_1.RouterService.openLoginPage();

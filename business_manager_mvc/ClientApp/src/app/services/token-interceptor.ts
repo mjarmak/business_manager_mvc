@@ -21,7 +21,7 @@ export class TokenInterceptor implements HttpInterceptor {
         }
 
         return next.handle(request).pipe(tap(
-            (event: HttpEvent<any>) => console.log(event instanceof HttpResponse ? 'dope' : 'not dope'),
+            (event: HttpEvent<any>) => event instanceof HttpResponse,
             (error: HttpErrorResponse) => {
                 if (error.status === 401) {
                     this.alertSerice.warning("Login expired", "Please login again");

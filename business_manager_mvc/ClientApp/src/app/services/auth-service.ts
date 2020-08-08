@@ -35,7 +35,6 @@ export class AuthService {
     }
 
     public setUserinfo(userinfo: UserInfo) {
-        console.log(userinfo);
         if (userinfo.name) {
             localStorage.setItem('username', userinfo.name);
         }

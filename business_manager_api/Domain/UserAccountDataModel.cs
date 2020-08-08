@@ -12,12 +12,14 @@ namespace business_manager_api
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
+
         public string Name { get; set; }
         public string Surname { get; set; }
         [Index(IsUnique = true)]
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Gender { get; set; }
+        [Display(Name = "Date of birth")]
         public DateTime BirthDate { get; set; }
         public bool Profession { get; set; }
         public string Type { get; set; }

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using business_manager_common_library;
 using FluentValidation.Results;
 using business_manager_api.Context;
+// ReSharper disable All
 
 namespace business_manager_api.Controllers
 {
@@ -189,7 +190,7 @@ namespace business_manager_api.Controllers
             userAccountDataModel.State = UserStateEnum.REVIEWING.ToString();
             userAccountDataModel.Type = UserTypeEnum.USER.ToString();
             var errors = ValidateUser();
-            if (errors.Count() > 0)
+            if (errors.Count > 0)
             {
                 return BadRequest(new
                 {
@@ -198,7 +199,7 @@ namespace business_manager_api.Controllers
                 });
             }
 
-            _context.UserAccount.Add(userAccountDataModel);
+            await _context.UserAccount.AddAsync(userAccountDataModel);
             await _context.SaveChangesAsync();
 
             return Ok(new
@@ -240,7 +241,7 @@ namespace business_manager_api.Controllers
         {
             return _context.UserAccount.Any(e => e.Id == id);
         }
-        private UserAccountDataModel EnvelopeOf(UserAccountModel userAccountModel)
+        private static UserAccountDataModel EnvelopeOf(UserAccountModel userAccountModel)
         {
             return new UserAccountDataModel
             {

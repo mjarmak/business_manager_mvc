@@ -51,6 +51,7 @@ import { UserAccountDetailComponent } from './user-detail/user-detail.component'
             { path: '', component: HomeComponent, pathMatch: 'full' },
             { path: 'register', component: UserAccountCreateComponent },
             { path: 'business-create', component: BusinessCreateComponent },
+            { path: 'business-edit/:businessId', component: BusinessCreateComponent },
             { path: 'business-overview', component: BusinessOverviewComponent },
             { path: 'business-detail/:businessId', component: BusinessDetailComponent },
             { path: 'login', component: LoginComponent },

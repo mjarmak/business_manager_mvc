@@ -19,8 +19,8 @@ var RouterService = /** @class */ (function () {
     RouterService.openBusiness = function (businessId) {
         window.open("/business-detail/" + businessId, "_self");
     };
-    RouterService.openBusinessCreate = function (businessId) {
-        window.open("/business-create/" + businessId, "_self");
+    RouterService.openBusinessEdit = function (businessId) {
+        window.open("/business-edit/" + businessId, "_self");
     };
     RouterService.openLoginPage = function () {
         window.open("/login", "_self");

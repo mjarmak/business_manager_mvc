@@ -17,6 +17,8 @@
 
       <div class="card-input">
 
+        <button *ngIf="this.business.id" type="button" class="btn btn-secondary" id="btnOpen" (click)="this.openBusiness(business.id)">Details</button>
+
         <p *ngIf="this.business.id">{{this.business.id}}</p>
 
         <label class="margin-top-none" for="name">Name:</label>

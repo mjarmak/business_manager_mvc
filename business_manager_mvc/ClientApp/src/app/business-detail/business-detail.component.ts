@@ -19,7 +19,11 @@ export class BusinessDetailComponent implements OnInit {
   isOwner: boolean = false;
   imagesUrl: string;
 
-  constructor(private readonly businessManagerService: BusinessManagerService, private readonly alertService: AlertService, private readonly route: ActivatedRoute) {
+    constructor(
+        private readonly businessManagerService: BusinessManagerService,
+        private readonly alertService: AlertService,
+        private readonly route: ActivatedRoute
+    ) {
     this.imagesUrl = environment.business_manager_api_url + "/images/";
     this.business = new BusinessDataModel();
 
@@ -50,7 +54,7 @@ export class BusinessDetailComponent implements OnInit {
 
   public editBusiness() {
     if (this.business && this.business.id) {
-      RouterService.openBusinessCreate(this.business.id);
+        RouterService.openBusinessEdit(this.business.id);
     } else {
       this.alertService.error("Business doesn't exist", "Can't edit");
     }

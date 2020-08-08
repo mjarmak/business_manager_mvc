@@ -27,19 +27,6 @@
 
       <p *ngIf="business.identification && business.identification.name">Name: {{this.business.identification.name}}</p>
 
-
-      <p *ngIf="business.identification && business.identification.email">Email: {{this.business.identification.email}}</p>
-
-      <p *ngIf="business.identification && business.identification.phone">Name: {{this.business.identification.phone}}</p>
-
-      <p *ngIf="business.identification && business.identification.urlSite">Website Url: {{this.business.identification.urlSite}}</p>
-
-      <p *ngIf="business.identification && business.identification.urlInstagram">Instagram Link: {{this.business.identification.urlInstragram}}</p>
-
-      <p *ngIf="business.identification && business.identification.urlFacebook">Facebook Url: {{this.business.identification.urlFaceBook}}</p>
-
-      <p *ngIf="business.identification && business.identification.urlLinkedin">Linkedin url: {{this.business.identification.urlLinkedin}}</p>
-
       <p *ngIf="business.identification && business.identification.type">Type of Business: {{this.business.identification.type}}</p>
 
       <p *ngIf="business.identification && business.identification.tva">Numero TVA: {{this.business.identification.tva}}</p>
@@ -53,6 +40,20 @@
       <p *ngIf="business.identification && business.identification.street">Street: {{this.business.identification.street}}</p>
 
       <p *ngIf="business.identification && business.identification.boxNumber">Box Number: {{this.business.identification.boxNumber}}</p>
+
+      <hr class="margin-top-medium margin-bottom-medium" />
+
+      <p *ngIf="business.businessInfo && business.businessInfo.emailPro">Email: {{this.business.businessInfo.emailPro}}</p>
+
+      <p *ngIf="business.businessInfo && business.businessInfo.phone">Name: {{this.business.businessInfo.phone}}</p>
+
+      <p *ngIf="business.businessInfo && business.businessInfo.urlSite">Website Url: {{this.business.businessInfo.urlSite}}</p>
+
+      <p *ngIf="business.businessInfo && business.businessInfo.urlInstagram">Instagram Link: {{this.business.businessInfo.urlInstragram}}</p>
+
+      <p *ngIf="business.businessInfo && business.businessInfo.urlFacebook">Facebook Url: {{this.business.businessInfo.urlFaceBook}}</p>
+
+      <p *ngIf="business.businessInfo && business.businessInfo.urlLinkedin">Linkedin url: {{this.business.businessInfo.urlLinkedin}}</p>
     </div>
   </div>
   <div class="row">

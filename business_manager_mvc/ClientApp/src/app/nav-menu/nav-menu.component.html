@@ -48,6 +48,10 @@
             <a class="nav-link text-dark" (click)="this.OpenLoginPage()">Login</a>
           </li>
 
+          <li *ngIf="this.authService.isAuthenticated()" class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/user-detail']">{{this.username}}</a>
+          </li>
+
           <li *ngIf="this.authService.isAuthenticated()" class="nav-item clickable">
             <a class="nav-link text-dark" (click)="this.Logout()">Logout</a>
           </li>

@@ -9,7 +9,7 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { BusinessCreateComponent } from './business-create/business-create.component';
 import { BusinessManagerService } from './services/business-manager-svc';
-import { ToastrModule } from 'ngx-toastr';  
+import { ToastrModule } from 'ngx-toastr';
 import { AlertService } from './services/alert-service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BusinessListComponent } from './business-list/business-list.component';
@@ -26,9 +26,10 @@ import { UserAccountCreateComponent } from './register/register.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserOverviewComponent } from './user-overview/user-overview.component';
 import { UserManagerService } from './services/user-manager-svc';
+import { UserAccountDetailComponent } from './user-detail/user-detail.component';
 
 @NgModule({
-  declarations: [
+    declarations: [
         AppComponent,
         NavMenuComponent,
         HomeComponent,
@@ -37,36 +38,38 @@ import { UserManagerService } from './services/user-manager-svc';
         BusinessListComponent,
         BusinessDetailComponent,
         BusinessOverviewComponent,
-    LoginComponent,
-    UserListComponent,
+        UserAccountDetailComponent,
+        LoginComponent,
+        UserListComponent,
         UserOverviewComponent
-  ],
-  imports: [
-    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
-    HttpClientModule,
-    FormsModule,
-    RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-        { path: 'register', component: UserAccountCreateComponent },
-      { path: 'business-create', component: BusinessCreateComponent },
-      { path: 'business-overview', component: BusinessOverviewComponent },
-      { path: 'business-detail/:businessId', component: BusinessDetailComponent },
-      { path: 'login', component: LoginComponent },
-      { path: 'user-overview', component: UserOverviewComponent },
-    ]),
-    ToastrModule.forRoot({
-        positionClass: 'bottom-right',
-        closeButton: true
-    }),
-      BrowserAnimationsModule,
-      MatTableModule,
-      MatPaginatorModule,
-      MatSortModule,
-      MatFormFieldModule,
-      MatOptionModule,
-      MatInputModule,
-      MatSelectModule,
-      ReactiveFormsModule,
+    ],
+    imports: [
+        BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+        HttpClientModule,
+        FormsModule,
+        RouterModule.forRoot([
+            { path: '', component: HomeComponent, pathMatch: 'full' },
+            { path: 'register', component: UserAccountCreateComponent },
+            { path: 'business-create', component: BusinessCreateComponent },
+            { path: 'business-overview', component: BusinessOverviewComponent },
+            { path: 'business-detail/:businessId', component: BusinessDetailComponent },
+            { path: 'login', component: LoginComponent },
+            { path: 'user-overview', component: UserOverviewComponent },
+            { path: 'user-detail', component: UserAccountDetailComponent },
+        ]),
+        ToastrModule.forRoot({
+            positionClass: 'bottom-right',
+            closeButton: true
+        }),
+        BrowserAnimationsModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatFormFieldModule,
+        MatOptionModule,
+        MatInputModule,
+        MatSelectModule,
+        ReactiveFormsModule,
     ],
     providers: [
         {
@@ -81,6 +84,6 @@ import { UserManagerService } from './services/user-manager-svc';
         RouterService,
         UserManagerService
     ],
-  bootstrap: [AppComponent]
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

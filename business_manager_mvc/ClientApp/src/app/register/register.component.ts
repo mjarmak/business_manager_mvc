@@ -5,7 +5,7 @@ import { AuthService } from '../services/auth-service';
 import { RouterService } from '../services/router-service';
 
 @Component({
-    selector: 'app-register-create',
+    selector: 'app-register',
     templateUrl: './register.component.html'
 })
 export class UserAccountCreateComponent implements OnInit {

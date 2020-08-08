@@ -29,7 +29,17 @@ namespace business_manager_api
         public static IEnumerable<ApiResource> GetApis()
         {
             return new List<ApiResource> {
-                new ApiResource("bm", new[] { JwtClaimTypes.Role, JwtClaimTypes.Email } ),
+                new ApiResource("bm", new[] {
+                        JwtClaimTypes.Name,
+                        JwtClaimTypes.FamilyName,
+                        JwtClaimTypes.Email,
+                        JwtClaimTypes.Gender,
+                        JwtClaimTypes.PhoneNumber,
+                        "State",
+                        JwtClaimTypes.BirthDate,
+                        "Professional",
+                        JwtClaimTypes.Role
+                } ),
                 new ApiResource("auth", new[] { JwtClaimTypes.Role, JwtClaimTypes.Email })
             };
         }

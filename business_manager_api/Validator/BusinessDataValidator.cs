@@ -22,7 +22,7 @@ namespace business_manager_api.Validator
     //Fluent Validation for Business Info
     public class BusinessInfoValidator : AbstractValidator<BusinessInfoData>
     {
-        private readonly Regex _regexName = new Regex("^[A-Za-z0-9]*$");
+        private readonly Regex _regexName = new Regex("^[A-Za-z0-9 ]*$");
         private readonly Regex _regexEmail = new Regex("^[A-Za-z0-9@-_.]*$");
         public BusinessInfoValidator()
         {

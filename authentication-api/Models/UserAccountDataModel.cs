@@ -13,14 +13,14 @@ namespace authentication_api
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Gender { get; set; }
-        public DateTime BirthDate { get; set; }
+        public string BirthDate { get; set; }
         public bool Profession { get; set; }
         public string Password { get; set; }
     }
 
     public class UserAccountValidator : AbstractValidator<UserAccountDataModel>
     {
-        private readonly Regex RegexName = new Regex("^[A-Za-z0-9]*$");
+        private readonly Regex RegexName = new Regex("^[A-Za-z0-9 ]*$");
         private readonly Regex RegexEmail = new Regex("^[A-Za-z0-9@-_.]*$");
         public UserAccountValidator()
         {

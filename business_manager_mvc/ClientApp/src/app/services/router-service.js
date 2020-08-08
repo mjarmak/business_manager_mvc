@@ -25,6 +25,9 @@ var RouterService = /** @class */ (function () {
     RouterService.openLoginPage = function () {
         window.open("/login", "_self");
     };
+    RouterService.openUserPage = function () {
+        window.open("/user-detail", "_self");
+    };
     RouterService = __decorate([
         core_1.Injectable({
             providedIn: 'root',

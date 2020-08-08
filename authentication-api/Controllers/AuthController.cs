@@ -5,8 +5,10 @@ using IdentityServer4.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Net.Http.Headers;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -19,6 +21,7 @@ namespace authentication_api.Controllers
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly JwtSecurityTokenHandler _tokenHandler;
         public RoleManager<IdentityRole> _roleManager { get; }
         private readonly IIdentityServerInteractionService _interactionService;
         public AuthController(
@@ -31,6 +34,7 @@ namespace authentication_api.Controllers
             _userManager = userManager;
             _roleManager = roleManager;
             _interactionService = interactionService;
+            _tokenHandler = new JwtSecurityTokenHandler();
         }
 
         [Route("register")]
@@ -103,6 +107,68 @@ namespace authentication_api.Controllers
             });
         }
 
+        [Route("update/{email}")]
+        [HttpPut]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "USER")]
+        public async Task<ActionResult> Update(string email, UserUpdateModel userUpdateModel)
+        {
+            string emailClaim = GetClaim("email");
+            if (emailClaim == null || !emailClaim.Equals(email))
+            {
+                return BadRequest(new
+                {
+                    data = new List<string> { "Invalid user. A user can only update his own info." }
+                });
+            }
+
+            var errors = ValidateUser(userUpdateModel);
+            if (errors.Count() > 0)
+            {
+                return BadRequest(new
+                {
+                    data = errors
+                }); ;
+            }
+
+            var user = await _userManager.FindByNameAsync(email);
+            try
+            {
+                if (userUpdateModel.NameNew != null && userUpdateModel.NamePrevious != null)
+                {
+                    await _userManager.ReplaceClaimAsync(user,
+                        new Claim(JwtClaimTypes.Name, userUpdateModel.NamePrevious),
+                        new Claim(JwtClaimTypes.Name, userUpdateModel.NameNew));
+                }
+                if (userUpdateModel.SurnameNew != null && userUpdateModel.SurnamePrevious != null)
+                {
+                    await _userManager.ReplaceClaimAsync(user,
+                        new Claim(JwtClaimTypes.FamilyName, userUpdateModel.SurnamePrevious),
+                        new Claim(JwtClaimTypes.FamilyName, userUpdateModel.SurnameNew));
+                }
+                if (userUpdateModel.PhoneNew != null && userUpdateModel.PhonePrevious != null)
+                {
+                    await _userManager.ReplaceClaimAsync(user,
+                        new Claim(JwtClaimTypes.PhoneNumber, userUpdateModel.PhonePrevious),
+                        new Claim(JwtClaimTypes.PhoneNumber, userUpdateModel.PhoneNew));
+                }
+                await _userManager.ReplaceClaimAsync(user,
+                    new Claim("Professional", userUpdateModel.ProfessionPrevious ? "1" : "0"),
+                    new Claim("Professional", userUpdateModel.ProfessionNew ? "1" : "0"));
+
+                return Ok(new
+                {
+                    data = "Succeed"
+                });
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest(new
+                {
+                    data = new List<string> { "Failed, " + e.Message }
+                });
+            }
+        }
+
 
         [Route("roles")]
         [HttpGet]
@@ -155,7 +221,7 @@ namespace authentication_api.Controllers
         [Route("user/validate")]
         [HttpGet]
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "ADMIN")]
-        public async Task<ActionResult> ValidateUser(string username)
+        public async Task<ActionResult> ValidateUserAccount(string username)
         {
             var user = await _userManager.FindByNameAsync(username);
             if (user == null)
@@ -238,7 +304,6 @@ namespace authentication_api.Controllers
             });
         }
 
-
         private UserAccountDataModel EnvelopeOf(UserAccountModel userAccountModel)
         {
             return new UserAccountDataModel
@@ -263,9 +328,38 @@ namespace authentication_api.Controllers
 
             return ErrorsToStrings(errors);
         }
+        private List<string> ValidateUser(UserUpdateModel userUpdateModel)
+        {
+            List<ValidationFailure> errors = new List<ValidationFailure>();
+
+            UserUpdateValidator userUpdateValidator = new UserUpdateValidator();
+            ValidationResult validationResult = userUpdateValidator.Validate(userUpdateModel);
+            errors.AddRange(validationResult.Errors);
+
+            return ErrorsToStrings(errors);
+        }
         private List<string> ErrorsToStrings(IList<ValidationFailure> validationFailures)
         {
             return validationFailures?.Select(ValidationFailure => ValidationFailure.ErrorMessage).ToList();
+        }
+        private string GetClaim(string name)
+        {
+            var accessTokenString = Request.Headers[HeaderNames.Authorization].ToString();
+
+            if (accessTokenString == null || !accessTokenString.Contains("Bearer "))
+            {
+                return null;
+            }
+
+            try
+            {
+                var accessToken = _tokenHandler.ReadToken(accessTokenString.Replace("Bearer ", "")) as JwtSecurityToken;
+                return accessToken.Claims.Single(claim => claim.Type == name).Value;
+            }
+            catch (ArgumentException)
+            {
+                return null;
+            }
         }
     }
 }

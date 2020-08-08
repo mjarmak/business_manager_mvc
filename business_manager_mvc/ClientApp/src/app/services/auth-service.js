@@ -37,6 +37,21 @@ var AuthService = /** @class */ (function () {
         if (userinfo.role) {
             localStorage.setItem('userrole', userinfo.role);
         }
+        if (userinfo.family_name) {
+            localStorage.setItem('userfamily_name', userinfo.family_name);
+        }
+        if (userinfo.gender) {
+            localStorage.setItem('usergender', userinfo.gender);
+        }
+        if (userinfo.phone_number) {
+            localStorage.setItem('userphone_number', userinfo.phone_number);
+        }
+        if (userinfo.birthdate) {
+            localStorage.setItem('userbirthdate', userinfo.birthdate);
+        }
+        if (userinfo.Professional) {
+            localStorage.setItem('userprofessional', userinfo.Professional);
+        }
     };
     AuthService.prototype.setToken = function (token) {
         localStorage.setItem('token', token);
@@ -61,6 +76,9 @@ var AuthService = /** @class */ (function () {
     };
     AuthService.prototype.Register = function (user) {
         return this.http.post(this.url + '/register', user);
+    };
+    AuthService.prototype.Update = function (email, userUpdate) {
+        return this.http.put(this.url + '/update/' + email, userUpdate);
     };
     AuthService.prototype.GetToken = function (username, password, scope, grantType) {
         var formData = new FormData();

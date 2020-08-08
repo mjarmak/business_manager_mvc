@@ -11,9 +11,11 @@ export class NavMenuComponent {
 
     isExpanded = false;
     role: string;
+    username: string;
 
     constructor(private authService: AuthService) {
         this.role = localStorage.getItem("userrole");
+        this.username = localStorage.getItem("username");
     }
 
   collapse() {

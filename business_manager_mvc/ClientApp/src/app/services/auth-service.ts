@@ -7,6 +7,7 @@ import { UserAccountModel } from '../../Model/user';
 import { UserInfo } from '../../Model/userInfo';
 import { AlertService } from './alert-service';
 import { Injectable } from '@angular/core';
+import { UserUpdateModel } from '../../Model/user-update';
 
 @Injectable({
     providedIn: 'root',
@@ -44,6 +45,21 @@ export class AuthService {
         if (userinfo.role) {
             localStorage.setItem('userrole', userinfo.role);
         }
+        if (userinfo.family_name) {
+            localStorage.setItem('userfamily_name', userinfo.family_name);
+        }
+        if (userinfo.gender) {
+            localStorage.setItem('usergender', userinfo.gender);
+        }
+        if (userinfo.phone_number) {
+            localStorage.setItem('userphone_number', userinfo.phone_number);
+        }
+        if (userinfo.birthdate) {
+            localStorage.setItem('userbirthdate', userinfo.birthdate);
+        }
+        if (userinfo.Professional) {
+            localStorage.setItem('userprofessional', userinfo.Professional);
+        }
     }
 
     public setToken(token: string) {
@@ -72,6 +88,9 @@ export class AuthService {
 
     public Register(user: UserAccountModel): Observable<ResponseEnvelope> {
         return this.http.post<ResponseEnvelope>(this.url + '/register', user)
+    }
+    public Update(email: string, userUpdate: UserUpdateModel): Observable<ResponseEnvelope> {
+        return this.http.put<ResponseEnvelope>(this.url + '/update/' + email, userUpdate)
     }
 
     public GetToken(username: string, password: string, scope: string, grantType: string): Observable<TokenEnvelope> {

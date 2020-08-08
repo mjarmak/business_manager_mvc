@@ -18,7 +18,7 @@ namespace business_manager_api
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Gender { get; set; }
-        public DateTime BirthDate { get; set; }
+        public string BirthDate { get; set; }
         public bool Profession { get; set; }
         public string Type { get; set; }
         public string State { get; set; }

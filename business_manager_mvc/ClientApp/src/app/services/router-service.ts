@@ -23,4 +23,7 @@ export class RouterService {
     public static openLoginPage() {
         window.open("/login", "_self");
     }
+    public static openUserPage() {
+        window.open("/user-detail", "_self");
+    }
 }

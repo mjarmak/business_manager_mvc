@@ -17,6 +17,7 @@ using Microsoft.Net.Http.Headers;
 
 namespace business_manager_api.Controllers
 {
+    
     [Produces("application/json")]
     [Route("business")]
     [ApiController]
@@ -617,6 +618,7 @@ namespace business_manager_api.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         // DELETE: api/BusinessData/5
+        [ValidateAntiForgeryToken]
         [HttpDelete("{id}")]
         [Authorize(Roles = "ADMIN")]
         public async Task<ActionResult> DeleteBusinessDataModel(long id)

@@ -215,6 +215,7 @@ namespace business_manager_api.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         // DELETE: api/UserAccountModels/5
+        [ValidateAntiForgeryToken]
         [HttpDelete("{id}")]
         public async Task<ActionResult<UserAccountDataModel>> DeleteUserAccountModel(long id)
         {

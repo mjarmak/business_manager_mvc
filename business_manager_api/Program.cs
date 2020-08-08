@@ -60,7 +60,8 @@ namespace business_manager_api
                     UrlSite = "http://users.telenet.be/biglekeux/Signature.html", 
                     UrlFaceBook = "https://www.facebook.com/bigfra12", 
                     UrlInstagram = "https://www.instagram.com/belgium",
-                    UrlLinkedIn = "https://www.linkedin.com/in/bigif" }
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
+                }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
             {
@@ -78,7 +79,7 @@ namespace business_manager_api
                     Type = BusinessTypeEnum.BAR.ToString(), Name = "Disco Bar Italy", EmailPro = "francesco.bigi.87@gmail.com", Description = "Disco Bar Italy since 1990."
                 },
                 BusinessInfo = new BusinessInfoData { Phone = "+32493741427",  EmailBusiness = "francesco.bigi.87@gmail.com", Address = new AddressData { City = "Bruxelles", Country = "Belgium", Street = "Rue de L'Italie", BoxNumber = "2", PostalCode = "1200" },
-                    UrlSite = "http://users.telenet.be/biglekeux/Signature.html", UrlFaceBook = "https://www.facebook.com/bigfra12", UrlInstagram = "https://www.instagram.com/belgium", UrlLinkedIn = "https://www.linkedin.com/in/bigif" }
+                    UrlSite = "http://users.telenet.be/biglekeux/Signature.html", UrlFaceBook = "https://www.facebook.com/bigfra12", UrlInstagram = "https://www.instagram.com/belgium", UrlLinkedIn = "www.linkedin.com/in/bigif" }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
             {
@@ -96,7 +97,7 @@ namespace business_manager_api
                     UrlSite = "http://users.telenet.be/biglekeux/Signature.html",
                     UrlFaceBook = "https://www.facebook.com/bigfra12",
                     UrlInstagram = "https://www.instagram.com/belgium",
-                    UrlLinkedIn = "https://www.linkedin.com/in/bigif"
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
                 }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
@@ -120,7 +121,7 @@ namespace business_manager_api
                     UrlSite = "http://users.telenet.be/biglekeux/Signature.html",
                     UrlFaceBook = "https://www.facebook.com/bigfra12",
                     UrlInstagram = "https://www.instagram.com/belgium",
-                    UrlLinkedIn = "https://www.linkedin.com/in/bigif"
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
                 }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
@@ -140,7 +141,7 @@ namespace business_manager_api
                     UrlSite = "http://users.telenet.be/biglekeux/Signature.html",
                     UrlFaceBook = "https://www.facebook.com/bigfra12",
                     UrlInstagram = "https://www.instagram.com/belgium",
-                    UrlLinkedIn = "https://www.linkedin.com/in/bigif"
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
                 }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
@@ -159,7 +160,7 @@ namespace business_manager_api
                     UrlSite = "http://users.telenet.be/biglekeux/Signature.html",
                     UrlFaceBook = "https://www.facebook.com/bigfra12",
                     UrlInstagram = "https://www.instagram.com/belgium",
-                    UrlLinkedIn = "https://www.linkedin.com/in/bigif"
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
                 }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
@@ -178,7 +179,7 @@ namespace business_manager_api
                     UrlSite = "http://users.telenet.be/biglekeux/Signature.html",
                     UrlFaceBook = "https://www.facebook.com/bigfra12",
                     UrlInstagram = "https://www.instagram.com/belgium",
-                    UrlLinkedIn = "https://www.linkedin.com/in/bigif"
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
                 },
                 Disabled = true
             }); ;
@@ -198,7 +199,7 @@ namespace business_manager_api
                     UrlSite = "http://users.telenet.be/biglekeux/Signature.html",
                     UrlFaceBook = "https://www.facebook.com/bigfra12",
                     UrlInstagram = "https://www.instagram.com/belgium",
-                    UrlLinkedIn = "https://www.linkedin.com/in/bigif"
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
                 }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
@@ -217,7 +218,7 @@ namespace business_manager_api
                     UrlSite = "http://users.telenet.be/biglekeux/Signature.html",
                     UrlFaceBook = "https://www.facebook.com/bigfra12",
                     UrlInstagram = "https://www.instagram.com/belgium",
-                    UrlLinkedIn = "https://www.linkedin.com/in/bigif"
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
                 }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
@@ -236,7 +237,7 @@ namespace business_manager_api
                     UrlSite = "http://users.telenet.be/biglekeux/Signature.html",
                     UrlFaceBook = "https://www.facebook.com/bigfra12",
                     UrlInstagram = "https://www.instagram.com/belgium",
-                    UrlLinkedIn = "https://www.linkedin.com/in/bigif"
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
                 }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
@@ -255,7 +256,7 @@ namespace business_manager_api
                     UrlSite = "http://users.telenet.be/biglekeux/Signature.html",
                     UrlFaceBook = "https://www.facebook.com/bigfra12",
                     UrlInstagram = "https://www.instagram.com/belgium",
-                    UrlLinkedIn = "https://www.linkedin.com/in/bigif"
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
                 },
                 Disabled = true
             });
@@ -275,7 +276,7 @@ namespace business_manager_api
                     UrlSite = "http://users.telenet.be/biglekeux/Signature.html",
                     UrlFaceBook = "https://www.facebook.com/bigfra12",
                     UrlInstagram = "https://www.instagram.com/belgium",
-                    UrlLinkedIn = "https://www.linkedin.com/in/bigif"
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
                 }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
@@ -294,7 +295,7 @@ namespace business_manager_api
                     UrlSite = "http://users.telenet.be/biglekeux/Signature.html",
                     UrlFaceBook = "https://www.facebook.com/bigfra12",
                     UrlInstagram = "https://www.instagram.com/belgium",
-                    UrlLinkedIn = "https://www.linkedin.com/in/bigif"
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
                 }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
@@ -313,7 +314,7 @@ namespace business_manager_api
                     UrlSite = "http://users.telenet.be/biglekeux/Signature.html",
                     UrlFaceBook = "https://www.facebook.com/bigfra12",
                     UrlInstagram = "https://www.instagram.com/belgium",
-                    UrlLinkedIn = "https://www.linkedin.com/in/bigif"
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
                 }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
@@ -332,7 +333,7 @@ namespace business_manager_api
                     UrlSite = "http://users.telenet.be/biglekeux/Signature.html",
                     UrlFaceBook = "https://www.facebook.com/bigfra12",
                     UrlInstagram = "https://www.instagram.com/belgium",
-                    UrlLinkedIn = "https://www.linkedin.com/in/bigif"
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
                 }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
@@ -351,7 +352,7 @@ namespace business_manager_api
                     UrlSite = "http://users.telenet.be/biglekeux/Signature.html",
                     UrlFaceBook = "https://www.facebook.com/bigfra12",
                     UrlInstagram = "https://www.instagram.com/belgium",
-                    UrlLinkedIn = "https://www.linkedin.com/in/bigif"
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
                 }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
@@ -370,7 +371,7 @@ namespace business_manager_api
                     UrlSite = "http://users.telenet.be/biglekeux/Signature.html",
                     UrlFaceBook = "https://www.facebook.com/bigfra12",
                     UrlInstagram = "https://www.instagram.com/belgium",
-                    UrlLinkedIn = "https://www.linkedin.com/in/bigif"
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
                 }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
@@ -398,7 +399,7 @@ namespace business_manager_api
                     UrlSite = "http://users.telenet.be/biglekeux/Signature.html",
                     UrlFaceBook = "https://www.facebook.com/bigfra12",
                     UrlInstagram = "https://www.instagram.com/belgium",
-                    UrlLinkedIn = "https://www.linkedin.com/in/bigif"
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
                 },
                 Disabled = true
             });
@@ -418,7 +419,7 @@ namespace business_manager_api
                     UrlSite = "http://users.telenet.be/biglekeux/Signature.html",
                     UrlFaceBook = "https://www.facebook.com/bigfra12",
                     UrlInstagram = "https://www.instagram.com/belgium",
-                    UrlLinkedIn = "https://www.linkedin.com/in/bigif"
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
                 }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
@@ -437,7 +438,7 @@ namespace business_manager_api
                     UrlSite = "http://users.telenet.be/biglekeux/Signature.html",
                     UrlFaceBook = "https://www.facebook.com/bigfra12",
                     UrlInstagram = "https://www.instagram.com/belgium",
-                    UrlLinkedIn = "https://www.linkedin.com/in/bigif"
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
                 }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
@@ -456,7 +457,7 @@ namespace business_manager_api
                     UrlSite = "http://users.telenet.be/biglekeux/Signature.html",
                     UrlFaceBook = "https://www.facebook.com/bigfra12",
                     UrlInstagram = "https://www.instagram.com/belgium",
-                    UrlLinkedIn = "https://www.linkedin.com/in/bigif"
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
                 }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
@@ -475,7 +476,7 @@ namespace business_manager_api
                     UrlSite = "http://users.telenet.be/biglekeux/Signature.html",
                     UrlFaceBook = "https://www.facebook.com/bigfra12",
                     UrlInstagram = "https://www.instagram.com/belgium",
-                    UrlLinkedIn = "https://www.linkedin.com/in/bigif"
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
                 }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
@@ -494,7 +495,7 @@ namespace business_manager_api
                     UrlSite = "http://users.telenet.be/biglekeux/Signature.html",
                     UrlFaceBook = "https://www.facebook.com/bigfra12",
                     UrlInstagram = "https://www.instagram.com/belgium",
-                    UrlLinkedIn = "https://www.linkedin.com/in/bigif"
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
                 }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
@@ -513,7 +514,7 @@ namespace business_manager_api
                     UrlSite = "http://users.telenet.be/biglekeux/Signature.html",
                     UrlFaceBook = "https://www.facebook.com/bigfra12",
                     UrlInstagram = "https://www.instagram.com/belgium",
-                    UrlLinkedIn = "https://www.linkedin.com/in/bigif"
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
                 },
                 Disabled = true
             });
@@ -533,7 +534,7 @@ namespace business_manager_api
                     UrlSite = "http://users.telenet.be/biglekeux/Signature.html",
                     UrlFaceBook = "https://www.facebook.com/bigfra12",
                     UrlInstagram = "https://www.instagram.com/belgium",
-                    UrlLinkedIn = "https://www.linkedin.com/in/bigif"
+                    UrlLinkedIn = "www.linkedin.com/in/bigif"
                 }
             });
             context.SaveChangesAsync();

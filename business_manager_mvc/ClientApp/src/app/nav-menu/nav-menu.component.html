@@ -23,7 +23,7 @@
           <li class="nav-item"
               [routerLinkActive]="['link-active']"
               [routerLinkActiveOptions]="{ exact: true }">
-            <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
+            <a class="nav-link text-dark" [routerLink]="['/']">Home <i class="fa fa-home" aria-hidden="true"></i></a>
           </li>
 
           <li *ngIf="!this.authService.isAuthenticated()" class="nav-item" [routerLinkActive]="['link-active']">
@@ -32,16 +32,13 @@
 
           <li *ngIf="this.authService.isAuthenticated()" class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/business-create']">Create Business </a>
-
           </li>
-
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/business-overview']">Business Overview</a>
+            <a class="nav-link text-dark" [routerLink]="['/business-overview']">Business Overview <i class="fa fa-building" aria-hidden="true"></i></a>
           </li>
-
 
           <li *ngIf="this.role && this.role.includes('ADMIN') && this.authService.isAuthenticated()" class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/user-overview']">User Overview</a>
+            <a class="nav-link text-dark" [routerLink]="['/user-overview']">User Overview <i class="fa fa-users" aria-hidden="true"></i></a>
           </li>
 
           <li *ngIf="!this.authService.isAuthenticated()" class="nav-item clickable">
@@ -49,11 +46,12 @@
           </li>
 
           <li *ngIf="this.authService.isAuthenticated()" class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/user-detail']">{{this.username}}</a>
+            <a class="nav-link text-dark" [routerLink]="['/user-detail']">{{this.username}} <i class="fa fa-user" aria-hidden="true"></i></a>
           </li>
 
           <li *ngIf="this.authService.isAuthenticated()" class="nav-item clickable">
-            <a class="nav-link text-dark" (click)="this.Logout()">Logout</a>
+           
+            <a class="nav-link text-dark" (click)="this.Logout()">Logout <i class="fa fa-sign-out"></i></a>
           </li>
         </ul>
       </div>

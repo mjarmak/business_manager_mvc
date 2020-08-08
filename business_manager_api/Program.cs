@@ -69,7 +69,10 @@ namespace business_manager_api
                     new WorkHoursData { Day = WorkHoursDayEnum.SATURDAY.ToString(), HourFrom = 15, HourTo = 23, Closed = false, MinuteFrom = 0, MinuteTo = 0 },
                     new WorkHoursData { Day = WorkHoursDayEnum.SUNDAY.ToString(), HourFrom = 15, HourTo = 23, Closed = false, MinuteFrom = 0, MinuteTo = 0 }
                 },
-                Identification = new IdentificationData { Type = BusinessTypeEnum.BAR.ToString(), Name = "Disco Bar Italy", EmailPro = "francesco.bigi.87@gmail.com", Description = "Disco Bar Italy since 1990."},
+                Identification = new IdentificationData
+                {
+                    Type = BusinessTypeEnum.BAR.ToString(), Name = "Disco Bar Italy", EmailPro = "francesco.bigi.87@gmail.com", Description = "Disco Bar Italy since 1990."
+                },
                 BusinessInfo = new BusinessInfoData { Phone = "+32493741427",  EmailBusiness = "francesco.bigi.87@gmail.com", Address = new AddressData { City = "Bruxelles", Country = "Belgium", Street = "Rue de L'Italie", BoxNumber = "2", PostalCode = "1200" },
                     UrlSite = "http://users.telenet.be/biglekeux/Signature.html", UrlFaceBook = "https://www.facebook.com/bigfra12", UrlInstagram = "https://www.instagram.com/belgium", UrlLinkedIn = "www.linkedin.com/in/bigif" }
             });
@@ -103,7 +106,12 @@ namespace business_manager_api
                     new WorkHoursData { Day = WorkHoursDayEnum.SATURDAY.ToString(), HourFrom = 8, HourTo = 17, Closed = false, MinuteFrom = 30, MinuteTo = 30 },
                     new WorkHoursData { Day = WorkHoursDayEnum.SUNDAY.ToString(), HourFrom = 8, HourTo = 17, Closed = false, MinuteFrom = 30, MinuteTo = 30 }
                 },
-                Identification = new IdentificationData { Type = BusinessTypeEnum.BAR.ToString(), Name = "Disco Bar Spain", EmailPro = "francesco.bigi.87@gmail.com", Description = "Disco Bar Spain since 1990." },
+                Identification = new IdentificationData { 
+                    Type = BusinessTypeEnum.BAR.ToString(),
+                    Name = "Disco Bar Spain", 
+                    EmailPro = "francesco.bigi.87@gmail.com", 
+                    Description = "Disco Bar Spain since 1990."
+                },
                 BusinessInfo = new BusinessInfoData { Phone = "+32493741427",  EmailBusiness = "francesco.bigi.87@gmail.com", Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue de l'Espagne", BoxNumber = "4", PostalCode = "1400" },
                     UrlSite = "http://users.telenet.be/biglekeux/Signature.html",
                     UrlFaceBook = "https://www.facebook.com/bigfra12",
@@ -122,7 +130,8 @@ namespace business_manager_api
                     new WorkHoursData { Day = WorkHoursDayEnum.SATURDAY.ToString(), HourFrom = 8, HourTo = 17, Closed = false, MinuteFrom = 30, MinuteTo = 30 },
                     new WorkHoursData { Day = WorkHoursDayEnum.SUNDAY.ToString(), HourFrom = 8, HourTo = 17, Closed = false, MinuteFrom = 30, MinuteTo = 30 }
                 },
-                Identification = new IdentificationData { Type = BusinessTypeEnum.BAR.ToString(), Name = "Disco Bar Portugal", EmailPro = "francesco.bigi.87@gmail.com", Description = "Disco Bar Portugal since 1990." },
+                Identification = new IdentificationData { Type = BusinessTypeEnum.BAR.ToString(), Name = "Disco Bar Portugal", EmailPro = "francesco.bigi.87@gmail.com", 
+                    Description = "Disco Bar Portugal since 1990." },
                 BusinessInfo = new BusinessInfoData { Phone = "+32493741427",  EmailBusiness = "francesco.bigi.87@gmail.com", Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue du Portugal", BoxNumber = "5", PostalCode = "1500" },
                     UrlSite = "http://users.telenet.be/biglekeux/Signature.html",
                     UrlFaceBook = "https://www.facebook.com/bigfra12",

@@ -2,7 +2,8 @@ export class BusinessDataModel {
   id: number;
   identification: IdentificationData = new IdentificationData();
   businessInfo: BusinessInfo = new BusinessInfo();
-    workHours: WorkHoursData[] = [];
+  workHours: WorkHoursData[] = [];
+  disabled: boolean;
 }
 
 export class BusinessInfo {
@@ -38,20 +39,20 @@ export class AddressData {
   boxNumber: string;
 }
 export class WorkHoursData {
-    id: number;
-    day: string;
-    hourFrom: number;
-    hourTo: number;
-    minuteTo: number;
-    minuteFrom: number;
-    closed: boolean;
+  id: number;
+  day: string;
+  hourFrom: number;
+  hourTo: number;
+  minuteTo: number;
+  minuteFrom: number;
+  closed: boolean;
 
-    constructor(day: string, hourFrom: number, hourTo: number, minuteTo: number, minuteFrom: number, closed: boolean) {
-        this.day = day;
-        this.hourFrom = hourFrom;
-        this.hourTo = hourTo;
-        this.minuteTo = minuteTo;
-        this.minuteFrom = minuteFrom;
-        this.closed = closed;
-    }
+  constructor(day: string, hourFrom: number, hourTo: number, minuteTo: number, minuteFrom: number, closed: boolean) {
+    this.day = day;
+    this.hourFrom = hourFrom;
+    this.hourTo = hourTo;
+    this.minuteTo = minuteTo;
+    this.minuteFrom = minuteFrom;
+    this.closed = closed;
+  }
 }

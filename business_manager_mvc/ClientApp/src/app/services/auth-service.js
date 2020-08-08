@@ -60,7 +60,6 @@ var AuthService = /** @class */ (function () {
         return this.http.post(this.url + '/connect/token', formData);
     };
     AuthService.prototype.Register = function (user) {
-        console.log('CALL TO ' + this.url + '/register');
         return this.http.post(this.url + '/register', user);
     };
     AuthService.prototype.GetToken = function (username, password, scope, grantType) {

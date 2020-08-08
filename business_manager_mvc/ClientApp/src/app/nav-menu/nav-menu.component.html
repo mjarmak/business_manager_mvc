@@ -40,7 +40,7 @@
           </li>
 
 
-          <li *ngIf="this.role.includes('ADMIN') && this.authService.isAuthenticated()" class="nav-item" [routerLinkActive]="['link-active']">
+          <li *ngIf="this.role && this.role.includes('ADMIN') && this.authService.isAuthenticated()" class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/user-overview']">User Overview</a>
           </li>
 

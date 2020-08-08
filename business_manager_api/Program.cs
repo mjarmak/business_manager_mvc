@@ -43,7 +43,7 @@ namespace business_manager_api
                     new WorkHoursData { Day = WorkHoursDayEnum.SATURDAY.ToString(), HourFrom = 8, HourTo = 17, Closed = true, MinuteFrom = 0, MinuteTo = 0 },
                     new WorkHoursData { Day = WorkHoursDayEnum.SUNDAY.ToString(), HourFrom = 8, HourTo = 17, Closed = true, MinuteFrom = 0, MinuteTo = 0 }
                 },
-                Identification = new IdentificationData { Type = BusinessTypeEnum.CLUB.ToString() },
+                Identification = new IdentificationData { Type = BusinessTypeEnum.CLUB.ToString(), EmailPro = "mohamadjarmak@gmail.com"},
                 BusinessInfo = new BusinessInfoData { Address = new AddressData { City = "Bruxelles", Country = "Belgium", Street = "Rue de Belgique", BoxNumber = "1", PostalCode = "1100" } }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
@@ -57,7 +57,7 @@ namespace business_manager_api
                     new WorkHoursData { Day = WorkHoursDayEnum.SATURDAY.ToString(), HourFrom = 15, HourTo = 23, Closed = false, MinuteFrom = 0, MinuteTo = 0 },
                     new WorkHoursData { Day = WorkHoursDayEnum.SUNDAY.ToString(), HourFrom = 15, HourTo = 23, Closed = false, MinuteFrom = 0, MinuteTo = 0 }
                 },
-                Identification = new IdentificationData { Type = BusinessTypeEnum.BAR.ToString() },
+                Identification = new IdentificationData { Type = BusinessTypeEnum.BAR.ToString(), EmailPro = "mohamadjarmak@gmail.com" },
                 BusinessInfo = new BusinessInfoData { Address = new AddressData { City = "Bruxelles", Country = "Belgium", Street = "Rue de L'Italie", BoxNumber = "2", PostalCode = "1200" } }
             });
             context.BusinessDataModel.Add(new BusinessDataModel
@@ -99,7 +99,7 @@ namespace business_manager_api
                     new WorkHoursData { Day = WorkHoursDayEnum.SATURDAY.ToString(), HourFrom = 8, HourTo = 17, Closed = false, MinuteFrom = 30, MinuteTo = 30 },
                     new WorkHoursData { Day = WorkHoursDayEnum.SUNDAY.ToString(), HourFrom = 8, HourTo = 17, Closed = false, MinuteFrom = 30, MinuteTo = 30 }
                 },
-                Identification = new IdentificationData { Type = BusinessTypeEnum.BAR.ToString() },
+                Identification = new IdentificationData { Type = BusinessTypeEnum.BAR.ToString(), EmailPro = "mohamadjarmak@gmail.com" },
                 BusinessInfo = new BusinessInfoData { Address = new AddressData { City = "Anverse", Country = "Belgium", Street = "Rue du Portugal", BoxNumber = "5", PostalCode = "1500" } }
             });
             context.BusinessDataModel.Add(new BusinessDataModel

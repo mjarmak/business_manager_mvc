@@ -26,6 +26,23 @@
       <td mat-cell *matCellDef="let business">{{business.workHours}}</td>
     </ng-container>
 
+
+    <ng-container matColumnDef="more">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>More</th>
+      <td mat-cell *matCellDef="let business">
+
+        <mat-form-field appearance="fill">
+          <mat-label>Action</mat-label>
+          <mat-select>
+            <mat-option *ngIf="business.disabled" [value]="ENABLE" (click)="this.enableBusiness(business.id)">Enable</mat-option>
+            <mat-option *ngIf="!business.disabled" [value]="DISABLE" (click)="this.disableBusiness(business.id)">Disable</mat-option>
+            <mat-option [value]="DELETE" (click)="this.deleteBusiness(business.id)">Delete</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </td>
+    </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>

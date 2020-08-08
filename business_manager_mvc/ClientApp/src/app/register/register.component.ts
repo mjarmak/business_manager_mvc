@@ -24,13 +24,11 @@ export class UserAccountCreateComponent implements OnInit {
     }
 
     public onClickSave() {
-        console.log('user is ' + this.user.email)
         this.authService.Register(this.user).subscribe(result => {
             this.user = result.data;
             this.errors = [];
             RouterService.openHomePage();
         }, error => {
-                console.log(error);
                 this.errors = error.error.data;
                 //this.alertSerice.error("Error registering user", error.message);
         });

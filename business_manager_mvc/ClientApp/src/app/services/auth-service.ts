@@ -71,7 +71,6 @@ export class AuthService {
     }
 
     public Register(user: UserAccountModel): Observable<ResponseEnvelope> {
-        console.log('CALL TO ' + this.url + '/register')
         return this.http.post<ResponseEnvelope>(this.url + '/register', user)
     }
 

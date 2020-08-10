@@ -13,7 +13,6 @@ namespace business_manager_api.Context
         public DbSet<IdentificationData> Identification { get; set; }
         public DbSet<BusinessInfoData> BusinessInfo { get; set; }
         public DbSet<AddressData> Address { get; set; }
-        public DbSet<UserAccountDataModel> UserAccount { get; set; }
         public DbSet<WorkHoursData> WorkHours { get; set; }
     }
 }

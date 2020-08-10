@@ -9,7 +9,7 @@
   </div>
   <div class="row">
     <div class="col-md-2">
-      <img class="clickable" (click)="openNewTab(this.imagesUrl + business.identification.logoPath)" *ngIf="business.identification && business.identification.logoPath" src="{{imagesUrl + business.identification.logoPath}}" width="125" height="80">
+      <img class="clickable image-shadow" (click)="openNewTab(this.imagesUrl + business.identification.logoPath)" *ngIf="business.identification && business.identification.logoPath" src="{{imagesUrl + business.identification.logoPath}}" width="125" height="80">
 
       <p *ngIf="this.isOwner || (this.role && this.role.includes('ADMIN'))">Disabled: {{this.business.disabled}}</p>
 
@@ -93,11 +93,11 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-      <img class="clickable" (click)="openNewTab(imagesUrl + business.businessInfo.photoPath1)" *ngIf="business.businessInfo && business.businessInfo.photoPath1" src="{{imagesUrl + business.businessInfo.photoPath1}}" width="512" height="360">
-      <img class="clickable" (click)="openNewTab(imagesUrl + business.businessInfo.photoPath2)" *ngIf="business.businessInfo && business.businessInfo.photoPath2" src="{{imagesUrl + business.businessInfo.photoPath2}}" width="512" height="360">
-      <img class="clickable" (click)="openNewTab(imagesUrl + business.businessInfo.photoPath3)" *ngIf="business.businessInfo && business.businessInfo.photoPath3" src="{{imagesUrl + business.businessInfo.photoPath3}}" width="512" height="360">
-      <img class="clickable" (click)="openNewTab(imagesUrl + business.businessInfo.photoPath4)" *ngIf="business.businessInfo && business.businessInfo.photoPath4" src="{{imagesUrl + business.businessInfo.photoPath4}}" width="512" height="360">
-      <img class="clickable" (click)="openNewTab(imagesUrl + business.businessInfo.photoPath5)" *ngIf="business.businessInfo && business.businessInfo.photoPath5" src="{{imagesUrl + business.businessInfo.photoPath5}}" width="512" height="360">
+      <img class="clickable image-shadow" (click)="openNewTab(imagesUrl + business.businessInfo.photoPath1)" *ngIf="business.businessInfo && business.businessInfo.photoPath1" src="{{imagesUrl + business.businessInfo.photoPath1}}" width="512" height="360">
+      <img class="clickable image-shadow" (click)="openNewTab(imagesUrl + business.businessInfo.photoPath2)" *ngIf="business.businessInfo && business.businessInfo.photoPath2" src="{{imagesUrl + business.businessInfo.photoPath2}}" width="512" height="360">
+      <img class="clickable image-shadow" (click)="openNewTab(imagesUrl + business.businessInfo.photoPath3)" *ngIf="business.businessInfo && business.businessInfo.photoPath3" src="{{imagesUrl + business.businessInfo.photoPath3}}" width="512" height="360">
+      <img class="clickable image-shadow" (click)="openNewTab(imagesUrl + business.businessInfo.photoPath4)" *ngIf="business.businessInfo && business.businessInfo.photoPath4" src="{{imagesUrl + business.businessInfo.photoPath4}}" width="512" height="360">
+      <img class="clickable image-shadow" (click)="openNewTab(imagesUrl + business.businessInfo.photoPath5)" *ngIf="business.businessInfo && business.businessInfo.photoPath5" src="{{imagesUrl + business.businessInfo.photoPath5}}" width="512" height="360">
     </div>
   </div>
 </div>

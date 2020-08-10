@@ -187,3 +187,12 @@ hr {
 .height-fit-content {
   height: fit-content;
 }
+
+.image-shadow {
+  box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
+  transition: 0.25s;
+}
+
+.image-shadow:hover {
+  box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.5);
+}

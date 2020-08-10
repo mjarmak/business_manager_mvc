@@ -982,17 +982,17 @@ namespace business_manager_api.Controllers
 
             var errors = new List<ValidationFailure>();
 
-            //var businessDataValidator = new BusinessDataValidator();
-            //var businessDataValidatorResult = businessDataValidator.Validate(businessDataModel);
-            //errors.AddRange(businessDataValidatorResult.Errors);
+            var businessDataValidator = new BusinessDataValidator();
+            var businessDataValidatorResult = businessDataValidator.Validate(businessDataModel);
+            errors.AddRange(businessDataValidatorResult.Errors);
 
-            //var businessInfoValidator = new BusinessInfoValidator();
-            //var businessInfoValidatorResult = businessInfoValidator.Validate(businessDataModel.BusinessInfo);
-            //errors.AddRange(businessInfoValidatorResult.Errors);
+            var businessInfoValidator = new BusinessInfoValidator();
+            var businessInfoValidatorResult = businessInfoValidator.Validate(businessDataModel.BusinessInfo);
+            errors.AddRange(businessInfoValidatorResult.Errors);
 
-            //var identificationValidator = new IdentificationDataValidator();
-            //var identificationValidatorResult = identificationValidator.Validate(businessDataModel.Identification);
-            //errors.AddRange(identificationValidatorResult.Errors);
+            var identificationValidator = new IdentificationDataValidator();
+            var identificationValidatorResult = identificationValidator.Validate(businessDataModel.Identification);
+            errors.AddRange(identificationValidatorResult.Errors);
 
             return ErrorsToStrings(errors);
         }

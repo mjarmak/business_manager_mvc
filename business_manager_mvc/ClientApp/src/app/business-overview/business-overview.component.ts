@@ -15,16 +15,16 @@ export class BusinessOverviewComponent implements OnInit, OnDestroy {
     country: string;
     openNow: boolean;
     role: string;
-  onlyDisabled: boolean;
-  displayedColumns: string[];
+    onlyDisabled: boolean;
+    displayedColumns: string[];
 
-  interval: any;
+    interval: any;
 
     constructor(private businessManagerService: BusinessManagerService) {
-      this.role = localStorage.getItem("userrole");
-      if (this.role && this.role.includes("ADMIN")) {
-        this.displayedColumns = ['logo', 'id', "name", "more"];
-      }
+        this.role = localStorage.getItem("userrole");
+        if (this.role && this.role.includes("ADMIN")) {
+            this.displayedColumns = ['logo', 'id', "name", "more"];
+        }
     }
 
     ngOnInit() {

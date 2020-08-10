@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using authentication_api.Services;
+using FluentValidation;
 using System;
 using System.Text.RegularExpressions;
 
@@ -44,8 +45,8 @@ namespace authentication_api
             RuleFor(x => x.Phone)
                 .Length(0, 25);
 
-            //RuleFor(x => PhoneNumberCheckView.IsValidPhoneNumber(x.Phone)).Equal(true).WithMessage("Phone number is invalid");
-            //RuleFor(x => PhoneNumberCheckView.IsMobileNumber(x.Phone)).Equal(true).WithMessage("Phone number must be a mobile.");
+            RuleFor(x => PhoneNumberCheckView.IsValidPhoneNumber(x.Phone)).Equal(true).WithMessage("Phone number is invalid");
+            RuleFor(x => PhoneNumberCheckView.IsMobileNumber(x.Phone)).Equal(true).WithMessage("Phone number must be a mobile.");
 
             RuleFor(x => x.Gender)
                 .NotNull().WithMessage("Need to select a gender type.");

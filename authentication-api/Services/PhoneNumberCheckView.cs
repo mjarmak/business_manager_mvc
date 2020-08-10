@@ -1,6 +1,6 @@
 ﻿using PhoneNumbers;
 
-namespace business_manager_api.Services
+namespace authentication_api.Services
 {
     public class PhoneNumberCheckView
     {

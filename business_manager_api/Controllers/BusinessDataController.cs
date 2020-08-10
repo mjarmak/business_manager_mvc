@@ -23,10 +23,10 @@ namespace business_manager_api.Controllers
     public class BusinessDataController : Controller
     {
         private readonly DefaultContext _context;
-        private readonly IHostingEnvironment hostingEnvironment;
+        private readonly IWebHostEnvironment hostingEnvironment;
         private readonly JwtSecurityTokenHandler _tokenHandler;
 
-        public BusinessDataController(DefaultContext context, IHostingEnvironment hostingEnvironment)
+        public BusinessDataController(DefaultContext context, IWebHostEnvironment hostingEnvironment)
         {
             _context = context;
             this.hostingEnvironment = hostingEnvironment;

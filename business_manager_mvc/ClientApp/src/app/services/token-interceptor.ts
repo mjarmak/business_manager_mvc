@@ -8,11 +8,10 @@ import { RouterService } from './router-service';
 
 export class TokenInterceptor implements HttpInterceptor {
 
-    constructor(public auth: AuthService, private alertSerice: AlertService, private businessManagerService: BusinessManagerService) { }
+    constructor(public auth: AuthService, private alertSerice: AlertService) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
-        if (!request.headers.has("Authorization")) {
+        if (!request.headers.has("Authorization") && !request.url.includes("googleapis")) {
             request = request.clone({
                 setHeaders: {
                     Authorization: `Bearer ${this.auth.getToken()}`

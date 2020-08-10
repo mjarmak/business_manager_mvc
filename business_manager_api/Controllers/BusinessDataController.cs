@@ -33,6 +33,13 @@ namespace business_manager_api.Controllers
             _tokenHandler = new JwtSecurityTokenHandler();
         }
 
+        [HttpGet("ping")]
+        [Authorize]
+        public string Ping()
+        {
+            return "OK";
+        }
+
         [HttpGet("types")]
         public ActionResult GetBusinessTypes()
         {

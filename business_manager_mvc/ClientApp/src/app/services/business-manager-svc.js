@@ -14,6 +14,9 @@ var BusinessManagerService = /** @class */ (function () {
         this.alertService = alertService;
         this.url = environment_1.environment.business_manager_api_url;
     }
+    BusinessManagerService.prototype.getGeocoding = function (address) {
+        return this.http.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&key=AIzaSyArzIrvHH6ei9-x5FLY66LwBn0uhv8LWBs");
+    };
     BusinessManagerService.prototype.saveBusiness = function (businessModel) {
         return this.http.post(this.url + '/business', businessModel);
     };

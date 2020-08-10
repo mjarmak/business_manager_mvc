@@ -34,12 +34,6 @@ namespace authentication_api
                     config.Audience = "bm";
                     //config.RequireHttpsMetadata = false;
                 });
-            services.AddAuthentication()
-                .AddGoogle(options =>
-                {
-                    options.ClientId = "832616258163-p7j556d7o2op229gu8ktnghbaufvp2gc.apps.googleusercontent.com";
-                    options.ClientSecret = "f28dIUNO28hLcv7e739-6IdO";
-                });
 
             services.AddDbContext<DefaultContext>(config =>
             {

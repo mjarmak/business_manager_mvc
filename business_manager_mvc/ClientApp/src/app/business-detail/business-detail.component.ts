@@ -5,6 +5,7 @@ import { BusinessManagerService } from "../services/business-manager-svc";
 import { AlertService } from "../services/alert-service";
 import { ActivatedRoute } from "@angular/router";
 import { RouterService } from "../services/router-service";
+import { ResponseEnvelope } from "../../Model/responseEnvelope";
 
 
 @Component({
@@ -18,6 +19,8 @@ export class BusinessDetailComponent implements OnInit {
     email: string;
     isOwner: boolean = false;
     imagesUrl: string;
+    lat: string;
+    long: string;
 
     constructor(
         private readonly businessManagerService: BusinessManagerService,
@@ -30,10 +33,10 @@ export class BusinessDetailComponent implements OnInit {
         const businessId = this.route.snapshot.paramMap.get("businessId");
 
         if (businessId) {
-            this.businessManagerService.getBusiness(Number(businessId)).subscribe(result => {
+            this.businessManagerService.getBusiness(Number(businessId)).subscribe((result: ResponseEnvelope<BusinessDataModel>) => {
                 this.business = result.data;
-
                 if (this.business) {
+                    this.refreshCoordinates();
                     this.role = localStorage.getItem("userrole");
                     this.email = localStorage.getItem("useremail");
 
@@ -107,5 +110,40 @@ export class BusinessDetailComponent implements OnInit {
         } else {
             return num;
         }
+    }
+    public refreshCoordinates() {
+        if (this.business && this.getAddressFull()) {
+            this.businessManagerService.getGeocoding(this.getAddressFull()).subscribe(result => {
+                if (result) {
+                    let results = result.results;
+                    if (results && results.length > 0 && results[0].geometry && results[0].geometry.location) {
+                        this.lat = results[0].geometry.location.lat;
+                        this.long = results[0].geometry.location.lng;
+                    }
+                }
+            }, error => {
+                    this.alertService.error("Error loading map.", error.error.error_message);
+            });
+        }
+    }
+
+    public getAddressFull(): string {
+        let addressFull = "";
+        if (this.business && this.business.businessInfo && this.business.businessInfo.address) {
+            if (this.business.businessInfo.address.street) {
+                addressFull += this.business.businessInfo.address.street + " "
+            }
+            if (this.business.businessInfo.address.city) {
+                addressFull += this.business.businessInfo.address.city + " "
+            }
+            if (this.business.businessInfo.address.country) {
+                addressFull += this.business.businessInfo.address.country + " "
+            }
+            if (this.business.businessInfo.address.postalCode) {
+                addressFull += this.business.businessInfo.address.postalCode + " "
+            }
+            return addressFull;
+        }
+        return null;
     }
 }

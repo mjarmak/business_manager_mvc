@@ -17,16 +17,16 @@ export class UserManagerService {
         this.url = environment.authentication_api_url;
     }
 
-    public getUserRoles(): Observable<ResponseEnvelope> {
-        return this.http.get<ResponseEnvelope>(this.url + '/roles');
+    public getUserRoles(): Observable<ResponseEnvelope<any>> {
+        return this.http.get<ResponseEnvelope<any>>(this.url + '/roles');
     }
 
-    public searchUsers(role?: string): Observable<ResponseEnvelope> {
+    public searchUsers(role?: string): Observable<ResponseEnvelope<any>> {
         let path = '/user?'
         if (role) {
             path = path + "&role=" + role
         }
-        return this.http.get<ResponseEnvelope>(this.url + path)
+        return this.http.get<ResponseEnvelope<any>>(this.url + path)
     }
 
     public refreshUserRoles(): void {
@@ -42,6 +42,6 @@ export class UserManagerService {
     }
 
     changeUserRole(username: string, action: string) {
-        return this.http.get<ResponseEnvelope>(this.url + "/user/" + action + "?username=" + username);
+        return this.http.get<ResponseEnvelope<any>>(this.url + "/user/" + action + "?username=" + username);
     }
 }

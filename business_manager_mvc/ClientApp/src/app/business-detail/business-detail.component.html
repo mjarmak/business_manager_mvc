@@ -49,6 +49,10 @@
 
       <p *ngIf="business.businessInfo && business.businessInfo.address && business.businessInfo.address.boxNumber">Box Number: {{this.business.businessInfo.address.boxNumber}}</p>
 
+      <agm-map *ngIf="this.lat && this.long" [zoom]="13" [latitude]="this.lat" [longitude]="this.long">
+        <agm-marker [latitude]="this.lat" [longitude]="this.long"></agm-marker>
+      </agm-map>
+
       <hr class="margin-top-medium margin-bottom-medium" />
 
       <h5>Contact Info:</h5>

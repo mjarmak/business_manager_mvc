@@ -23,13 +23,17 @@ export class BusinessManagerService {
         this.url = environment.business_manager_api_url;
     }
 
-    public saveBusiness(businessModel: BusinessDataModel): Observable<ResponseEnvelope> {
-        return this.http.post<ResponseEnvelope>(this.url + '/business', businessModel)
+    public getGeocoding(address: string): Observable<any> {
+        return this.http.get<any>("https://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&key=AIzaSyArzIrvHH6ei9-x5FLY66LwBn0uhv8LWBs")
     }
-    public updateBusiness(businessModel: BusinessDataModel, id: number): Observable<ResponseEnvelope> {
-        return this.http.put<ResponseEnvelope>(this.url + '/business/' + id, businessModel)
+
+    public saveBusiness(businessModel: BusinessDataModel): Observable<ResponseEnvelope<any>> {
+        return this.http.post<ResponseEnvelope<any>>(this.url + '/business', businessModel)
     }
-    public searchBusinesses(country?: string, city?: string, openNow?: boolean, type?: string, onlyDisabled?: boolean): Observable<ResponseEnvelope> {
+    public updateBusiness(businessModel: BusinessDataModel, id: number): Observable<ResponseEnvelope<any>> {
+        return this.http.put<ResponseEnvelope<any>>(this.url + '/business/' + id, businessModel)
+    }
+    public searchBusinesses(country?: string, city?: string, openNow?: boolean, type?: string, onlyDisabled?: boolean): Observable<ResponseEnvelope<any>> {
         let path = '/business/search?'
         if (country) {
             path = path + "&country=" + country
@@ -47,14 +51,14 @@ export class BusinessManagerService {
             path = path + "&onlyDisabled=" + onlyDisabled
         }
 
-        return this.http.get<ResponseEnvelope>(this.url + path)
+        return this.http.get<ResponseEnvelope<BusinessDataModel>>(this.url + path)
     }
-    public getBusiness(businessId: number): Observable<ResponseEnvelope> {
-        return this.http.get<ResponseEnvelope>(this.url + '/business/' + businessId)
+    public getBusiness(businessId: number): Observable<ResponseEnvelope<BusinessDataModel>> {
+        return this.http.get<ResponseEnvelope<BusinessDataModel>>(this.url + '/business/' + businessId)
     }
 
-    public getBusinessTypes(): Observable<ResponseEnvelope> {
-        return this.http.get<ResponseEnvelope>(this.url + '/business/types');
+    public getBusinessTypes(): Observable<ResponseEnvelope<any>> {
+        return this.http.get<ResponseEnvelope<any>>(this.url + '/business/types');
     }
 
     public refreshBusinessTypes(): void {
@@ -69,18 +73,18 @@ export class BusinessManagerService {
         }
     }
 
-    public getDays(): Observable<ResponseEnvelope> {
-        return this.http.get<ResponseEnvelope>(this.url + '/business/days');
+    public getDays(): Observable<ResponseEnvelope<any>> {
+        return this.http.get<ResponseEnvelope<any>>(this.url + '/business/days');
     }
 
-    public enableBusiness(id: number): Observable<ResponseEnvelope> {
-        return this.http.get<ResponseEnvelope>(this.url + '/business/' + id + "/enable");
+    public enableBusiness(id: number): Observable<ResponseEnvelope<any>> {
+        return this.http.get<ResponseEnvelope<any>>(this.url + '/business/' + id + "/enable");
     }
-    public disableBusiness(id: number): Observable<ResponseEnvelope> {
-        return this.http.get<ResponseEnvelope>(this.url + '/business/' + id + "/disable");
+    public disableBusiness(id: number): Observable<ResponseEnvelope<any>> {
+        return this.http.get<ResponseEnvelope<any>>(this.url + '/business/' + id + "/disable");
     }
-    public deleteBusiness(id: number): Observable<ResponseEnvelope> {
-        return this.http.delete<ResponseEnvelope>(this.url + '/business/' + id);
+    public deleteBusiness(id: number): Observable<ResponseEnvelope<any>> {
+        return this.http.delete<ResponseEnvelope<any>>(this.url + '/business/' + id);
     }
 
     public refreshDays(): void {
@@ -95,7 +99,7 @@ export class BusinessManagerService {
         }
     }
 
-    public uploadLogo(logo: File, businessId: number): Observable<ResponseEnvelope> {
+    public uploadLogo(logo: File, businessId: number): Observable<ResponseEnvelope<any>> {
         if (logo === undefined) {
             return null;
         }
@@ -103,20 +107,20 @@ export class BusinessManagerService {
 
         formData.append('image', logo);
 
-        return this.http.post<ResponseEnvelope>(this.url + '/business/' + businessId + '/logo', formData);
+        return this.http.post<ResponseEnvelope<any>>(this.url + '/business/' + businessId + '/logo', formData);
     }
 
-    public uploadImage(image: File, businessId: number, imageId: number): Observable<ResponseEnvelope> {
+    public uploadImage(image: File, businessId: number, imageId: number): Observable<ResponseEnvelope<any>> {
         if (image === undefined) {
             return null;
         }
         const formData = new FormData();
 
         formData.append('image', image);
-        return this.http.post<ResponseEnvelope>(this.url + '/business/' + businessId + '/photo/' + imageId, formData);
+        return this.http.post<ResponseEnvelope<any>>(this.url + '/business/' + businessId + '/photo/' + imageId, formData);
     }
 
-    public updateLogo(logo: File, businessId: number): Observable<ResponseEnvelope> {
+    public updateLogo(logo: File, businessId: number): Observable<ResponseEnvelope<any>> {
         if (logo === undefined) {
             return null;
         }
@@ -124,24 +128,24 @@ export class BusinessManagerService {
 
         formData.append('image', logo);
 
-        return this.http.put<ResponseEnvelope>(this.url + '/business/' + businessId + '/logo', formData);
+        return this.http.put<ResponseEnvelope<any>>(this.url + '/business/' + businessId + '/logo', formData);
     }
 
-    public updateImage(image: File, businessId: number, imageId: number): Observable<ResponseEnvelope> {
+    public updateImage(image: File, businessId: number, imageId: number): Observable<ResponseEnvelope<any>> {
         if (image === undefined) {
             return null;
         }
         const formData = new FormData();
 
         formData.append('image', image);
-        return this.http.put<ResponseEnvelope>(this.url + '/business/' + businessId + '/photo/' + imageId, formData);
+        return this.http.put<ResponseEnvelope<any>>(this.url + '/business/' + businessId + '/photo/' + imageId, formData);
     }
 
-    public getBusinessImages(businessId: number): Observable<ResponseEnvelope> {
-        return this.http.get<ResponseEnvelope>(this.url + '/business/' + businessId + '/photo');
+    public getBusinessImages(businessId: number): Observable<ResponseEnvelope<any>> {
+        return this.http.get<ResponseEnvelope<any>>(this.url + '/business/' + businessId + '/photo');
     }
 
-    public getBusinessLogo(businessId: number): Observable<ResponseEnvelope> {
-        return this.http.get<ResponseEnvelope>(this.url + '/business/' + businessId + '/logo');
+    public getBusinessLogo(businessId: number): Observable<ResponseEnvelope<any>> {
+        return this.http.get<ResponseEnvelope<any>>(this.url + '/business/' + businessId + '/logo');
     }
 }

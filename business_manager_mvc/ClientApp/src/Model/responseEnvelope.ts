@@ -1,3 +1,3 @@
-export class ResponseEnvelope {
-    data: any;
+export class ResponseEnvelope<T> {
+    data: T;
 }

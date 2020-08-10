@@ -27,6 +27,7 @@ import { UserListComponent } from './user-list/user-list.component';
 import { UserOverviewComponent } from './user-overview/user-overview.component';
 import { UserManagerService } from './services/user-manager-svc';
 import { UserAccountDetailComponent } from './user-detail/user-detail.component';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
     declarations: [
@@ -71,6 +72,9 @@ import { UserAccountDetailComponent } from './user-detail/user-detail.component'
         MatInputModule,
         MatSelectModule,
         ReactiveFormsModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyArzIrvHH6ei9-x5FLY66LwBn0uhv8LWBs'
+        })
     ],
     providers: [
         {

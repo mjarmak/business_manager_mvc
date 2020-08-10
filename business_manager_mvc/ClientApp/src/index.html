@@ -7,28 +7,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <meta name="google-signin-client_id" content="832616258163-p7j556d7o2op229gu8ktnghbaufvp2gc.apps.googleusercontent.com">
-
-  <script src="https://apis.google.com/js/platform.js" async defer></script>
-
-  <script>
-    function GoogleSignOut() {
-      var auth2 = gapi.auth2.getAuthInstance();
-      auth2.signOut().then(function () {
-      });
-    }
-    function GoogleSignIn(googleUser) {
-      var profile = googleUser.getBasicProfile();
-      console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-      console.log('Name: ' + profile.getName());
-      console.log('Image URL: ' + profile.getImageUrl());
-      console.log('Email: ' + profile.getEmail());
-    }
-  </script>
 
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
 </head>
-  <body>
-    <app-root>Loading...</app-root>
-  </body>
+<body>
+  <app-root>Loading...</app-root>
+</body>
 </html>

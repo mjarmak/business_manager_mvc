@@ -11,7 +11,7 @@ var TokenInterceptor = /** @class */ (function () {
     }
     TokenInterceptor.prototype.intercept = function (request, next) {
         var _this = this;
-        if (!request.headers.has("Authorization")) {
+        if (!request.headers.has("noauth") && !request.headers.has("Authorization")) {
             request = request.clone({
                 setHeaders: {
                     Authorization: "Bearer " + this.auth.getToken()

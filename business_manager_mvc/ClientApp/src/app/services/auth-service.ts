@@ -85,11 +85,11 @@ export class AuthService {
         return this.http.post<TokenEnvelope>(this.url + '/connect/token', formData);
     }
 
-    public Register(user: UserAccountModel): Observable<ResponseEnvelope> {
-        return this.http.post<ResponseEnvelope>(this.url + '/register', user)
+    public Register(user: UserAccountModel): Observable<ResponseEnvelope<any>> {
+        return this.http.post<ResponseEnvelope<any>>(this.url + '/register', user)
     }
-    public Update(email: string, userUpdate: UserUpdateModel): Observable<ResponseEnvelope> {
-        return this.http.put<ResponseEnvelope>(this.url + '/update/' + email, userUpdate)
+    public Update(email: string, userUpdate: UserUpdateModel): Observable<ResponseEnvelope<any>> {
+        return this.http.put<ResponseEnvelope<any>>(this.url + '/update/' + email, userUpdate)
     }
 
     public GetToken(username: string, password: string, scope: string, grantType: string): Observable<TokenEnvelope> {

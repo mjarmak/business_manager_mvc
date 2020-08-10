@@ -384,13 +384,13 @@ namespace business_manager_api.Controllers
                     data = new List<string> { "Business with ID " + id + " does not exist." }
                 });
             }
-            else if (!BusinessBelongsToUser(id, email))
+            else if (!BusinessBelongsToUser(id, email) && !role.Contains("ADMIN"))
             {
                 return BadRequest(new
                 {
                     data = "Business with ID " + id + " does not belong to user " + email + "."
                 });
-            } else if (businessModel.Identification.EmailPro != email)
+            } else if (businessModel.Identification.EmailPro != email && !role.Contains("ADMIN"))
             {
                 return BadRequest(new
                 {

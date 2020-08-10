@@ -1,5 +1,4 @@
 import { Component, Inject, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { AlertService } from '../services/alert-service';
 import { BusinessManagerService } from '../services/business-manager-svc';
 import { BusinessListComponent } from '../business-list/business-list.component';
 
@@ -23,7 +22,9 @@ export class BusinessOverviewComponent implements OnInit, OnDestroy {
     constructor(private businessManagerService: BusinessManagerService) {
         this.role = localStorage.getItem("userrole");
         if (this.role && this.role.includes("ADMIN")) {
-            this.displayedColumns = ['logo', 'id', "name", "more"];
+            this.displayedColumns = ['logo', 'id', "name", "location", "more"];
+        } else {
+            this.displayedColumns = ['logo', 'id', "name", "location"];
         }
     }
 

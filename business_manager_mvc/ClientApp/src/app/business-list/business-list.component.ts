@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { BusinessDataModel } from '../../Model/business';
+import { BusinessDataModel, WorkHoursData } from '../../Model/business';
 import { BusinessManagerService } from '../services/business-manager-svc';
 import { AlertService } from '../services/alert-service';
 import { environment } from '../../environments/environment';
@@ -23,6 +23,9 @@ export class BusinessListComponent implements OnInit {
     @Input() country: string;
     @Input() openNow: boolean;
     @Input() onlyDisabled: boolean;
+
+    readonly days = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY'];
+
 
     public imagesUrl: string;
 
@@ -70,5 +73,22 @@ export class BusinessListComponent implements OnInit {
         }, error => {
             this.alertService.error("Error updating business " + id, error.error.data);
         });
+    }
+    public isOpenNow(workhours: WorkHoursData[]): boolean {
+        const date = new Date();
+        const day = this.days[date.getDay() - 1];
+        const hour = date.getHours();
+        const minute = date.getMinutes();
+
+        const workhour = workhours.find(w => w.day == day);
+
+        if (workhour) {
+            const workhourTimeFrom = workhour.hourFrom + workhour.minuteFrom / 60;
+            const workhourTimeTo = workhour.hourTo + workhour.minuteTo / 60;
+            const timeCurrent = hour + minute / 60;
+            return (workhourTimeFrom < timeCurrent && workhourTimeTo > timeCurrent);
+        } else {
+            return false;
+        }
     }
 }

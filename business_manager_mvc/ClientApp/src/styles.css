@@ -200,3 +200,30 @@ hr {
 agm-map {
   height: 300px;
 }
+
+.icon-open {
+  border: solid 0.25rem;
+  border-radius: 1rem;
+  display: inline-block;
+}
+
+.wrapped {
+}
+
+.wrapped:hover
+.wrapped-tooltip {
+  visibility: visible;
+}
+
+.wrapped-tooltip {
+  color: black;
+  position: absolute;
+  display: block !important;
+  visibility: hidden;
+  background-color: white;
+  border-radius: 1rem;
+  pointer-events: none;
+  z-index: 1060;
+  box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.5);
+  padding: 0.5rem;
+}

@@ -37,7 +37,7 @@ export class BusinessCreateComponent implements OnInit {
             this.businessManagerService.getBusiness(Number(businessId)).subscribe(result => {
                 this.business = result.data;
             }, error => {
-                this.alertService.error("Error loading business", error.message);
+                    this.alertService.error("Error loading business", error.error.message);
             });
         }
         else {
@@ -67,7 +67,7 @@ export class BusinessCreateComponent implements OnInit {
                 this.alertService.success("Business Updated", "");
             }, error => {
                 this.errors = error.error.data;
-                this.alertService.error("Error creating business", error.message);
+                    this.alertService.error("Error creating business", error.error.message);
             });
         } else {
             this.businessManagerService.saveBusiness(this.business).subscribe(result => {
@@ -81,7 +81,7 @@ export class BusinessCreateComponent implements OnInit {
                         },
                         error => {
                             this.errors.concat(error.error.data);
-                            this.alertService.error("Error adding logo", error.message);
+                            this.alertService.error("Error adding logo", error.error.message);
                         });
                 }
                 if (this.images) {
@@ -91,14 +91,14 @@ export class BusinessCreateComponent implements OnInit {
                             },
                             error => {
                                 this.errors.concat(error.error.data);
-                                this.alertService.error("Error adding image", error.message);
+                                this.alertService.error("Error adding image", error.error.message);
                             });
                     });
                 }
                 RouterService.openBusiness(this.business.id);
             }, error => {
                 this.errors = error.error.data;
-                this.alertService.error("Error creating business", error.message);
+                    this.alertService.error("Error creating business", error.error.message);
             });
         }
     }
@@ -122,7 +122,7 @@ export class BusinessCreateComponent implements OnInit {
                     },
                     error => {
                         this.errors.concat(error.error.data);
-                        this.alertService.error("Error adding logo", error.message);
+                        this.alertService.error("Error adding logo", error.error.message);
                     });
             }
         });
@@ -160,12 +160,12 @@ export class BusinessCreateComponent implements OnInit {
                                     }
                                 }
                             }, error => {
-                                this.alertService.error("Error loading business", error.message);
+                                    this.alertService.error("Error loading business", error.error.message);
                             });
                         },
                         error => {
                             this.errors.concat(error.error.data);
-                            this.alertService.error("Error adding image", error.message);
+                            this.alertService.error("Error adding image", error.error.message);
                         });
                 }
             }

@@ -20,6 +20,11 @@ namespace business_manager_common_library
         public string UrlInstagram { get; set; }
         public string UrlFaceBook { get; set; }
         public string UrlLinkedIn { get; set; }
+        public string PhotoPath1 { get; set; }
+        public string PhotoPath2 { get; set; }
+        public string PhotoPath3 { get; set; }
+        public string PhotoPath4 { get; set; }
+        public string PhotoPath5 { get; set; }
     }
     public enum BusinessTypeEnum
     {
@@ -37,6 +42,7 @@ namespace business_manager_common_library
         public string TVA { get; set; }
         public string EmailPro { get; set; }
         public string Description { get; set; }
+        public string LogoPath { get; set; }
     }
     public class Address
     {

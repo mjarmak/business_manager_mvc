@@ -113,7 +113,9 @@ export class BusinessCreateComponent implements OnInit {
                 this.businessManagerService.updateLogo(this.logo, this.business.id).subscribe(
                     result => {
                         this.businessManagerService.getBusiness(this.business.id).subscribe(result => {
-                            this.business = result.data;
+                            if (result.data && result.data.identification && result.data.identification.logoPath) {
+                                this.business.identification.logoPath = result.data.identification.logoPath;
+                            }
                         }, error => {
                             this.alertService.error("Error loading business", error.message);
                         });
@@ -140,7 +142,23 @@ export class BusinessCreateComponent implements OnInit {
                     this.businessManagerService.updateImage(this.images.get(index), this.business.id, index).subscribe(
                         result => {
                             this.businessManagerService.getBusiness(this.business.id).subscribe(result => {
-                                this.business = result.data;
+                                if (result.data && result.data.businessInfo) {
+                                    if (result.data.businessInfo.photoPath1) {
+                                        this.business.businessInfo.photoPath1 = result.data.businessInfo.photoPath1;
+                                    }
+                                    if (result.data.businessInfo.photoPath1) {
+                                        this.business.businessInfo.photoPath2 = result.data.businessInfo.photoPath2;
+                                    }
+                                    if (result.data.businessInfo.photoPath1) {
+                                        this.business.businessInfo.photoPath3 = result.data.businessInfo.photoPath3;
+                                    }
+                                    if (result.data.businessInfo.photoPath1) {
+                                        this.business.businessInfo.photoPath4 = result.data.businessInfo.photoPath4;
+                                    }
+                                    if (result.data.businessInfo.photoPath1) {
+                                        this.business.businessInfo.photoPath5 = result.data.businessInfo.photoPath5;
+                                    }
+                                }
                             }, error => {
                                 this.alertService.error("Error loading business", error.message);
                             });

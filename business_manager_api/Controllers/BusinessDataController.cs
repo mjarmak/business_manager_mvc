@@ -928,6 +928,7 @@ namespace business_manager_api.Controllers
                     EmailPro = businessModel.Identification.EmailPro,
                     Name = businessModel.Identification.Name,
                     TVA = businessModel.Identification.TVA,
+                    LogoPath = businessModel.Identification.LogoPath,
                     Type = businessModel.Identification.Type == null ? null : ((BusinessTypeEnum)Enum.Parse(typeof(BusinessTypeEnum), businessModel.Identification.Type)).ToString()
                 },
                 BusinessInfo = businessModel.BusinessInfo == null ? new BusinessInfoData { Address = new AddressData() } : new BusinessInfoData
@@ -939,6 +940,11 @@ namespace business_manager_api.Controllers
                     UrlInstagram = businessModel.BusinessInfo.UrlInstagram,
                     UrlLinkedIn = businessModel.BusinessInfo.UrlLinkedIn,
                     UrlSite = businessModel.BusinessInfo.UrlSite,
+                    PhotoPath1 = businessModel.BusinessInfo.PhotoPath1,
+                    PhotoPath2 = businessModel.BusinessInfo.PhotoPath2,
+                    PhotoPath3 = businessModel.BusinessInfo.PhotoPath3,
+                    PhotoPath4 = businessModel.BusinessInfo.PhotoPath4,
+                    PhotoPath5 = businessModel.BusinessInfo.PhotoPath5,
                     Address = businessModel.BusinessInfo.Address == null ? new AddressData() : new AddressData
                     {
                         Id = businessModel.BusinessInfo.Address.Id,

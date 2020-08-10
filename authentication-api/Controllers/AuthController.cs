@@ -19,24 +19,34 @@ namespace authentication_api.Controllers
     [ApiController]
     public class AuthController : Controller
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
+        public SignInManager<IdentityUser> InManager { get; }
         private readonly UserManager<IdentityUser> _userManager;
         private readonly JwtSecurityTokenHandler _tokenHandler;
-        public RoleManager<IdentityRole> _roleManager { get; }
-        private readonly IIdentityServerInteractionService _interactionService;
+        public RoleManager<IdentityRole> RoleManager { get; }
+        public IIdentityServerInteractionService InteractionService { get; }
+
         public AuthController(
             UserManager<IdentityUser> userManager,
             RoleManager<IdentityRole> roleManager,
             SignInManager<IdentityUser> signInManager,
             IIdentityServerInteractionService interactionService)
         {
-            _signInManager = signInManager;
+            InManager = signInManager;
             _userManager = userManager;
-            _roleManager = roleManager;
-            _interactionService = interactionService;
+            RoleManager = roleManager;
+            InteractionService = interactionService;
             _tokenHandler = new JwtSecurityTokenHandler();
         }
 
+        /// <summary>
+        /// Register a user.
+        /// </summary>
+        /// <param name="userAccountModel"></param>
+        /// <returns>The user has been registered</returns>
+        /// <response code="201">If the new user has been Registered</response>
+        /// <response code="400">If the users field is null</response>
+        /// <response code="403">If the users field is forbidden</response>
+        /// <response code="500">If an internal server error occurred</response>
         [Route("register")]
         [HttpPost]
         public async Task<ActionResult> Register(UserAccountModel userAccountModel)
@@ -60,7 +70,7 @@ namespace authentication_api.Controllers
                 {
                     //status = response.StatusCode,
                     data = errors
-                }); ;
+                });
             }
 
 
@@ -97,7 +107,7 @@ namespace authentication_api.Controllers
             }
             if (userAccountDataModel.BirthDate != null)
             {
-                    await _userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.BirthDate, userAccountDataModel.BirthDate.ToString()));
+                    await _userManager.AddClaimAsync(user, new Claim(JwtClaimTypes.BirthDate, userAccountDataModel.BirthDate));
             }
             await _userManager.AddClaimAsync(user, new Claim( "Professional" , userAccountDataModel.Profession ? "1" : "0"));
 
@@ -107,12 +117,22 @@ namespace authentication_api.Controllers
             });
         }
 
+        /// <summary>
+        /// Updates of the user infos
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="userUpdateModel"></param>
+        /// <returns>User info updated</returns>
+        /// <response code="201">If the user info has been updated</response>
+        /// <response code="400">If the users field is null</response>
+        /// <response code="403">If the users field is forbidden</response>
+        /// <response code="500">If an internal server error occurred</response>
         [Route("update/{email}")]
         [HttpPut]
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "USER")]
         public async Task<ActionResult> Update(string email, UserUpdateModel userUpdateModel)
         {
-            string emailClaim = GetClaim("email");
+            var emailClaim = GetClaim("email");
             if (emailClaim == null || !emailClaim.Equals(email))
             {
                 return BadRequest(new
@@ -127,7 +147,7 @@ namespace authentication_api.Controllers
                 return BadRequest(new
                 {
                     data = errors
-                }); ;
+                });
             }
 
             var user = await _userManager.FindByNameAsync(email);
@@ -169,7 +189,14 @@ namespace authentication_api.Controllers
             }
         }
 
-
+        /// <summary>
+        /// List of roles
+        /// </summary>
+        /// <returns></returns>
+        /// <response code="201">If the role user has been created</response>
+        /// <response code="400">If the role field is null</response>
+        /// <response code="403">If the role field is forbidden</response>
+        /// <response code="500">If an internal server error occurred</response>
         [Route("roles")]
         [HttpGet]
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "ADMIN")]
@@ -177,10 +204,19 @@ namespace authentication_api.Controllers
         {
             return Ok(new
             {
-                data = _roleManager.Roles.ToList().Select(role => role.Name).ToList(),
+                data = RoleManager.Roles.ToList().Select(role => role.Name).ToList(),
             });
         }
 
+        /// <summary>
+        /// Show the list of users and change the role
+        /// </summary>
+        /// <param name="role"></param>
+        /// <returns>It returns the list of users</returns>
+        /// <response code="201">If the role user has been created</response>
+        /// <response code="400">If the role field is null</response>
+        /// <response code="403">If the role field is forbidden</response>
+        /// <response code="500">If an internal server error occurred</response>
         [Route("user")]
         [HttpGet]
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "ADMIN")]
@@ -199,6 +235,12 @@ namespace authentication_api.Controllers
                 data = _userManager.GetUsersInRoleAsync(role).Result
             });
         }
+
+        /// <summary>
+        /// Search for the user based on role
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
         [Route("user/username")]
         [HttpGet]
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "ADMIN")]
@@ -218,6 +260,11 @@ namespace authentication_api.Controllers
             });
         }
 
+        /// <summary>
+        /// Give role type to user
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
         [Route("user/validate")]
         [HttpGet]
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "ADMIN")]
@@ -246,6 +293,12 @@ namespace authentication_api.Controllers
                 data = result.ToString()
             });
         }
+
+        /// <summary>
+        ///  Remove role
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
         [Route("user/block")]
         [HttpGet]
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "ADMIN")]
@@ -274,6 +327,12 @@ namespace authentication_api.Controllers
                 data = result.ToString()
             });
         }
+
+        /// <summary>
+        /// Remove role
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
         [Route("user/make-admin")]
         [HttpGet]
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "ADMIN")]
@@ -304,7 +363,12 @@ namespace authentication_api.Controllers
             });
         }
 
-        private UserAccountDataModel EnvelopeOf(UserAccountModel userAccountModel)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userAccountModel"></param>
+        /// <returns></returns>
+        private static UserAccountDataModel EnvelopeOf(UserAccountModel userAccountModel)
         {
             return new UserAccountDataModel
             {
@@ -318,29 +382,29 @@ namespace authentication_api.Controllers
                 Password = userAccountModel.Password
             };
         }
-        private List<string> ValidateUser(UserAccountDataModel userAccountDataModel)
+        private static List<string> ValidateUser(UserAccountDataModel userAccountDataModel)
         {
-            List<ValidationFailure> errors = new List<ValidationFailure>();
+            var errors = new List<ValidationFailure>();
 
-            UserAccountValidator userAccountValidator = new UserAccountValidator();
-            ValidationResult validationResult = userAccountValidator.Validate(userAccountDataModel);
+            var userAccountValidator = new UserAccountValidator();
+            var validationResult = userAccountValidator.Validate(userAccountDataModel);
             errors.AddRange(validationResult.Errors);
 
             return ErrorsToStrings(errors);
         }
-        private List<string> ValidateUser(UserUpdateModel userUpdateModel)
+        private static List<string> ValidateUser(UserUpdateModel userUpdateModel)
         {
-            List<ValidationFailure> errors = new List<ValidationFailure>();
+            var errors = new List<ValidationFailure>();
 
-            UserUpdateValidator userUpdateValidator = new UserUpdateValidator();
-            ValidationResult validationResult = userUpdateValidator.Validate(userUpdateModel);
+            var userUpdateValidator = new UserUpdateValidator();
+            var validationResult = userUpdateValidator.Validate(userUpdateModel);
             errors.AddRange(validationResult.Errors);
 
             return ErrorsToStrings(errors);
         }
-        private List<string> ErrorsToStrings(IList<ValidationFailure> validationFailures)
+        private static List<string> ErrorsToStrings(IEnumerable<ValidationFailure> validationFailures)
         {
-            return validationFailures?.Select(ValidationFailure => ValidationFailure.ErrorMessage).ToList();
+            return validationFailures?.Select(validationFailure => validationFailure.ErrorMessage).ToList();
         }
         private string GetClaim(string name)
         {

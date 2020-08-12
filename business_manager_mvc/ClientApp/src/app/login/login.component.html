@@ -1,0 +1,14 @@
+<div class="card-input center-horizontal card-min-width-512 width-50">
+  <h1>Login</h1>
+
+  <label for="username">Username:</label>
+  <input id="username" type="text" [(ngModel)]="this.username" (keydown.enter)="onClickLogin()">
+
+  <label for="password">Password:</label>
+  <input id="password" type="password" [(ngModel)]="this.password" (keydown.enter)="onClickLogin()">
+
+  <button class="btn-primary" id="btnLogin" (click)="onClickLogin()">Login</button>
+
+  <button class="btn-secondary" id="btnRegister" (click)="OpenRegisterPage()">Register</button>
+
+</div>

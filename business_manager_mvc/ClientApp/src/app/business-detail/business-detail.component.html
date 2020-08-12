@@ -1,0 +1,107 @@
+<div class="card card-min-width-512 width-full">
+  <div class="row">
+    <div class="col-md-12">
+      <h3>
+        {{this.business.identification.name}}
+        <!--<p *ngIf="!forecasts"><em>Loading...</em></p>-->
+      </h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2">
+      <img class="clickable image-shadow" (click)="openNewTab(this.imagesUrl + business.identification.logoPath)" *ngIf="business.identification && business.identification.logoPath" src="{{imagesUrl + business.identification.logoPath}}" width="125" height="80">
+
+      <p *ngIf="this.isOwner || (this.role && this.role.includes('ADMIN'))">Disabled: {{this.business.disabled}}</p>
+
+      <button *ngIf="this.isOwner || (this.role && this.role.includes('ADMIN'))" type="button" class="btn-primary width-full margin-bottom-medium" id="btnEdit" (click)="editBusiness()">Edit</button>
+
+      <button *ngIf="this.isOwner" type="button" class="btn-primary width-full margin-bottom-medium" id="btnDisableUser" (click)="disableBusiness()">Delete</button>
+
+      <button *ngIf="this.role && this.role.includes('ADMIN') && this.business.disabled" type="button" class="btn-primary width-full margin-bottom-medium" id="btnEnable" (click)="enableBusiness()">Enable</button>
+      <button *ngIf="this.role && this.role.includes('ADMIN') && !this.business.disabled" type="button" class="btn-primary width-full margin-bottom-medium" id="btnDisable" (click)="disableBusiness()">Disable</button>
+      <button *ngIf="this.role && this.role.includes('ADMIN')" type="button" class="btn-primary width-full margin-bottom-large" id="btnDelete" (click)="deleteBusiness()">Delete</button>
+    </div>
+    <div class="col-md-8">
+
+      <h5>Details:</h5>
+
+      <p>Business ID: {{this.business.id}}</p>
+
+      <p *ngIf="business.identification && business.identification.name">Name: {{this.business.identification.name}}</p>
+
+      <p *ngIf="business.identification && business.identification.type">Type of Business: {{this.business.identification.type.charAt(0).toUpperCase() + this.business.identification.type.slice(1).toLowerCase()}}</p>
+
+      <p *ngIf="business.identification && business.identification.tva">Numero TVA: {{this.business.identification.tva}}</p>
+
+      <p *ngIf="business.identification && business.identification.description">Description: {{this.business.identification.description}}</p>
+
+      <hr class="margin-top-medium margin-bottom-medium" />
+
+      <h5>Address:</h5>
+
+      <p *ngIf="business.businessInfo && business.businessInfo.address && business.businessInfo.address.street">Street: {{this.business.businessInfo.address.street}}</p>
+
+      <p *ngIf="business.businessInfo && business.businessInfo.address && business.businessInfo.address.postalCode">Postal code: {{this.business.businessInfo.address.postalCode}}</p>
+
+      <p *ngIf="business.businessInfo && business.businessInfo.address && business.businessInfo.address.city">City: {{this.business.businessInfo.address.city}}</p>
+
+      <p *ngIf="business.businessInfo && business.businessInfo.address && business.businessInfo.address.country">Country: {{this.business.businessInfo.address.country}}</p>
+
+      <p *ngIf="business.businessInfo && business.businessInfo.address && business.businessInfo.address.boxNumber">Box Number: {{this.business.businessInfo.address.boxNumber}}</p>
+
+      <agm-map *ngIf="this.lat && this.long" [zoom]="13" [latitude]="this.lat" [longitude]="this.long">
+        <agm-marker [latitude]="this.lat" [longitude]="this.long"></agm-marker>
+      </agm-map>
+
+      <hr class="margin-top-medium margin-bottom-medium" />
+
+      <h5>Contact Info:</h5>
+
+      <p *ngIf="business.identification && business.identification.emailPro">Professional Email: {{this.business.identification.emailPro}}</p>
+
+      <p *ngIf="business.businessInfo && business.businessInfo.emailBusiness">Business Email: {{this.business.businessInfo.emailBusiness}}</p>
+
+      <p *ngIf="business.businessInfo && business.businessInfo.phone">Phone: {{this.business.businessInfo.phone}}</p>
+
+      <hr class="margin-top-medium margin-bottom-medium" />
+
+      <h5>Opening Hours:</h5>
+
+      <div *ngFor="let workHour of this.business.workHours" class="margin-bottom-medium">
+        <p *ngIf="!workHour.closed" class="margin-none">{{workHour.day.charAt(0).toUpperCase() + workHour.day.slice(1).toLowerCase()}}: {{workHour.hourFrom}}:{{formatTimeNumber(workHour.minuteFrom)}} - {{workHour.hourTo}}:{{formatTimeNumber(workHour.minuteTo)}}</p>
+        <p *ngIf="workHour.closed" class="margin-none">{{workHour.day.charAt(0).toUpperCase() + workHour.day.slice(1).toLowerCase()}}: Closed</p>
+        <hr class="margin-top-small margin-bottom-small" />
+      </div>
+
+      <button *ngIf="business.businessInfo && business.businessInfo.urlSite" type="button"
+              class="btn-secondary margin-bottom-medium width-20 margin-right-medium" id="btnWebsite"
+              (click)="this.openNewTab(business.businessInfo.urlSite)">
+        Facebook
+      </button>
+      <button *ngIf="business.businessInfo && business.businessInfo.urlInstagram" type="button"
+              class="btn-secondary margin-bottom-medium width-20 margin-right-medium" id="btnInstagram"
+              (click)="this.openNewTab(business.businessInfo.urlInstagram)">
+        Instagram
+      </button>
+      <button *ngIf="business.businessInfo && business.businessInfo.urlFaceBook" type="button"
+              class="btn-secondary margin-bottom-medium width-20 margin-right-medium" id="btnFacebook"
+              (click)="this.openNewTab(business.businessInfo.urlFaceBook)">
+        Facebook
+      </button>
+      <button *ngIf="business.businessInfo && business.businessInfo.urlLinkedIn" type="button"
+              class="btn-secondary margin-bottom-medium width-20 margin-right-medium" id="btnLinkedin"
+              (click)="this.openNewTab(business.businessInfo.urlLinkedIn)">
+        Linkedin
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <img class="clickable image-shadow" (click)="openNewTab(imagesUrl + business.businessInfo.photoPath1)" *ngIf="business.businessInfo && business.businessInfo.photoPath1" src="{{imagesUrl + business.businessInfo.photoPath1}}" width="512" height="360">
+      <img class="clickable image-shadow" (click)="openNewTab(imagesUrl + business.businessInfo.photoPath2)" *ngIf="business.businessInfo && business.businessInfo.photoPath2" src="{{imagesUrl + business.businessInfo.photoPath2}}" width="512" height="360">
+      <img class="clickable image-shadow" (click)="openNewTab(imagesUrl + business.businessInfo.photoPath3)" *ngIf="business.businessInfo && business.businessInfo.photoPath3" src="{{imagesUrl + business.businessInfo.photoPath3}}" width="512" height="360">
+      <img class="clickable image-shadow" (click)="openNewTab(imagesUrl + business.businessInfo.photoPath4)" *ngIf="business.businessInfo && business.businessInfo.photoPath4" src="{{imagesUrl + business.businessInfo.photoPath4}}" width="512" height="360">
+      <img class="clickable image-shadow" (click)="openNewTab(imagesUrl + business.businessInfo.photoPath5)" *ngIf="business.businessInfo && business.businessInfo.photoPath5" src="{{imagesUrl + business.businessInfo.photoPath5}}" width="512" height="360">
+    </div>
+  </div>
+</div>

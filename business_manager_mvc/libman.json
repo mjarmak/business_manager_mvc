@@ -1,0 +1,29 @@
+{
+  "version": "1.0",
+  "defaultProvider": "unpkg",
+  "libraries": [
+    {
+      "destination": "wwwroot/lib/bootstrap/",
+      "library": "bootstrap@4.5.0",
+      "files": [
+        "dist/css/bootstrap.css",
+        "dist/css/bootstrap.min.css",
+        "dist/js/bootstrap.min.js",
+        "dist/js/bootstrap.js"
+      ]
+    },
+    {
+      "library": "jquery@3.5.1",
+      "destination": "wwwroot/lib/jquery/",
+      "files": [
+        "dist/jquery.js",
+        "dist/jquery.slim.js"
+      ]
+    },
+    {
+      "provider": "filesystem",
+      "library": "https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js",
+      "destination": "wwwroot/lib/bootstrap/"
+    }
+  ]
+}

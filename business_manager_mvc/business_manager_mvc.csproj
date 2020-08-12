@@ -10,9 +10,13 @@
 
     <!-- Set this to true if you enable server-side prerendering -->
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
+    
+    <TypeScriptExperimentalDecorators>true</TypeScriptExperimentalDecorators>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AngularJS.Core" Version="1.8.0" />
+    <PackageReference Include="bootstrap" Version="4.5.0" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="8.6.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="3.1.5" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.0" />
@@ -21,9 +25,31 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="ClientApp\NewFolder\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="ClientApp\NewFolder\**" />
+    <EmbeddedResource Remove="ClientApp\NewFolder\**" />
     <None Remove="$(SpaRoot)**" />
+    <None Remove="ClientApp\NewFolder\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ClientApp\src\app\services\alert-service.ts" />
+    <None Remove="ClientApp\src\app\services\auth-service.ts" />
+    <None Remove="ClientApp\src\app\services\business-manager-svc.ts" />
+    <None Remove="ClientApp\src\app\services\router-service.ts" />
+    <None Remove="ClientApp\src\app\services\token-interceptor.ts" />
+    <None Remove="ClientApp\src\app\services\user-manager-svc.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\services\alert-service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\auth-service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\user-manager-svc.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\router-service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\business-manager-svc.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\token-interceptor.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
@@ -53,5 +79,7 @@
       </ResolvedFileToPublish>
     </ItemGroup>
   </Target>
+
+  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 
 </Project>

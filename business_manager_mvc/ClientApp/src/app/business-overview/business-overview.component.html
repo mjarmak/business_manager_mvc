@@ -1,0 +1,47 @@
+<h3>Business Overview</h3>
+
+<div class="card-row card-min-width-512 width-full">
+
+  <div class="card-input card-column-15 height-fit-content margin-right-medium">
+
+    <label for="type">Type:</label>
+    <mat-form-field *ngIf="this.businessManagerService.businessTypes" appearance="fill">
+      <mat-label>Type</mat-label>
+      <mat-select>
+        <mat-option [value]="none" (click)="this.setBusinessType(null)">
+          None
+        </mat-option>
+        <mat-option *ngFor="let type of this.businessManagerService.businessTypes" [value]="type" (click)="this.setBusinessType(type)">
+          {{type.charAt(0).toUpperCase() + type.slice(1).toLowerCase()}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <p *ngIf="!this.businessManagerService.businessTypes">Unavailable</p>
+
+    <label class="margin-top-none" for="country">Country:</label>
+    <input bis-input id="country" type="text" [(ngModel)]="this.country" (keydown.enter)="businessList.refresh()">
+
+    <label for="city">City:</label>
+    <input bis-input id="city" type="text" [(ngModel)]="this.city" (keydown.enter)="businessList.refresh()">
+
+    <label *ngIf="this.role && (this.role.includes('ADMIN') || this.role.includes('USER'))" for="openNow">Open Now:</label>
+    <input class="margin-top-small" *ngIf="this.role && (this.role.includes('ADMIN') || this.role.includes('USER'))" id="openNow" type="checkbox" [(ngModel)]="this.openNow">
+
+    <label *ngIf="this.role && (this.role.includes('ADMIN'))" for="onlyDisabled">Show only disabled:</label>
+    <input class="margin-top-small" *ngIf="this.role && (this.role.includes('ADMIN'))" id="onlyDisabled" type="checkbox" [(ngModel)]="this.onlyDisabled">
+
+    <button type="button" class="btn-primary btn-sm" id="btnSearch" (click)="businessList.refresh()">Search</button>
+
+  </div>
+
+  <app-business-list class="card-column-85"
+                     #businessList
+                     [type]="this.type"
+                     [country]="this.country"
+                     [city]="this.city"
+                     [openNow]="this.openNow"
+                     [onlyDisabled]="this.onlyDisabled"
+                     [displayedColumns]="this.displayedColumns"
+                     ></app-business-list>
+
+</div>

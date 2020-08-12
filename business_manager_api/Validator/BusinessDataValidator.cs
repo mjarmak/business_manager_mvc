@@ -60,6 +60,8 @@ namespace business_manager_api.Validator
         {
             RuleFor(x => x.Name).NotNull();
 
+            RuleFor(x => x.Type).NotNull();
+
             RuleFor(x => x.TVA).NotNull();
             //RuleFor(x => TVAClientService.ValidateVAT("BE", x.TVA))
             //    .Equal(true)

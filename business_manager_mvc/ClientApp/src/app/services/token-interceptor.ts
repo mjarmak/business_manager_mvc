@@ -8,13 +8,13 @@ import { RouterService } from './router-service';
 
 export class TokenInterceptor implements HttpInterceptor {
 
-    constructor(public auth: AuthService, private alertSerice: AlertService) { }
+    constructor(public authService: AuthService, private alertSerice: AlertService) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         if (!request.headers.has("Authorization") && !request.url.includes("googleapis")) {
             request = request.clone({
                 setHeaders: {
-                    Authorization: `Bearer ${this.auth.getToken()}`
+                    Authorization: `Bearer ${this.authService.getToken()}`
                 }
             });
         }
@@ -23,6 +23,7 @@ export class TokenInterceptor implements HttpInterceptor {
             (event: HttpEvent<any>) => event instanceof HttpResponse,
             (error: HttpErrorResponse) => {
                 if (error.status === 401) {
+                    this.authService.clearUserInfo();
                     this.alertSerice.warning("Login expired", "Please login again");
                     RouterService.openLoginPage();
                 } else if (error.status === 500) {

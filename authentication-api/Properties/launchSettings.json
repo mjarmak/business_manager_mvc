@@ -10,8 +10,8 @@
   "profiles": {
     "local": {
       "commandName": "IISExpress",
+      "launchUrl": "index.html",
       "launchBrowser": false,
-      "launchUrl": ".well-known/openid-configuration",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

@@ -30,7 +30,7 @@
             <a class="nav-link text-dark" [routerLink]="['/register']">Register</a>
           </li>
 
-          <li *ngIf="this.authService.isAuthenticated()" class="nav-item" [routerLinkActive]="['link-active']">
+          <li *ngIf="this.role && (this.role.includes('ADMIN') || this.role.includes('USER')) && this.authService.isAuthenticated()" class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/business-create']">Create Business </a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">

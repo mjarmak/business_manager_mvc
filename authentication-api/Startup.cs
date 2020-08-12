@@ -9,7 +9,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Logging;
+using Microsoft.OpenApi.Models;
 using System;
+using System.IO;
+using System.Reflection;
 
 namespace authentication_api
 {
@@ -64,6 +67,31 @@ namespace authentication_api
                         .AllowAnyHeader())
                 );
             services.AddControllers();
+
+            services.AddSwaggerGen(c => {
+                c.SwaggerDoc("V1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "API EPHEC",
+                    Description = "Projet WEB - Mettre en place un webite publique avec authentication et rôles utilisant un backend composé d'api en .NET Core 3.1",
+                    TermsOfService = new Uri("https://example.com/terms"),
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Francesco Bigi",
+                        Email = "francesco.bigi.87@gmail.com",
+                        Url = new Uri("https://be.linkedin.com/in/bigif"),
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "Use under LICX",
+                        Url = new Uri("https://example.com/license"),
+                    }
+                });
+
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -72,6 +100,12 @@ namespace authentication_api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            //swagger
+            app.UseSwagger(c =>
+            {
+                c.SerializeAsV2 = true;
+            });
 
             app.UseCors("AllowAll");
 
@@ -82,6 +116,13 @@ namespace authentication_api
             app.UseAuthorization();
 
             app.UseIdentityServer();
+
+            //Need to use an end point in order to access to swagger page
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/V1/swagger.json", "My API V1");
+                c.RoutePrefix = string.Empty;
+            });
 
             app.UseEndpoints(endpoints =>
             {

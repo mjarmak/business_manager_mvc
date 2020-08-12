@@ -43,8 +43,8 @@
   </mat-form-field>
   <p *ngIf="!this.userGenders">Unavailable</p>
 
-  <label for="birthday">Birthday:</label>
-  <input id="birthday" type="date" min="1900-0&-01" pattern="\d{4}-\d{2}-\d{2}" [(ngModel)]="this.user.birthday">
+  <label for="birthDate">Birthday:</label>
+  <input id="birthDate" type="date" min="1900-0&-01" pattern="\d{4}-\d{2}-\d{2}" [(ngModel)]="this.user.birthDate">
 
   <label for="professional">Professional:</label>
   <input id="professional" type="checkbox" [(ngModel)]="this.user.professional">

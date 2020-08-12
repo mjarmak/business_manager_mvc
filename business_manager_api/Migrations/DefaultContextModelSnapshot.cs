@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using business_manager_api;
+using business_manager_api.Context;
 
 namespace business_manager_api.Migrations
 {
@@ -19,6 +20,33 @@ namespace business_manager_api.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("business_manager_api.AddressData", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("BoxNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostalCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Street")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Address");
+                });
+
             modelBuilder.Entity("business_manager_api.BusinessDataModel", b =>
                 {
                     b.Property<long>("Id")
@@ -29,7 +57,7 @@ namespace business_manager_api.Migrations
                     b.Property<long?>("BusinessInfoId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("IdentificationDataId")
+                    b.Property<long?>("IdentificationId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("WorkHours")
@@ -39,9 +67,9 @@ namespace business_manager_api.Migrations
 
                     b.HasIndex("BusinessInfoId");
 
-                    b.HasIndex("IdentificationDataId");
+                    b.HasIndex("IdentificationId");
 
-                    b.ToTable("BusinessData");
+                    b.ToTable("Business");
                 });
 
             modelBuilder.Entity("business_manager_api.BusinessImageModel", b =>
@@ -51,9 +79,6 @@ namespace business_manager_api.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long?>("BusinessDataModelId")
-                        .HasColumnType("bigint");
-
                     b.Property<long>("BusinessId")
                         .HasColumnType("bigint");
 
@@ -62,12 +87,10 @@ namespace business_manager_api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BusinessDataModelId");
-
                     b.ToTable("BusinessImage");
                 });
 
-            modelBuilder.Entity("business_manager_api.BusinessInfo", b =>
+            modelBuilder.Entity("business_manager_api.BusinessInfoData", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -81,6 +104,21 @@ namespace business_manager_api.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhotoPath1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhotoPath2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhotoPath3")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhotoPath4")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhotoPath5")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UrlFaceBook")
@@ -115,7 +153,7 @@ namespace business_manager_api.Migrations
                     b.Property<string>("EmailPro")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Logo")
+                    b.Property<string>("LogoPath")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -124,12 +162,30 @@ namespace business_manager_api.Migrations
                     b.Property<string>("TVA")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("IdentificationData");
+                    b.ToTable("Identification");
+                });
+
+            modelBuilder.Entity("business_manager_api.LogoModel", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("EntityId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ImageData")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Logo");
                 });
 
             modelBuilder.Entity("business_manager_api.UserAccountModel", b =>
@@ -170,25 +226,18 @@ namespace business_manager_api.Migrations
 
             modelBuilder.Entity("business_manager_api.BusinessDataModel", b =>
                 {
-                    b.HasOne("business_manager_api.BusinessInfo", "BusinessInfo")
+                    b.HasOne("business_manager_api.BusinessInfoData", "BusinessInfo")
                         .WithMany()
                         .HasForeignKey("BusinessInfoId");
 
-                    b.HasOne("business_manager_api.IdentificationData", "IdentificationData")
+                    b.HasOne("business_manager_api.IdentificationData", "Identification")
                         .WithMany()
-                        .HasForeignKey("IdentificationDataId");
+                        .HasForeignKey("IdentificationId");
                 });
 
-            modelBuilder.Entity("business_manager_api.BusinessImageModel", b =>
+            modelBuilder.Entity("business_manager_api.BusinessInfoData", b =>
                 {
-                    b.HasOne("business_manager_api.BusinessDataModel", null)
-                        .WithMany("Images")
-                        .HasForeignKey("BusinessDataModelId");
-                });
-
-            modelBuilder.Entity("business_manager_api.BusinessInfo", b =>
-                {
-                    b.HasOne("business_manager_api.IdentificationData", "Address")
+                    b.HasOne("business_manager_api.AddressData", "Address")
                         .WithMany()
                         .HasForeignKey("AddressId");
                 });

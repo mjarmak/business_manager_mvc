@@ -1,0 +1,41 @@
+<h3>User Overview</h3>
+
+<div class="card-row card-min-width-512 width-full">
+
+  <div class="card-input card-column-15 height-fit-content margin-right-medium">
+
+    <label for="type">Role type:</label>
+    <mat-form-field *ngIf="this.userManagerService.userRoles" appearance="fill">
+      <mat-label>Type</mat-label>
+      <mat-select>
+        <mat-option [value]="all" (click)="this.setRole(null)">All</mat-option>
+        <mat-option *ngFor="let role of this.userManagerService.userRoles" [value]="role" (click)="this.setRole(role)">
+          {{role.charAt(0).toUpperCase() + role.slice(1).toLowerCase()}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <p *ngIf="!this.userManagerService.userRoles">Unavailable</p>
+
+    <!--<label for="type">Gender:</label>
+    <mat-form-field appearance="fill">
+      <mat-label>Gender</mat-label>
+      <mat-select>
+        <mat-option [value]="none" (click)="this.setGender(null)">None</mat-option>
+        <mat-option [value]="MALE" (click)="this.setGender(MALE)">Male</mat-option>
+        <mat-option [value]="FEMALE" (click)="this.setGender(FEMALE)">Female</mat-option>
+        <mat-option [value]="OTHER" (click)="this.setGender(OTHER)">Other</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <label for="name">Name:</label>
+    <input bis-input id="name" type="text" [(ngModel)]="this.name" (keydown.enter)="userList.refresh()">-->
+
+    <button type="button" class="btn btn-primary btn-sm" id="btnSearch" (click)="userList.refresh()">Search</button>
+  </div>
+
+  <app-user-list class="card-column-85"
+                     #userList
+                     [role]="this.role"></app-user-list>
+
+
+</div>

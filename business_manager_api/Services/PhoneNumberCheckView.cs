@@ -1,6 +1,5 @@
 ﻿using PhoneNumbers;
 
-
 namespace business_manager_api.Services
 {
     public class PhoneNumberCheckView
@@ -8,11 +7,15 @@ namespace business_manager_api.Services
         //FORMAT VALIDATION
         public static bool IsValidPhoneNumber(string phoneNumber)
         {
+            if (phoneNumber == null)
+            {
+                return false;
+            }
             try
             {
                 //Création de l'intance PhoneNumberUtil
                 var util = PhoneNumberUtil.GetInstance();
-                PhoneNumber number = null;
+                PhoneNumber number;
                 //Si le numéro contient l'indicatif + ou le 00
                 if (phoneNumber.StartsWith("+") || phoneNumber.StartsWith("00"))
                 {

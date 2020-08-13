@@ -537,7 +537,7 @@ namespace business_manager_api.Controllers
 
         [HttpPost("{id}/logo")]
         [Consumes("multipart/form-data")]
-        [RequestSizeLimit(5000000)]
+        [RequestSizeLimit(1000000)]
         [Authorize]
         public async Task<ActionResult> PostLogo(long id)
         {

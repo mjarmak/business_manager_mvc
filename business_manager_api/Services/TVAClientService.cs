@@ -26,10 +26,10 @@ namespace business_manager_api.Services
         public static EuropeanVatInformation Get(string countryCode, string vatNumber)
         {
             if (countryCode == null)
-                throw new ArgumentNullException(nameof(countryCode));
+                return null;
 
             if (vatNumber == null)
-                throw new ArgumentNullException(nameof(vatNumber));
+                return null;
 
             countryCode = countryCode.Trim();
             vatNumber = vatNumber.Trim().Replace(" ", string.Empty);

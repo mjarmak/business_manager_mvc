@@ -63,9 +63,9 @@ namespace business_manager_api.Validator
             RuleFor(x => x.Type).NotNull();
 
             RuleFor(x => x.TVA).NotNull();
-            //RuleFor(x => TVAClientService.ValidateVAT("BE", x.TVA))
-            //    .Equal(true)
-            //    .WithMessage("The TVA number is invalid");
+            RuleFor(x => TVAClientService.ValidateVAT("BE", x.TVA))
+                .Equal(true)
+                .WithMessage("The TVA number is invalid");
             RuleFor(e => e.EmailPro)
                 .EmailAddress(EmailValidationMode.Net4xRegex)
                 .WithMessage("invalid email address");

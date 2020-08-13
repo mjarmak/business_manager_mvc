@@ -19,7 +19,7 @@
 
         <button *ngIf="this.business.id" type="button" class="btn-secondary" id="btnOpen" (click)="this.openBusiness(business.id)">Details</button>
 
-        <p *ngIf="this.business.id">{{this.business.id}}</p>
+        <p *ngIf="this.business.id">Business ID: {{this.business.id}}</p>
 
         <label class="margin-top-none" for="name">Name:</label>
         <input bis-input id="name" type="text" [(ngModel)]="this.business.identification.name">

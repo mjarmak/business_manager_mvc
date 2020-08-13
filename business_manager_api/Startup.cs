@@ -1,4 +1,5 @@
 using business_manager_api.Context;
+using business_manager_api.Util;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -109,6 +110,8 @@ namespace business_manager_api
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();
+
+            app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseRouting();
 

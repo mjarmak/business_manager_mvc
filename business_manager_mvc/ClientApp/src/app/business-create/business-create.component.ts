@@ -80,7 +80,6 @@ export class BusinessCreateComponent implements OnInit {
                         result => {
                         },
                         error => {
-                            this.errors.concat(error.error.data);
                             this.alertService.error("Error adding logo", error.error.message);
                         });
                 }
@@ -90,7 +89,6 @@ export class BusinessCreateComponent implements OnInit {
                             result => {
                             },
                             error => {
-                                this.errors.concat(error.error.data);
                                 this.alertService.error("Error adding image", error.error.message);
                             });
                     });
@@ -117,12 +115,15 @@ export class BusinessCreateComponent implements OnInit {
                                 this.business.identification.logoPath = result.data.identification.logoPath;
                             }
                         }, error => {
-                            this.alertService.error("Error loading business", error.message);
+                            this.alertService.error("Error loading business", error.error.message);
                         });
                     },
                     error => {
-                        this.errors.concat(error.error.data);
-                        this.alertService.error("Error adding logo", error.error.message);
+                        if (error.status === 413) {
+                            this.alertService.error("Logo too large", "Max size is 1MB.");
+                        } else {
+                            this.alertService.error("Error adding logo", error.message);
+                        }
                     });
             }
         });
@@ -164,8 +165,11 @@ export class BusinessCreateComponent implements OnInit {
                             });
                         },
                         error => {
-                            this.errors.concat(error.error.data);
-                            this.alertService.error("Error adding image", error.error.message);
+                            if (error.status === 413) {
+                                this.alertService.error("Picture too large", "Max size is 5MB.");
+                            } else {
+                                this.alertService.error("Error adding Picture", error.message);
+                            }
                         });
                 }
             }
